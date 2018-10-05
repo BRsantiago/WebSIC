@@ -20,7 +20,33 @@ namespace Service.Service
 
         public List<Empresa> ObterTodos()
         {
-            return this.EmpresaRepository.ObterTodos();
+            return EmpresaRepository.ObterTodos();
         }
+
+        public Empresa ObterPorId(int id)
+        {
+            return EmpresaRepository.ObterPorId(id);
+        }
+
+        public void IncluirNovaEmpresa(Empresa empresa)
+        {
+            EmpresaRepository.Incluir(empresa);
+            EmpresaRepository.Salvar();
+        }
+
+        public void AtualizarNovaEmpresa(Empresa empresa)
+        {
+            EmpresaRepository.Atualizar(empresa);
+            EmpresaRepository.Salvar();
+        }
+
+        public void ExcluirEmpresa(int id)
+        {
+            Empresa empresa = this.ObterPorId(id);
+            EmpresaRepository.Remover(empresa);
+            EmpresaRepository.Salvar();
+        }
+
+
     }
 }

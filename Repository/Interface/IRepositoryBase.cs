@@ -13,5 +13,6 @@ namespace Repository.Interface
         List<TEntity> ObterTodos();
         void Atualizar(TEntity obj);
         void Remover(TEntity obj);
+        void Salvar();
     }
 }

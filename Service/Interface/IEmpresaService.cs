@@ -10,5 +10,9 @@ namespace Service.Interface
     public interface IEmpresaService
     {
         List<Empresa> ObterTodos();
+        Empresa ObterPorId(int id);
+        void IncluirNovaEmpresa(Empresa empresa);
+        void AtualizarNovaEmpresa(Empresa empresa);
+        void ExcluirEmpresa(int id);
     }
 }

@@ -8,38 +8,38 @@ using System.Web;
 using System.Web.Mvc;
 using Entity.Entities;
 using Repository.Context;
+using Service.Interface;
 
 namespace WebSIC.Controllers
 {
     public class EmpresaController : Controller
     {
-        private WebSICContext db = new WebSICContext();
+        public IEmpresaService EmpresaService;
+
+        public EmpresaController(IEmpresaService _EmpresaService)
+        {
+            EmpresaService = _EmpresaService;
+        }
 
         // GET: Empresa
         public ActionResult Index()
         {
-            return View(db.Empresas.ToList());
+            List<Empresa> empresas = EmpresaService.ObterTodos();
+
+            return View(empresas);
         }
 
         // GET: Empresa/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Empresa empresa = db.Empresas.Find(id);
-            if (empresa == null)
-            {
-                return HttpNotFound();
-            }
-            return View(empresa);
+            Empresa empresa = EmpresaService.ObterPorId(id.Value);
+            return PartialView(empresa);
         }
 
         // GET: Empresa/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: Empresa/Create
@@ -51,27 +51,18 @@ namespace WebSIC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Empresas.Add(empresa);
-                db.SaveChanges();
+                EmpresaService.IncluirNovaEmpresa(empresa);
                 return RedirectToAction("Index");
             }
 
-            return View(empresa);
+            return PartialView(empresa);
         }
 
         // GET: Empresa/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Empresa empresa = db.Empresas.Find(id);
-            if (empresa == null)
-            {
-                return HttpNotFound();
-            }
-            return View(empresa);
+            Empresa empresa = EmpresaService.ObterPorId(id.Value);
+            return PartialView(empresa);
         }
 
         // POST: Empresa/Edit/5
@@ -83,46 +74,26 @@ namespace WebSIC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(empresa).State = EntityState.Modified;
-                db.SaveChanges();
+                EmpresaService.AtualizarNovaEmpresa(empresa);
                 return RedirectToAction("Index");
             }
-            return View(empresa);
+            return PartialView(empresa);
         }
 
         // GET: Empresa/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Empresa empresa = db.Empresas.Find(id);
-            if (empresa == null)
-            {
-                return HttpNotFound();
-            }
-            return View(empresa);
+            Empresa empresa = EmpresaService.ObterPorId(id.Value);
+            return PartialView(empresa);
         }
 
         // POST: Empresa/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
-            Empresa empresa = db.Empresas.Find(id);
-            db.Empresas.Remove(empresa);
-            db.SaveChanges();
+            EmpresaService.ExcluirEmpresa(id.Value);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

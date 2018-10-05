@@ -12,3 +12,17 @@ c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Repository\obj\Debug\Repositor
 c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Repository\obj\Debug\Repositories.csproj.CopyComplete
 c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Repository\obj\Debug\Repository.dll
 c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Repository\obj\Debug\Repository.pdb
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\bin\Debug\Repository.dll.config
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\bin\Debug\Repository.dll
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\bin\Debug\Repository.pdb
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\bin\Debug\Entity.dll
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\bin\Debug\EntityFramework.dll
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\bin\Debug\Entity.pdb
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\bin\Debug\EntityFramework.xml
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\obj\Debug\Repositories.csprojAssemblyReference.cache
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\obj\Debug\Repositories.csproj.CoreCompileInputs.cache
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\obj\Debug\Repositories.csproj.CopyComplete
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.dll
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.pdb

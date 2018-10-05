@@ -8,6 +8,10 @@ namespace WebSIC
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            
+            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                        "~/Scripts/app.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -26,13 +30,15 @@ namespace WebSIC
                       "~/Content/vendor/metisMenu/metisMenu.min.js",
                       "~/Content/dist/js/sb-admin-2.js",
                       "~/Scripts/bootstrap-datepicker.js",
-                      "~/Scripts/bootstrap-datepicker.min.js"));
+                      "~/Scripts/bootstrap-datepicker.min.js",
+                      "~/Scripts/DataTables/jquery.dataTables.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/vendor/bootstrap/css/bootstrap.min.css",
                       "~/Content/vendor/metisMenu/metisMenu.min.css",
                       "~/Content/dist/css/sb-admin-2.css",
-                      "~/Content/vendor/font-awesome/css/font-awesome.min.css"));
+                      "~/Content/vendor/font-awesome/css/font-awesome.min.css",
+                      "~/Content/DataTables/css/jquery.dataTables.min.css"));
         }
     }
 }

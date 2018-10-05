@@ -1,178 +1,283 @@
 ﻿@model Entity.Entities.Empresa
 
-@{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+<div class="modal-dialog" style="margin-left: 490px !important;">
+    <div class="modal-content" style="width: 782px !important;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Detalhe</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RazaoSocial, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DisplayFor(model => model.RazaoSocial, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
 
-<h2>Details</h2>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NomeFantasia, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NomeFantasia, new { htmlAttributes = new { @class = "form-control", @disable = "true" } })
+                        @Html.ValidationMessageFor(model => model.NomeFantasia, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-<div>
-    <h4>Empresa</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.RazaoSocial)
-        </dt>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CGC, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.CGC, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CGC, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.RazaoSocial)
-        </dd>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Endereco, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Endereco, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Endereco, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NomeFantasia)
-        </dt>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Complemento, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Complemento, "", new { @class = "text-danger" })
+                    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.NomeFantasia)
-        </dd>
+                    @Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Endereco)
-        </dt>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Bairro, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.CEP, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.CEP, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CEP, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Endereco)
-        </dd>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Cidade, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Cidade, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.UF, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.UF, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UF, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Complemento)
-        </dt>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Telefone, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.Telefone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Telefone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Complemento)
-        </dd>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TipoCobranca, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.TipoCobranca, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TipoCobranca, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Numero)
-        </dt>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Observacao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Observacao, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Observacao, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Numero)
-        </dd>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Bairro)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Bairro)
-        </dd>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RazaoSocial)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Cidade)
-        </dt>
+                    <dd>
+                       
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Cidade)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.NomeFantasia)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UF)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.NomeFantasia)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.UF)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Endereco)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CGC)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Endereco)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CGC)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Complemento)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Telefone)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Complemento)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Telefone)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Numero)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TipoCobranca)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Numero)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.TipoCobranca)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Bairro)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Observacao)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Bairro)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Observacao)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Cidade)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CEP)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Cidade)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CEP)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UF)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NumeroContrato)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.UF)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.NumeroContrato)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CGC)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.CGC)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Telefone)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Criacao)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Telefone)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Criacao)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TipoCobranca)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Criador)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.TipoCobranca)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Criador)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Observacao)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Atualizacao)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Observacao)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Atualizacao)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CEP)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Atualizador)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.CEP)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Atualizador)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.NumeroContrato)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Ativo)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.NumeroContrato)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Ativo)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
 
-    </dl>
-</div>
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Criacao)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Criacao)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Criador)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Criador)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Atualizacao)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Atualizacao)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Atualizador)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Atualizador)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Ativo)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Ativo)
+                    </dd>
+
+                </dl>
+            </div>
+        </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.IdEmpresa }) |
     @Html.ActionLink("Back to List", "Index")

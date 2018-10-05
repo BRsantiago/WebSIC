@@ -1,13 +1,14 @@
 ﻿using Entity.Entities;
+using Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.Interface
+namespace Services.Service
 {
-    public interface IContratoService
+    public class ContratoService : IContratoService
     {
     }
 }

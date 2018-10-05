@@ -1,148 +1,155 @@
 ﻿@model IEnumerable<Entity.Entities.Empresa>
 
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Empresa</h1>
+    </div>
+</div>
 
-<h2>Index</h2>
+<table id="table" class="datatable" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RazaoSocial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeFantasia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CGC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ativo)
+            </th>
+            <th>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.RazaoSocial)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NomeFantasia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Endereco)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Complemento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Numero)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Bairro)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cidade)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UF)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CGC)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Telefone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TipoCobranca)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Observacao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CEP)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumeroContrato)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Criacao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Criador)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Atualizacao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Atualizador)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ativo)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RazaoSocial)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NomeFantasia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Endereco)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Complemento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Numero)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Bairro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cidade)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UF)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CGC)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TipoCobranca)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Observacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CEP)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumeroContrato)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Criacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Criador)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Atualizacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Atualizador)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ativo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdEmpresa }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdEmpresa }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdEmpresa })
-        </td>
-    </tr>
-}
-
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RazaoSocial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeFantasia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CGC)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ativo)
+                </td>
+                <td>
+                    <a class="btn btn-primary" onclick="onShowModalEdit(@item.IdEmpresa)">Editar</a> |
+                    <a class="btn btn-primary" onclick="onShowModalDelete(@item.IdEmpresa)">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-4">
+            <a class="btn btn-primary" onclick="onShowModalCreate()">Novo</a>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modal" role="dialog" data-backdrop="static" data-keyboard="false"></div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            //$('#table').DataTable();
+            Datatables("table");
+
+        });
+
+         function onShowModalCreate() {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("Create", "Empresa")',
+                cache: false,
+                dataType: 'html',
+                success: function (data) {
+                    $('#modal').html(data);
+                    $('#modal').modal('show');
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //TrataErroAjax(xhr);
+                    alert("erro");
+                }
+            });
+        };
+
+        function onShowModalEdit(id) {
+
+            var params = { id: id };
+
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("Edit", "Empresa")',
+                data: params,
+                cache: false,
+                dataType: 'html',
+                success: function (data) {
+                    $('#modal').html(data);
+                    $('#modal').modal('show');
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //TrataErroAjax(xhr);
+                    alert("erro");
+                }
+            });
+        };
+
+        function onShowModalDetail(id) {
+
+            var params = { id: id };
+
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("Details", "Empresa")',
+                data: params,
+                cache: false,
+                dataType: 'html',
+                success: function (data) {
+                    $('#modal').html(data);
+                    $('#modal').modal('show');
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //TrataErroAjax(xhr);
+                    alert("erro");
+                }
+            });
+        };
+
+
+        function onShowModalDelete(id) {
+
+            var params = { id: id };
+
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("Delete", "Empresa")',
+                data: params,
+                cache: false,
+                dataType: 'html',
+                success: function (data) {
+                    $('#modal').html(data);
+                    $('#modal').modal('show');
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //TrataErroAjax(xhr);
+                    alert("erro");
+                }
+            });
+        };
+
+    </script>
+}
