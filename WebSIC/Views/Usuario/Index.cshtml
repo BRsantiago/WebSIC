@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Entity.Entities.Usuario>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Login)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Senha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Criacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Criador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Atualizacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Atualizador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Login)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Senha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Criacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Criador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Atualizacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Atualizador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdUsuario }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdUsuario }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdUsuario })
+        </td>
+    </tr>
+}
+
+</table>

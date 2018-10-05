@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Entity.Entities.Curso>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Duracao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Observacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataVencimento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Criacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Criador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Atualizacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Atualizador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duracao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Observacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataVencimento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Criacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Criador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Atualizacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Atualizador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdCurso }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdCurso }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdCurso })
+        </td>
+    </tr>
+}
+
+</table>

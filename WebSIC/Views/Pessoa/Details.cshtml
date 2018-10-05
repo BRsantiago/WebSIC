@@ -1,0 +1,283 @@
+﻿@model Entity.Entities.Pessoa
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pessoa</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.Login)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Login)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Apelido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apelido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataNascimento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataNascimento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomePai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomePai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeMae)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeMae)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Endereco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Endereco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Complemento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Complemento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bairro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bairro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CEP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CEP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelefoneEmergencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelefoneEmergencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelefoneResidencial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelefoneResidencial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelefoneCelular)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelefoneCelular)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RNE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RNE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CPF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CPF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrgaoExpeditor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrgaoExpeditor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UFOrgaoExpeditor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UFOrgaoExpeditor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FlgCVE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FlgCVE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CNH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CNH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoriaCNH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoriaCNH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataValidadeCNH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataValidadeCNH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Criacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Criacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Criador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Criador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Atualizacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Atualizacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Atualizador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Atualizador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdPessoa }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

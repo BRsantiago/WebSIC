@@ -1,0 +1,57 @@
+﻿using Repository.Context;
+using Repository.Interface;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Repository.Repository
+{
+    public class RepositoryBase<TEntity> : IDisposable, IRepositoryBase<TEntity> where TEntity : class
+    {
+        public WebSICContext contexto;
+
+        public RepositoryBase(WebSICContext _contexto)
+        {
+            contexto = _contexto;
+        }
+
+        public RepositoryBase() { }
+
+        public virtual void Incluir(TEntity obj)
+        {
+            contexto.Set<TEntity>().Add(obj);
+        }
+
+        public TEntity ObterPorId(int id)
+        {
+            return contexto.Set<TEntity>().Find(id);
+        }
+
+        public List<TEntity> ObterTodos()
+        {
+            return contexto.Set<TEntity>().ToList();
+        }
+
+        public virtual void Atualizar(TEntity obj)
+        {
+            contexto.Entry(obj).State = System.Data.Entity.EntityState.Modified;
+        }
+
+        public virtual void Remover(TEntity obj)
+        {
+            contexto.Set<TEntity>().Remove(obj);
+        }
+
+        public void Dispose()
+        {
+            contexto.Dispose();
+        }
+
+        public void Salvar()
+        {
+            contexto.SaveChanges();
+        }
+    }
+}

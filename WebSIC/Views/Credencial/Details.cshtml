@@ -1,0 +1,115 @@
+﻿@model Entity.Entities.Credencial
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Credencial</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Matricula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Matricula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FlgMotorista)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FlgMotorista)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FlgTemporario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FlgTemporario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FlgCVE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FlgCVE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataExpedicao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataExpedicao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataDesativacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataDesativacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataVencimento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataVencimento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Criacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Criacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Criador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Criador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Atualizacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Atualizacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Atualizador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Atualizador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdCredencial }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

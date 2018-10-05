@@ -1,0 +1,91 @@
+﻿@model Entity.Entities.Solicitacao
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Solicitacao</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Schedule.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Schedule.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FlgMotorista)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FlgMotorista)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FlgTemporario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FlgTemporario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataAutorizacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataAutorizacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Criacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Criacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Criador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Criador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Atualizacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Atualizacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Atualizador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Atualizador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdSolicitacao }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

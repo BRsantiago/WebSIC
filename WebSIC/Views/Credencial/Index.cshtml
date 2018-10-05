@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Entity.Entities.Credencial>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Matricula)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FlgMotorista)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FlgTemporario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FlgCVE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataExpedicao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataDesativacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataVencimento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Criacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Criador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Atualizacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Atualizador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Matricula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FlgMotorista)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FlgTemporario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FlgCVE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataExpedicao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataDesativacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataVencimento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Criacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Criador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Atualizacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Atualizador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdCredencial }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdCredencial }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdCredencial })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Entity.Entities.Veiculo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Placa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ano)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Observacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Chassi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Criacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Criador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Atualizacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Atualizador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Placa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ano)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Observacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Chassi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Criacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Criador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Atualizacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Atualizador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdVeiculo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdVeiculo }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdVeiculo })
+        </td>
+    </tr>
+}
+
+</table>

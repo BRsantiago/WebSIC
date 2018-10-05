@@ -1,0 +1,43 @@
+﻿@model Entity.Entities.Schedule
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Schedule</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Solicitacao.Criador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Solicitacao.Criador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataEnvioEmailAviso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataEnvioEmailAviso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdSchedule }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

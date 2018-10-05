@@ -1,0 +1,83 @@
+﻿@model Entity.Entities.Contrato
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Contrato</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InicioVigencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InicioVigencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FimVigencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FimVigencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Criacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Criacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Criador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Criador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Atualizacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Atualizacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Atualizador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Atualizador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdContrato }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Entity.Entities.PortaoAcesso>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Sigla)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Criacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Criador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Atualizacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Atualizador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sigla)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Criacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Criador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Atualizacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Atualizador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdPortaoAcesso }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdPortaoAcesso }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdPortaoAcesso })
+        </td>
+    </tr>
+}
+
+</table>

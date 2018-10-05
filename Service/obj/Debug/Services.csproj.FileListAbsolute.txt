@@ -1,0 +1,14 @@
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Service\bin\Debug\Service.dll
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Service\bin\Debug\Service.pdb
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Service\bin\Debug\Entity.dll
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Service\bin\Debug\Repository.dll
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Service\bin\Debug\EntityFramework.dll
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Service\bin\Debug\Entity.pdb
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Service\bin\Debug\Repository.pdb
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Service\bin\Debug\Repository.dll.config
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Service\bin\Debug\EntityFramework.xml
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Service\obj\Debug\Services.csprojAssemblyReference.cache
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Service\obj\Debug\Services.csproj.CoreCompileInputs.cache
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Service\obj\Debug\Services.csproj.CopyComplete
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Service\obj\Debug\Service.dll
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Service\obj\Debug\Service.pdb

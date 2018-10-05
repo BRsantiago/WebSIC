@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>CASSA Reports</title>
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0;height: 61px;">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Url.Action("Index","Home")" style="padding-top: 10px;"><img src="~/img/vinci_airports_Q.png" style="width: 150px;margin-left: 37px;" /></a>
+            </div>
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right">
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i>@User.Identity.Name</i>
+                        <i class="fa fa-user fa-fw"></i> @*<i class="fa fa-caret-down"></i>*@
+                    </a>
+                    @*<ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            </li>
+                        </ul>*@
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+            <div class="navbar-default sidebar" role="navigation" style="margin-top: 61px;">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="#"><i class="fa fa-credit-card fa-fw"></i> Credenciamento<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    @Html.ActionLink("Solicitação", "Index", "Solicitacao")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Credencial", "Index", "Credencial")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Pessoa", "Index", "Pessoa")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Veículo", "Index", "Veículo")
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-gear fa-fw"></i> Configuração<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    @Html.ActionLink("Aeroporto", "Index", "Aeroporto")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Empresa", "Index", "Empresa")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Área", "Index", "Area")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Apolice", "Index", "Apolice")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Cargo", "Index", "Cargo")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Contrato", "Index", "Contrato")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Pessoa", "Index", "Pessoa")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Portão de Acesso", "Index", "PortaoAcesso")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Tipo de Solicitação", "Index", "TipoSolicitacao")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Usuario", "Index", "Usuario")
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+
+            <!-- /.navbar-static-side -->
+        </nav>
+        <div id="page-wrapper">
+            @RenderBody()
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    @RenderSection("scripts", required: false)
+</body>
+</html>

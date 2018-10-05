@@ -1,0 +1,5 @@
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Entity\bin\Debug\Entity.dll
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Entity\bin\Debug\Entity.pdb
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Entity\obj\Debug\Entity.csproj.CoreCompileInputs.cache
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Entity\obj\Debug\Entity.dll
+c:\Users\bruno.santiago.cassa\source\repos\WebSIC\Entity\obj\Debug\Entity.pdb
