@@ -55,6 +55,8 @@
     <Compile Include="Entity\PortaoAcesso.cs" />
     <Compile Include="Entity\Schedule.cs" />
     <Compile Include="Entity\Solicitacao.cs" />
+    <Compile Include="Entity\TipoCracha.cs" />
+    <Compile Include="Entity\TipoEmpresa.cs" />
     <Compile Include="Entity\TipoSolicitacao.cs" />
     <Compile Include="Entity\Turma.cs" />
     <Compile Include="Entity\Usuario.cs" />

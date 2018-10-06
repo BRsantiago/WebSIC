@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace Service.Interface
 {
-    public interface IAeroportoService 
+    public interface IAeroportoService
     {
+        List<Aeroporto> ObterTodos();
+        Aeroporto ObterPorId(int idAeroporto);
     }
 }

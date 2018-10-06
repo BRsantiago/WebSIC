@@ -26,3 +26,5 @@ C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\obj\Debug\Repos
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\obj\Debug\Repositories.csproj.CopyComplete
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.dll
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.pdb
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.Migrations.InitialCreate.resources
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\obj\Debug\Repositories.csproj.GenerateResource.cache

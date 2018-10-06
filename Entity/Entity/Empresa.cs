@@ -58,13 +58,16 @@ namespace Entity.Entities
 
         public string Email { get; set; }
 
-        public IList<Pessoa> Pessoas { get; set; }
-        public IList<Veiculo> Veiculos { get; set; }
-        public IList<Solicitacao> Solicitacoes { get; set; }
-        public IList<Credencial> Credenciais { get; set; }
-        public IList<Contrato> Contratos { get; set; }
-        public IList<Apolice> Apolices { get; set; }
-        public IList<Aeroporto> Aeroportos { get; set; }
+        [Display(Name = "Área de Atuação")]
+        public TipoEmpresa TipoEmpresa { get; set; }
+
+        public List<Pessoa> Pessoas { get; set; }
+        public List<Veiculo> Veiculos { get; set; }
+        public List<Solicitacao> Solicitacoes { get; set; }
+        public List<Credencial> Credenciais { get; set; }
+        public List<Contrato> Contratos { get; set; }
+        public List<Apolice> Apolices { get; set; }
+        public List<Aeroporto> Aeroportos { get; set; }
 
 
     }

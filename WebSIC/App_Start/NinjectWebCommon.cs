@@ -14,6 +14,7 @@ namespace WebSIC.App_Start
     using Repository.Repository;
     using Service.Interface;
     using Service.Service;
+    using Services.Service;
 
     public static class NinjectWebCommon 
     {
@@ -65,9 +66,43 @@ namespace WebSIC.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IAeroportoService>().To<AeroportoService>();
+            kernel.Bind<IApoliceService>().To<ApoliceService>();
+            kernel.Bind<IAreaService>().To<AreaService>();
+            kernel.Bind<ICargoService>().To<CargoService>();
+            kernel.Bind<IContratoService>().To<ContratoService>();
+            kernel.Bind<ICredencialService>().To<CredencialService>();
+            kernel.Bind<ICursoService>().To<CursoService>();
             kernel.Bind<IEmpresaService>().To<EmpresaService>();
+            kernel.Bind<IOcorrenciaService>().To<OcorrenciaService>();
+            kernel.Bind<IPessoaService>().To<PessoaService>();
+            kernel.Bind<IPortaoAcessoService>().To<PortaoAcessoService>();
+            kernel.Bind<IScheduleService>().To<ScheduleService>();
+            kernel.Bind<ISolicitacaoService>().To<SolicitacaoService>();
+            kernel.Bind<ITipoEmpresaService>().To<TipoEmpresaService>();
+            kernel.Bind<ITipoSolicitacaoService>().To<TipoSolicitacaoService>();
+            kernel.Bind<ITurmaService>().To<TurmaService>();
+            kernel.Bind<IUsuarioService>().To<UsuarioService>();
+            kernel.Bind<IVeiculoService>().To<VeiculoService>();
 
+            kernel.Bind<IAeroportoRepository>().To<AeroportoRepository>();
+            kernel.Bind<IApoliceRepository>().To<ApoliceRepository>();
+            kernel.Bind<IAreaRepository>().To<AreaRepository>();
+            kernel.Bind<ICargoRepository>().To<CargoRepository>();
+            kernel.Bind<IContratoRepository>().To<ContratoRepository>();
+            kernel.Bind<ICredencialRepository>().To<CredencialRepository>();
+            kernel.Bind<ICursoRepository>().To<CursoRepository>();
             kernel.Bind<IEmpresaRepository>().To<EmpresaRepository>();
+            kernel.Bind<IOcorrenciaRepository>().To<OcorrenciaRepository>();
+            kernel.Bind<IPessoaRepository>().To<PessoaRepository>();
+            kernel.Bind<IPortaoAcessoRepository>().To<PortaoAcessoRepository>();
+            kernel.Bind<IScheduleRepository>().To<ScheduleRepository>();
+            kernel.Bind<ISolicitacaoRepository>().To<SolicitacaoRepository>();
+            kernel.Bind<ITipoEmpresaRepository>().To<TipoEmpresaRepository>();
+            kernel.Bind<ITipoSolicitacaoRepository>().To<TipoSolicitacaoRepository>();
+            kernel.Bind<ITurmaRepository>().To<TurmaRepository>();
+            kernel.Bind<IUsuarioRepository>().To<UsuarioRepository>();
+            kernel.Bind<IVeiculoRepository>().To<VeiculoRepository>();
         }        
     }
 }

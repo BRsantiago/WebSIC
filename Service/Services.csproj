@@ -47,6 +47,7 @@
     <Compile Include="Interface\IContratoService.cs" />
     <Compile Include="Interface\ICredencialService.cs" />
     <Compile Include="Interface\ICursoService.cs" />
+    <Compile Include="Interface\ITipoEmpresaService.cs" />
     <Compile Include="Interface\IEmpresaService.cs" />
     <Compile Include="Interface\IOcorrenciaService.cs" />
     <Compile Include="Interface\IPessoaService.cs" />
@@ -58,13 +59,14 @@
     <Compile Include="Interface\IUsuarioService.cs" />
     <Compile Include="Interface\IVeiculoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\TipoEmpresaService.cs" />
     <Compile Include="Service\EmpresaService.cs" />
     <Compile Include="Service\AeroportoService.cs" />
     <Compile Include="Service\ApoliceService.cs" />
     <Compile Include="Service\AreaService.cs" />
     <Compile Include="Service\CargoService.cs" />
     <Compile Include="Service\ContratoService.cs" />
-    <Compile Include="Service\CrendencialService.cs" />
+    <Compile Include="Service\CredencialService.cs" />
     <Compile Include="Service\CursoService.cs" />
     <Compile Include="Service\OcorrenciaService.cs" />
     <Compile Include="Service\PessoaService.cs" />

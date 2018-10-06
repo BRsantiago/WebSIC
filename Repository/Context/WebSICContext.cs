@@ -127,5 +127,6 @@ namespace Repository.Context
             base.OnModelCreating(modelBuilder);
         }
 
+        public System.Data.Entity.DbSet<Entity.Entities.TipoEmpresa> TipoEmpresas { get; set; }
     }
 }

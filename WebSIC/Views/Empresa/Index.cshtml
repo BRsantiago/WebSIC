@@ -6,51 +6,60 @@
     </div>
 </div>
 
-<table id="table" class="datatable" style="width:100%">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.RazaoSocial)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomeFantasia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CGC)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ativo)
-            </th>
-            <th>
 
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RazaoSocial)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NomeFantasia)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CGC)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Ativo)
-                </td>
-                <td>
-                    <a class="btn btn-primary" onclick="onShowModalEdit(@item.IdEmpresa)">Editar</a> |
-                    <a class="btn btn-primary" onclick="onShowModalDelete(@item.IdEmpresa)">Excluir</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="table" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.RazaoSocial)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NomeFantasia)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CGC)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Ativo)
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RazaoSocial)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NomeFantasia)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CGC)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Ativo)
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary" onclick="onShowModalEdit(@item.IdEmpresa)">Editar</a> |
+                                    <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdEmpresa)">Excluir</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="form-group">
     <div class="row">
         <div class="col-md-4">
@@ -65,9 +74,7 @@
 @section Scripts{
     <script>
         $(document).ready(function () {
-            //$('#table').DataTable();
-            Datatables("table");
-
+           Datatables("table");
         });
 
          function onShowModalCreate() {
@@ -150,6 +157,153 @@
                 }
             });
         };
+
+          function SalvarNovaEmpresa() {
+
+            var RazaoSocial = $('#RazaoSocial').val();
+            var NomeFantasia = $('#NomeFantasia').val();
+            var Endereco = $('#Endereco').val();
+            var Complemento = $('#Complemento').val();
+            var Numero = $('#Numero').val();
+            var Bairro = $('#Bairro').val();
+            var Cidade = $('#Cidade').val();
+            var UF = $('#UF').val();
+            var CGC = $('#CGC').val();
+            var Telefone = $('#Telefone').val();
+            var TipoCobranca = $('#TipoCobranca').val();
+            var Observacao = $('#Observacao').val();
+            var CEP = $('#CEP').val();
+              var Email = $('#Email').val();
+              var IdTipoEmpresa = $('#IdTipoEmpresa').val();
+              var IdAeroporto = $('#IdAeroporto').val();
+
+
+
+            var parametros = {
+                RazaoSocial: RazaoSocial,
+                NomeFantasia: NomeFantasia,
+                Endereco: Endereco,
+                Complemento: Complemento,
+                Numero: Numero,
+                Bairro: Bairro,
+                Cidade: Cidade,
+                UF: UF,
+                CGC: CGC,
+                Telefone: Telefone,
+                TipoCobranca: TipoCobranca,
+                Observacao: Observacao,
+                CEP: CEP,
+                Email: Email,
+                IdTipoEmpresa: IdTipoEmpresa,
+                IdAeroporto: IdAeroporto
+            }
+
+
+            $.ajax({
+                url: '@Url.Action("Create", "Empresa")',
+                data: JSON.stringify(parametros),
+                contentType: "application/json",
+                type: 'POST',
+                success: function (result) {
+                    if (result.success) {
+                        swal({
+                            title: "",
+                            text: "Empresa cadastrada com sucesso!",
+                            icon: "success"
+                        });
+                        $('#modal').modal('hide');
+                    } else {
+                        swal({
+                            title: "Atenção!",
+                            text: result.message,
+                            icon: "error"
+                        });
+                    }
+
+                },
+                erro: function (result) {
+                    swal({
+                        title: "Erro de sistema!",
+                        text: "Por favor entre em contato com o TI!",
+                        icon: "error"
+                    });
+                }
+            });
+        }
+
+
+          function AtualizarEmpresa() {
+
+            var RazaoSocial = $('#RazaoSocial').val();
+            var NomeFantasia = $('#NomeFantasia').val();
+            var Endereco = $('#Endereco').val();
+            var Complemento = $('#Complemento').val();
+            var Numero = $('#Numero').val();
+            var Bairro = $('#Bairro').val();
+            var Cidade = $('#Cidade').val();
+            var UF = $('#UF').val();
+            var CGC = $('#CGC').val();
+            var Telefone = $('#Telefone').val();
+            var TipoCobranca = $('#TipoCobranca').val();
+            var Observacao = $('#Observacao').val();
+            var CEP = $('#CEP').val();
+              var Email = $('#Email').val();
+              var IdTipoEmpresa = $('#IdTipoEmpresa').val();
+              var IdAeroporto = $('#IdAeroporto').val();
+
+
+
+            var parametros = {
+                RazaoSocial: RazaoSocial,
+                NomeFantasia: NomeFantasia,
+                Endereco: Endereco,
+                Complemento: Complemento,
+                Numero: Numero,
+                Bairro: Bairro,
+                Cidade: Cidade,
+                UF: UF,
+                CGC: CGC,
+                Telefone: Telefone,
+                TipoCobranca: TipoCobranca,
+                Observacao: Observacao,
+                CEP: CEP,
+                Email: Email,
+                IdTipoEmpresa: IdTipoEmpresa,
+                IdAeroporto: IdAeroporto
+            }
+
+
+            $.ajax({
+                url: '@Url.Action("Edit", "Empresa")',
+                data: JSON.stringify(parametros),
+                contentType: "application/json",
+                type: 'POST',
+                success: function (result) {
+                    if (result.success) {
+                        swal({
+                            title: "",
+                            text: "Empresa cadastrada com sucesso!",
+                            icon: "success"
+                        });
+                        $('#modal').modal('hide');
+                    } else {
+                        swal({
+                            title: "Atenção!",
+                            text: result.message,
+                            icon: "error"
+                        });
+                    }
+
+                },
+                erro: function (result) {
+                    swal({
+                        title: "Erro de sistema!",
+                        text: "Por favor entre em contato com o TI!",
+                        icon: "error"
+                    });
+                }
+            });
+        }
 
     </script>
 }
