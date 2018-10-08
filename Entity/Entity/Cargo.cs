@@ -15,6 +15,8 @@ namespace Entity.Entities
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int IdCargo { get; set; }
+
+        [Display(Name = "Descrição do Cargo")]
         public string Descricao { get; set; }
 
         public IList<Credencial> Credenciais { get; set; }

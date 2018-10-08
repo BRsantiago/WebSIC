@@ -8,17 +8,23 @@ using System.Web;
 using System.Web.Mvc;
 using Entity.Entities;
 using Repository.Context;
+using Service.Interface;
 
 namespace WebSIC.Controllers
 {
     public class AreaController : Controller
     {
-        private WebSICContext db = new WebSICContext();
+        private IAreaService Service;
+
+        public AreaController(IAreaService service)
+        {
+            Service = service;
+        }
 
         // GET: Areas
         public ActionResult Index()
         {
-            return View(db.Areas.ToList());
+            return View(Service.Listar());
         }
 
         // GET: Areas/Details/5
@@ -28,7 +34,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Area area = db.Areas.Find(id);
+            Area area = Service.Obter(id.Value); 
             if (area == null)
             {
                 return HttpNotFound();
@@ -47,13 +53,15 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdArea,Sigla,Descricao,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Area area)
+        public ActionResult Create([Bind(Include = "IdArea,Sigla,Descricao,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Entity.Entities.Area area)
         {
             if (ModelState.IsValid)
             {
-                db.Areas.Add(area);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                area.Criador = 
+                    area.Atualizador = User.Identity.Name;
+                var check = Service.Incluir(area);
+                if (check != null)
+                    return RedirectToAction("Index");
             }
 
             return View(area);
@@ -66,7 +74,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Area area = db.Areas.Find(id);
+            Area area = Service.Obter(id.Value);
             if (area == null)
             {
                 return HttpNotFound();
@@ -83,9 +91,11 @@ namespace WebSIC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(area).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                area.Atualizacao = DateTime.Now;
+                area.Atualizador = User.Identity.Name;
+                var check = Service.Atualizar(area);
+                if (check != null)
+                    return RedirectToAction("Index");
             }
             return View(area);
         }
@@ -97,7 +107,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Area area = db.Areas.Find(id);
+            Area area = Service.Obter(id.Value);
             if (area == null)
             {
                 return HttpNotFound();
@@ -110,18 +120,15 @@ namespace WebSIC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Area area = db.Areas.Find(id);
-            db.Areas.Remove(area);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var check = Service.Excluir(id);
+            if (check != 0)
+                return RedirectToAction("Index");
+
+            return View(id);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }

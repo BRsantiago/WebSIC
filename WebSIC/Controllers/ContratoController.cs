@@ -8,17 +8,25 @@ using System.Web;
 using System.Web.Mvc;
 using Entity.Entities;
 using Repository.Context;
+using Service.Interface;
 
 namespace WebSIC.Controllers
 {
     public class ContratoController : Controller
     {
-        private WebSICContext db = new WebSICContext();
+        private IContratoService Service;
+        private IEmpresaService EmpresaService;
+
+        public ContratoController(IContratoService service, IEmpresaService empresaService)
+        {
+            Service = service;
+            EmpresaService = empresaService;
+        }
 
         // GET: Contrato
         public ActionResult Index()
         {
-            return View(db.Contratos.ToList());
+            return View(Service.Listar());
         }
 
         // GET: Contrato/Details/5
@@ -28,7 +36,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Contrato contrato = db.Contratos.Find(id);
+            Contrato contrato = Service.Obter(id.Value);;
             if (contrato == null)
             {
                 return HttpNotFound();
@@ -39,6 +47,7 @@ namespace WebSIC.Controllers
         // GET: Contrato/Create
         public ActionResult Create()
         {
+            ViewBag.Empresas = new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia");
             return View();
         }
 
@@ -47,13 +56,16 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdContrato,Numero,InicioVigencia,FimVigencia,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Contrato contrato)
+        public ActionResult Create([Bind(Include = "IdContrato,Numero,InicioVigencia,FimVigencia,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Contrato contrato, FormCollection form)
         {
             if (ModelState.IsValid)
             {
-                db.Contratos.Add(contrato);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                contrato.Criador =
+                    contrato.Atualizador = User.Identity.Name;
+                contrato.Empresa = EmpresaService.ObterPorId(int.Parse(form["Empresa.IdEmpresa"]));
+                var check = Service.Incluir(contrato);
+                if (check != null)
+                    return RedirectToAction("Index");
             }
 
             return View(contrato);
@@ -66,7 +78,8 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Contrato contrato = db.Contratos.Find(id);
+            Contrato contrato = Service.Obter(id.Value);
+            ViewBag.Empresas = new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", contrato.Empresa.IdEmpresa);
             if (contrato == null)
             {
                 return HttpNotFound();
@@ -79,13 +92,16 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdContrato,Numero,InicioVigencia,FimVigencia,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Contrato contrato)
+        public ActionResult Edit([Bind(Include = "IdContrato,Numero,InicioVigencia,FimVigencia,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Contrato contrato, FormCollection form)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(contrato).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                contrato.Atualizacao = DateTime.Now;
+                contrato.Atualizador = User.Identity.Name;
+                contrato.Empresa = EmpresaService.ObterPorId(int.Parse(form["Empresa.IdEmpresa"]));
+                var check = Service.Atualizar(contrato);
+                if (check != null)
+                    return RedirectToAction("Index");
             }
             return View(contrato);
         }
@@ -97,7 +113,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Contrato contrato = db.Contratos.Find(id);
+            Contrato contrato = Service.Obter(id.Value);;
             if (contrato == null)
             {
                 return HttpNotFound();
@@ -110,18 +126,15 @@ namespace WebSIC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Contrato contrato = db.Contratos.Find(id);
-            db.Contratos.Remove(contrato);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var check = Service.Excluir(id);
+            if (check != 0)
+                return RedirectToAction("Index");
+
+            return View(id);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }

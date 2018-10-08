@@ -9,5 +9,11 @@ namespace Service.Interface
 {
     public interface IAreaService
     {
+        IList<Area> Listar();
+        Area Obter(int id);
+        Area ObterPorSigla(string sigla);
+        Area Incluir(Area area);
+        Area Atualizar(Area area);
+        int Excluir(int id);
     }
 }

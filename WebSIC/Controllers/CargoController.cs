@@ -8,17 +8,23 @@ using System.Web;
 using System.Web.Mvc;
 using Entity.Entities;
 using Repository.Context;
+using Service.Interface;
 
 namespace WebSIC.Controllers
 {
     public class CargoController : Controller
     {
-        private WebSICContext db = new WebSICContext();
+        private ICargoService Service;
+
+        public CargoController(ICargoService service)
+        {
+            Service = service;
+        }
 
         // GET: Cargo
         public ActionResult Index()
         {
-            return View(db.Cargos.ToList());
+            return View(Service.Listar());
         }
 
         // GET: Cargo/Details/5
@@ -28,7 +34,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cargo cargo = db.Cargos.Find(id);
+            Cargo cargo = Service.Obter(id.Value);
             if (cargo == null)
             {
                 return HttpNotFound();
@@ -51,9 +57,11 @@ namespace WebSIC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Cargos.Add(cargo);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                cargo.Criador =
+                    cargo.Atualizador = User.Identity.Name;
+                var check = Service.Incluir(cargo);
+                if (check != null)
+                    return RedirectToAction("Index");
             }
 
             return View(cargo);
@@ -66,7 +74,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cargo cargo = db.Cargos.Find(id);
+            Cargo cargo = Service.Obter(id.Value);
             if (cargo == null)
             {
                 return HttpNotFound();
@@ -83,9 +91,11 @@ namespace WebSIC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cargo).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                cargo.Atualizacao = DateTime.Now;
+                cargo.Atualizador = User.Identity.Name;
+                var check = Service.Atualizar(cargo);
+                if (check != null)
+                    return RedirectToAction("Index");
             }
             return View(cargo);
         }
@@ -97,7 +107,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cargo cargo = db.Cargos.Find(id);
+            Cargo cargo = Service.Obter(id.Value);
             if (cargo == null)
             {
                 return HttpNotFound();
@@ -110,18 +120,15 @@ namespace WebSIC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cargo cargo = db.Cargos.Find(id);
-            db.Cargos.Remove(cargo);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var check = Service.Excluir(id);
+            if (check != 0)
+                return RedirectToAction("Index");
+
+            return View(id);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }
