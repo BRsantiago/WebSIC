@@ -27,5 +27,24 @@ namespace Services.Service
         {
             return AeroportoRepository.ObterPorId(id);
         }
+
+        public void Incluir(Aeroporto aeroporto)
+        {
+            AeroportoRepository.Incluir(aeroporto);
+            AeroportoRepository.Salvar();
+        }
+
+        public void Atualizar(Aeroporto aeroporto)
+        {
+            AeroportoRepository.Atualizar(aeroporto);
+            AeroportoRepository.Salvar();
+        }
+
+        public void Excluir(int idAeroporto)
+        {
+            Aeroporto aeroporto = AeroportoRepository.ObterPorId(idAeroporto);
+            AeroportoRepository.Remover(aeroporto);
+            AeroportoRepository.Salvar();
+        }
     }
 }

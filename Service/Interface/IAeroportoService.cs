@@ -11,5 +11,8 @@ namespace Service.Interface
     {
         List<Aeroporto> ObterTodos();
         Aeroporto ObterPorId(int idAeroporto);
+        void Incluir(Aeroporto aeroporto);
+        void Atualizar(Aeroporto aeroporto);
+        void Excluir(int idAeroporto);
     }
 }

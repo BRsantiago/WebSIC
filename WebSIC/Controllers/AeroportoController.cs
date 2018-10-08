@@ -14,38 +14,30 @@ namespace WebSIC.Controllers
 {
     public class AeroportoController : Controller
     {
-        private IAeroportoService Service;
+        private IAeroportoService AeroportoService;
 
-        public AeroportoController(IAeroportoService _Service)
+        public AeroportoController(IAeroportoService _AeroportoService)
         {
-            Service = _Service;
+            AeroportoService = _AeroportoService;
         }
 
         // GET: Aeroporto
         public ActionResult Index()
         {
-            return View(new List<Aeroporto>());
+            List<Aeroporto> retorno = AeroportoService.ObterTodos();
+            return View(retorno);
         }
 
         // GET: Aeroporto/Details/5
         public ActionResult Details(int? id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //Aeroporto aeroporto = db.Aeroportos.Find(id);
-            //if (aeroporto == null)
-            //{
-            //    return HttpNotFound();
-            //}
             return View(new Aeroporto());
         }
 
         // GET: Aeroporto/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: Aeroporto/Create
@@ -53,12 +45,11 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdAeroporto,Descricao,IATA,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Aeroporto aeroporto)
+        public ActionResult Create(Aeroporto aeroporto)
         {
             if (ModelState.IsValid)
             {
-                //db.Aeroportos.Add(aeroporto);
-                //db.SaveChanges();
+                AeroportoService.Incluir(aeroporto);
                 return RedirectToAction("Index");
             }
 
@@ -68,16 +59,8 @@ namespace WebSIC.Controllers
         // GET: Aeroporto/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            //Aeroporto aeroporto = db.Aeroportos.Find(id);
-            //if (aeroporto == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            return View(new Aeroporto());
+            Aeroporto aeroporto = AeroportoService.ObterPorId(id.Value);
+            return PartialView(aeroporto);
         }
 
         // POST: Aeroporto/Edit/5
@@ -85,12 +68,11 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdAeroporto,Descricao,IATA,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Aeroporto aeroporto)
+        public ActionResult Edit(Aeroporto aeroporto)
         {
             if (ModelState.IsValid)
             {
-                //db.Entry(aeroporto).State = EntityState.Modified;
-                //db.SaveChanges();
+                AeroportoService.Atualizar(aeroporto);
                 return RedirectToAction("Index");
             }
             return View(aeroporto);
@@ -99,16 +81,8 @@ namespace WebSIC.Controllers
         // GET: Aeroporto/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            //Aeroporto aeroporto = db.Aeroportos.Find(id);
-            //if (aeroporto == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            return View(new Aeroporto());
+            Aeroporto aeroporto = AeroportoService.ObterPorId(id.Value);
+            return PartialView(aeroporto);
         }
 
         // POST: Aeroporto/Delete/5
@@ -116,9 +90,7 @@ namespace WebSIC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            //Aeroporto aeroporto = db.Aeroportos.Find(id);
-            //db.Aeroportos.Remove(aeroporto);
-            //db.SaveChanges();
+            AeroportoService.Excluir(id);
             return RedirectToAction("Index");
         }
     }
