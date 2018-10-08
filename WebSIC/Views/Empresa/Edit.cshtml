@@ -12,6 +12,14 @@
             <div class="form-horizontal">
 
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.IdEmpresa)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Aeroportos, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(d => d.IdAeroporto, new SelectList(Model.Aeroportos.OrderBy(o => o.IdAeroporto), "IdAeroporto", "Descricao"), "Selecione", new { @class = "form-control select2" })
+                    </div>
+                </div>
+
                 <div class="form-group">
                     @Html.LabelFor(model => model.RazaoSocial, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
@@ -117,5 +125,6 @@
                 </div>
             </div>
         </div>
+
     </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->

@@ -207,11 +207,12 @@
                 success: function (result) {
                     if (result.success) {
                         swal({
-                            title: "",
-                            text: "Empresa cadastrada com sucesso!",
+                            title: "Atenção!",
+                            text: result.message,
                             icon: "success"
                         });
                         $('#modal').modal('hide');
+                        window.location = '@Url.Action("Index","Empresa")'
                     } else {
                         swal({
                             title: "Atenção!",
@@ -233,7 +234,7 @@
 
 
           function AtualizarEmpresa() {
-
+              var IdEmpresa = $('#IdEmpresa').val();
             var RazaoSocial = $('#RazaoSocial').val();
             var NomeFantasia = $('#NomeFantasia').val();
             var Endereco = $('#Endereco').val();
@@ -253,7 +254,8 @@
 
 
 
-            var parametros = {
+              var parametros = {
+                IdEmpresa: IdEmpresa,
                 RazaoSocial: RazaoSocial,
                 NomeFantasia: NomeFantasia,
                 Endereco: Endereco,
@@ -281,11 +283,12 @@
                 success: function (result) {
                     if (result.success) {
                         swal({
-                            title: "",
-                            text: "Empresa cadastrada com sucesso!",
+                            title: "Atenção!",
+                            text: result.message,
                             icon: "success"
                         });
                         $('#modal').modal('hide');
+                        window.location = '@Url.Action("Index","Empresa")'
                     } else {
                         swal({
                             title: "Atenção!",

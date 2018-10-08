@@ -62,6 +62,7 @@ namespace WebSIC.Controllers
         {
             try
             {
+
                 TipoEmpresa tipoEmpresa = TipoEmpresaService.ObterPorId(model.IdTipoEmpresa);
                 Aeroporto aeroporto = AeroportoService.ObterPorId(model.IdAeroporto);
                 List<Aeroporto> aeroportos = new List<Aeroporto>();
@@ -107,6 +108,7 @@ namespace WebSIC.Controllers
             model.Aeroportos = AeroportoService.ObterTodos();
             model.TiposEmpresa = TipoEmpresaService.ObterTodos();
 
+            model.IdEmpresa = empresa.IdEmpresa;
             model.RazaoSocial = empresa.RazaoSocial;
             model.NomeFantasia = empresa.NomeFantasia;
             model.Endereco = empresa.Endereco;
@@ -122,6 +124,7 @@ namespace WebSIC.Controllers
             model.CEP = empresa.CEP;
             model.Email = empresa.Email;
             model.IdTipoEmpresa = empresa.TipoEmpresa.IdTipoEmpresa;
+            model.IdAeroporto = empresa.Aeroportos.FirstOrDefault().IdAeroporto;
 
             return PartialView(model);
         }
@@ -158,7 +161,7 @@ namespace WebSIC.Controllers
 
                 EmpresaService.AtualizarNovaEmpresa(empresa);
 
-                return Json(new { success = true, title = "Sucesso", message = "Nova empresa cadastrada com sucesso !" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, title = "Sucesso", message = "Empresa atualizada com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

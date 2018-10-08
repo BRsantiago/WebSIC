@@ -14,6 +14,7 @@ namespace WebSIC.Models
         [Display(Name = "Razão Social")]
         public string RazaoSocial { get; set; }
 
+        [Required]
         [Display(Name = "Nome Fantasia")]
         public string NomeFantasia { get; set; }
 
@@ -31,6 +32,7 @@ namespace WebSIC.Models
 
         public string UF { get; set; }
 
+        [Required]
         [Display(Name = "CNPJ")]
         public string CGC { get; set; }
 
@@ -49,6 +51,7 @@ namespace WebSIC.Models
         public string Email { get; set; }
 
         public int IdTipoEmpresa { get; set; }
+
         public int IdAeroporto { get; set; }
 
         [Display(Name = "Área de Atuação")]
