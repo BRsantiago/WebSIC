@@ -62,5 +62,7 @@ namespace WebSIC.Models
 
         [Display(Name = "Representante")]
         public List<Pessoa> Representantes { get; set; }
+
+        public List<Contrato> Contratos { get; set; }
     }
 }

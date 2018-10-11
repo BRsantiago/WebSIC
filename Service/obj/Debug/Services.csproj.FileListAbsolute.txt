@@ -26,8 +26,6 @@ T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Service\obj\Debug\Servic
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Service\obj\Debug\Services.csproj.CopyComplete
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Service\obj\Debug\Service.dll
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Service\obj\Debug\Service.pdb
-C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Service\obj\Debug\Services.csprojAssemblyReference.cache
-C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Service\obj\Debug\Services.csproj.CoreCompileInputs.cache
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Service\bin\Debug\Service.dll
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Service\bin\Debug\Service.pdb
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Service\bin\Debug\Entity.dll
@@ -37,6 +35,8 @@ C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Service\bin\Debug\Entity.p
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Service\bin\Debug\Repository.pdb
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Service\bin\Debug\Repository.dll.config
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Service\bin\Debug\EntityFramework.xml
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Service\obj\Debug\Services.csprojAssemblyReference.cache
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Service\obj\Debug\Services.csproj.CoreCompileInputs.cache
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Service\obj\Debug\Services.csproj.CopyComplete
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Service\obj\Debug\Service.dll
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Service\obj\Debug\Service.pdb
