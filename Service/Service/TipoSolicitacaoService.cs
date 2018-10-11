@@ -93,5 +93,9 @@ namespace Services.Service
 
             return tipoSolicitacao;
         }
+        public List<TipoSolicitacao> ObterTodos()
+        {
+            return tipoSolicitacaoRepository.ObterTodos();
+        }
     }
 }

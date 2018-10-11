@@ -14,5 +14,6 @@ namespace Service.Interface
         TipoSolicitacao Incluir(TipoSolicitacao tipoSolicitacao);
         TipoSolicitacao Atualizar(TipoSolicitacao tipoSolicitacao);
         int Excluir(int id);
+        List<TipoSolicitacao> ObterTodos();
     }
 }

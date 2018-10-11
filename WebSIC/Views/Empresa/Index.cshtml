@@ -74,8 +74,27 @@
 @section Scripts{
     <script>
         $(document).ready(function () {
-           Datatables("table");
+            Datatables("table");
+         
         });
+
+
+         function onShowModalCreate() {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("Create", "Pessoa")',
+                cache: false,
+                dataType: 'html',
+                success: function (data) {
+                    $('#modal-representante').html(data);
+                    $('#modal-representante').modal('show');
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //TrataErroAjax(xhr);
+                    alert("erro");
+                }
+            });
+        };
 
          function onShowModalCreate() {
             $.ajax({
@@ -85,6 +104,7 @@
                 dataType: 'html',
                 success: function (data) {
                     $('#modal').html(data);
+                    Datatables("table-representante");
                     $('#modal').modal('show');
                 },
                 error: function (xhr, ajaxOptions, thrownError) {

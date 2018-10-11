@@ -59,5 +59,8 @@ namespace WebSIC.Models
 
         [Display(Name = "Aeroporto")]
         public IList<Aeroporto> Aeroportos { get; set; }
+
+        [Display(Name = "Representante")]
+        public List<Pessoa> Representantes { get; set; }
     }
 }

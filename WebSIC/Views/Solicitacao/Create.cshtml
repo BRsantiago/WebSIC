@@ -1,103 +1,454 @@
-﻿@model Entity.Entities.Solicitacao
-
-@{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<h2>Create</h2>
+﻿@model WebSIC.Models.SolicitacaoViewModel
 
 
-@using (Html.BeginForm()) 
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Nova Solicitação</h1>
+    </div>
+</div>
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Solicitacao</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.FlgMotorista, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.FlgMotorista)
-                    @Html.ValidationMessageFor(model => model.FlgMotorista, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FlgTemporario, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.FlgTemporario)
-                    @Html.ValidationMessageFor(model => model.FlgTemporario, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DataAutorizacao, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DataAutorizacao, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DataAutorizacao, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Criacao, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Criacao, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Criacao, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Criador, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Criador, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Criador, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Atualizacao, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Atualizacao, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Atualizacao, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Atualizador, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Atualizador, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Atualizador, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Ativo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Ativo)
-                    @Html.ValidationMessageFor(model => model.Ativo, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Aeroportos, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.DropDownListFor(d => d.IdAeroporto, new SelectList(Model.Aeroportos.OrderBy(o => o.IdAeroporto), "IdAeroporto", "Descricao"), "Selecione", new { @class = "form-control select2" })
+                @Html.ValidationMessageFor(model => model.FlgMotorista, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    <div class="form-group">
+        @Html.LabelFor(model => model.Empresas, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            <div class="checkbox">
+                @Html.DropDownListFor(d => d.IdEmpresa, new SelectList(Model.Empresas.OrderBy(o => o.IdEmpresa), "IdEmpresa", "NomeFantasia"), "Selecione", new { @class = "form-control select2" })
+                @Html.ValidationMessageFor(model => model.IdEmpresa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.LabelFor(model => model.Contratos, htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-3">
+            <div class="checkbox">
+                @Html.DropDownListFor(d => d.IdContrato, new SelectList(Model.Contratos.OrderBy(o => o.IdContrato), "IdContrato", "Descricao"), "Selecione", new { @class = "form-control select2" })
+                @Html.ValidationMessageFor(model => model.IdContrato, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TiposCredencial, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            <div class="checkbox">
+                @Html.DropDownListFor(d => d.IdTipoCredencial, new SelectList(Model.TiposCredencial.OrderBy(o => o.IdTipoCredencial), "IdTipoCredencial", "Descricao"), "Selecione", new { @class = "form-control select2" })
+                @Html.ValidationMessageFor(model => model.IdTipoCredencial, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.LabelFor(model => model.TiposEmissao, htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-2">
+            <div class="checkbox">
+                @Html.DropDownListFor(d => d.IdTipoEmissao, new SelectList(Model.TiposEmissao.OrderBy(o => o.IdTipoEmissao), "IdTipoEmissao", "Descricao"), "Selecione", new { @class = "form-control select2" })
+                @Html.ValidationMessageFor(model => model.IdTipoEmissao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TiposSolicitacao, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            <div class="checkbox">
+                @Html.DropDownListFor(d => d.IdTipoSolicitacao, new SelectList(Model.TiposSolicitacao.OrderBy(o => o.IdTipoSolicitacao), "IdTipoSolicitacao", "Descricao"), "Selecione", new { @class = "form-control select2" })
+                @Html.ValidationMessageFor(model => model.IdTipoSolicitacao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RG, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.RG, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        @Html.LabelFor(model => model.OrgaoExpeditor, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.OrgaoExpeditor, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        @Html.LabelFor(model => model.UFOrgaoExpeditor, htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-1">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.UFOrgaoExpeditor, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CPF, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.CPF, new { htmlAttributes = new { @class = "form-control" } })
+                <a class="fa fa-search" onclick="ObterPessoaPorCPF()"></a>
+            </div>
+        </div>
+
+        @Html.LabelFor(model => model.RNE, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.RNE, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        @Html.LabelFor(model => model.Apelido, htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.Apelido, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DataNascimento, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.DataNascimento, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        @Html.LabelFor(model => model.Generos, htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-2">
+            <div class="checkbox">
+                @Html.DropDownListFor(d => d.IdGenero, new SelectList(Model.Generos.OrderBy(o => o.IdGenero), "IdGenero", "Descricao"), "Selecione", new { @class = "form-control select2" })
+                @Html.ValidationMessageFor(model => model.IdGenero, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NomePai, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.NomePai, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NomeMae, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.NomeMae, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CEP, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.CEP, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Endereco, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Endereco, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        @Html.LabelFor(model => model.Complemento, htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-3">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-1">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        @Html.LabelFor(model => model.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Cidade, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        @Html.LabelFor(model => model.UF, htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-1">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.UF, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TelefoneResidencial, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.TelefoneResidencial, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        @Html.LabelFor(model => model.TelefoneCelular, htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-2">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.TelefoneCelular, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        @Html.LabelFor(model => model.TelefoneEmergencia, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.TelefoneEmergencia, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Observacao, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Observacao, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-5">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CNH, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.CNH, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        @Html.LabelFor(model => model.DataValidadeCNH, htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-2">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.DataValidadeCNH, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        @Html.LabelFor(model => model.CategoriaCNH, htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-1">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.CategoriaCNH, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        @Html.LabelFor(model => model.FlgMotorista, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-1">
+            <div class="checkbox">
+                @Html.CheckBoxFor(model => model.FlgMotorista, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FlgCVE, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-1">
+            <div class="checkbox">
+                @Html.CheckBoxFor(model => model.FlgCVE, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Salvar" class="btn btn-primary" />
+        </div>
+    </div>
 </div>
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script>
+
+        function ObterPessoaPorCPF() {
+
+             var CPF = $('#CPF').val();
+
+            var parametros = {
+                CPF: CPF
+            }
+
+
+            $.ajax({
+                url: '@Url.Action("ObterPessoaPorCPF", "Pessoa")',
+                data: JSON.stringify(parametros),
+                contentType: "application/json",
+                type: 'POST',
+                success: function (result) {
+                    if (result.success) {
+                        swal({
+                            title: "Atenção!",
+                            text: result.message,
+                            icon: "success"
+                        });
+
+                        $('#IdPessoa').val(result.data.IdPessoa);
+                        $('#Nome').val(result.data.Nome);
+                        $('#Apelido').val(result.data.Apelido);
+                        $('#DataNascimento').val(result.data.DataNascimento);
+                        $('#NomePai').val(result.data.NomePai);
+                        $('#NomeMae').val(result.data.NomeMae);
+                        $('#Endereco').val(result.data.Endereco);
+                        $('#Numero').val(result.data.Numero);
+                        $('#Complemento').val(result.data.Complemento);
+                        $('#Bairro').val(result.data.Bairro);
+                        $('#Cidade').val(result.data.Cidade);
+                        $('#UF').val(result.data.UF);
+                        $('#CEP').val(result.data.CEP);
+                        $('#TelefoneEmergencia').val(result.data.TelefoneEmergencia);
+                        $('#TelefoneResidencial').val(result.data.TelefoneResidencial); 
+                        $('#TelefoneCelular').val(result.data.TelefoneCelular);
+                        $('#RNE').val(result.data.RNE);
+                        $('#CPF').val(result.data.CPF);
+                        $('#RG').val(result.data.RG);
+                        $('#OrgaoExpeditor').val(result.data.OrgaoExpeditor);
+                        $('#UFOrgaoExpeditor').val(result.data.UFOrgaoExpeditor);
+                        $('#Genero').val(result.data.Genero);
+                        $('#Observacao').val(result.data.Observacao);
+                        $('#FlgCVE').val(result.data.FlgCVE);
+                        $('#Email').val(result.data.Email);
+                        $('#CNH').val(result.data.CNH);
+                        $('#CategoriaCNH').val(result.data.CategoriaCNH);
+                        $('#DataValidadeCNH').val(result.data.DataValidadeCNH);
+
+                    } else {
+                        swal({
+                            title: "Atenção!",
+                            text: result.message,
+                            icon: "error"
+                        });
+                    }
+
+                },
+                erro: function (result) {
+                    swal({
+                        title: "Erro de sistema!",
+                        text: "Por favor entre em contato com o TI!",
+                        icon: "error"
+                    });
+                }
+            });
+        }
+
+
+        function ObterRepresentanteEmpresa() {
+
+             var IdEmpresa = $('#IdEmpresa').val();
+
+            var parametros = {
+                IdEmpresa: IdEmpresa
+            }
+
+
+            $.ajax({
+                url: '@Url.Action("ObterRepresentantePorEmpresa", "Empresa")',
+                data: JSON.stringify(parametros),
+                contentType: "application/json",
+                type: 'POST',
+                success: function (result) {
+                    if (result.success) {
+                        swal({
+                            title: "Atenção!",
+                            text: result.message,
+                            icon: "success"
+                        });
+
+                        $('#IdPessoa').val(result.data.IdPessoa);
+                        $('#Nome').val(result.data.Nome);
+                        $('#Apelido').val(result.data.Apelido);
+                        $('#DataNascimento').val(result.data.DataNascimento);
+                        $('#NomePai').val(result.data.NomePai);
+                        $('#NomeMae').val(result.data.NomeMae);
+                        $('#Endereco').val(result.data.Endereco);
+                        $('#Numero').val(result.data.Numero);
+                        $('#Complemento').val(result.data.Complemento);
+                        $('#Bairro').val(result.data.Bairro);
+                        $('#Cidade').val(result.data.Cidade);
+                        $('#UF').val(result.data.UF);
+                        $('#CEP').val(result.data.CEP);
+                        $('#TelefoneEmergencia').val(result.data.TelefoneEmergencia);
+                        $('#TelefoneResidencial').val(result.data.TelefoneResidencial); 
+                        $('#TelefoneCelular').val(result.data.TelefoneCelular);
+                        $('#RNE').val(result.data.RNE);
+                        $('#CPF').val(result.data.CPF);
+                        $('#RG').val(result.data.RG);
+                        $('#OrgaoExpeditor').val(result.data.OrgaoExpeditor);
+                        $('#UFOrgaoExpeditor').val(result.data.UFOrgaoExpeditor);
+                        $('#Genero').val(result.data.Genero);
+                        $('#Observacao').val(result.data.Observacao);
+                        $('#FlgCVE').val(result.data.FlgCVE);
+                        $('#Email').val(result.data.Email);
+                        $('#CNH').val(result.data.CNH);
+                        $('#CategoriaCNH').val(result.data.CategoriaCNH);
+                        $('#DataValidadeCNH').val(result.data.DataValidadeCNH);
+
+                    } else {
+                        swal({
+                            title: "Atenção!",
+                            text: result.message,
+                            icon: "error"
+                        });
+                    }
+
+                },
+                erro: function (result) {
+                    swal({
+                        title: "Erro de sistema!",
+                        text: "Por favor entre em contato com o TI!",
+                        icon: "error"
+                    });
+                }
+            });
+        }
+
+    </script>
 }

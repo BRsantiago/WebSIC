@@ -1,4 +1,5 @@
 ﻿using Entity.Entities;
+using Repository.Interface;
 using Service.Interface;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,16 @@ namespace Services.Service
 {
     public class PessoaService : IPessoaService
     {
+        public IPessoaRepository PessoaRepository;
+
+        public PessoaService(IPessoaRepository _PessoaRepository)
+        {
+            PessoaRepository = _PessoaRepository;
+        }
+
+        public Pessoa ObterPorCPF(string cpf)
+        {
+            return this.PessoaRepository.ObterPorCPF(cpf);
+        }
     }
 }

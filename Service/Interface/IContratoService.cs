@@ -18,5 +18,6 @@ namespace Service.Interface
         Contrato Incluir(Contrato contrato);
         Contrato Atualizar(Contrato contrato);
         int Excluir(int id);
+        List<Contrato> ObterTodos();
     }
 }

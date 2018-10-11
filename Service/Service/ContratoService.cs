@@ -154,5 +154,9 @@ namespace Services.Service
 
             return contratos;
         }
+        public List<Contrato> ObterTodos()
+        {
+            return contratoRepository.ObterTodos();
+        }
     }
 }

@@ -15,5 +15,10 @@ namespace Repository.Repository
             : base(_contexto)
         {
         }
+
+        public Pessoa ObterPorCPF(string cpf)
+        {
+            return this.contexto.Pessoas.Where(p => p.CPF.Contains(cpf)).SingleOrDefault();
+        }
     }
 }

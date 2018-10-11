@@ -18,7 +18,7 @@
                                 @Html.DisplayNameFor(model => model.Pessoa.Nome)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Empresa.NomeFantasia)
+                               Empresa
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Criacao)
@@ -66,7 +66,8 @@
 <div class="form-group">
     <div class="row">
         <div class="col-md-4">
-            <a class="btn btn-primary" onclick="onShowModalCreate()">Novo</a>
+            
+            <a class="btn btn-primary" href="@Url.Action("Create", "Solicitacao")">Novo</a>
         </div>
     </div>
 </div>
