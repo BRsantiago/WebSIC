@@ -41,14 +41,14 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(turma);
+            return PartialView(turma);
         }
 
         // GET: Turma/Create
         public ActionResult Create()
         {
             ViewBag.Cursos = new SelectList(CursoService.Listar(), "IdCurso", "Titulo");
-            return View();
+            return PartialView();
         }
 
         // POST: Turma/Create
@@ -68,7 +68,7 @@ namespace WebSIC.Controllers
                     return RedirectToAction("Index");
             }
 
-            return View(turma);
+            return PartialView(turma);
         }
 
         // GET: Turma/Edit/5
@@ -84,7 +84,7 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(turma);
+            return PartialView(turma);
         }
 
         // POST: Turma/Edit/5
@@ -103,7 +103,7 @@ namespace WebSIC.Controllers
                 if (check != null)
                     return RedirectToAction("Index");
             }
-            return View(turma);
+            return PartialView(turma);
         }
 
         // GET: Turma/Delete/5
@@ -118,7 +118,7 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(turma);
+            return PartialView(turma);
         }
 
         // POST: Turma/Delete/5
@@ -130,7 +130,7 @@ namespace WebSIC.Controllers
             if (check != 0)
                 return RedirectToAction("Index");
 
-            return View(id);
+            return PartialView(id);
         }
 
         protected override void Dispose(bool disposing)

@@ -21,9 +21,9 @@ namespace Repository.Repository
             return contexto.Contratos.Include("Empresa").Where(c => c.Empresa.IdEmpresa == idEmpresa).ToList();
         }
 
-        public Contrato ObterPorNumero(string numero)
+        public Contrato ObterPorNumero(string numero, bool withTracking)
         {
-            return contexto.Contratos.Include("Empresa").Where(c => c.Numero == numero).FirstOrDefault();
+            return withTracking ? contexto.Contratos.Include("Empresa").Where(c => c.Numero == numero).FirstOrDefault() : contexto.Contratos.AsNoTracking().Include("Empresa").Where(c => c.Numero == numero).FirstOrDefault();
         }
 
         public IList<Contrato> ObterPorPeriodo(int idEmpresa, DateTime inicioVigencia, DateTime finalVigencia)

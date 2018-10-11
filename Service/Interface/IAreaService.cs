@@ -11,7 +11,7 @@ namespace Service.Interface
     {
         IList<Area> Listar();
         Area Obter(int id);
-        Area ObterPorSigla(string sigla);
+        Area ObterPorSigla(string sigla, bool withTracking);
         Area Incluir(Area area);
         Area Atualizar(Area area);
         int Excluir(int id);

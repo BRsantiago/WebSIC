@@ -16,9 +16,9 @@ namespace Repository.Repository
         {
         }
 
-        public Area ObterPorSigla(string sigla)
+        public Area ObterPorSigla(string sigla, bool withTracking)
         {
-            return contexto.Areas.Where(a => a.Sigla == sigla).FirstOrDefault();
+            return withTracking ? contexto.Areas.Where(a => a.Sigla == sigla).FirstOrDefault() : contexto.Areas.AsNoTracking().Where(a => a.Sigla == sigla).FirstOrDefault(); ;
         }
     }
 }

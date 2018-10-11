@@ -39,7 +39,7 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(portaoAcesso);
+            return PartialView(portaoAcesso);
         }
 
         // GET: PortaoAcesso/Create
@@ -64,7 +64,7 @@ namespace WebSIC.Controllers
                     return RedirectToAction("Index");
             }
 
-            return View(portaoAcesso);
+            return PartialView(portaoAcesso);
         }
 
         // GET: PortaoAcesso/Edit/5
@@ -79,7 +79,7 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(portaoAcesso);
+            return PartialView(portaoAcesso);
         }
 
         // POST: PortaoAcesso/Edit/5
@@ -97,7 +97,7 @@ namespace WebSIC.Controllers
                 if (check != null)
                     return RedirectToAction("Index");
             }
-            return View(portaoAcesso);
+            return PartialView(portaoAcesso);
         }
 
         // GET: PortaoAcesso/Delete/5
@@ -112,7 +112,7 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(portaoAcesso);
+            return PartialView(portaoAcesso);
         }
 
         // POST: PortaoAcesso/Delete/5
@@ -124,7 +124,7 @@ namespace WebSIC.Controllers
             if (check != 0)
                 return RedirectToAction("Index");
 
-            return View(id);
+            return PartialView(id);
         }
 
         protected override void Dispose(bool disposing)

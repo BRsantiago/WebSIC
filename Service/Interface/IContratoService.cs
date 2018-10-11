@@ -11,7 +11,7 @@ namespace Service.Interface
     {
         IList<Contrato> Listar();
         Contrato Obter(int id);
-        Contrato ObterPorNumero(string numero);
+        Contrato ObterPorNumero(string numero, bool withTracking);
         IList<Contrato> ObterPorEmpresa(int idEmpresa);
         IList<Contrato> ObterPorPeriodo(int idEmpresa, DateTime inicioVigencia, DateTime finalVigencia);
         IList<Contrato> ObterVigentes(int idEmpresa);

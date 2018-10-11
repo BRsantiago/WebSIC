@@ -41,14 +41,14 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(curso);
+            return PartialView(curso);
         }
 
         // GET: Curso/Create
         public ActionResult Create()
         {
             ViewBag.Areas = new SelectList(AreaService.Listar(), "IdArea", "Descricao");
-            return View();
+            return PartialView();
         }
 
         // POST: Curso/Create
@@ -68,7 +68,7 @@ namespace WebSIC.Controllers
                     return RedirectToAction("Index");
             }
 
-            return View(curso);
+            return PartialView(curso);
         }
 
         // GET: Curso/Edit/5
@@ -84,7 +84,7 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(curso);
+            return PartialView(curso);
         }
 
         // POST: Curso/Edit/5
@@ -103,7 +103,7 @@ namespace WebSIC.Controllers
                 if (check != null)
                     return RedirectToAction("Index");
             }
-            return View(curso);
+            return PartialView(curso);
         }
 
         // GET: Curso/Delete/5
@@ -118,7 +118,7 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(curso);
+            return PartialView(curso);
         }
 
         // POST: Curso/Delete/5
@@ -130,7 +130,7 @@ namespace WebSIC.Controllers
             if (check != 0)
                 return RedirectToAction("Index");
 
-            return View(id);
+            return PartialView(id);
         }
 
         protected override void Dispose(bool disposing)

@@ -39,13 +39,13 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tipoCracha);
+            return PartialView(tipoCracha);
         }
 
         // GET: TipoCrachas/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: TipoCrachas/Create
@@ -64,7 +64,7 @@ namespace WebSIC.Controllers
                     return RedirectToAction("Index");
             }
 
-            return View(tipoCracha);
+            return PartialView(tipoCracha);
         }
 
         // GET: TipoCrachas/Edit/5
@@ -79,7 +79,7 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tipoCracha);
+            return PartialView(tipoCracha);
         }
 
         // POST: TipoCrachas/Edit/5
@@ -97,7 +97,7 @@ namespace WebSIC.Controllers
                 if (check != null)
                     return RedirectToAction("Index");
             }
-            return View(tipoCracha);
+            return PartialView(tipoCracha);
         }
 
         // GET: TipoCrachas/Delete/5
@@ -112,7 +112,7 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tipoCracha);
+            return PartialView(tipoCracha);
         }
 
         // POST: TipoCrachas/Delete/5
@@ -124,7 +124,7 @@ namespace WebSIC.Controllers
             if (check != 0)
                 return RedirectToAction("Index");
 
-            return View(id);
+            return PartialView(id);
         }
 
         protected override void Dispose(bool disposing)

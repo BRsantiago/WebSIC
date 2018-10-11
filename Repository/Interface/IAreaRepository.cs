@@ -9,6 +9,6 @@ namespace Repository.Interface
 {
     public interface IAreaRepository : IRepositoryBase<Area>
     {
-        Area ObterPorSigla(string sigla);
+        Area ObterPorSigla(string sigla, bool withTracking);
     }
 }

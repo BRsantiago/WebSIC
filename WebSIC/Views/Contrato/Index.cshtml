@@ -83,9 +83,12 @@
                                     @*@Html.ActionLink("Edit", "Edit", new { id = item.IdContrato }) |
                                         @Html.ActionLink("Details", "Details", new { id = item.IdContrato }) |
                                         @Html.ActionLink("Delete", "Delete", new { id = item.IdContrato })*@
-                                    <a class="btn btn-primary" onclick="onShowModal('Edit', @item.IdContrato)">Editar</a> |
-                                    <a class="btn btn-warning" onclick="onShowModal('Details', @item.IdContrato)">Detalhar</a> |
-                                    <a class="btn btn-danger" onclick="onShowModal('Delete', @item.IdContrato)">Excluir</a>
+                                    @*<a class="btn btn-primary" onclick="onShowModal('Edit', @item.IdContrato)">Editar</a> |
+                                        <a class="btn btn-warning" onclick="onShowModal('Details', @item.IdContrato)">Detalhar</a> |
+                                        <a class="btn btn-danger" onclick="onShowModal('Delete', @item.IdContrato)">Excluir</a>*@
+                                    <button class="btn btn-warning details" data-id="@item.IdContrato">Detalhar<i class="glyphicon glyphicon-file"></i></button>
+                                    <button class="btn btn-primary edit" data-id="@item.IdContrato">Editar<i class="glyphicon glyphicon-edit"></i></button>
+                                    <button class="btn btn-danger delete" data-id="@item.IdContrato">Deletar<i class="glyphicon glyphicon-trash"></i></button>
                                 </td>
                             </tr>
                         }
@@ -99,7 +102,7 @@
 <div class="form-group">
     <div class="row">
         <div class="col-md-4">
-            <a class="btn btn-primary" onclick="onShowModal('Create')">Nova</a>
+            <button class="btn btn-success create">Criar Novo Contrato <i class="glyphicon glyphicon-open"></i></button>
         </div>
     </div>
 </div>
