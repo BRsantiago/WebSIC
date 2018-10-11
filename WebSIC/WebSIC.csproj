@@ -849,11 +849,6 @@
     <Content Include="Views\Usuario\Details.cshtml" />
     <Content Include="Views\Usuario\Edit.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
-    <Content Include="Views\Veiculo\Create.cshtml" />
-    <Content Include="Views\Veiculo\Delete.cshtml" />
-    <Content Include="Views\Veiculo\Details.cshtml" />
-    <Content Include="Views\Veiculo\Edit.cshtml" />
-    <Content Include="Views\Veiculo\Index.cshtml" />
     <Content Include="Views\TipoEmpresa\Create.cshtml" />
     <Content Include="Views\TipoEmpresa\Delete.cshtml" />
     <Content Include="Views\TipoEmpresa\Details.cshtml" />
@@ -874,6 +869,11 @@
     <Content Include="Views\Turma\Create.cshtml" />
     <Content Include="Views\Turma\Edit.cshtml" />
     <Content Include="Views\Turma\Delete.cshtml" />
+    <Content Include="Views\Veiculo\Index.cshtml" />
+    <Content Include="Views\Veiculo\Details.cshtml" />
+    <Content Include="Views\Veiculo\Create.cshtml" />
+    <Content Include="Views\Veiculo\Edit.cshtml" />
+    <Content Include="Views\Veiculo\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
