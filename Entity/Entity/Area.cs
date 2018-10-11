@@ -17,8 +17,11 @@ namespace Entity.Entities
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int IdArea { get; set; }
+
         [Required]
         public string Sigla { get; set; }
+
+        [Display(Name = "Descrição da Área")]
         public string Descricao { get; set; }
     }
 }

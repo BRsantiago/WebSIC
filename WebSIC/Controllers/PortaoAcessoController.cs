@@ -8,17 +8,23 @@ using System.Web;
 using System.Web.Mvc;
 using Entity.Entities;
 using Repository.Context;
+using Service.Interface;
 
 namespace WebSIC.Controllers
 {
     public class PortaoAcessoController : Controller
     {
-        private WebSICContext db = new WebSICContext();
+        private IPortaoAcessoService Service;
+
+        public PortaoAcessoController(IPortaoAcessoService service)
+        {
+            Service = service;
+        }
 
         // GET: PortaoAcesso
         public ActionResult Index()
         {
-            return View(db.PortoesAcesso.ToList());
+            return View(Service.Listar());
         }
 
         // GET: PortaoAcesso/Details/5
@@ -28,7 +34,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PortaoAcesso portaoAcesso = db.PortoesAcesso.Find(id);
+            PortaoAcesso portaoAcesso = Service.Obter(id.Value);
             if (portaoAcesso == null)
             {
                 return HttpNotFound();
@@ -51,9 +57,11 @@ namespace WebSIC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.PortoesAcesso.Add(portaoAcesso);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                portaoAcesso.Criador =
+                    portaoAcesso.Atualizador = User.Identity.Name;
+                var check = Service.Incluir(portaoAcesso);
+                if (check != null)
+                    return RedirectToAction("Index");
             }
 
             return View(portaoAcesso);
@@ -66,7 +74,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PortaoAcesso portaoAcesso = db.PortoesAcesso.Find(id);
+            PortaoAcesso portaoAcesso = Service.Obter(id.Value);
             if (portaoAcesso == null)
             {
                 return HttpNotFound();
@@ -83,9 +91,11 @@ namespace WebSIC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(portaoAcesso).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                portaoAcesso.Atualizacao = DateTime.Now;
+                portaoAcesso.Atualizador = User.Identity.Name;
+                var check = Service.Atualizar(portaoAcesso);
+                if (check != null)
+                    return RedirectToAction("Index");
             }
             return View(portaoAcesso);
         }
@@ -97,7 +107,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PortaoAcesso portaoAcesso = db.PortoesAcesso.Find(id);
+            PortaoAcesso portaoAcesso = Service.Obter(id.Value);
             if (portaoAcesso == null)
             {
                 return HttpNotFound();
@@ -110,18 +120,15 @@ namespace WebSIC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PortaoAcesso portaoAcesso = db.PortoesAcesso.Find(id);
-            db.PortoesAcesso.Remove(portaoAcesso);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var check = Service.Excluir(id);
+            if (check != 0)
+                return RedirectToAction("Index");
+
+            return View(id);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }

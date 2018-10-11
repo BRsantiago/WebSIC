@@ -9,5 +9,6 @@ namespace Repository.Interface
 {
     public interface IAreaRepository : IRepositoryBase<Area>
     {
+        Area ObterPorSigla(string sigla);
     }
 }

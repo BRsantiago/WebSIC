@@ -58,6 +58,7 @@
     <Compile Include="Interface\IContratoRepository.cs" />
     <Compile Include="Interface\ICredencialRepository.cs" />
     <Compile Include="Interface\ICursoRepository.cs" />
+    <Compile Include="Interface\ITipoCrachaRepository.cs" />
     <Compile Include="Interface\ITipoEmpresaRepository.cs" />
     <Compile Include="Interface\IEmpresaRepository.cs" />
     <Compile Include="Interface\IOcorrenciaRepository.cs" />
@@ -74,8 +75,13 @@
     <Compile Include="Migrations\201810061906092_InitialCreate.Designer.cs">
       <DependentUpon>201810061906092_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810101219049_AjusteCursoTurma.cs" />
+    <Compile Include="Migrations\201810101219049_AjusteCursoTurma.Designer.cs">
+      <DependentUpon>201810101219049_AjusteCursoTurma.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\TipoCrachaRepository.cs" />
     <Compile Include="Repository\TipoEmpresaRepository.cs" />
     <Compile Include="Repository\EmpresaRepository.cs" />
     <Compile Include="Repository\AeroportoRepository.cs" />
@@ -112,6 +118,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201810061906092_InitialCreate.resx">
       <DependentUpon>201810061906092_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810101219049_AjusteCursoTurma.resx">
+      <DependentUpon>201810101219049_AjusteCursoTurma.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

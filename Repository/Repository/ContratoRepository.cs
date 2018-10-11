@@ -15,5 +15,25 @@ namespace Repository.Repository
             : base(_contexto)
         {
         }
+
+        public IList<Contrato> ObterPorEmpresa(int idEmpresa)
+        {
+            return contexto.Contratos.Include("Empresa").Where(c => c.Empresa.IdEmpresa == idEmpresa).ToList();
+        }
+
+        public Contrato ObterPorNumero(string numero)
+        {
+            return contexto.Contratos.Include("Empresa").Where(c => c.Numero == numero).FirstOrDefault();
+        }
+
+        public IList<Contrato> ObterPorPeriodo(int idEmpresa, DateTime inicioVigencia, DateTime finalVigencia)
+        {
+            return contexto.Contratos.Include("Empresa").Where(c => c.Empresa.IdEmpresa == idEmpresa && c.InicioVigencia >= inicioVigencia && c.FimVigencia <= finalVigencia).ToList();
+        }
+
+        public IList<Contrato> ObterVigentes(int idEmpresa)
+        {
+            return contexto.Contratos.Include("Empresa").Where(c => c.Empresa.IdEmpresa == idEmpresa && c.FimVigencia >= DateTime.Now).ToList();
+        }
     }
 }

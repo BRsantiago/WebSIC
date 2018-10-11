@@ -9,5 +9,8 @@ namespace Repository.Interface
 {
     public interface IApoliceRepository : IRepositoryBase<Apolice>
     {
+        Apolice ObterPorNumero(string numero);
+        IList<Apolice> ObterValidas(int idEmpresa);
+        IList<Apolice> ObterPorEmpresa(int idEmpresa);
     }
 }

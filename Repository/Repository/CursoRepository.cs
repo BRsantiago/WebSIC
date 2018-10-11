@@ -15,5 +15,10 @@ namespace Repository.Repository
             : base(_contexto)
         {
         }
+
+        public IList<Curso> ObterPorArea(int idArea)
+        {
+            return contexto.Cursos.Include("Turmas").Where(c => c.Area.IdArea == idArea).ToList();
+        }
     }
 }

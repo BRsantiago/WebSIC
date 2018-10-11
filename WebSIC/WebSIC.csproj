@@ -181,6 +181,7 @@
     <Compile Include="Controllers\PortaoAcessoController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\SolicitacaoController.cs" />
+    <Compile Include="Controllers\TipoCrachasController.cs" />
     <Compile Include="Controllers\TipoEmpresaController.cs" />
     <Compile Include="Controllers\TipoSolicitacaoController.cs" />
     <Compile Include="Controllers\TurmaController.cs" />
@@ -535,6 +536,7 @@
     <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
+    <Content Include="Scripts\Index.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker-en-CA.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar-tn.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar.min.js" />
@@ -617,9 +619,6 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.vi.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
-    <Content Include="Scripts\sweetalert-dev.js" />
-    <Content Include="Scripts\sweetalert.min.js" />
-    <Content Include="Styles\sweetalert.css" />
     <Content Include="Views\favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -655,7 +654,6 @@
     <Content Include="Content\bootstrap\labels.less" />
     <Content Include="Content\bootstrap\list-group.less" />
     <Content Include="Content\bootstrap\media.less" />
-    <Content Include="Content\bootstrap\mixins.less" />
     <Content Include="Content\bootstrap\mixins\alerts.less" />
     <Content Include="Content\bootstrap\mixins\background-variant.less" />
     <Content Include="Content\bootstrap\mixins\border-radius.less" />
@@ -705,7 +703,6 @@
     <Content Include="Content\bootstrap\tooltip.less" />
     <Content Include="Content\bootstrap\type.less" />
     <Content Include="Content\bootstrap\utilities.less" />
-    <Content Include="Content\bootstrap\variables.less" />
     <Content Include="Content\bootstrap\wells.less" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
@@ -817,11 +814,6 @@
     <Content Include="Views\Credencial\Details.cshtml" />
     <Content Include="Views\Credencial\Edit.cshtml" />
     <Content Include="Views\Credencial\Index.cshtml" />
-    <Content Include="Views\Curso\Create.cshtml" />
-    <Content Include="Views\Curso\Delete.cshtml" />
-    <Content Include="Views\Curso\Details.cshtml" />
-    <Content Include="Views\Curso\Edit.cshtml" />
-    <Content Include="Views\Curso\Index.cshtml" />
     <Content Include="Views\Ocorrencia\Create.cshtml" />
     <Content Include="Views\Ocorrencia\Delete.cshtml" />
     <Content Include="Views\Ocorrencia\Details.cshtml" />
@@ -852,11 +844,6 @@
     <Content Include="Views\TipoSolicitacao\Details.cshtml" />
     <Content Include="Views\TipoSolicitacao\Edit.cshtml" />
     <Content Include="Views\TipoSolicitacao\Index.cshtml" />
-    <Content Include="Views\Turma\Create.cshtml" />
-    <Content Include="Views\Turma\Delete.cshtml" />
-    <Content Include="Views\Turma\Details.cshtml" />
-    <Content Include="Views\Turma\Edit.cshtml" />
-    <Content Include="Views\Turma\Index.cshtml" />
     <Content Include="Views\Usuario\Create.cshtml" />
     <Content Include="Views\Usuario\Delete.cshtml" />
     <Content Include="Views\Usuario\Details.cshtml" />
@@ -872,6 +859,21 @@
     <Content Include="Views\TipoEmpresa\Details.cshtml" />
     <Content Include="Views\TipoEmpresa\Edit.cshtml" />
     <Content Include="Views\TipoEmpresa\Index.cshtml" />
+    <Content Include="Views\TipoCrachas\Create.cshtml" />
+    <Content Include="Views\TipoCrachas\Delete.cshtml" />
+    <Content Include="Views\TipoCrachas\Details.cshtml" />
+    <Content Include="Views\TipoCrachas\Edit.cshtml" />
+    <Content Include="Views\TipoCrachas\Index.cshtml" />
+    <Content Include="Views\Curso\Index.cshtml" />
+    <Content Include="Views\Curso\Details.cshtml" />
+    <Content Include="Views\Curso\Create.cshtml" />
+    <Content Include="Views\Curso\Edit.cshtml" />
+    <Content Include="Views\Curso\Delete.cshtml" />
+    <Content Include="Views\Turma\Index.cshtml" />
+    <Content Include="Views\Turma\Details.cshtml" />
+    <Content Include="Views\Turma\Create.cshtml" />
+    <Content Include="Views\Turma\Edit.cshtml" />
+    <Content Include="Views\Turma\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -9,6 +9,11 @@ namespace Service.Interface
 {
     public interface ITipoSolicitacaoService
     {
+        IList<TipoSolicitacao> Listar();
+        TipoSolicitacao Obter(int id);
+        TipoSolicitacao Incluir(TipoSolicitacao tipoSolicitacao);
+        TipoSolicitacao Atualizar(TipoSolicitacao tipoSolicitacao);
+        int Excluir(int id);
         List<TipoSolicitacao> ObterTodos();
     }
 }

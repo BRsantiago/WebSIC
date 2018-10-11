@@ -128,5 +128,7 @@ namespace Repository.Context
         }
 
         public System.Data.Entity.DbSet<Entity.Entities.TipoEmpresa> TipoEmpresas { get; set; }
+
+        public System.Data.Entity.DbSet<Entity.Entities.TipoCracha> TipoCrachas { get; set; }
     }
 }

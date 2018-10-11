@@ -15,5 +15,20 @@ namespace Repository.Repository
             : base(_contexto)
         {
         }
+
+        public IList<Apolice> ObterPorEmpresa(int idEmpresa)
+        {
+            return contexto.Apolices.Include("Empresa").Include("Veiculos").Where(ap => ap.Empresa.IdEmpresa == idEmpresa).ToList();
+        }
+
+        public Apolice ObterPorNumero(string numero)
+        {
+            return contexto.Apolices.Include("Empresa").Include("Veiculos").Where(ap => ap.Numero == numero).FirstOrDefault();
+        }
+
+        public IList<Apolice> ObterValidas(int idEmpresa)
+        {
+            return contexto.Apolices.Include("Empresa").Include("Veiculos").Where(ap => ap.Empresa.IdEmpresa == idEmpresa && ap.DataValidade > DateTime.Now).ToList();
+        }
     }
 }

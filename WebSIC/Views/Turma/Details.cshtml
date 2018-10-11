@@ -5,79 +5,103 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<div class="modal-dialog" style="margin-left: 490px !important;">
+    <div class="modal-content" style="width: 782px !important;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Detalhar Turma</h4>
+        </div>
+        <div class="modal-body">
+            <div>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Curso)
+                    </dt>
 
-<div>
-    <h4>Turma</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Inicio)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Curso)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Inicio)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Titulo)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Fim)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Titulo)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Fim)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Realizacao)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Observacao)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Realizacao)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Observacao)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DataValidade)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Criacao)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.DataValidade)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Criacao)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Observacao)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Criador)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Observacao)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Criador)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Criacao)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Atualizacao)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Criacao)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Atualizacao)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Criador)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Atualizador)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Criador)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Atualizador)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Atualizacao)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Ativo)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Atualizacao)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Ativo)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Atualizador)
+                    </dt>
 
-    </dl>
+                    <dd>
+                        @Html.DisplayFor(model => model.Atualizador)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Ativo)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Ativo)
+                    </dd>
+
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Editar", "Edit", new { id = Model.IdTurma }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-default" })
+            </p>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdTurma }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

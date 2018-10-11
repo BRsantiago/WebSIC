@@ -17,8 +17,12 @@ namespace Entity.Entities
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int IdPortaoAcesso { get; set; }
+
         [Required]
         public string Sigla { get; set; }
+
+        [Required]
+        [Display(Name = "Descrição")]
         public string Descricao { get; set; }
     }
 }

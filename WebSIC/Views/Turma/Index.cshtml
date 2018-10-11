@@ -5,72 +5,115 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Inicio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fim)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Observacao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Criacao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Criador)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Atualizacao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Atualizador)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ativo)
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Cursos</h1>
+    </div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Inicio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fim)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Observacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Criacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Criador)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Atualizacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Atualizador)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ativo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdTurma }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdTurma }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdTurma })
-        </td>
-    </tr>
-}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="table" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Curso)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Titulo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Realizacao)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DataValidade)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Observacao)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Criacao)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Criador)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Atualizacao)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Atualizador)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Ativo)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Curso.Titulo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Titulo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Realizacao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DataValidade)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Observacao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Criacao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Criador)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Atualizacao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Atualizador)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Ativo)
+                                </td>
+                                <td>
+                                    @*@Html.ActionLink("Edit", "Edit", new { id = item.IdTurma }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.IdTurma }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.IdTurma })*@
+                                    @*<a class="btn btn-primary" onclick="onShowModal('Edit', @item.IdTurma)">Editar</a> |
+                                        <a class="btn btn-warning" onclick="onShowModal('Details', @item.IdTurma)">Detalhar</a> |
+                                        <a class="btn btn-danger" onclick="onShowModal('Delete', @item.IdTurma)">Excluir</a>*@
+                                    <button class="btn btn-warning details" data-id="@item.IdTurma">Detalhar<i class="glyphicon glyphicon-file"></i></button>
+                                    <button class="btn btn-primary edit" data-id="@item.IdTurma">Editar<i class="glyphicon glyphicon-edit"></i></button>
+                                    <button class="btn btn-danger delete" data-id="@item.IdTurma">Deletar<i class="glyphicon glyphicon-trash"></i></button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-</table>
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-4">
+            <button class="btn btn-success create">Criar Nova Turma <i class="glyphicon glyphicon-open"></i></button>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modal" role="dialog" data-backdrop="static" data-keyboard="false"></div>
+
+<script src="~/Scripts/Index.js"></script>

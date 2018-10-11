@@ -17,6 +17,9 @@ namespace Entity.Entities
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int IdTipoSolicitacao { get; set; }
+
+        [Required]
+        [Display(Name = "Descrição")]
         public string Descricao { get; set; }
     }
 }

@@ -8,17 +8,25 @@ using System.Web;
 using System.Web.Mvc;
 using Entity.Entities;
 using Repository.Context;
+using Service.Interface;
 
 namespace WebSIC.Controllers
 {
     public class ApoliceController : Controller
     {
-        private WebSICContext db = new WebSICContext();
+        private IApoliceService Service;
+        private IEmpresaService EmpresaService;
+
+        public ApoliceController(IApoliceService service, IEmpresaService empresaService)
+        {
+            Service = service;
+            EmpresaService = empresaService;
+        }
 
         // GET: Apolice
         public ActionResult Index()
         {
-            return View(db.Apolices.ToList());
+            return View(Service.Listar());
         }
 
         // GET: Apolice/Details/5
@@ -28,7 +36,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Apolice apolice = db.Apolices.Find(id);
+            Apolice apolice = Service.Obter(id.Value);
             if (apolice == null)
             {
                 return HttpNotFound();
@@ -39,6 +47,7 @@ namespace WebSIC.Controllers
         // GET: Apolice/Create
         public ActionResult Create()
         {
+            ViewBag.Empresas = new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia");
             return View();
         }
 
@@ -47,13 +56,16 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdApolice,Numero,DataValidade,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Apolice apolice)
+        public ActionResult Create([Bind(Include = "IdApolice,Numero,DataValidade,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Apolice apolice, FormCollection form)
         {
             if (ModelState.IsValid)
             {
-                db.Apolices.Add(apolice);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                apolice.Criador =
+                  apolice.Atualizador = User.Identity.Name;
+                apolice.Empresa = EmpresaService.ObterPorId(int.Parse(form["Empresa.IdEmpresa"]));
+                var check = Service.Incluir(apolice);
+                if (check != null)
+                    return RedirectToAction("Index");
             }
 
             return View(apolice);
@@ -66,7 +78,8 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Apolice apolice = db.Apolices.Find(id);
+            Apolice apolice = Service.Obter(id.Value);
+            ViewBag.Empresas = new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", apolice.Empresa.IdEmpresa);
             if (apolice == null)
             {
                 return HttpNotFound();
@@ -79,13 +92,16 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdApolice,Numero,DataValidade,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Apolice apolice)
+        public ActionResult Edit([Bind(Include = "IdApolice,Numero,DataValidade,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Apolice apolice, FormCollection form)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(apolice).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                apolice.Atualizacao = DateTime.Now;
+                apolice.Atualizador = User.Identity.Name;
+                apolice.Empresa = EmpresaService.ObterPorId(int.Parse(form["Empresa.IdEmpresa"]));
+                var check = Service.Atualizar(apolice);
+                if (check != null)
+                    return RedirectToAction("Index");
             }
             return View(apolice);
         }
@@ -97,7 +113,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Apolice apolice = db.Apolices.Find(id);
+            Apolice apolice = Service.Obter(id.Value);
             if (apolice == null)
             {
                 return HttpNotFound();
@@ -110,18 +126,15 @@ namespace WebSIC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Apolice apolice = db.Apolices.Find(id);
-            db.Apolices.Remove(apolice);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var check = Service.Excluir(id);
+            if (check != 0)
+                return RedirectToAction("Index");
+
+            return View(id);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }

@@ -9,5 +9,13 @@ namespace Service.Interface
 {
     public interface IApoliceService
     {
+        IList<Apolice> Listar();
+        Apolice Obter(int id);
+        Apolice ObterPorNumero(string numero);
+        IList<Apolice> ObterPorEmpresa(int idEmpresa);
+        IList<Apolice> ObterValidas(int idEmpresa);
+        Apolice Incluir(Apolice apolice);
+        Apolice Atualizar(Apolice apolice);
+        int Excluir(int id);
     }
 }

@@ -15,5 +15,10 @@ namespace Repository.Repository
             : base(_contexto)
         {
         }
+
+        public Area ObterPorSigla(string sigla)
+        {
+            return contexto.Areas.Where(a => a.Sigla == sigla).FirstOrDefault();
+        }
     }
 }
