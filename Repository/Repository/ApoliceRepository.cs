@@ -21,9 +21,11 @@ namespace Repository.Repository
             return contexto.Apolices.Include("Empresa").Include("Veiculos").Where(ap => ap.Empresa.IdEmpresa == idEmpresa).ToList();
         }
 
-        public Apolice ObterPorNumero(string numero)
+        public Apolice ObterPorNumero(string numero, bool withTracking)
         {
-            return contexto.Apolices.Include("Empresa").Include("Veiculos").Where(ap => ap.Numero == numero).FirstOrDefault();
+            return withTracking 
+                ? contexto.Apolices.Include("Empresa").Include("Veiculos").Where(ap => ap.Numero == numero).FirstOrDefault()
+                : contexto.Apolices.AsNoTracking().Include("Empresa").Include("Veiculos").Where(ap => ap.Numero == numero).FirstOrDefault();
         }
 
         public IList<Apolice> ObterValidas(int idEmpresa)

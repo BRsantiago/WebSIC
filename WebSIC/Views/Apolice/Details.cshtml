@@ -1,9 +1,9 @@
 ﻿@model Entity.Entities.Apolice
 
-@{
+@*@{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+}*@
 
 <div class="modal-dialog" style="margin-left: 490px !important;">
     <div class="modal-content" style="width: 782px !important;">
@@ -90,8 +90,8 @@
                 </dl>
             </div>
             <p>
-                @Html.ActionLink("Edit", "Edit", new { id = Model.IdApolice }, new { @class = "btn btn-primary" }) |
-                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+                @*@Html.ActionLink("Edit", "Edit", new { id = Model.IdApolice }, new { @class = "btn btn-primary" }) |*@
+                @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-default" })
             </p>
         </div>
     </div>

@@ -41,14 +41,14 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(contrato);
+            return PartialView(contrato);
         }
 
         // GET: Contrato/Create
         public ActionResult Create()
         {
             ViewBag.Empresas = new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia");
-            return View();
+            return PartialView();
         }
 
         // POST: Contrato/Create
@@ -68,7 +68,7 @@ namespace WebSIC.Controllers
                     return RedirectToAction("Index");
             }
 
-            return View(contrato);
+            return PartialView(contrato);
         }
 
         // GET: Contrato/Edit/5
@@ -84,7 +84,7 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(contrato);
+            return PartialView(contrato);
         }
 
         // POST: Contrato/Edit/5
@@ -103,7 +103,7 @@ namespace WebSIC.Controllers
                 if (check != null)
                     return RedirectToAction("Index");
             }
-            return View(contrato);
+            return PartialView(contrato);
         }
 
         // GET: Contrato/Delete/5
@@ -118,7 +118,7 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(contrato);
+            return PartialView(contrato);
         }
 
         // POST: Contrato/Delete/5
@@ -130,7 +130,7 @@ namespace WebSIC.Controllers
             if (check != 0)
                 return RedirectToAction("Index");
 
-            return View(id);
+            return PartialView(id);
         }
 
         protected override void Dispose(bool disposing)

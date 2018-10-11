@@ -22,7 +22,7 @@ namespace Services.Service
         {
             try
             {
-                var check = ObterPorSigla(area.Sigla);
+                var check = ObterPorSigla(area.Sigla, false);
                 if (check != null && check.IdArea == area.IdArea)
                 {
                     areaRepository.Atualizar(area);
@@ -58,7 +58,7 @@ namespace Services.Service
         {
             try
             {
-                var check = ObterPorSigla(area.Sigla);
+                var check = ObterPorSigla(area.Sigla, false);
                 if (check == null)
                 {
                     areaRepository.Incluir(area);
@@ -100,13 +100,13 @@ namespace Services.Service
             return area;
         }
 
-        public Area ObterPorSigla(string sigla)
+        public Area ObterPorSigla(string sigla, bool withTracking)
         {
             Area area = null;
 
             try
             {
-                area = areaRepository.ObterPorSigla(sigla);
+                area = areaRepository.ObterPorSigla(sigla, withTracking);
             }
             catch (Exception ex)
             { }

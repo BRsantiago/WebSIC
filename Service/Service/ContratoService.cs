@@ -22,7 +22,7 @@ namespace Services.Service
         {
             try
             {
-                var check = ObterPorNumero(contrato.Numero);
+                var check = ObterPorNumero(contrato.Numero, false);
                 if (check != null && check.IdContrato == contrato.IdContrato)
                 {
                     contratoRepository.Atualizar(contrato);
@@ -57,7 +57,7 @@ namespace Services.Service
         {
             try
             {
-                var check = ObterPorNumero(contrato.Numero);
+                var check = ObterPorNumero(contrato.Numero, false);
                 if (check == null)
                 {
                     contratoRepository.Incluir(contrato);
@@ -113,13 +113,13 @@ namespace Services.Service
             return contratos;
         }
 
-        public Contrato ObterPorNumero(string numero)
+        public Contrato ObterPorNumero(string numero, bool withTracking)
         {
             Contrato contrato = null;
 
             try
             {
-                contrato = contratoRepository.ObterPorNumero(numero);
+                contrato = contratoRepository.ObterPorNumero(numero, withTracking);
             }
             catch (Exception ex)
             { }

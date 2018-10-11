@@ -39,13 +39,13 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(cargo);
+            return PartialView(cargo);
         }
 
         // GET: Cargo/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: Cargo/Create
@@ -64,7 +64,7 @@ namespace WebSIC.Controllers
                     return RedirectToAction("Index");
             }
 
-            return View(cargo);
+            return PartialView(cargo);
         }
 
         // GET: Cargo/Edit/5
@@ -79,7 +79,7 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(cargo);
+            return PartialView(cargo);
         }
 
         // POST: Cargo/Edit/5
@@ -97,7 +97,7 @@ namespace WebSIC.Controllers
                 if (check != null)
                     return RedirectToAction("Index");
             }
-            return View(cargo);
+            return PartialView(cargo);
         }
 
         // GET: Cargo/Delete/5
@@ -112,7 +112,7 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(cargo);
+            return PartialView(cargo);
         }
 
         // POST: Cargo/Delete/5
@@ -124,7 +124,7 @@ namespace WebSIC.Controllers
             if (check != 0)
                 return RedirectToAction("Index");
 
-            return View(id);
+            return PartialView(id);
         }
 
         protected override void Dispose(bool disposing)

@@ -11,7 +11,7 @@ namespace Service.Interface
     {
         IList<Apolice> Listar();
         Apolice Obter(int id);
-        Apolice ObterPorNumero(string numero);
+        Apolice ObterPorNumero(string numero, bool withTracking);
         IList<Apolice> ObterPorEmpresa(int idEmpresa);
         IList<Apolice> ObterValidas(int idEmpresa);
         Apolice Incluir(Apolice apolice);

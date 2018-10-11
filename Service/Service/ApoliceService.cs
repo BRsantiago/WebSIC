@@ -22,7 +22,7 @@ namespace Services.Service
         {
             try
             {
-                var check = ObterPorNumero(apolice.Numero);
+                var check = ObterPorNumero(apolice.Numero, false);
                 if (check != null && check.IdApolice == apolice.IdApolice)
                 {
                     apoliceRepository.Atualizar(apolice);
@@ -57,7 +57,7 @@ namespace Services.Service
         {
             try
             {
-                var check = ObterPorNumero(apolice.Numero);
+                var check = ObterPorNumero(apolice.Numero, false);
                 if (check == null)
                 {
                     apoliceRepository.Incluir(apolice);
@@ -113,13 +113,13 @@ namespace Services.Service
             return apolices;
         }
 
-        public Apolice ObterPorNumero(string numero)
+        public Apolice ObterPorNumero(string numero, bool withTracking)
         {
             Apolice apolice = null;
 
             try
             {
-                apolice = apoliceRepository.ObterPorNumero(numero);
+                apolice = apoliceRepository.ObterPorNumero(numero, withTracking);
             }
             catch (Exception ex)
             { }
