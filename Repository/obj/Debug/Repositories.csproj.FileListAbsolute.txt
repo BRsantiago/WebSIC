@@ -45,3 +45,4 @@ T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Repository\obj\Debug\Rep
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Repository\obj\Debug\Repository.dll
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Repository\obj\Debug\Repository.pdb
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Repository\obj\Debug\Repository.Migrations.AjusteCursoTurma.resources
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Repository\obj\Debug\Repository.Migrations.AjusteVeiculo.resources

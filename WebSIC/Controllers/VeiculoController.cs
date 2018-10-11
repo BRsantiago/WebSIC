@@ -8,17 +8,27 @@ using System.Web;
 using System.Web.Mvc;
 using Entity.Entities;
 using Repository.Context;
+using Service.Interface;
 
 namespace WebSIC.Controllers
 {
     public class VeiculoController : Controller
     {
-        private WebSICContext db = new WebSICContext();
+        private IVeiculoService Service;
+        private IEmpresaService EmpresaService;
+        private IApoliceService ApoliceService;
+
+        public VeiculoController(IVeiculoService service, IEmpresaService empresaService, IApoliceService apoliceService)
+        {
+            Service = service;
+            EmpresaService = empresaService;
+            ApoliceService = apoliceService;
+        }
 
         // GET: Veiculo
         public ActionResult Index()
         {
-            return View(db.Veiculos.ToList());
+            return View(Service.Listar());
         }
 
         // GET: Veiculo/Details/5
@@ -28,18 +38,19 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Veiculo veiculo = db.Veiculos.Find(id);
+            Veiculo veiculo = Service.Obter(id.Value);
             if (veiculo == null)
             {
                 return HttpNotFound();
             }
-            return View(veiculo);
+            return PartialView(veiculo);
         }
 
         // GET: Veiculo/Create
         public ActionResult Create()
         {
-            return View();
+            ViewBag.Empresas = new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia");
+            return PartialView();
         }
 
         // POST: Veiculo/Create
@@ -51,12 +62,14 @@ namespace WebSIC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Veiculos.Add(veiculo);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                veiculo.Criador =
+                    veiculo.Atualizador = User.Identity.Name;
+                var check = Service.Incluir(veiculo);
+                if (check != null)
+                    return RedirectToAction("Index");
             }
 
-            return View(veiculo);
+            return PartialView(veiculo);
         }
 
         // GET: Veiculo/Edit/5
@@ -66,12 +79,13 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Veiculo veiculo = db.Veiculos.Find(id);
+            Veiculo veiculo = Service.Obter(id.Value);
+            ViewBag.Empresas = new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", veiculo.Empresa.IdEmpresa);
             if (veiculo == null)
             {
                 return HttpNotFound();
             }
-            return View(veiculo);
+            return PartialView(veiculo);
         }
 
         // POST: Veiculo/Edit/5
@@ -83,11 +97,13 @@ namespace WebSIC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(veiculo).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                veiculo.Atualizacao = DateTime.Now;
+                veiculo.Atualizador = User.Identity.Name;
+                var check = Service.Atualizar(veiculo);
+                if (check != null)
+                    return RedirectToAction("Index");
             }
-            return View(veiculo);
+            return PartialView(veiculo);
         }
 
         // GET: Veiculo/Delete/5
@@ -97,12 +113,12 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Veiculo veiculo = db.Veiculos.Find(id);
+            Veiculo veiculo = Service.Obter(id.Value);
             if (veiculo == null)
             {
                 return HttpNotFound();
             }
-            return View(veiculo);
+            return PartialView(veiculo);
         }
 
         // POST: Veiculo/Delete/5
@@ -110,18 +126,15 @@ namespace WebSIC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Veiculo veiculo = db.Veiculos.Find(id);
-            db.Veiculos.Remove(veiculo);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var check = Service.Excluir(id);
+            if (check != 0)
+                return RedirectToAction("Index");
+
+            return PartialView(id);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }
