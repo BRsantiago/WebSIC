@@ -31,8 +31,10 @@ namespace WebSIC
                       "~/Content/dist/js/sb-admin-2.js",
                       "~/Scripts/bootstrap-datepicker.js",
                       "~/Scripts/bootstrap-datepicker.min.js",
-                      "~/Scripts/sweetalert.min.js",
-                      "~/Scripts/sweetalert-dev.js",
+                      //"~/Scripts/sweetalert.min.js",
+                      //"~/Scripts/sweetalert-dev.js",
+                      //"~/SweetAlert2/SweetAlert.js",
+                      //"~/SweetAlert2/sweetalert2.js",
                       "~/Content/vendor/datatables/js/jquery.dataTables.min.js",
                       "~/Content/vendor/datatables-plugins/dataTables.bootstrap.min.js",
                       "~/Content/vendor/datatables-responsive/dataTables.responsive.js"));
@@ -41,7 +43,8 @@ namespace WebSIC
                       "~/Content/vendor/bootstrap/css/bootstrap.min.css",
                       "~/Content/vendor/metisMenu/metisMenu.min.css",
                       "~/Content/dist/css/sb-admin-2.css",
-                      "~/Styles/sweetalert.css",
+                      //"~/Styles/sweetalert.css",
+                      //"~/SweetAlert2/sweetalert2.scss",
                       "~/Content/vendor/font-awesome/css/font-awesome.min.css",
                       "~/Content/vendor/datatables-responsive/dataTables.responsive.css",
                       "~/Content/vendor/datatables-plugins/dataTables.bootstrap.css"));

@@ -18,9 +18,14 @@ namespace Entity.Entities
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int IdTipoEmpresa { get; set; }
 
+        [Required]
+        [Display(Name = "Descrição")]
         public string Descricao { get; set; }
 
+        [Required]
+        [Display(Name = "Tipo de Crachá")]
         public TipoCracha TipoCracha { get; set; }
+
         public List<Empresa> Empresas { get; set; }
     }
 }

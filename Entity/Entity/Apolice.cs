@@ -17,14 +17,18 @@ namespace Entity.Entities
         public int IdApolice { get; set; }
 
         [Required]
+        [Display(Name = "Número da Apólice")]
         public string Numero { get; set; }
 
         [Required]
+        [Display(Name = "Data de Validade")]
         public DateTime DataValidade { get; set; }
 
+        [Display(Name = "Observação")]
         public string Observacao { get; set; }
 
         public Empresa Empresa { get; set; }
+
         public IList<Veiculo> Veiculos { get; set; }
     }
 }

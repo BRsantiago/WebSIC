@@ -9,5 +9,6 @@ namespace Repository.Interface
 {
     public interface ICursoRepository : IRepositoryBase<Curso>
     {
+        IList<Curso> ObterPorArea(int idArea);
     }
 }

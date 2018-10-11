@@ -8,17 +8,25 @@ using System.Web;
 using System.Web.Mvc;
 using Entity.Entities;
 using Repository.Context;
+using Service.Interface;
 
 namespace WebSIC.Controllers
 {
     public class TurmaController : Controller
     {
-        private WebSICContext db = new WebSICContext();
+        private ITurmaService Service;
+        private ICursoService CursoService;
+
+        public TurmaController(ITurmaService service, ICursoService cursoService)
+        {
+            Service = service;
+            CursoService = cursoService;
+        }
 
         // GET: Turma
         public ActionResult Index()
         {
-            return View(db.Turmas.ToList());
+            return View(Service.Listar());
         }
 
         // GET: Turma/Details/5
@@ -28,7 +36,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Turma turma = db.Turmas.Find(id);
+            Turma turma = Service.Obter(id.Value);
             if (turma == null)
             {
                 return HttpNotFound();
@@ -39,6 +47,7 @@ namespace WebSIC.Controllers
         // GET: Turma/Create
         public ActionResult Create()
         {
+            ViewBag.Cursos = new SelectList(CursoService.Listar(), "IdCurso", "Titulo");
             return View();
         }
 
@@ -47,13 +56,16 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdTurma,Inicio,Fim,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Turma turma)
+        public ActionResult Create([Bind(Include = "IdTurma,Inicio,Fim,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Turma turma, FormCollection form)
         {
             if (ModelState.IsValid)
             {
-                db.Turmas.Add(turma);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                turma.Criador =
+                    turma.Atualizador = User.Identity.Name;
+                turma.Curso = CursoService.Obter(int.Parse(form["Curso.IdCurso"]));
+                var check = Service.Incluir(turma);
+                if (check != null)
+                    return RedirectToAction("Index");
             }
 
             return View(turma);
@@ -66,7 +78,8 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Turma turma = db.Turmas.Find(id);
+            Turma turma = Service.Obter(id.Value);
+            ViewBag.Cursos = new SelectList(CursoService.Listar(), "IdCurso", "Titulo", turma.Curso.IdCurso);
             if (turma == null)
             {
                 return HttpNotFound();
@@ -79,13 +92,16 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdTurma,Inicio,Fim,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Turma turma)
+        public ActionResult Edit([Bind(Include = "IdTurma,Inicio,Fim,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Turma turma, FormCollection form)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(turma).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                turma.Atualizacao = DateTime.Now;
+                turma.Atualizador = User.Identity.Name;
+                turma.Curso = CursoService.Obter(int.Parse(form["Curso.IdCurso"]));
+                var check = Service.Atualizar(turma);
+                if (check != null)
+                    return RedirectToAction("Index");
             }
             return View(turma);
         }
@@ -97,7 +113,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Turma turma = db.Turmas.Find(id);
+            Turma turma = Service.Obter(id.Value);
             if (turma == null)
             {
                 return HttpNotFound();
@@ -110,18 +126,15 @@ namespace WebSIC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Turma turma = db.Turmas.Find(id);
-            db.Turmas.Remove(turma);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var check = Service.Excluir(id);
+            if (check != 0)
+                return RedirectToAction("Index");
+
+            return View(id);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }

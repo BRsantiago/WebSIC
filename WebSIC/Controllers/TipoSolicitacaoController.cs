@@ -8,17 +8,23 @@ using System.Web;
 using System.Web.Mvc;
 using Entity.Entities;
 using Repository.Context;
+using Service.Interface;
 
 namespace WebSIC.Controllers
 {
     public class TipoSolicitacaoController : Controller
     {
-        private WebSICContext db = new WebSICContext();
+        private ITipoSolicitacaoService Service;
+
+        public TipoSolicitacaoController(ITipoSolicitacaoService service)
+        {
+            Service = service;
+        }
 
         // GET: TipoSolicitacao
         public ActionResult Index()
         {
-            return View(db.TiposSolicitacao.ToList());
+            return View(Service.Listar());
         }
 
         // GET: TipoSolicitacao/Details/5
@@ -28,7 +34,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TipoSolicitacao tipoSolicitacao = db.TiposSolicitacao.Find(id);
+            TipoSolicitacao tipoSolicitacao = Service.Obter(id.Value);
             if (tipoSolicitacao == null)
             {
                 return HttpNotFound();
@@ -51,9 +57,11 @@ namespace WebSIC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.TiposSolicitacao.Add(tipoSolicitacao);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                tipoSolicitacao.Criador =
+                    tipoSolicitacao.Atualizador = User.Identity.Name;
+                var check = Service.Incluir(tipoSolicitacao);
+                if (check != null)
+                    return RedirectToAction("Index");
             }
 
             return View(tipoSolicitacao);
@@ -66,7 +74,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TipoSolicitacao tipoSolicitacao = db.TiposSolicitacao.Find(id);
+            TipoSolicitacao tipoSolicitacao = Service.Obter(id.Value);
             if (tipoSolicitacao == null)
             {
                 return HttpNotFound();
@@ -83,9 +91,11 @@ namespace WebSIC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tipoSolicitacao).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                tipoSolicitacao.Atualizacao = DateTime.Now;
+                tipoSolicitacao.Atualizador = User.Identity.Name;
+                var check = Service.Atualizar(tipoSolicitacao);
+                if (check != null)
+                    return RedirectToAction("Index");
             }
             return View(tipoSolicitacao);
         }
@@ -97,7 +107,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TipoSolicitacao tipoSolicitacao = db.TiposSolicitacao.Find(id);
+            TipoSolicitacao tipoSolicitacao = Service.Obter(id.Value);
             if (tipoSolicitacao == null)
             {
                 return HttpNotFound();
@@ -110,18 +120,15 @@ namespace WebSIC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            TipoSolicitacao tipoSolicitacao = db.TiposSolicitacao.Find(id);
-            db.TiposSolicitacao.Remove(tipoSolicitacao);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var check = Service.Excluir(id);
+            if (check != 0)
+                return RedirectToAction("Index");
+
+            return View(id);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }

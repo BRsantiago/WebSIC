@@ -80,9 +80,12 @@
                                     @Html.DisplayFor(modelItem => item.Ativo)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.IdContrato }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.IdContrato }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.IdContrato })
+                                    @*@Html.ActionLink("Edit", "Edit", new { id = item.IdContrato }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.IdContrato }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.IdContrato })*@
+                                    <a class="btn btn-primary" onclick="onShowModal('Edit', @item.IdContrato)">Editar</a> |
+                                    <a class="btn btn-warning" onclick="onShowModal('Details', @item.IdContrato)">Detalhar</a> |
+                                    <a class="btn btn-danger" onclick="onShowModal('Delete', @item.IdContrato)">Excluir</a>
                                 </td>
                             </tr>
                         }
@@ -96,15 +99,11 @@
 <div class="form-group">
     <div class="row">
         <div class="col-md-4">
-            <a class="btn btn-primary" onclick="onShowModalCreate()">Nova</a>
+            <a class="btn btn-primary" onclick="onShowModal('Create')">Nova</a>
         </div>
     </div>
 </div>
 
 <div class="modal" id="modal" role="dialog" data-backdrop="static" data-keyboard="false"></div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        Datatables("table");
-    });
-</script>
+<script src="~/Scripts/Index.js"></script>

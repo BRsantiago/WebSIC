@@ -9,5 +9,11 @@ namespace Service.Interface
 {
     public interface ICursoService
     {
+        IList<Curso> Listar();
+        IList<Curso> ObterPorArea(int idArea);
+        Curso Obter(int id);
+        Curso Incluir(Curso curso);
+        Curso Atualizar(Curso curso);
+        int Excluir(int id);
     }
 }

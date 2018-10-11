@@ -68,9 +68,15 @@
                                     @Html.DisplayFor(modelItem => item.Ativo)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.IdArea }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.IdArea }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.IdArea })
+                                    @*@Html.ActionLink("Edit", "Edit", new { id = item.IdArea }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.IdArea }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.IdArea })*@
+                                    @*<a class="btn btn-primary" onclick="onShowModal('Edit', @item.IdArea)">Editar</a> |
+                                        <a class="btn btn-warning" onclick="onShowModal('Details', @item.IdArea)">Detalhar</a> |
+                                        <a class="btn btn-danger" onclick="onShowModal('Delete', @item.IdArea)">Excluir</a>*@
+                                    <button class="btn btn-warning details" data-id="@item.IdArea">Detalhar<i class="glyphicon glyphicon-file"></i></button>
+                                    <button class="btn btn-primary edit" data-id="@item.IdArea">Editar<i class="glyphicon glyphicon-edit"></i></button>
+                                    <button class="btn btn-danger delete" data-id="@item.IdArea">Deletar<i class="glyphicon glyphicon-trash"></i></button>
                                 </td>
                             </tr>
                         }
@@ -84,15 +90,11 @@
 <div class="form-group">
     <div class="row">
         <div class="col-md-4">
-            <a class="btn btn-primary" onclick="onShowModalCreate()">Nova</a>
+            <button class="btn btn-success create">Criar Nova Área <i class="glyphicon glyphicon-open"></i></button>
         </div>
     </div>
 </div>
 
 <div class="modal" id="modal" role="dialog" data-backdrop="static" data-keyboard="false"></div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        Datatables("table");
-    });
-</script>
+<script src="~/Scripts/Index.js"></script>

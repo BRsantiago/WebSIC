@@ -15,12 +15,32 @@ namespace Entity.Entities
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int IdCurso { get; set; }
-        public int Duracao { get; set; }
-        public string Observacao { get; set; }
+
         [Required]
-        public DateTime DataVencimento { get; set; }
+        [Display(Name = "Título")]
+        public string Titulo { get; set; }
+
+        [Required]
+        [Display(Name = "Carga Horária")]
+        public int CargaHoraria { get; set; }
+
+        [Display(Name = "Objetivos")]
+        public string Objetivos { get; set; }
+
+        [Required]
+        [Display(Name = "Validade (em dias)")]
+        public int Validade { get; set; }
+
+        [Required]
+        [Display(Name = "Prazo p/ realização (em dias)")]
+        public int Prazo { get; set; }
+
+        [Display(Name = "Área vinculada")]
+        public Area Area { get; set; }
+
+        [Display(Name = "É obrigatório?")]
+        public bool Obrigatorio { get; set; }
 
         public IList<Turma> Turmas { get; set; }
-        public Area Area { get; set; }
     }
 }

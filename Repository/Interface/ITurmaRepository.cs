@@ -9,5 +9,8 @@ namespace Repository.Interface
 {
     public interface ITurmaRepository : IRepositoryBase<Turma>
     {
+        IList<Turma> ObterPorCurso(int idCurso);
+        IList<Turma> ObterProgramadasPorCurso(int idCurso);
+        IList<Turma> ObterRealizadasValidasPorCurso(int idCurso);
     }
 }
