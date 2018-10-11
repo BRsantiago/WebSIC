@@ -9,5 +9,6 @@ namespace Service.Interface
 {
     public interface IContratoService
     {
+        List<Contrato> ObterTodos();
     }
 }

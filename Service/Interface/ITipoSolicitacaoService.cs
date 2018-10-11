@@ -9,5 +9,6 @@ namespace Service.Interface
 {
     public interface ITipoSolicitacaoService
     {
+        List<TipoSolicitacao> ObterTodos();
     }
 }

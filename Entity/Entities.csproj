@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\Genero.cs" />
+    <Compile Include="DTO\TipoCredencial.cs" />
+    <Compile Include="DTO\TipoEmissao.cs" />
     <Compile Include="Entity\Aeroporto.cs" />
     <Compile Include="Entity\Apolice.cs" />
     <Compile Include="Entity\Area.cs" />

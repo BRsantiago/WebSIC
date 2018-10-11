@@ -9,5 +9,6 @@ namespace Service.Interface
 {
     public interface IPessoaService
     {
+        Pessoa ObterPorCPF(string cpf);
     }
 }

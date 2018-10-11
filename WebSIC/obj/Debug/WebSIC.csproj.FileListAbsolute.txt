@@ -109,12 +109,6 @@ c:\users\bruno.santiago.cassa\source\repos\WebSIC\WebSIC\bin\Repository.dll.conf
 c:\users\bruno.santiago.cassa\source\repos\WebSIC\WebSIC\bin\EntityFramework.xml
 c:\users\bruno.santiago.cassa\source\repos\WebSIC\WebSIC\bin\EntityFramework.SqlServer.dll
 c:\users\bruno.santiago.cassa\source\repos\WebSIC\WebSIC\bin\EntityFramework.SqlServer.xml
-C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.dll
-C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\System.IO.Compression.dll
-C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\VBCSCompiler.exe
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\ApplicationInsights.config
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\WebSIC.dll.config
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\WebSIC.dll
@@ -126,9 +120,13 @@ C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\csi.exe
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\csi.exe.config
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\csi.rsp
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.dll
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\Microsoft.VisualBasic.Core.targets
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\Microsoft.Win32.Primitives.dll
@@ -138,6 +136,7 @@ C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\System.C
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\System.Diagnostics.Process.dll
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\System.IO.Compression.dll
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\System.IO.FileSystem.dll
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\System.IO.FileSystem.Primitives.dll
@@ -160,6 +159,7 @@ C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\System.X
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\vbc.exe
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\vbc.exe.config
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\vbc.rsp
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\VBCSCompiler.exe
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\Antlr3.Runtime.dll
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\Entity.dll

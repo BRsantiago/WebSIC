@@ -18,14 +18,17 @@ namespace WebSIC.Controllers
         public IEmpresaService EmpresaService;
         public ITipoEmpresaService TipoEmpresaService;
         public IAeroportoService AeroportoService;
+        public IPessoaService PessoaService;
 
         public EmpresaController(IEmpresaService _EmpresaService,
                                     ITipoEmpresaService _TipoEmpresaService,
-                                        IAeroportoService _AeroportoService)
+                                        IAeroportoService _AeroportoService,
+                                            IPessoaService _PessoaService)
         {
             EmpresaService = _EmpresaService;
             TipoEmpresaService = _TipoEmpresaService;
             AeroportoService = _AeroportoService;
+            PessoaService = _PessoaService;
         }
 
         // GET: Empresa
@@ -50,6 +53,7 @@ namespace WebSIC.Controllers
 
             model.Aeroportos = AeroportoService.ObterTodos();
             model.TiposEmpresa = TipoEmpresaService.ObterTodos();
+            model.Representantes = new List<Pessoa>();
 
             return PartialView(model);
         }

@@ -6,14 +6,24 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using Entity.Entities;
 using Repository.Context;
+using Service.Interface;
 
 namespace WebSIC.Controllers
 {
     public class PessoaController : Controller
     {
+        public IPessoaService PessoaService;
+
         private WebSICContext db = new WebSICContext();
+
+
+        public PessoaController(IPessoaService _PessoaService)
+        {
+            PessoaService = _PessoaService;
+        }
 
         // GET: Pessoa
         public ActionResult Index()
@@ -128,6 +138,16 @@ namespace WebSIC.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult ObterPessoaPorCPF(string cpf)
+        {
+            //Here I'll bind the list of cities corresponding to selected state's state id  
+
+            Pessoa pessoa = this.PessoaService.ObterPorCPF(cpf);
+            JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+            string result = javaScriptSerializer.Serialize(pessoa);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }
