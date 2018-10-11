@@ -23,6 +23,7 @@ C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\bin\Debug\Entit
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\obj\Debug\Repositories.csprojAssemblyReference.cache
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.Migrations.InitialCreate.resources
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.Migrations.AjusteCursoTurma.resources
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\obj\Debug\Repositories.csproj.GenerateResource.cache
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\obj\Debug\Repositories.csproj.CoreCompileInputs.cache
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Repository\obj\Debug\Repositories.csproj.CopyComplete

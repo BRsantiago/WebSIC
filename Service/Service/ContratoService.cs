@@ -156,7 +156,7 @@ namespace Services.Service
         }
         public List<Contrato> ObterTodos()
         {
-            return repository.ObterTodos();
+            return contratoRepository.ObterTodos();
         }
     }
 }
