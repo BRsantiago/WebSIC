@@ -71,17 +71,9 @@
     <Compile Include="Interface\ITurmaRepository.cs" />
     <Compile Include="Interface\IUsuarioRepository.cs" />
     <Compile Include="Interface\IVeiculoRepository.cs" />
-    <Compile Include="Migrations\201810061906092_InitialCreate.cs" />
-    <Compile Include="Migrations\201810061906092_InitialCreate.Designer.cs">
-      <DependentUpon>201810061906092_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810101219049_AjusteCursoTurma.cs" />
-    <Compile Include="Migrations\201810101219049_AjusteCursoTurma.Designer.cs">
-      <DependentUpon>201810101219049_AjusteCursoTurma.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810111545447_AjusteVeiculo.cs" />
-    <Compile Include="Migrations\201810111545447_AjusteVeiculo.Designer.cs">
-      <DependentUpon>201810111545447_AjusteVeiculo.cs</DependentUpon>
+    <Compile Include="Migrations\201810152047455_InitialDataBase.cs" />
+    <Compile Include="Migrations\201810152047455_InitialDataBase.Designer.cs">
+      <DependentUpon>201810152047455_InitialDataBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -120,14 +112,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201810061906092_InitialCreate.resx">
-      <DependentUpon>201810061906092_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810101219049_AjusteCursoTurma.resx">
-      <DependentUpon>201810101219049_AjusteCursoTurma.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810111545447_AjusteVeiculo.resx">
-      <DependentUpon>201810111545447_AjusteVeiculo.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810152047455_InitialDataBase.resx">
+      <DependentUpon>201810152047455_InitialDataBase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

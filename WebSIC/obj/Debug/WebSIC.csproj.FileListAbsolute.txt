@@ -220,6 +220,7 @@ T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\Microsoft.AI.
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\Microsoft.AI.Web.xml
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\obj\Debug\WebSIC.csproj.CopyComplete
+C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\obj\Debug\WebSIC.csproj.CoreCompileInputs.cache
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\ApplicationInsights.config
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\WebSIC.dll.config
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\WebSIC.dll
@@ -327,7 +328,6 @@ C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\Microsoft.AI.Wi
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\Microsoft.AI.Web.xml
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\obj\Debug\WebSIC.csprojAssemblyReference.cache
-C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\obj\Debug\WebSIC.csproj.CoreCompileInputs.cache
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\obj\Debug\WebSIC.csproj.CopyComplete
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\obj\Debug\WebSIC.dll
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\obj\Debug\WebSIC.pdb

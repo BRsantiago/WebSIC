@@ -179,6 +179,7 @@
     <Compile Include="Controllers\OcorrenciaController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
     <Compile Include="Controllers\PortaoAcessoController.cs" />
+    <Compile Include="Controllers\RepresentanteController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\SolicitacaoController.cs" />
     <Compile Include="Controllers\TipoCrachasController.cs" />
@@ -191,6 +192,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\EmpresaViewModel.cs" />
+    <Compile Include="Models\RepresentanteViewModel.cs" />
     <Compile Include="Models\SolicitacaoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -874,6 +876,11 @@
     <Content Include="Views\Veiculo\Create.cshtml" />
     <Content Include="Views\Veiculo\Edit.cshtml" />
     <Content Include="Views\Veiculo\Delete.cshtml" />
+    <Content Include="Views\Representante\Create.cshtml" />
+    <Content Include="Views\Representante\Delete.cshtml" />
+    <Content Include="Views\Representante\Details.cshtml" />
+    <Content Include="Views\Representante\Edit.cshtml" />
+    <Content Include="Views\Representante\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -49,8 +49,8 @@
                                     @Html.DisplayFor(modelItem => item.Ativo)
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary" onclick="onShowModalEdit(@item.IdEmpresa)">Editar</a> |
-                                    <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdEmpresa)">Excluir</a>
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.IdEmpresa }, new { @class = "btn btn-primary " }) |
+                                    @Html.ActionLink("Excluir", "Edit", new { id = item.IdEmpresa }, new { @class = "btn btn-danger " })
                                 </td>
                             </tr>
                         }
@@ -79,23 +79,6 @@
          
         });
 
-
-         function onShowModalCreate() {
-            $.ajax({
-                type: 'GET',
-                url: '@Url.Action("Create", "Pessoa")',
-                cache: false,
-                dataType: 'html',
-                success: function (data) {
-                    $('#modal-representante').html(data);
-                    $('#modal-representante').modal('show');
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    //TrataErroAjax(xhr);
-                    alert("erro");
-                }
-            });
-        };
 
          function onShowModalCreate() {
             $.ajax({

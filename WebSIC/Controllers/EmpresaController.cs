@@ -19,16 +19,19 @@ namespace WebSIC.Controllers
         public ITipoEmpresaService TipoEmpresaService;
         public IAeroportoService AeroportoService;
         public IPessoaService PessoaService;
+        public IContratoService ContratoService;
 
         public EmpresaController(IEmpresaService _EmpresaService,
                                     ITipoEmpresaService _TipoEmpresaService,
                                         IAeroportoService _AeroportoService,
-                                            IPessoaService _PessoaService)
+                                            IPessoaService _PessoaService,
+                                                IContratoService _ContratoService)
         {
             EmpresaService = _EmpresaService;
             TipoEmpresaService = _TipoEmpresaService;
             AeroportoService = _AeroportoService;
             PessoaService = _PessoaService;
+            ContratoService = _ContratoService;
         }
 
         // GET: Empresa
@@ -91,7 +94,7 @@ namespace WebSIC.Controllers
 
                 EmpresaService.IncluirNovaEmpresa(novaEmpresa);
 
-                return RedirectToAction("Edit", novaEmpresa.IdEmpresa);
+                return RedirectToAction("Edit", new { id = novaEmpresa.IdEmpresa });
             }
 
             model.Aeroportos = AeroportoService.ObterTodos();
@@ -127,6 +130,8 @@ namespace WebSIC.Controllers
 
             model.Aeroportos = AeroportoService.ObterTodos();
             model.TiposEmpresa = TipoEmpresaService.ObterTodos();
+            model.Representantes = PessoaService.ObterPorEmpresa(empresa.IdEmpresa);
+            model.Contratos = ContratoService.ObterPorEmpresa(empresa.IdEmpresa).ToList();
 
             model.IdEmpresa = empresa.IdEmpresa;
             model.RazaoSocial = empresa.RazaoSocial;
@@ -146,7 +151,7 @@ namespace WebSIC.Controllers
             model.IdTipoEmpresa = empresa.TipoEmpresa.IdTipoEmpresa;
             model.IdAeroporto = empresa.Aeroportos.FirstOrDefault().IdAeroporto;
 
-            return PartialView(model);
+            return View(model);
         }
 
         // POST: Empresa/Edit/5

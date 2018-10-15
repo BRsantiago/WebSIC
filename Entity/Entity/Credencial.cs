@@ -16,7 +16,7 @@ namespace Entity.Entities
 
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public string IdCredencial { get; set; }
+        public int IdCredencial { get; set; }
         [Required]
         public string Matricula { get; set; }
         public bool FlgMotorista { get; set; }
