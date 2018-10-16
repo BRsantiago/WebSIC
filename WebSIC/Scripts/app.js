@@ -26,10 +26,10 @@
 }
 
 
-function onShowModalCreateRepresentante(id) {
+function onShowModalCreate(id, tipo) {
     $.ajax({
         type: 'GET',
-        url: '/Representante/Create/',
+        url: '/' + tipo + '/Create/',
         data: { idEmpresa: id },
         cache: false,
         dataType: 'html',
@@ -44,13 +44,13 @@ function onShowModalCreateRepresentante(id) {
     });
 };
 
-function onShowModalEdit(id) {
+function onShowModalEdit(id, tipo) {
 
     var params = { id: id };
 
     $.ajax({
         type: 'GET',
-        url: '@Url.Action("Edit", "Representante")',
+        url: '/' + tipo + '/Edit/',
         data: params,
         cache: false,
         dataType: 'html',
@@ -66,13 +66,16 @@ function onShowModalEdit(id) {
 };
 
 
-function onShowModalDelete(id) {
+function onShowModalDelete(idPessoa, idEmpresa, tipo) {
 
-    var params = { id: id };
+    var params = {
+        idPessoa: idPessoa,
+        idEmpresa: idEmpresa
+    };
 
     $.ajax({
         type: 'GET',
-        url: '@Url.Action("Delete", "Representante")',
+        url: '/' + tipo + '/Delete/',
         data: params,
         cache: false,
         dataType: 'html',
@@ -81,14 +84,15 @@ function onShowModalDelete(id) {
             $('#modal').modal('show');
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            //TrataErroAjax(xhr);
             alert("erro");
         }
     });
 };
 
-function SalvarNovoRepresentante() {
-    
+function Salvar() {
+
+    baseURL = window.location;
+
     var form = $("form");
     $.ajax({
         url: form.attr("action"),
@@ -98,13 +102,13 @@ function SalvarNovoRepresentante() {
             if (result.success) {
                 swal({
                     title: "Good job!",
-                    text: "Representante cadastrado com sucesso!",
+                    text: result.message,
                     icon: "success",
                     button: "OK!"
                 })
                     .then((value) => {
                         $('#modal').modal('hide');
-                        window.location = '/Empresa/Edit/' + $('#IdEmpresa').val();
+                        window.location = baseURL;
                     });
             } else {
                 swal({
@@ -113,10 +117,6 @@ function SalvarNovoRepresentante() {
                     icon: "warning",
                     button: "OK!"
                 })
-                    .then((value) => {
-                        $('#modal').modal('hide');
-                        window.location = '/Empresa/Edit/' + $('#IdEmpresa').val();
-                    });
             }
         },
         error: function () {

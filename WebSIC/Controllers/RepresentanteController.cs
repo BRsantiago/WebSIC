@@ -15,7 +15,6 @@ namespace WebSIC.Controllers
 {
     public class RepresentanteController : Controller
     {
-        private WebSICContext db = new WebSICContext();
         public IPessoaService PessoaService;
 
         public RepresentanteController(IPessoaService _PessoaService)
@@ -26,8 +25,8 @@ namespace WebSIC.Controllers
         // GET: Representante
         public ActionResult Index()
         {
-            var pessoas = db.Pessoas.Include(p => p.Usuario);
-            return View(pessoas.ToList());
+            List<Pessoa> pessoas = PessoaService.ObterTodos();
+            return View(pessoas);
         }
 
         // GET: Representante/Details/5
@@ -37,7 +36,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pessoa pessoa = db.Pessoas.Find(id);
+            Pessoa pessoa = PessoaService.ObterPorId(id);
             if (pessoa == null)
             {
                 return HttpNotFound();
@@ -62,31 +61,20 @@ namespace WebSIC.Controllers
         {
             try
             {
-                PessoaService.IncluirNovoRepresentante(representante.MapearParaObjetoDominio());
+                var check = PessoaService.IncluirNovoRepresentante(representante.MapearParaObjetoDominio());
                 return Json(new { success = true, title = "Sucesso", message = "Representante cadastrado com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-            //ViewBag.IdPessoa = new SelectList(db.Usuarios, "IdUsuario", "Login", pessoa.IdPessoa);
-            //return View(pessoa);
         }
 
         // GET: Representante/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Pessoa pessoa = PessoaService.ObterPorId(id);
-            if (pessoa == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.IdPessoa = new SelectList(db.Usuarios, "IdUsuario", "Login", pessoa.IdPessoa);
-            return PartialView(pessoa);
+            return PartialView(new RepresentanteViewModel(pessoa));
         }
 
         // POST: Representante/Edit/5
@@ -94,51 +82,44 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdPessoa,Nome,Apelido,DataNascimento,NomePai,NomeMae,Endereco,Numero,Complemento,Bairro,Cidade,UF,CEP,TelefoneEmergencia,TelefoneResidencial,TelefoneCelular,RNE,CPF,RG,OrgaoExpeditor,UFOrgaoExpeditor,Genero,Observacao,FlgCVE,Email,CNH,CategoriaCNH,DataValidadeCNH,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Pessoa pessoa)
+        public ActionResult Edit(RepresentanteViewModel representante)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(pessoa).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                PessoaService.Atualizar(representante.MapearParaObjetoDominio());
+                return Json(new { success = true, title = "Sucesso", message = "Representante cadastrado com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
-            ViewBag.IdPessoa = new SelectList(db.Usuarios, "IdUsuario", "Login", pessoa.IdPessoa);
-            return View(pessoa);
+            catch (Exception ex)
+            {
+                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: Representante/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string idPessoa, string IdEmpresa)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Pessoa pessoa = db.Pessoas.Find(id);
-            if (pessoa == null)
-            {
-                return HttpNotFound();
-            }
-            return View(pessoa);
+            Pessoa pessoa = PessoaService.ObterPorId(idPessoa);
+            RepresentanteViewModel vm = new RepresentanteViewModel(pessoa);
+            vm.IdEmpresa = IdEmpresa;
+            return PartialView(vm);
         }
 
         // POST: Representante/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(RepresentanteViewModel vm)
         {
-            Pessoa pessoa = db.Pessoas.Find(id);
-            db.Pessoas.Remove(pessoa);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            try
             {
-                db.Dispose();
+                Pessoa representante = PessoaService.ObterPorId(vm.IdPessoa);
+                PessoaService.ExcluirRepresentante(representante, Convert.ToInt32(vm.IdEmpresa));
+
+                return Json(new { success = true, title = "Sucesso", message = "Representante excluído com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
-            base.Dispose(disposing);
+            catch (Exception ex)
+            {
+                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

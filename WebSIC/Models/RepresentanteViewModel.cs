@@ -54,7 +54,39 @@ namespace WebSIC.Models
 
         public string IdEmpresa { get; set; }
 
+        public RepresentanteViewModel(){}
 
+        public RepresentanteViewModel(Pessoa representante)
+        {
+            IdPessoa = representante.IdPessoa.ToString();
+            Nome = representante.Nome;
+            Apelido = representante.Apelido;
+            DataNascimento = representante.DataNascimento;
+            NomePai = representante.NomePai;
+            NomeMae = representante.NomeMae;
+            Endereco = representante.Endereco;
+            Numero = representante.Numero;
+            Complemento = representante.Complemento;
+            Bairro = representante.Bairro;
+            Cidade = representante.Cidade;
+            UF = representante.UF;
+            CEP = representante.CEP;
+            TelefoneEmergencia = representante.TelefoneEmergencia;
+            TelefoneResidencial = representante.TelefoneResidencial;
+            TelefoneCelular = representante.TelefoneCelular;
+            RNE = representante.RNE;
+            CPF = representante.CPF;
+            RG = representante.RG;
+            OrgaoExpeditor = representante.OrgaoExpeditor;
+            UFOrgaoExpeditor = representante.UFOrgaoExpeditor;
+            Genero = representante.Genero;
+            Observacao = representante.Observacao;
+            FlgCVE = representante.FlgCVE;
+            Email = representante.Email;
+            CNH = representante.CNH;
+            CategoriaCNH = representante.CategoriaCNH;
+            DataValidadeCNH = representante.DataValidadeCNH;
+        }
 
         public Pessoa MapearParaObjetoDominio()
         {

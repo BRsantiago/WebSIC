@@ -170,8 +170,8 @@
                                             @Html.DisplayFor(modelItem => item.Ativo)
                                         </td>
                                         <td>
-                                            <a class="btn btn-primary" onclick="onShowModalEdit(@item.IdPessoa)">Editar</a> |
-                                            <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdPessoa)">Excluir</a>
+                                            <a class="btn btn-primary" onclick="onShowModalEdit(@item.IdPessoa, 'Representante')">Editar</a> |
+                                            <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdPessoa, @Model.IdEmpresa, 'Representante')">Excluir</a>
                                         </td>
                                     </tr>
                                 }
@@ -181,16 +181,10 @@
                 </div>
             </div>
         </div>
-
-        @*<div class="form-group">
-                <div class="col-md-4">
-                    <a class="btn btn-primary" onclick="onShowModalCreate()">Novo</a>
-                </div>
-            </div>*@
         <div class="form-group">
             <div class="row">
                 <div class="col-md-4">
-                    <a class="btn btn-primary" onclick="onShowModalCreateRepresentante(@Model.IdEmpresa)">Novo</a>
+                    <a class="btn btn-primary" onclick="onShowModalCreate(@Model.IdEmpresa, 'Representante')">Novo</a>
                 </div>
             </div>
         </div>
@@ -243,9 +237,8 @@
                                             @Html.DisplayFor(modelItem => item.Ativo)
                                         </td>
                                         <td>
-                                            @*<a class="btn btn-primary" onclick="onShowModalEdit(@item.IdContrato)">Editar</a>*@
-                                            @Html.ActionLink("Novo", "Edit", new { id = item.IdContrato }, new { @class = "btn btn-primary" })|
-                                            <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdContrato)">Excluir</a>
+                                            <a class="btn btn-primary" onclick="onShowModalEdit(@item.IdContrato, 'Contrato')">Editar</a> |
+                                            <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdContrato, 'Contrato')">Excluir</a>
                                         </td>
                                     </tr>
                                 }
@@ -256,8 +249,10 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-4">
-                @Html.ActionLink("Novo", "Create", null, new { @class = "btn btn-success", @id = "btn-novo-contrato" })
+            <div class="row">
+                <div class="col-md-4">
+                    <a class="btn btn-primary" onclick="onShowModalCreate(@Model.IdEmpresa, 'Contrato')">Novo</a>
+                </div>
             </div>
         </div>
     </div>
@@ -277,7 +272,7 @@
 
 
 @section Scripts{
-    @*<script src="~/Scripts/app.js"></script>*@
+    <script src="~/Scripts/index.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -285,23 +280,23 @@
             Datatables("table-contrato");
         });
 
-        //function onShowModalCreateRepresentante(id) {
-        //    $.ajax({
-        //        type: 'GET',
-        //        url: '/Representante/Create/',
-        //        data: { idEmpresa = id },
-        //        cache: false,
-        //        dataType: 'html',
-        //        success: function (data) {
-        //            $('#modal').html(data);
-        //            $('#modal').appendTo("body").modal('show');
-        //        },
-        //        error: function (xhr, ajaxOptions, thrownError) {
-        //            //TrataErroAjax(xhr);
-        //            alert("erro");
-        //        }
-        //    });
-        //};
+                //function onShowModalCreateRepresentante(id) {
+                //    $.ajax({
+                //        type: 'GET',
+                //        url: '/Representante/Create/',
+                //        data: { idEmpresa = id },
+                //        cache: false,
+                //        dataType: 'html',
+                //        success: function (data) {
+                //            $('#modal').html(data);
+                //            $('#modal').appendTo("body").modal('show');
+                //        },
+                //        error: function (xhr, ajaxOptions, thrownError) {
+                //            //TrataErroAjax(xhr);
+                //            alert("erro");
+                //        }
+                //    });
+                //};
 
     </script>
 

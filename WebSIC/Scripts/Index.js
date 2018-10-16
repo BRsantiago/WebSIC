@@ -40,16 +40,25 @@ function SubmitForm() {
         method: form.attr("method"),  // post
         data: form.serialize(),
         success: function () {
-            swal({
-                title: "Good job!",
-                text: "Action perform successfully!",
-                icon: "success",
-                button: "OK!"
-            })
-            .then((value) => {
-                $('#modal').modal('hide');
-                window.location = baseURL;
-            });
+            if (result.success) {
+                swal({
+                    title: "Good job!",
+                    text: result.message,
+                    icon: "success",
+                    button: "OK!"
+                })
+                    .then((value) => {
+                        $('#modal').modal('hide');
+                        window.location = baseURL;
+                    });
+            } else {
+                swal({
+                    title: "Atenção!",
+                    text: result.message,
+                    icon: "warning",
+                    button: "OK!"
+                })
+            }
             
         },
         error: function () {

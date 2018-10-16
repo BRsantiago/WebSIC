@@ -28,15 +28,41 @@ namespace Services.Service
             return this.PessoaRepository.ObterPorEmpresa(idEmpresa);
         }
 
-        public void IncluirNovoRepresentante(Pessoa representante)
+        public Pessoa IncluirNovoRepresentante(Pessoa representante)
         {
-            PessoaRepository.IncluirNovoRepresentante(representante);
-            PessoaRepository.Salvar();
+            try
+            {
+                PessoaRepository.IncluirNovoRepresentante(representante);
+                PessoaRepository.Salvar();
+
+                return representante;
+            }
+            catch (Exception ex)
+            { }
+
+            return null;
         }
 
         public Pessoa ObterPorId(string id)
         {
-            return this.ObterPorId(id);
+            return this.PessoaRepository.ObterPorIdPessoa(Convert.ToInt32(id));
+        }
+
+        public List<Pessoa> ObterTodos()
+        {
+            return this.PessoaRepository.ObterTodos();
+        }
+
+        public void Atualizar(Pessoa representante)
+        {
+            PessoaRepository.AtualizarRepresentante(representante);
+            PessoaRepository.Salvar();
+        }
+
+        public void ExcluirRepresentante(Pessoa representante, int idEmpresa)
+        {
+            representante.Empresas.Remove(representante.Empresas.Where(e => e.IdEmpresa == idEmpresa).SingleOrDefault());
+            this.Atualizar(representante);
         }
     }
 }

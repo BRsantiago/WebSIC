@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace Repository.Repository
 {
@@ -14,6 +15,13 @@ namespace Repository.Repository
         public PessoaRepository(WebSICContext _contexto)
             : base(_contexto)
         {
+        }
+
+        public Pessoa ObterPorIdPessoa(int idPessoa)
+        {
+            return contexto.Pessoas
+                           .Include(p => p.Empresas)
+                           .Where(p => p.IdPessoa == idPessoa).SingleOrDefault();
         }
 
         public Pessoa ObterPorCPF(string cpf)
@@ -34,6 +42,16 @@ namespace Repository.Repository
             });
 
             contexto.Pessoas.Add(representante);
+        }
+
+        public void AtualizarRepresentante(Pessoa representante)
+        {
+            representante.Empresas.ToList().ForEach(empresa =>
+            {
+                contexto.Entry(empresa).State = System.Data.Entity.EntityState.Unchanged;
+            });
+
+            contexto.Entry(representante).State = System.Data.Entity.EntityState.Modified;
         }
     }
 }
