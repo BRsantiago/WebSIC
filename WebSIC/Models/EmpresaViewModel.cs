@@ -9,12 +9,14 @@ namespace WebSIC.Models
 {
     public class EmpresaViewModel
     {
+     
         public int IdEmpresa { get; set; }
 
+        [Required(ErrorMessage = "Favor inserir a Razão Social")]
         [Display(Name = "Razão Social")]
         public string RazaoSocial { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Favor inserir o Noma Fantasia")]
         [Display(Name = "Nome Fantasia")]
         public string NomeFantasia { get; set; }
 
@@ -32,7 +34,7 @@ namespace WebSIC.Models
 
         public string UF { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Favor inserir o CNPJ")]
         [Display(Name = "CNPJ")]
         public string CGC { get; set; }
 
@@ -62,5 +64,7 @@ namespace WebSIC.Models
 
         [Display(Name = "Representante")]
         public List<Pessoa> Representantes { get; set; }
+
+        public List<Contrato> Contratos { get; set; }
     }
 }

@@ -1,23 +1,15 @@
-﻿using System;
+﻿using Entity.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace Entity.Entities
+namespace WebSIC.Models
 {
-    public class Pessoa : Base
+    public class RepresentanteViewModel
     {
-        public Pessoa() : base()
-        {
-
-        }
-
-        [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int IdPessoa { get; set; }
+        public string IdPessoa { get; set; }
         [Required]
         public string Nome { get; set; }
         public string Apelido { get; set; }
@@ -60,10 +52,48 @@ namespace Entity.Entities
         public string CategoriaCNH { get; set; }
         public string DataValidadeCNH { get; set; }
 
-        public Usuario Usuario { get; set; }
-        public IList<Solicitacao> Solicitacaos { get; set; }
-        public IList<Turma> Turmas { get; set; }
-        public IList<Credencial> Credenciais { get; set; }
-        public IList<Empresa> Empresas { get; set; }
+        public string IdEmpresa { get; set; }
+
+
+
+        public Pessoa MapearParaObjetoDominio()
+        {
+            Pessoa pessoa = new Pessoa();
+
+            pessoa.IdPessoa = Convert.ToInt32(this.IdPessoa);
+            pessoa.Nome = this.Nome;
+            pessoa.Apelido = this.Apelido;
+            pessoa.DataNascimento = this.DataNascimento;
+            pessoa.NomePai = this.NomePai;
+            pessoa.NomeMae = this.NomeMae;
+            pessoa.Endereco = this.Endereco;
+            pessoa.Numero = this.Numero;
+            pessoa.Complemento = this.Complemento;
+            pessoa.Bairro = this.Bairro;
+            pessoa.Cidade = this.Cidade;
+            pessoa.UF = this.UF;
+            pessoa.CEP = this.CEP;
+            pessoa.TelefoneEmergencia = this.TelefoneEmergencia;
+            pessoa.TelefoneResidencial = this.TelefoneResidencial;
+            pessoa.TelefoneCelular = this.TelefoneCelular;
+            pessoa.RNE = this.RNE;
+            pessoa.CPF = this.CPF;
+            pessoa.RG = this.RG;
+            pessoa.OrgaoExpeditor = this.OrgaoExpeditor;
+            pessoa.UFOrgaoExpeditor = this.UFOrgaoExpeditor;
+            pessoa.Genero = this.Genero;
+            pessoa.Observacao = this.Observacao;
+            pessoa.FlgCVE = this.FlgCVE;
+            pessoa.Email = this.Email;
+            pessoa.CNH = this.CNH;
+            pessoa.CategoriaCNH = this.CategoriaCNH;
+            pessoa.DataValidadeCNH = this.DataValidadeCNH;
+
+
+            pessoa.Empresas = new List<Empresa>();
+            pessoa.Empresas.Add(new Empresa() { IdEmpresa = Convert.ToInt32(this.IdEmpresa) });
+
+            return pessoa;
+        }
     }
 }

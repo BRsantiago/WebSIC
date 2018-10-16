@@ -10,5 +10,8 @@ namespace Service.Interface
     public interface IPessoaService
     {
         Pessoa ObterPorCPF(string cpf);
+        List<Pessoa> ObterPorEmpresa(int idEmpresa);
+        void IncluirNovoRepresentante(Pessoa representante);
+        Pessoa ObterPorId(string id);
     }
 }

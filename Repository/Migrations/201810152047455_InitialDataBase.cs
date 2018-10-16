@@ -3,7 +3,7 @@ namespace Repository.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class InitialDataBase : DbMigration
     {
         public override void Up()
         {
@@ -95,12 +95,14 @@ namespace Repository.Migrations
                 c => new
                     {
                         IdVeiculo = c.Int(nullable: false, identity: true),
-                        Descricao = c.String(),
-                        Placa = c.String(),
-                        Ano = c.String(),
+                        Marca = c.String(),
+                        Modelo = c.String(),
+                        AnoFabricacao = c.String(),
+                        AnoModelo = c.String(),
                         Cor = c.String(),
+                        Placa = c.String(nullable: false),
+                        Chassi = c.String(nullable: false),
                         Observacao = c.String(),
-                        Chassi = c.String(),
                         Criacao = c.DateTime(nullable: false),
                         Criador = c.String(),
                         Atualizacao = c.DateTime(nullable: false),
@@ -119,7 +121,7 @@ namespace Repository.Migrations
                 "dbo.Credencial",
                 c => new
                     {
-                        IdCredencial = c.String(nullable: false, maxLength: 128),
+                        IdCredencial = c.Int(nullable: false, identity: true),
                         Matricula = c.String(nullable: false),
                         FlgMotorista = c.Boolean(nullable: false),
                         FlgTemporario = c.Boolean(nullable: false),
@@ -137,7 +139,7 @@ namespace Repository.Migrations
                         Area2_IdArea = c.Int(),
                         Cargo_IdCargo = c.Int(),
                         Empresa_IdEmpresa = c.Int(),
-                        Pessoa_IdPessoa = c.String(maxLength: 128),
+                        Pessoa_IdPessoa = c.Int(),
                         Veiculo_IdVeiculo = c.Int(),
                     })
                 .PrimaryKey(t => t.IdCredencial)
@@ -181,8 +183,8 @@ namespace Repository.Migrations
                         Atualizacao = c.DateTime(nullable: false),
                         Atualizador = c.String(),
                         Ativo = c.Boolean(nullable: false),
-                        Pessoa_IdPessoa = c.String(maxLength: 128),
-                        Credencial_IdCredencial = c.String(maxLength: 128),
+                        Pessoa_IdPessoa = c.Int(),
+                        Credencial_IdCredencial = c.Int(),
                     })
                 .PrimaryKey(t => t.IdOcorrencia)
                 .ForeignKey("dbo.Pessoa", t => t.Pessoa_IdPessoa)
@@ -194,7 +196,7 @@ namespace Repository.Migrations
                 "dbo.Pessoa",
                 c => new
                     {
-                        IdPessoa = c.String(nullable: false, maxLength: 128),
+                        IdPessoa = c.Int(nullable: false, identity: true),
                         Nome = c.String(nullable: false),
                         Apelido = c.String(),
                         DataNascimento = c.String(),
@@ -246,9 +248,9 @@ namespace Repository.Migrations
                         Area1_IdArea = c.Int(),
                         Area2_IdArea = c.Int(),
                         Contrato_IdContrato = c.Int(),
-                        Credencial_IdCredencial = c.String(maxLength: 128),
+                        Credencial_IdCredencial = c.Int(),
                         Empresa_IdEmpresa = c.Int(),
-                        Pessoa_IdPessoa = c.String(maxLength: 128),
+                        Pessoa_IdPessoa = c.Int(),
                         PortaoAcesso_IdPortaoAcesso = c.Int(),
                         TipoSolicitacao_IdTipoSolicitacao = c.Int(),
                         Veiculo_IdVeiculo = c.Int(),
@@ -278,7 +280,7 @@ namespace Repository.Migrations
                 c => new
                     {
                         IdContrato = c.Int(nullable: false, identity: true),
-                        Numero = c.String(),
+                        Numero = c.String(nullable: false),
                         InicioVigencia = c.DateTime(nullable: false),
                         FimVigencia = c.DateTime(nullable: false),
                         Criacao = c.DateTime(nullable: false),
@@ -298,7 +300,7 @@ namespace Repository.Migrations
                     {
                         IdPortaoAcesso = c.Int(nullable: false, identity: true),
                         Sigla = c.String(nullable: false),
-                        Descricao = c.String(),
+                        Descricao = c.String(nullable: false),
                         Criacao = c.DateTime(nullable: false),
                         Criador = c.String(),
                         Atualizacao = c.DateTime(nullable: false),
@@ -324,7 +326,7 @@ namespace Repository.Migrations
                 c => new
                     {
                         IdTipoSolicitacao = c.Int(nullable: false, identity: true),
-                        Descricao = c.String(),
+                        Descricao = c.String(nullable: false),
                         Criacao = c.DateTime(nullable: false),
                         Criador = c.String(),
                         Atualizacao = c.DateTime(nullable: false),
@@ -338,8 +340,9 @@ namespace Repository.Migrations
                 c => new
                     {
                         IdTurma = c.Int(nullable: false, identity: true),
-                        Inicio = c.DateTime(nullable: false),
-                        Fim = c.DateTime(nullable: false),
+                        Titulo = c.String(),
+                        Realizacao = c.DateTime(nullable: false),
+                        DataValidade = c.DateTime(nullable: false),
                         Observacao = c.String(),
                         Criacao = c.DateTime(nullable: false),
                         Criador = c.String(),
@@ -353,6 +356,28 @@ namespace Repository.Migrations
                 .Index(t => t.Curso_IdCurso);
             
             CreateTable(
+                "dbo.Curso",
+                c => new
+                    {
+                        IdCurso = c.Int(nullable: false, identity: true),
+                        Titulo = c.String(nullable: false),
+                        CargaHoraria = c.Int(nullable: false),
+                        Objetivos = c.String(),
+                        Validade = c.Int(nullable: false),
+                        Prazo = c.Int(nullable: false),
+                        Obrigatorio = c.Boolean(nullable: false),
+                        Criacao = c.DateTime(nullable: false),
+                        Criador = c.String(),
+                        Atualizacao = c.DateTime(nullable: false),
+                        Atualizador = c.String(),
+                        Ativo = c.Boolean(nullable: false),
+                        Area_IdArea = c.Int(),
+                    })
+                .PrimaryKey(t => t.IdCurso)
+                .ForeignKey("dbo.Area", t => t.Area_IdArea)
+                .Index(t => t.Area_IdArea);
+            
+            CreateTable(
                 "dbo.Usuario",
                 c => new
                     {
@@ -364,27 +389,26 @@ namespace Repository.Migrations
                         Atualizacao = c.DateTime(nullable: false),
                         Atualizador = c.String(),
                         Ativo = c.Boolean(nullable: false),
-                        Pessoa_IdPessoa = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.IdUsuario)
-                .ForeignKey("dbo.Pessoa", t => t.Pessoa_IdPessoa)
-                .Index(t => t.Pessoa_IdPessoa);
+                .ForeignKey("dbo.Pessoa", t => t.IdUsuario)
+                .Index(t => t.IdUsuario);
             
             CreateTable(
                 "dbo.TipoEmpresas",
                 c => new
                     {
                         IdTipoEmpresa = c.Int(nullable: false, identity: true),
-                        Descricao = c.String(),
+                        Descricao = c.String(nullable: false),
                         Criacao = c.DateTime(nullable: false),
                         Criador = c.String(),
                         Atualizacao = c.DateTime(nullable: false),
                         Atualizador = c.String(),
                         Ativo = c.Boolean(nullable: false),
-                        TipoCracha_IdTipoCracha = c.Int(),
+                        TipoCracha_IdTipoCracha = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.IdTipoEmpresa)
-                .ForeignKey("dbo.TipoCrachas", t => t.TipoCracha_IdTipoCracha)
+                .ForeignKey("dbo.TipoCrachas", t => t.TipoCracha_IdTipoCracha, cascadeDelete: true)
                 .Index(t => t.TipoCracha_IdTipoCracha);
             
             CreateTable(
@@ -392,7 +416,7 @@ namespace Repository.Migrations
                 c => new
                     {
                         IdTipoCracha = c.Int(nullable: false, identity: true),
-                        Descricao = c.String(),
+                        Descricao = c.String(nullable: false),
                         Criacao = c.DateTime(nullable: false),
                         Criador = c.String(),
                         Atualizacao = c.DateTime(nullable: false),
@@ -400,25 +424,6 @@ namespace Repository.Migrations
                         Ativo = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.IdTipoCracha);
-            
-            CreateTable(
-                "dbo.Curso",
-                c => new
-                    {
-                        IdCurso = c.Int(nullable: false, identity: true),
-                        Duracao = c.Int(nullable: false),
-                        Observacao = c.String(),
-                        DataVencimento = c.DateTime(nullable: false),
-                        Criacao = c.DateTime(nullable: false),
-                        Criador = c.String(),
-                        Atualizacao = c.DateTime(nullable: false),
-                        Atualizador = c.String(),
-                        Ativo = c.Boolean(nullable: false),
-                        Area_IdArea = c.Int(),
-                    })
-                .PrimaryKey(t => t.IdCurso)
-                .ForeignKey("dbo.Area", t => t.Area_IdArea)
-                .Index(t => t.Area_IdArea);
             
             CreateTable(
                 "dbo.EmpresaAeroportoes",
@@ -437,7 +442,7 @@ namespace Repository.Migrations
                 "dbo.PessoaEmpresas",
                 c => new
                     {
-                        Pessoa_IdPessoa = c.String(nullable: false, maxLength: 128),
+                        Pessoa_IdPessoa = c.Int(nullable: false),
                         Empresa_IdEmpresa = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.Pessoa_IdPessoa, t.Empresa_IdEmpresa })
@@ -451,7 +456,7 @@ namespace Repository.Migrations
                 c => new
                     {
                         Turma_IdTurma = c.Int(nullable: false),
-                        Pessoa_IdPessoa = c.String(nullable: false, maxLength: 128),
+                        Pessoa_IdPessoa = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.Turma_IdTurma, t.Pessoa_IdPessoa })
                 .ForeignKey("dbo.Turma", t => t.Turma_IdTurma, cascadeDelete: true)
@@ -463,17 +468,17 @@ namespace Repository.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.Turma", "Curso_IdCurso", "dbo.Curso");
-            DropForeignKey("dbo.Curso", "Area_IdArea", "dbo.Area");
             DropForeignKey("dbo.TipoEmpresas", "TipoCracha_IdTipoCracha", "dbo.TipoCrachas");
             DropForeignKey("dbo.Empresa", "TipoEmpresa_IdTipoEmpresa", "dbo.TipoEmpresas");
             DropForeignKey("dbo.Veiculo", "Empresa_IdEmpresa", "dbo.Empresa");
             DropForeignKey("dbo.Credencial", "Veiculo_IdVeiculo", "dbo.Veiculo");
             DropForeignKey("dbo.Ocorrencia", "Credencial_IdCredencial", "dbo.Credencial");
             DropForeignKey("dbo.Ocorrencia", "Pessoa_IdPessoa", "dbo.Pessoa");
-            DropForeignKey("dbo.Usuario", "Pessoa_IdPessoa", "dbo.Pessoa");
+            DropForeignKey("dbo.Usuario", "IdUsuario", "dbo.Pessoa");
             DropForeignKey("dbo.TurmaPessoas", "Pessoa_IdPessoa", "dbo.Pessoa");
             DropForeignKey("dbo.TurmaPessoas", "Turma_IdTurma", "dbo.Turma");
+            DropForeignKey("dbo.Turma", "Curso_IdCurso", "dbo.Curso");
+            DropForeignKey("dbo.Curso", "Area_IdArea", "dbo.Area");
             DropForeignKey("dbo.Solicitacao", "Veiculo_IdVeiculo", "dbo.Veiculo");
             DropForeignKey("dbo.Solicitacao", "TipoSolicitacao_IdTipoSolicitacao", "dbo.TipoSolicitacao");
             DropForeignKey("dbo.Schedule", "IdSchedule", "dbo.Solicitacao");
@@ -504,9 +509,9 @@ namespace Repository.Migrations
             DropIndex("dbo.PessoaEmpresas", new[] { "Pessoa_IdPessoa" });
             DropIndex("dbo.EmpresaAeroportoes", new[] { "Aeroporto_IdAeroporto" });
             DropIndex("dbo.EmpresaAeroportoes", new[] { "Empresa_IdEmpresa" });
-            DropIndex("dbo.Curso", new[] { "Area_IdArea" });
             DropIndex("dbo.TipoEmpresas", new[] { "TipoCracha_IdTipoCracha" });
-            DropIndex("dbo.Usuario", new[] { "Pessoa_IdPessoa" });
+            DropIndex("dbo.Usuario", new[] { "IdUsuario" });
+            DropIndex("dbo.Curso", new[] { "Area_IdArea" });
             DropIndex("dbo.Turma", new[] { "Curso_IdCurso" });
             DropIndex("dbo.Schedule", new[] { "IdSchedule" });
             DropIndex("dbo.Contrato", new[] { "Empresa_IdEmpresa" });
@@ -536,10 +541,10 @@ namespace Repository.Migrations
             DropTable("dbo.TurmaPessoas");
             DropTable("dbo.PessoaEmpresas");
             DropTable("dbo.EmpresaAeroportoes");
-            DropTable("dbo.Curso");
             DropTable("dbo.TipoCrachas");
             DropTable("dbo.TipoEmpresas");
             DropTable("dbo.Usuario");
+            DropTable("dbo.Curso");
             DropTable("dbo.Turma");
             DropTable("dbo.TipoSolicitacao");
             DropTable("dbo.Schedule");

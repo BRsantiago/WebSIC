@@ -20,5 +20,20 @@ namespace Repository.Repository
         {
             return this.contexto.Pessoas.Where(p => p.CPF.Contains(cpf)).SingleOrDefault();
         }
+
+        public List<Pessoa> ObterPorEmpresa(int idEmpresa)
+        {
+            return this.contexto.Pessoas.Where(p => p.Empresas.Any(e => e.IdEmpresa == idEmpresa)).ToList();
+        }
+
+        public void IncluirNovoRepresentante(Pessoa representante)
+        {
+            representante.Empresas.ToList().ForEach(empresa =>
+            {
+                contexto.Entry(empresa).State = System.Data.Entity.EntityState.Unchanged;
+            });
+
+            contexto.Pessoas.Add(representante);
+        }
     }
 }

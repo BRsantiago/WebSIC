@@ -19,16 +19,19 @@ namespace WebSIC.Controllers
         public ITipoEmpresaService TipoEmpresaService;
         public IAeroportoService AeroportoService;
         public IPessoaService PessoaService;
+        public IContratoService ContratoService;
 
         public EmpresaController(IEmpresaService _EmpresaService,
                                     ITipoEmpresaService _TipoEmpresaService,
                                         IAeroportoService _AeroportoService,
-                                            IPessoaService _PessoaService)
+                                            IPessoaService _PessoaService,
+                                                IContratoService _ContratoService)
         {
             EmpresaService = _EmpresaService;
             TipoEmpresaService = _TipoEmpresaService;
             AeroportoService = _AeroportoService;
             PessoaService = _PessoaService;
+            ContratoService = _ContratoService;
         }
 
         // GET: Empresa
@@ -55,7 +58,7 @@ namespace WebSIC.Controllers
             model.TiposEmpresa = TipoEmpresaService.ObterTodos();
             model.Representantes = new List<Pessoa>();
 
-            return PartialView(model);
+            return View(model);
         }
 
         // POST: Empresa/Create
@@ -64,42 +67,58 @@ namespace WebSIC.Controllers
         [HttpPost]
         public ActionResult Create(EmpresaViewModel model)
         {
-            try
+            Empresa novaEmpresa = new Empresa();
+            if (ModelState.IsValid)
             {
-
                 TipoEmpresa tipoEmpresa = TipoEmpresaService.ObterPorId(model.IdTipoEmpresa);
                 Aeroporto aeroporto = AeroportoService.ObterPorId(model.IdAeroporto);
                 List<Aeroporto> aeroportos = new List<Aeroporto>();
                 aeroportos.Add(aeroporto);
 
-                Empresa novaEmpresa = new Empresa()
-                {
-                    RazaoSocial = model.RazaoSocial,
-                    NomeFantasia = model.NomeFantasia,
-                    Endereco = model.Endereco,
-                    Complemento = model.Complemento,
-                    Numero = model.Numero,
-                    Bairro = model.Bairro,
-                    Cidade = model.Cidade,
-                    UF = model.UF,
-                    CGC = model.CGC,
-                    Telefone = model.Telefone,
-                    TipoCobranca = model.TipoCobranca,
-                    Observacao = model.Observacao,
-                    CEP = model.CEP,
-                    Email = model.Email,
-                    TipoEmpresa = tipoEmpresa,
-                    Aeroportos = aeroportos
-                };
+                novaEmpresa.RazaoSocial = model.RazaoSocial;
+                novaEmpresa.NomeFantasia = model.NomeFantasia;
+                novaEmpresa.Endereco = model.Endereco;
+                novaEmpresa.Complemento = model.Complemento;
+                novaEmpresa.Numero = model.Numero;
+                novaEmpresa.Bairro = model.Bairro;
+                novaEmpresa.Cidade = model.Cidade;
+                novaEmpresa.UF = model.UF;
+                novaEmpresa.CGC = model.CGC;
+                novaEmpresa.Telefone = model.Telefone;
+                novaEmpresa.TipoCobranca = model.TipoCobranca;
+                novaEmpresa.Observacao = model.Observacao;
+                novaEmpresa.CEP = model.CEP;
+                novaEmpresa.Email = model.Email;
+                novaEmpresa.TipoEmpresa = tipoEmpresa;
+                novaEmpresa.Aeroportos = aeroportos;
 
                 EmpresaService.IncluirNovaEmpresa(novaEmpresa);
 
-                return Json(new { success = true, title = "Sucesso", message = "Nova empresa cadastrada com sucesso !" }, JsonRequestBehavior.AllowGet);
+                return RedirectToAction("Edit", new { id = novaEmpresa.IdEmpresa });
             }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
-            }
+
+            model.Aeroportos = AeroportoService.ObterTodos();
+            model.TiposEmpresa = TipoEmpresaService.ObterTodos();
+
+            model.IdEmpresa = novaEmpresa.IdEmpresa;
+            model.RazaoSocial = novaEmpresa.RazaoSocial;
+            model.NomeFantasia = novaEmpresa.NomeFantasia;
+            model.Endereco = novaEmpresa.Endereco;
+            model.Complemento = novaEmpresa.Complemento;
+            model.Numero = novaEmpresa.Numero;
+            model.Bairro = novaEmpresa.Bairro;
+            model.Cidade = novaEmpresa.Cidade;
+            model.UF = novaEmpresa.UF;
+            model.CGC = novaEmpresa.CGC;
+            model.Telefone = novaEmpresa.Telefone;
+            model.TipoCobranca = novaEmpresa.TipoCobranca;
+            model.Observacao = novaEmpresa.Observacao;
+            model.CEP = novaEmpresa.CEP;
+            model.Email = novaEmpresa.Email;
+            model.IdTipoEmpresa = novaEmpresa.TipoEmpresa.IdTipoEmpresa;
+            model.IdAeroporto = novaEmpresa.Aeroportos.FirstOrDefault().IdAeroporto;
+
+            return PartialView(novaEmpresa);
         }
 
         // GET: Empresa/Edit/5
@@ -111,6 +130,8 @@ namespace WebSIC.Controllers
 
             model.Aeroportos = AeroportoService.ObterTodos();
             model.TiposEmpresa = TipoEmpresaService.ObterTodos();
+            model.Representantes = PessoaService.ObterPorEmpresa(empresa.IdEmpresa);
+            model.Contratos = ContratoService.ObterPorEmpresa(empresa.IdEmpresa).ToList();
 
             model.IdEmpresa = empresa.IdEmpresa;
             model.RazaoSocial = empresa.RazaoSocial;
@@ -130,7 +151,7 @@ namespace WebSIC.Controllers
             model.IdTipoEmpresa = empresa.TipoEmpresa.IdTipoEmpresa;
             model.IdAeroporto = empresa.Aeroportos.FirstOrDefault().IdAeroporto;
 
-            return PartialView(model);
+            return View(model);
         }
 
         // POST: Empresa/Edit/5

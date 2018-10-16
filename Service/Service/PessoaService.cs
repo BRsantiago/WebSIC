@@ -22,5 +22,21 @@ namespace Services.Service
         {
             return this.PessoaRepository.ObterPorCPF(cpf);
         }
+
+        public List<Pessoa> ObterPorEmpresa(int idEmpresa)
+        {
+            return this.PessoaRepository.ObterPorEmpresa(idEmpresa);
+        }
+
+        public void IncluirNovoRepresentante(Pessoa representante)
+        {
+            PessoaRepository.IncluirNovoRepresentante(representante);
+            PessoaRepository.Salvar();
+        }
+
+        public Pessoa ObterPorId(string id)
+        {
+            return this.ObterPorId(id);
+        }
     }
 }
