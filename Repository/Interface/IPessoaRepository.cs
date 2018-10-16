@@ -9,8 +9,10 @@ namespace Repository.Interface
 {
     public interface IPessoaRepository : IRepositoryBase<Pessoa>
     {
+        Pessoa ObterPorIdPessoa(int idPessoa);
         Pessoa ObterPorCPF(string cpf);
         List<Pessoa> ObterPorEmpresa(int idEmpresa);
         void IncluirNovoRepresentante(Pessoa representante);
+        void AtualizarRepresentante(Pessoa representante);
     }
 }

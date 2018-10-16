@@ -11,7 +11,10 @@ namespace Service.Interface
     {
         Pessoa ObterPorCPF(string cpf);
         List<Pessoa> ObterPorEmpresa(int idEmpresa);
-        void IncluirNovoRepresentante(Pessoa representante);
+        Pessoa IncluirNovoRepresentante(Pessoa representante);
         Pessoa ObterPorId(string id);
+        List<Pessoa> ObterTodos();
+        void Atualizar(Pessoa representante);
+        void ExcluirRepresentante(Pessoa representante, int idEmpresa);
     }
 }
