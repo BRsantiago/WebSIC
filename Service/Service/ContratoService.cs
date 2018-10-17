@@ -20,20 +20,9 @@ namespace Services.Service
 
         public Contrato Atualizar(Contrato contrato)
         {
-            try
-            {
-                var check = ObterPorNumero(contrato.Numero, false);
-                if (check != null && check.IdContrato == contrato.IdContrato)
-                {
-                    contratoRepository.Atualizar(contrato);
-                    contratoRepository.Salvar();
-                    return contrato;
-                }
-            }
-            catch (Exception ex)
-            { }
-
-            return null;
+            contratoRepository.Atualizar(contrato);
+            contratoRepository.Salvar();
+            return contrato;
         }
 
         public int Excluir(int id)

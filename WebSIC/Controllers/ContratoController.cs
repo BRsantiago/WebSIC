@@ -99,11 +99,11 @@ namespace WebSIC.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(ContratoViewModel contrato)
         {
             try
             {
-                Service.Excluir(id);
+                Service.Excluir(contrato.IdContrato);
                 return Json(new { success = true, title = "Sucesso", message = "Representante excluído com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

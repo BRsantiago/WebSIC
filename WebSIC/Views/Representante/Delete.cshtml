@@ -6,7 +6,7 @@
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
             <h4 class="modal-title">Deseja excluir o representante abaixo ?</h4>
         </div>
-        @using (Html.BeginForm())
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form-representante" }))
         {
             @Html.AntiForgeryToken()
 
@@ -178,7 +178,7 @@
         <div class="modal-footer">
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <button id="btnSave" class="btn btn-danger" onclick="SubmitForm()">Excluir</button>
+                    <button id="btnSave" class="btn btn-danger" onclick="Salvar('#form-representante')">Excluir</button>
                 </div>
             </div>
         </div>

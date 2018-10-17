@@ -8,41 +8,42 @@
             <h4 class="modal-title">Deseja realmente excluir este contrato ?</h4>
         </div>
         <div class="modal-body">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form-contrato" }))
             {
                 @Html.AntiForgeryToken()
 
-                <div class="form-horizontal">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.IdEmpresa)
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
-                        </div>
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.IdEmpresa)
+                @Html.HiddenFor(model => model.IdContrato)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
                     </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2" for="InicioVigencia">Vigência</label>
-                        <div class="col-md-2">
-                            @Html.EditorFor(model => model.InicioVigencia, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.InicioVigencia, "", new { @class = "text-danger" })
-                        </div>
-                  
-                        <label class="control-label col-md-1" for="InicioVigencia">até</label>
-                        <div class="col-md-2">
-                            @Html.EditorFor(model => model.FimVigencia, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.FimVigencia, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
                 </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="InicioVigencia">Vigência</label>
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.InicioVigencia, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.InicioVigencia, "", new { @class = "text-danger" })
+                    </div>
+
+                    <label class="control-label col-md-1" for="InicioVigencia">até</label>
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.FimVigencia, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FimVigencia, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
             }
             <div class="modal-footer">
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <button id="btnSave" class="btn btn-primary" onclick="SubmitForm()">Salvar</button>
+                        <button id="btnSave" class="btn btn-danger" onclick="Salvar('#form-contrato')">Excluir</button>
                     </div>
                 </div>
             </div>

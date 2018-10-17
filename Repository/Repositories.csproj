@@ -75,6 +75,10 @@
     <Compile Include="Migrations\201810152047455_InitialDataBase.Designer.cs">
       <DependentUpon>201810152047455_InitialDataBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810171438078_AddLogotipoToEmpresa.cs" />
+    <Compile Include="Migrations\201810171438078_AddLogotipoToEmpresa.Designer.cs">
+      <DependentUpon>201810171438078_AddLogotipoToEmpresa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\TipoCrachaRepository.cs" />
@@ -114,6 +118,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201810152047455_InitialDataBase.resx">
       <DependentUpon>201810152047455_InitialDataBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810171438078_AddLogotipoToEmpresa.resx">
+      <DependentUpon>201810171438078_AddLogotipoToEmpresa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,7 +8,7 @@
             <h4 class="modal-title">Novo Contrato</h4>
         </div>
         <div class="modal-body">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form-contrato" }))
             {
                 @Html.AntiForgeryToken()
 
@@ -42,10 +42,14 @@
             <div class="modal-footer">
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <button id="btnSave" class="btn btn-primary" onclick="SubmitForm()">Salvar</button>
+                        <button id="btnSave" class="btn btn-primary" onclick="Salvar('#form-contrato')">Salvar</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script src="~/Scripts/app.js"></script>
+}

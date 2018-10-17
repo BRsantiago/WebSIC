@@ -112,11 +112,12 @@ function onShowModalDeleteRepresentante(idPessoa, idEmpresa, tipo) {
 
 
 
-function Salvar() {
+function Salvar(form) {
 
     baseURL = window.location;
 
-    var form = $("form");
+    var form = $(form);
+
     $.ajax({
         url: form.attr("action"),
         method: form.attr("method"),  // post

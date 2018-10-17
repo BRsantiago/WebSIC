@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -91,6 +92,17 @@ namespace WebSIC.Controllers
                 novaEmpresa.Email = model.Email;
                 novaEmpresa.TipoEmpresa = tipoEmpresa;
                 novaEmpresa.Aeroportos = aeroportos;
+
+
+                if (model.Logotipo != null && model.Logotipo.ContentLength > 0)
+                {
+                    var uploadDir = "~\\Images\\Logo";
+                    var imagePath = Path.Combine(Server.MapPath(uploadDir), model.Logotipo.FileName);
+                    var imageUrl = Path.Combine(uploadDir, model.Logotipo.FileName);
+                    model.Logotipo.SaveAs(imagePath);
+                    novaEmpresa.ImageUrl = imageUrl;
+                }
+
 
                 EmpresaService.IncluirNovaEmpresa(novaEmpresa);
 

@@ -56,6 +56,7 @@ namespace WebSIC.Models
 
         public int IdAeroporto { get; set; }
 
+        [DataType(DataType.Upload)]
         public HttpPostedFileBase Logotipo { get; set; }
 
         [Display(Name = "Área de Atuação")]
