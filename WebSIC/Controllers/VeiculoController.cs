@@ -50,7 +50,15 @@ namespace WebSIC.Controllers
         public ActionResult Create()
         {
             ViewBag.Empresas = new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia");
+            ViewBag.Apolices = new List<SelectListItem>();
             return PartialView();
+        }
+
+        public ActionResult GetApolices(int idEmpresa)
+        {
+            var apoliceItems = ApoliceService.ObterValidas(idEmpresa)
+                .Select(a => new SelectListItem() { Text = a.Numero, Value = a.IdApolice.ToString() });
+            return Json(apoliceItems, JsonRequestBehavior.AllowGet);
         }
 
         // POST: Veiculo/Create
@@ -80,7 +88,10 @@ namespace WebSIC.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Veiculo veiculo = Service.Obter(id.Value);
-            ViewBag.Empresas = new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", veiculo.Empresa.IdEmpresa);
+            ViewBag.Empresas = new SelectList(
+                EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", veiculo.Empresa.IdEmpresa);
+            ViewBag.Apolices = new SelectList(
+                ApoliceService.ObterValidas(veiculo.Empresa.IdEmpresa), "IdApolice", "Numero", veiculo.Apolice.IdApolice);
             if (veiculo == null)
             {
                 return HttpNotFound();

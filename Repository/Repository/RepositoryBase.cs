@@ -24,12 +24,12 @@ namespace Repository.Repository
             contexto.Set<TEntity>().Add(obj);
         }
 
-        public TEntity ObterPorId(int id)
+        public virtual TEntity ObterPorId(int id)
         {
             return contexto.Set<TEntity>().Find(id);
         }
 
-        public List<TEntity> ObterTodos()
+        public virtual List<TEntity> ObterTodos()
         {
             return contexto.Set<TEntity>().ToList();
         }
