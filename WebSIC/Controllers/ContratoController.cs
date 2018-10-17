@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Entity.Entities;
 using Repository.Context;
 using Service.Interface;
+using WebSIC.Models;
 
 namespace WebSIC.Controllers
 {
@@ -23,20 +24,18 @@ namespace WebSIC.Controllers
             EmpresaService = empresaService;
         }
 
-        // GET: Contrato
         public ActionResult Index()
         {
             return View(Service.Listar());
         }
 
-        // GET: Contrato/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Contrato contrato = Service.Obter(id.Value);;
+            Contrato contrato = Service.Obter(id.Value); ;
             if (contrato == null)
             {
                 return HttpNotFound();
@@ -44,98 +43,75 @@ namespace WebSIC.Controllers
             return PartialView(contrato);
         }
 
-        // GET: Contrato/Create
-        public ActionResult Create()
+        public ActionResult Create(int idEmpresa)
         {
-            ViewBag.Empresas = new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia");
-            return PartialView();
+            ContratoViewModel vm = new ContratoViewModel();
+            vm.IdEmpresa = idEmpresa;
+            return PartialView(vm);
         }
 
-        // POST: Contrato/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdContrato,Numero,InicioVigencia,FimVigencia,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Contrato contrato, FormCollection form)
+        public ActionResult Create(ContratoViewModel contrato)
         {
-            if (ModelState.IsValid)
+            try
             {
-                contrato.Criador =
-                    contrato.Atualizador = User.Identity.Name;
-                contrato.Empresa = EmpresaService.ObterPorId(int.Parse(form["Empresa.IdEmpresa"]));
-                var check = Service.Incluir(contrato);
-                if (check != null)
-                    return RedirectToAction("Index");
-            }
+                //contrato.Criador =
+                //    contrato.Atualizador = User.Identity.Name;
+                //contrato.Empresa = EmpresaService.ObterPorId(contrato.Empresa.IdEmpresa);
+                Service.Incluir(contrato.MapearParaObjetoDominio());
 
-            return PartialView(contrato);
+                return Json(new { success = true, title = "Sucesso", message = "Contrato cadastrado com sucesso !" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
-        // GET: Contrato/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Contrato contrato = Service.Obter(id.Value);
-            ViewBag.Empresas = new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", contrato.Empresa.IdEmpresa);
-            if (contrato == null)
-            {
-                return HttpNotFound();
-            }
-            return PartialView(contrato);
+            return PartialView(new ContratoViewModel(contrato));
         }
 
-        // POST: Contrato/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdContrato,Numero,InicioVigencia,FimVigencia,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Contrato contrato, FormCollection form)
+        public ActionResult Edit(ContratoViewModel contrato)
         {
-            if (ModelState.IsValid)
+            try
             {
-                contrato.Atualizacao = DateTime.Now;
-                contrato.Atualizador = User.Identity.Name;
-                contrato.Empresa = EmpresaService.ObterPorId(int.Parse(form["Empresa.IdEmpresa"]));
-                var check = Service.Atualizar(contrato);
-                if (check != null)
-                    return RedirectToAction("Index");
+                Service.Atualizar(contrato.MapearParaObjetoDominio());
+                return Json(new { success = true, title = "Sucesso", message = "Contrato cadastrado com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
-            return PartialView(contrato);
+            catch (Exception ex)
+            {
+                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
-        // GET: Contrato/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Contrato contrato = Service.Obter(id.Value);;
-            if (contrato == null)
-            {
-                return HttpNotFound();
-            }
-            return PartialView(contrato);
+            Contrato contrato = Service.Obter(id.Value); ;
+            return PartialView(new ContratoViewModel(contrato));
         }
 
-        // POST: Contrato/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var check = Service.Excluir(id);
-            if (check != 0)
-                return RedirectToAction("Index");
-
-            return PartialView(id);
+            try
+            {
+                Service.Excluir(id);
+                return Json(new { success = true, title = "Sucesso", message = "Representante excluído com sucesso !" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-        }
+
     }
 }

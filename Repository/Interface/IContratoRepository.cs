@@ -13,5 +13,6 @@ namespace Repository.Interface
         IList<Contrato> ObterPorPeriodo(int idEmpresa, DateTime inicioVigencia, DateTime finalVigencia);
         IList<Contrato> ObterVigentes(int idEmpresa);
         Contrato ObterPorNumero(string numero, bool withTracking);
+        void IncluirNovoContrato(Contrato contrato);
     }
 }

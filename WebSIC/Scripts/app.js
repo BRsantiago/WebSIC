@@ -65,8 +65,28 @@ function onShowModalEdit(id, tipo) {
     });
 };
 
+function onShowModalDelete(id, tipo) {
 
-function onShowModalDelete(idPessoa, idEmpresa, tipo) {
+    var params = { id: id };
+
+    $.ajax({
+        type: 'GET',
+        url: '/' + tipo + '/Delete/',
+        data: params,
+        cache: false,
+        dataType: 'html',
+        success: function (data) {
+            $('#modal').html(data);
+            $('#modal').modal('show');
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert("erro");
+        }
+    });
+};
+
+
+function onShowModalDeleteRepresentante(idPessoa, idEmpresa, tipo) {
 
     var params = {
         idPessoa: idPessoa,
@@ -88,6 +108,9 @@ function onShowModalDelete(idPessoa, idEmpresa, tipo) {
         }
     });
 };
+
+
+
 
 function Salvar() {
 
@@ -198,3 +221,9 @@ function ObterRepresentandePorCPF() {
         }
     });
 }
+
+
+var loadFile = function (event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+};

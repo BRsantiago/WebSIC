@@ -9,7 +9,7 @@ namespace WebSIC.Models
 {
     public class EmpresaViewModel
     {
-     
+
         public int IdEmpresa { get; set; }
 
         [Required(ErrorMessage = "Favor inserir a Razão Social")]
@@ -55,6 +55,8 @@ namespace WebSIC.Models
         public int IdTipoEmpresa { get; set; }
 
         public int IdAeroporto { get; set; }
+
+        public HttpPostedFileBase Logotipo { get; set; }
 
         [Display(Name = "Área de Atuação")]
         public List<TipoEmpresa> TiposEmpresa { get; set; }

@@ -35,5 +35,13 @@ namespace Repository.Repository
         {
             return contexto.Contratos.Include("Empresa").Where(c => c.Empresa.IdEmpresa == idEmpresa && c.FimVigencia >= DateTime.Now).ToList();
         }
+
+        public void IncluirNovoContrato(Contrato contrato)
+        {
+            contexto.Entry(contrato.Empresa).State = System.Data.Entity.EntityState.Unchanged;
+
+            contexto.Contratos.Add(contrato);
+        }
+
     }
 }
