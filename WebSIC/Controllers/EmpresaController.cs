@@ -96,8 +96,8 @@ namespace WebSIC.Controllers
 
                 if (model.Logotipo != null && model.Logotipo.ContentLength > 0)
                 {
-                    var uploadDir = "~\\Images\\Logo";
-                    var imagePath = Path.Combine(Server.MapPath(uploadDir), model.Logotipo.FileName);
+                    var uploadDir = "/Images/Logo";
+                    var imagePath = Server.MapPath(uploadDir) + "/" + model.Logotipo.FileName;//Path.Combine(Server.MapPath(uploadDir), model.Logotipo.FileName);
                     var imageUrl = Path.Combine(uploadDir, model.Logotipo.FileName);
                     model.Logotipo.SaveAs(imagePath);
                     novaEmpresa.ImageUrl = imageUrl;
@@ -163,6 +163,8 @@ namespace WebSIC.Controllers
             model.IdTipoEmpresa = empresa.TipoEmpresa.IdTipoEmpresa;
             model.IdAeroporto = empresa.Aeroportos.FirstOrDefault().IdAeroporto;
 
+            model.ImageUrl = empresa.ImageUrl;
+
             return View(model);
         }
 
@@ -174,10 +176,10 @@ namespace WebSIC.Controllers
         {
             try
             {
-                TipoEmpresa tipoEmpresa = TipoEmpresaService.ObterPorId(model.IdTipoEmpresa);
-                Aeroporto aeroporto = AeroportoService.ObterPorId(model.IdAeroporto);
-                List<Aeroporto> aeroportos = new List<Aeroporto>();
-                aeroportos.Add(aeroporto);
+                //TipoEmpresa tipoEmpresa = TipoEmpresaService.ObterPorId(model.IdTipoEmpresa);
+                //Aeroporto aeroporto = AeroportoService.ObterPorId(model.IdAeroporto);
+                //List<Aeroporto> aeroportos = new List<Aeroporto>();
+                //aeroportos.Add(aeroporto);
                 Empresa empresa = EmpresaService.ObterPorId(model.IdEmpresa);
 
                 empresa.RazaoSocial = model.RazaoSocial;
@@ -194,15 +196,35 @@ namespace WebSIC.Controllers
                 empresa.Observacao = model.Observacao;
                 empresa.CEP = model.CEP;
                 empresa.Email = model.Email;
-                empresa.TipoEmpresa = tipoEmpresa;
+                //empresa.TipoEmpresa = tipoEmpresa;
+
+                if (model.Logotipo != null && model.Logotipo.ContentLength > 0)
+                {
+                    var uploadDir = "/Images/Logo";
+                    var imagePath = Server.MapPath(uploadDir) + "/" + model.Logotipo.FileName;//Path.Combine(Server.MapPath(uploadDir), model.Logotipo.FileName);
+                    var imageUrl = Path.Combine(uploadDir, model.Logotipo.FileName);
+                    model.Logotipo.SaveAs(imagePath);
+                    empresa.ImageUrl = imageUrl;
+                }
 
                 EmpresaService.AtualizarNovaEmpresa(empresa);
 
-                return Json(new { success = true, title = "Sucesso", message = "Empresa atualizada com sucesso !" }, JsonRequestBehavior.AllowGet);
+                var msg = "<script> swal({title: 'Good job!', text: 'Empresa atualizada com sucesso !', icon: 'success', button: 'OK!'}) </script>";
+
+                TempData["notification"] = msg;
+
+                return RedirectToAction("Index");
+                //return Json(new { success = true, title = "Sucesso", message = "Empresa atualizada com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+
+                var msg = "<script> swal({title: 'Atenção!', text: '" + ex.Message + "', icon: 'warning', button: 'OK!'}) </script>";
+
+                TempData["notification"] = msg;
+
+                //return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+                return PartialView(model);
             }
         }
 

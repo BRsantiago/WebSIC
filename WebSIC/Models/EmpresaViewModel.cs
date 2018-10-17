@@ -59,6 +59,8 @@ namespace WebSIC.Models
         [DataType(DataType.Upload)]
         public HttpPostedFileBase Logotipo { get; set; }
 
+        public string ImageUrl { get; set; }
+
         [Display(Name = "Área de Atuação")]
         public List<TipoEmpresa> TiposEmpresa { get; set; }
 

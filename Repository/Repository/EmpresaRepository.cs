@@ -48,7 +48,7 @@ namespace Repository.Repository
 
         public virtual void Atualizar(Empresa empresa)
         {
-            contexto.Entry(empresa.TipoEmpresa).State = System.Data.Entity.EntityState.Modified;
+            //contexto.Entry(empresa.TipoEmpresa).State = System.Data.Entity.EntityState.Modified;
 
             //foreach (var aeroporto in empresa.Aeroportos)
             //{
