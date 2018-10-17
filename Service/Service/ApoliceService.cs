@@ -1,4 +1,5 @@
-﻿using Entity.Entities;
+﻿using Entity.DTO;
+using Entity.Entities;
 using Repository.Interface;
 using Service.Interface;
 using System;
@@ -18,7 +19,7 @@ namespace Services.Service
             apoliceRepository = repository;
         }
 
-        public Apolice Atualizar(Apolice apolice)
+        public ServiceReturn Atualizar(Apolice apolice)
         {
             try
             {
@@ -27,16 +28,19 @@ namespace Services.Service
                 {
                     apoliceRepository.Atualizar(apolice);
                     apoliceRepository.Salvar();
-                    return apolice;
+
+                    return new ServiceReturn() { success = true, title = "Sucesso", message = "Apólice atualizada com sucesso!" };
                 }
+
+                return new ServiceReturn() { success = false, title = "Erro", message = "Não foi possível atualizar a apólice pois já existe um registro com o mesmo número!" };
             }
             catch (Exception ex)
-            { }
-
-            return null;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao atualizar a apólice! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
-        public int Excluir(int id)
+        public ServiceReturn Excluir(int id)
         {
             Apolice apolice = null;
 
@@ -45,15 +49,16 @@ namespace Services.Service
                 apolice = Obter(id);
                 apoliceRepository.Remover(apolice);
                 apoliceRepository.Salvar();
-                return apolice.IdApolice;
+
+                return new ServiceReturn() { success = true, title = "Sucesso", message = "Apólice deletada com sucesso!" };
             }
             catch (Exception ex)
-            { }
-
-            return 0;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao deletar a apólice! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
-        public Apolice Incluir(Apolice apolice)
+        public ServiceReturn Incluir(Apolice apolice)
         {
             try
             {
@@ -62,13 +67,16 @@ namespace Services.Service
                 {
                     apoliceRepository.Incluir(apolice);
                     apoliceRepository.Salvar();
-                    return apolice;
+
+                    return new ServiceReturn() { success = true, title = "Sucesso", message = "Apólice cadastrada com sucesso!" };
                 }
+
+                return new ServiceReturn() { success = false, title = "Erro", message = "Não foi possível cadastrar a apólice pois já existe um registro com o mesmo número!" };
             }
             catch (Exception ex)
-            { }
-
-            return null;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao cadastrar a apólice! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
         public IList<Apolice> Listar()

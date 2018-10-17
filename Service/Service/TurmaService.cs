@@ -1,4 +1,5 @@
-﻿using Entity.Entities;
+﻿using Entity.DTO;
+using Entity.Entities;
 using Repository.Interface;
 using Service.Interface;
 using System;
@@ -18,22 +19,22 @@ namespace Services.Service
             turmaRepository = repository;
         }
 
-        public Turma Atualizar(Turma turma)
+        public ServiceReturn Atualizar(Turma turma)
         {
             try
             {
                 turmaRepository.Atualizar(turma);
                 turmaRepository.Salvar();
 
-                return turma;
+                return new ServiceReturn() { success = true, title = "Sucesso", message = "Turma atualizado com sucesso!" };
             }
             catch (Exception ex)
-            { }
-
-            return null;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao atualizar a turma! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
-        public int Excluir(int id)
+        public ServiceReturn Excluir(int id)
         {
             Turma turma = null;
 
@@ -43,27 +44,27 @@ namespace Services.Service
                 turmaRepository.Remover(turma);
                 turmaRepository.Salvar();
 
-                return id;
+                return new ServiceReturn() { success = true, title = "Sucesso", message = "Turma deletada com sucesso!" };
             }
             catch (Exception ex)
-            { }
-
-            return 0;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao deletar a turma! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
-        public Turma Incluir(Turma turma)
+        public ServiceReturn Incluir(Turma turma)
         {
             try
             {
                 turmaRepository.Incluir(turma);
                 turmaRepository.Salvar();
 
-                return turma;
+                return new ServiceReturn() { success = true, title = "Sucesso", message = "Turma cadastrada com sucesso!" };
             }
             catch (Exception ex)
-            { }
-
-            return null;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao cadastrar a turma! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
         public IList<Turma> Listar()

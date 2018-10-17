@@ -1,4 +1,5 @@
-﻿using Entity.Entities;
+﻿using Entity.DTO;
+using Entity.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,12 @@ namespace Service.Interface
     public interface IAreaService
     {
         IList<Area> Listar();
+
         Area Obter(int id);
         Area ObterPorSigla(string sigla, bool withTracking);
-        Area Incluir(Area area);
-        Area Atualizar(Area area);
-        int Excluir(int id);
+
+        ServiceReturn Incluir(Area area);
+        ServiceReturn Atualizar(Area area);
+        ServiceReturn Excluir(int id);
     }
 }

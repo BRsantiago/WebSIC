@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Entity.Entities;
+using Newtonsoft.Json;
 using Repository.Context;
 using Service.Interface;
 
@@ -64,8 +65,8 @@ namespace WebSIC.Controllers
                     turma.Atualizador = User.Identity.Name;
                 turma.Curso = CursoService.Obter(int.Parse(form["Curso.IdCurso"]));
                 var check = Service.Incluir(turma);
-                if (check != null)
-                    return RedirectToAction("Index");
+
+                return Json(check, JsonRequestBehavior.AllowGet);
             }
 
             return PartialView(turma);
@@ -100,8 +101,8 @@ namespace WebSIC.Controllers
                 turma.Atualizador = User.Identity.Name;
                 turma.Curso = CursoService.Obter(int.Parse(form["Curso.IdCurso"]));
                 var check = Service.Atualizar(turma);
-                if (check != null)
-                    return RedirectToAction("Index");
+
+                return Json(check, JsonRequestBehavior.AllowGet);
             }
             return PartialView(turma);
         }
@@ -127,10 +128,7 @@ namespace WebSIC.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             var check = Service.Excluir(id);
-            if (check != 0)
-                return RedirectToAction("Index");
-
-            return PartialView(id);
+            return Json(check, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

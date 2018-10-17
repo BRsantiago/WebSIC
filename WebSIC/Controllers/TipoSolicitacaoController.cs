@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Entity.Entities;
+using Newtonsoft.Json;
 using Repository.Context;
 using Service.Interface;
 
@@ -60,8 +61,8 @@ namespace WebSIC.Controllers
                 tipoSolicitacao.Criador =
                     tipoSolicitacao.Atualizador = User.Identity.Name;
                 var check = Service.Incluir(tipoSolicitacao);
-                if (check != null)
-                    return RedirectToAction("Index");
+
+                return Json(check, JsonRequestBehavior.AllowGet);
             }
 
             return PartialView(tipoSolicitacao);
@@ -94,8 +95,8 @@ namespace WebSIC.Controllers
                 tipoSolicitacao.Atualizacao = DateTime.Now;
                 tipoSolicitacao.Atualizador = User.Identity.Name;
                 var check = Service.Atualizar(tipoSolicitacao);
-                if (check != null)
-                    return RedirectToAction("Index");
+
+                return Json(check, JsonRequestBehavior.AllowGet);
             }
             return PartialView(tipoSolicitacao);
         }
@@ -121,10 +122,7 @@ namespace WebSIC.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             var check = Service.Excluir(id);
-            if (check != 0)
-                return RedirectToAction("Index");
-
-            return PartialView(id);
+            return Json(check, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

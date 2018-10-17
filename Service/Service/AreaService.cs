@@ -1,4 +1,5 @@
-﻿using Entity.Entities;
+﻿using Entity.DTO;
+using Entity.Entities;
 using Repository.Interface;
 using Service.Interface;
 using System;
@@ -18,7 +19,7 @@ namespace Services.Service
             areaRepository = repository;
         }
 
-        public Area Atualizar(Area area)
+        public ServiceReturn Atualizar(Area area)
         {
             try
             {
@@ -27,16 +28,19 @@ namespace Services.Service
                 {
                     areaRepository.Atualizar(area);
                     areaRepository.Salvar();
-                    return area;
+
+                    return new ServiceReturn() { success = true, title = "Sucesso", message = "Área atualizada com sucesso!" };
                 }
+
+                return new ServiceReturn() { success = false, title = "Erro", message = "Não foi possível atualizar a área pois já existe um registro com a mesma sigla!" };
             }
             catch (Exception ex)
-            { }
-
-            return null;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao atualizar a área! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
-        public int Excluir(int id)
+        public ServiceReturn Excluir(int id)
         {
             Area area = null;
 
@@ -46,15 +50,15 @@ namespace Services.Service
                 areaRepository.Remover(area);
                 areaRepository.Salvar();
 
-                return area.IdArea;
+                return new ServiceReturn() { success = true, title = "Sucesso", message = "Área deletada com sucesso!" };
             }
             catch (Exception ex)
-            { }
-
-            return 0;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao deletar a área! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
-        public Area Incluir(Area area)
+        public ServiceReturn Incluir(Area area)
         {
             try
             {
@@ -63,13 +67,16 @@ namespace Services.Service
                 {
                     areaRepository.Incluir(area);
                     areaRepository.Salvar();
-                    return area;    
+
+                    return new ServiceReturn() { success = true, title = "Sucesso", message = "Área cadastrada com sucesso!" };
                 }
+
+                return new ServiceReturn() { success = false, title = "Erro", message = "Não foi possível cadastrar a área pois já existe um registro com a mesma sigla!" };
             }
             catch (Exception ex)
-            { }
-
-            return null;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao cadastrar a área! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
         public IList<Area> Listar()

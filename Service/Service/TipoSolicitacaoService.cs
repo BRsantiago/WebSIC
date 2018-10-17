@@ -1,4 +1,5 @@
-﻿using Entity.Entities;
+﻿using Entity.DTO;
+using Entity.Entities;
 using Repository.Interface;
 using Service.Interface;
 using System;
@@ -18,22 +19,22 @@ namespace Services.Service
             tipoSolicitacaoRepository = repository;
         }
 
-        public TipoSolicitacao Atualizar(TipoSolicitacao tipoSolicitacao)
+        public ServiceReturn Atualizar(TipoSolicitacao tipoSolicitacao)
         {
             try
             {
                 tipoSolicitacaoRepository.Atualizar(tipoSolicitacao);
                 tipoSolicitacaoRepository.Salvar();
 
-                return tipoSolicitacao;
+                return new ServiceReturn() { success = true, title = "Sucesso", message = "Tipo de solicitação atualizado com sucesso!" };
             }
             catch (Exception ex)
-            { }
-
-            return null;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao atualizar o tipo de solicitação! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
-        public int Excluir(int id)
+        public ServiceReturn Excluir(int id)
         {
             TipoSolicitacao tipoSolicitacao = null;
 
@@ -43,27 +44,27 @@ namespace Services.Service
                 tipoSolicitacaoRepository.Remover(tipoSolicitacao);
                 tipoSolicitacaoRepository.Salvar();
 
-                return id;
+                return new ServiceReturn() { success = true, title = "Sucesso", message = "Tipo de solicitação deletado com sucesso!" };
             }
             catch (Exception ex)
-            { }
-
-            return 0;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao deletar o tipo de solicitação! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
-        public TipoSolicitacao Incluir(TipoSolicitacao tipoSolicitacao)
+        public ServiceReturn Incluir(TipoSolicitacao tipoSolicitacao)
         {
             try
             {
                 tipoSolicitacaoRepository.Incluir(tipoSolicitacao);
                 tipoSolicitacaoRepository.Salvar();
 
-                return tipoSolicitacao;
+                return new ServiceReturn() { success = true, title = "Sucesso", message = "Tipo de solicitação cadastrado com sucesso!" };
             }
             catch (Exception ex)
-            { }
-
-            return null;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao cadastrar o tipo de solicitação! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
         public IList<TipoSolicitacao> Listar()

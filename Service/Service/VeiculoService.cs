@@ -1,4 +1,5 @@
-﻿using Entity.Entities;
+﻿using Entity.DTO;
+using Entity.Entities;
 using Repository.Interface;
 using Service.Interface;
 using System;
@@ -18,7 +19,7 @@ namespace Services.Service
             veiculoRepository = repository;
         }
 
-        public Veiculo Atualizar(Veiculo veiculo)
+        public ServiceReturn Atualizar(Veiculo veiculo)
         {
             try
             {
@@ -28,16 +29,19 @@ namespace Services.Service
                 {
                     veiculoRepository.Atualizar(veiculo);
                     veiculoRepository.Salvar();
-                    return veiculo;
+
+                    return new ServiceReturn() { success = true, title = "Sucesso", message = "Veículo atualizado com sucesso!" };
                 }
+
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Não foi possível atualizar o veículo pois já existe outro registro com {0}!", check1 != null ? "mesmo chassi" : check2 != null ? "mesma placa" : "causa não identificada") };
             }
             catch (Exception ex)
-            { }
-
-            return null;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao atualizar o veículo! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
-        public int Excluir(int id)
+        public ServiceReturn Excluir(int id)
         {
             Veiculo veiculo = null;
 
@@ -47,15 +51,15 @@ namespace Services.Service
                 veiculoRepository.Remover(veiculo);
                 veiculoRepository.Salvar();
 
-                return id;
+                return new ServiceReturn() { success = true, title = "Sucesso", message = "Veículo atualizado com sucesso!" };
             }
             catch (Exception ex)
-            { }
-
-            return 0;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao deletar o veículo! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
-        public Veiculo Incluir(Veiculo veiculo)
+        public ServiceReturn Incluir(Veiculo veiculo)
         {
             try
             {
@@ -65,13 +69,16 @@ namespace Services.Service
                 {
                     veiculoRepository.Incluir(veiculo);
                     veiculoRepository.Salvar();
-                    return veiculo;
+
+                    return new ServiceReturn() { success = true, title = "Sucesso", message = "Veículo cadastrado com sucesso!" };
                 }
+
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Não foi possível cadastrar o veículo pois já existe outro registro com {0}!", check1 != null ? "mesmo chassi" : check2 != null ? "mesma placa" : "causa não identificada") };
             }
             catch (Exception ex)
-            { }
-
-            return null;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao cadastrar o veículo!", ex.GetType()) };
+            }
         }
 
         public IList<Veiculo> Listar()

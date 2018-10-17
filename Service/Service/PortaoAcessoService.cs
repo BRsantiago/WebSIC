@@ -1,4 +1,5 @@
-﻿using Entity.Entities;
+﻿using Entity.DTO;
+using Entity.Entities;
 using Repository.Interface;
 using Service.Interface;
 using System;
@@ -18,21 +19,22 @@ namespace Services.Service
             portaoRepository = repository;
         }
 
-        public PortaoAcesso Atualizar(PortaoAcesso portaoAcesso)
+        public ServiceReturn Atualizar(PortaoAcesso portaoAcesso)
         {
             try
             {
                 portaoRepository.Atualizar(portaoAcesso);
                 portaoRepository.Salvar();
-                return portaoAcesso;
+
+                return new ServiceReturn() { success = true, title = "Sucesso", message = "Portão de Acesso atualizado com sucesso!" };
             }
             catch (Exception ex)
-            { }
-
-            return null;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao atualizar o portão de acesso! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
-        public int Excluir(int id)
+        public ServiceReturn Excluir(int id)
         {
             PortaoAcesso portaoAcesso = null;
 
@@ -42,26 +44,27 @@ namespace Services.Service
                 portaoRepository.Remover(portaoAcesso);
                 portaoRepository.Salvar();
 
-                return id;
+                return new ServiceReturn() { success = true, title = "Sucesso", message = "Portão de Acesso deletado com sucesso!" };
             }
             catch (Exception ex)
-            { }
-
-            return 0;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao deletar o portão de acesso! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
-        public PortaoAcesso Incluir(PortaoAcesso portaoAcesso)
+        public ServiceReturn Incluir(PortaoAcesso portaoAcesso)
         {
             try
             {
                 portaoRepository.Incluir(portaoAcesso);
                 portaoRepository.Salvar();
-                return portaoAcesso;
+
+                return new ServiceReturn() { success = true, title = "Sucesso", message = "Portão de Acesso cadastrado com sucesso!" };
             }
             catch (Exception ex)
-            { }
-
-            return null;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao cadastrar o portão de acesso! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
         public IList<PortaoAcesso> Listar()

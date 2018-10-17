@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace Repository.Repository
 {
@@ -16,9 +17,26 @@ namespace Repository.Repository
         {
         }
 
+        public override List<Curso> ObterTodos()
+        {
+            return contexto.Cursos.Include(c => c.Area).Where(c => c.Ativo == true).ToList();
+        }
+
+        public override Curso ObterPorId(int id)
+        {
+            return contexto.Cursos.Include(c => c.Area).Include(c => c.Turmas).FirstOrDefault(c => c.IdCurso == id);
+        }
+
+        public override void Incluir(Curso obj)
+        {
+            contexto.Entry(obj.Area).State = EntityState.Modified;
+            contexto.Entry(obj).State = EntityState.Added;
+            base.Incluir(obj);
+        }
+
         public IList<Curso> ObterPorArea(int idArea)
         {
-            return contexto.Cursos.Include("Turmas").Where(c => c.Area.IdArea == idArea).ToList();
+            return contexto.Cursos.Include(c => c.Turmas).Where(c => c.Area.IdArea == idArea && c.Ativo == true).ToList();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Entity.Entities;
+﻿using Entity.DTO;
+using Entity.Entities;
 using Repository.Interface;
 using Service.Interface;
 using System;
@@ -18,22 +19,22 @@ namespace Services.Service
             cargoRepository = repository;
         }
 
-        public Cargo Atualizar(Cargo cargo)
+        public ServiceReturn Atualizar(Cargo cargo)
         {
             try
             {
                 cargoRepository.Atualizar(cargo);
                 cargoRepository.Salvar();
 
-                return cargo;
+                return new ServiceReturn() { success = true, title = "Sucesso", message = "Cargo atualizado com sucesso!" };
             }
             catch (Exception ex)
-            { }
-
-            return null;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao atualizar o cargo! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
-        public int Excluir(int id)
+        public ServiceReturn Excluir(int id)
         {
             Cargo cargo = null;
 
@@ -43,27 +44,27 @@ namespace Services.Service
                 cargoRepository.Remover(cargo);
                 cargoRepository.Salvar();
 
-                return id;
+                return new ServiceReturn() { success = true, title = "Sucesso", message = "Cargo deletado com sucesso!" };
             }
             catch (Exception ex)
-            { }
-
-            return 0;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao deletar o cargo! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
-        public Cargo Incluir(Cargo cargo)
+        public ServiceReturn Incluir(Cargo cargo)
         {
             try
             {
                 cargoRepository.Incluir(cargo);
                 cargoRepository.Salvar();
 
-                return cargo;
+                return new ServiceReturn() { success = true, title = "Sucesso", message = "Cargo cadastrado com sucesso!" };
             }
             catch (Exception ex)
-            { }
-
-            return null;
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao cadastrar o cargo! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
         public IList<Cargo> Listar()

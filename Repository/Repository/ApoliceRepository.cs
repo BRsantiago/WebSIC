@@ -19,12 +19,12 @@ namespace Repository.Repository
 
         public override List<Apolice> ObterTodos()
         {
-            return contexto.Apolices.Include("Empresa").Where(a => a.Ativo == true).ToList();
+            return contexto.Apolices.Include(a => a.Empresa).Where(a => a.Ativo == true).ToList();
         }
 
         public override Apolice ObterPorId(int id)
         {
-            return contexto.Apolices.Include("Empresa").FirstOrDefault(a => a.IdApolice == id);
+            return contexto.Apolices.Include(a => a.Empresa).Include(a => a.Veiculos).FirstOrDefault(a => a.IdApolice == id);
         }
 
         public override void Incluir(Apolice obj)
@@ -36,19 +36,19 @@ namespace Repository.Repository
 
         public IList<Apolice> ObterPorEmpresa(int idEmpresa)
         {
-            return contexto.Apolices.Include("Empresa").Include("Veiculos").Where(ap => ap.Empresa.IdEmpresa == idEmpresa && ap.Ativo == true).ToList();
+            return contexto.Apolices.Include(a => a.Empresa).Include(a => a.Veiculos).Where(ap => ap.Empresa.IdEmpresa == idEmpresa && ap.Ativo == true).ToList();
         }
 
         public Apolice ObterPorNumero(string numero, bool withTracking)
         {
             return withTracking 
-                ? contexto.Apolices.Include("Empresa").Include("Veiculos").Where(ap => ap.Numero == numero && ap.Ativo == true).FirstOrDefault()
-                : contexto.Apolices.AsNoTracking().Include("Empresa").Include("Veiculos").Where(ap => ap.Numero == numero).FirstOrDefault();
+                ? contexto.Apolices.Include(a => a.Empresa).Include(a => a.Veiculos).Where(ap => ap.Numero == numero && ap.Ativo == true).FirstOrDefault()
+                : contexto.Apolices.AsNoTracking().Include(a => a.Empresa).Include(a => a.Veiculos).Where(ap => ap.Numero == numero && ap.Ativo == true).FirstOrDefault();
         }
 
         public IList<Apolice> ObterValidas(int idEmpresa)
         {
-            return contexto.Apolices.Include("Empresa").Include("Veiculos").Where(ap => ap.Empresa.IdEmpresa == idEmpresa && ap.DataValidade > DateTime.Now && ap.Ativo == true).ToList();
+            return contexto.Apolices.Include(a => a.Empresa).Include(a => a.Veiculos).Where(ap => ap.Empresa.IdEmpresa == idEmpresa && ap.DataValidade > DateTime.Now && ap.Ativo == true).ToList();
         }
     }
 }

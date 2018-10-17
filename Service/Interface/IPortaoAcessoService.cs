@@ -1,4 +1,5 @@
-﻿using Entity.Entities;
+﻿using Entity.DTO;
+using Entity.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,11 @@ namespace Service.Interface
     public interface IPortaoAcessoService
     {
         IList<PortaoAcesso> Listar();
+
         PortaoAcesso Obter(int id);
-        PortaoAcesso Incluir(PortaoAcesso portao);
-        PortaoAcesso Atualizar(PortaoAcesso portao);
-        int Excluir(int id);
+
+        ServiceReturn Incluir(PortaoAcesso portao);
+        ServiceReturn Atualizar(PortaoAcesso portao);
+        ServiceReturn Excluir(int id);
     }
 }

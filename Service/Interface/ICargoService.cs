@@ -1,4 +1,5 @@
-﻿using Entity.Entities;
+﻿using Entity.DTO;
+using Entity.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,11 @@ namespace Service.Interface
     public interface ICargoService
     {
         IList<Cargo> Listar();
+
         Cargo Obter(int id);
-        Cargo Incluir(Cargo cargo);
-        Cargo Atualizar(Cargo cargo);
-        int Excluir(int id);
+
+        ServiceReturn Incluir(Cargo cargo);
+        ServiceReturn Atualizar(Cargo cargo);
+        ServiceReturn Excluir(int id);
     }
 }

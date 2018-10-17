@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Entity.Entities;
+using Newtonsoft.Json;
 using Repository.Context;
 using Service.Interface;
 
@@ -60,8 +61,8 @@ namespace WebSIC.Controllers
                 cargo.Criador =
                     cargo.Atualizador = User.Identity.Name;
                 var check = Service.Incluir(cargo);
-                if (check != null)
-                    return RedirectToAction("Index");
+
+                return Json(check, JsonRequestBehavior.AllowGet);
             }
 
             return PartialView(cargo);
@@ -94,8 +95,8 @@ namespace WebSIC.Controllers
                 cargo.Atualizacao = DateTime.Now;
                 cargo.Atualizador = User.Identity.Name;
                 var check = Service.Atualizar(cargo);
-                if (check != null)
-                    return RedirectToAction("Index");
+
+                return Json(check, JsonRequestBehavior.AllowGet);
             }
             return PartialView(cargo);
         }
@@ -121,10 +122,7 @@ namespace WebSIC.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             var check = Service.Excluir(id);
-            if (check != 0)
-                return RedirectToAction("Index");
-
-            return PartialView(id);
+            return Json(check, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
