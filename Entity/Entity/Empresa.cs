@@ -58,6 +58,8 @@ namespace Entity.Entities
 
         public string Email { get; set; }
 
+        //public string Logotipo { get; set; }
+
         [Display(Name = "Área de Atuação")]
         public TipoEmpresa TipoEmpresa { get; set; }
 

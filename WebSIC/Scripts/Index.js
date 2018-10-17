@@ -39,7 +39,7 @@ function SubmitForm() {
         url: form.attr("action"),
         method: form.attr("method"),  // post
         data: form.serialize(),
-        success: function () {
+        success: function (result) {
             if (result.success) {
                 swal({
                     title: "Good job!",

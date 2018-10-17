@@ -53,22 +53,14 @@ namespace Services.Service
             return 0;
         }
 
-        public Contrato Incluir(Contrato contrato)
+        public void Incluir(Contrato contrato)
         {
-            try
+            var check = ObterPorNumero(contrato.Numero, false);
+            if (check == null)
             {
-                var check = ObterPorNumero(contrato.Numero, false);
-                if (check == null)
-                {
-                    contratoRepository.Incluir(contrato);
-                    contratoRepository.Salvar();
-                    return contrato;
-                }
+                contratoRepository.IncluirNovoContrato(contrato);
+                contratoRepository.Salvar();
             }
-            catch (Exception ex)
-            { }
-
-            return null;
         }
 
         public IList<Contrato> Listar()

@@ -46,10 +46,10 @@ namespace Repository.Repository
 
         public void AtualizarRepresentante(Pessoa representante)
         {
-            representante.Empresas.ToList().ForEach(empresa =>
-            {
-                contexto.Entry(empresa).State = System.Data.Entity.EntityState.Unchanged;
-            });
+            //representante.Empresas.ToList().ForEach(empresa =>
+            //{
+            //    contexto.Entry(empresa).State = System.Data.Entity.EntityState.Unchanged;
+            //});
 
             contexto.Entry(representante).State = System.Data.Entity.EntityState.Modified;
         }

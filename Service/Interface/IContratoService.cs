@@ -15,7 +15,7 @@ namespace Service.Interface
         IList<Contrato> ObterPorEmpresa(int idEmpresa);
         IList<Contrato> ObterPorPeriodo(int idEmpresa, DateTime inicioVigencia, DateTime finalVigencia);
         IList<Contrato> ObterVigentes(int idEmpresa);
-        Contrato Incluir(Contrato contrato);
+        void Incluir(Contrato contrato);
         Contrato Atualizar(Contrato contrato);
         int Excluir(int id);
         List<Contrato> ObterTodos();
