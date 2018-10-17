@@ -7,6 +7,11 @@
 </div>
 
 
+@if (TempData["notification"] != null)
+{
+    @Html.Raw(TempData["notification"])
+}
+
 
 <div class="row">
     <div class="col-lg-12">
@@ -65,7 +70,7 @@
     <div class="row">
         <div class="col-md-4">
             @*<a class="btn btn-primary" onclick="@Url.Action("Create", "Empresa")">Novo</a>*@
-            @Html.ActionLink("Novo", "Create", null, new { @class = "btn btn-success" })
+            @Html.ActionLink("Novo", "Create", null, new { @class = "btn btn-primary" })
         </div>
     </div>
 </div>
@@ -75,243 +80,10 @@
 
 @section Scripts{
     <script>
+
         $(document).ready(function () {
             Datatables("table");
-
         });
-
-
-         @*function onShowModalCreate() {
-            $.ajax({
-                type: 'GET',
-                url: '@Url.Action("Create", "Empresa")',
-                cache: false,
-                dataType: 'html',
-                success: function (data) {
-                    $('#modal').html(data);
-                    Datatables("table-representante");
-                    $('#modal').modal('show');
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    //TrataErroAjax(xhr);
-                    alert("erro");
-                }
-            });
-        };
-
-        function onShowModalEdit(id) {
-
-            var params = { id: id };
-
-            $.ajax({
-                type: 'GET',
-                url: '@Url.Action("Edit", "Empresa")',
-                data: params,
-                cache: false,
-                dataType: 'html',
-                success: function (data) {
-                    $('#modal').html(data);
-                    $('#modal').modal('show');
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    //TrataErroAjax(xhr);
-                    alert("erro");
-                }
-            });
-        };
-
-        function onShowModalDetail(id) {
-
-            var params = { id: id };
-
-            $.ajax({
-                type: 'GET',
-                url: '@Url.Action("Details", "Empresa")',
-                data: params,
-                cache: false,
-                dataType: 'html',
-                success: function (data) {
-                    $('#modal').html(data);
-                    $('#modal').modal('show');
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    //TrataErroAjax(xhr);
-                    alert("erro");
-                }
-            });
-        };
-
-
-        function onShowModalDelete(id) {
-
-            var params = { id: id };
-
-            $.ajax({
-                type: 'GET',
-                url: '@Url.Action("Delete", "Empresa")',
-                data: params,
-                cache: false,
-                dataType: 'html',
-                success: function (data) {
-                    $('#modal').html(data);
-                    $('#modal').modal('show');
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    //TrataErroAjax(xhr);
-                    alert("erro");
-                }
-            });
-        };
-
-          function SalvarNovaEmpresa() {
-
-            var RazaoSocial = $('#RazaoSocial').val();
-            var NomeFantasia = $('#NomeFantasia').val();
-            var Endereco = $('#Endereco').val();
-            var Complemento = $('#Complemento').val();
-            var Numero = $('#Numero').val();
-            var Bairro = $('#Bairro').val();
-            var Cidade = $('#Cidade').val();
-            var UF = $('#UF').val();
-            var CGC = $('#CGC').val();
-            var Telefone = $('#Telefone').val();
-            var TipoCobranca = $('#TipoCobranca').val();
-            var Observacao = $('#Observacao').val();
-            var CEP = $('#CEP').val();
-              var Email = $('#Email').val();
-              var IdTipoEmpresa = $('#IdTipoEmpresa').val();
-              var IdAeroporto = $('#IdAeroporto').val();
-
-
-
-            var parametros = {
-                RazaoSocial: RazaoSocial,
-                NomeFantasia: NomeFantasia,
-                Endereco: Endereco,
-                Complemento: Complemento,
-                Numero: Numero,
-                Bairro: Bairro,
-                Cidade: Cidade,
-                UF: UF,
-                CGC: CGC,
-                Telefone: Telefone,
-                TipoCobranca: TipoCobranca,
-                Observacao: Observacao,
-                CEP: CEP,
-                Email: Email,
-                IdTipoEmpresa: IdTipoEmpresa,
-                IdAeroporto: IdAeroporto
-            }
-
-
-            $.ajax({
-                url: '@Url.Action("Create", "Empresa")',
-                data: JSON.stringify(parametros),
-                contentType: "application/json",
-                type: 'POST',
-                success: function (result) {
-                    if (result.success) {
-                        swal({
-                            title: "Atenção!",
-                            text: result.message,
-                            icon: "success"
-                        });
-                        $('#modal').modal('hide');
-                        window.location = '@Url.Action("Index","Empresa")'
-                    } else {
-                        swal({
-                            title: "Atenção!",
-                            text: result.message,
-                            icon: "error"
-                        });
-                    }
-
-                },
-                erro: function (result) {
-                    swal({
-                        title: "Erro de sistema!",
-                        text: "Por favor entre em contato com o TI!",
-                        icon: "error"
-                    });
-                }
-            });
-        }
-
-
-          function AtualizarEmpresa() {
-              var IdEmpresa = $('#IdEmpresa').val();
-            var RazaoSocial = $('#RazaoSocial').val();
-            var NomeFantasia = $('#NomeFantasia').val();
-            var Endereco = $('#Endereco').val();
-            var Complemento = $('#Complemento').val();
-            var Numero = $('#Numero').val();
-            var Bairro = $('#Bairro').val();
-            var Cidade = $('#Cidade').val();
-            var UF = $('#UF').val();
-            var CGC = $('#CGC').val();
-            var Telefone = $('#Telefone').val();
-            var TipoCobranca = $('#TipoCobranca').val();
-            var Observacao = $('#Observacao').val();
-            var CEP = $('#CEP').val();
-              var Email = $('#Email').val();
-              var IdTipoEmpresa = $('#IdTipoEmpresa').val();
-              var IdAeroporto = $('#IdAeroporto').val();
-
-
-
-              var parametros = {
-                IdEmpresa: IdEmpresa,
-                RazaoSocial: RazaoSocial,
-                NomeFantasia: NomeFantasia,
-                Endereco: Endereco,
-                Complemento: Complemento,
-                Numero: Numero,
-                Bairro: Bairro,
-                Cidade: Cidade,
-                UF: UF,
-                CGC: CGC,
-                Telefone: Telefone,
-                TipoCobranca: TipoCobranca,
-                Observacao: Observacao,
-                CEP: CEP,
-                Email: Email,
-                IdTipoEmpresa: IdTipoEmpresa,
-                IdAeroporto: IdAeroporto
-            }
-
-
-            $.ajax({
-                url: '@Url.Action("Edit", "Empresa")',
-                data: JSON.stringify(parametros),
-                contentType: "application/json",
-                type: 'POST',
-                success: function (result) {
-                    if (result.success) {
-                        swal({
-                            title: "Atenção!",
-                            text: result.message,
-                            icon: "success"
-                        });
-                        $('#modal').modal('hide');
-                        window.location = '@Url.Action("Index","Empresa")'
-                    } else {
-                        swal({
-                            title: "Atenção!",
-                            text: result.message,
-                            icon: "error"
-                        });
-                    }
-
-                },
-                erro: function (result) {
-                    swal({
-                        title: "Erro de sistema!",
-                        text: "Por favor entre em contato com o TI!",
-                        icon: "error"
-                    });
-                }
-            });
-        }*@
 
     </script>
 }

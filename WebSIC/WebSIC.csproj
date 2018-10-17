@@ -458,6 +458,8 @@
     <Content Include="Content\vendor\metisMenu\metisMenu.js" />
     <Content Include="Content\vendor\metisMenu\metisMenu.min.css" />
     <Content Include="Content\vendor\metisMenu\metisMenu.min.js" />
+    <Content Include="Images\Logo\TOPLYNE.jpg" />
+    <Content Include="Images\Logo\TOPLYNE.png" />
     <Content Include="img\logo_vinci.png" />
     <Content Include="img\vinci_airports_Q.png" />
     <Content Include="Scripts\app.js" />
@@ -886,7 +888,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\Foto\" />
-    <Folder Include="Images\Logo\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
