@@ -23,5 +23,7 @@ namespace Entity.Entities
 
         [Display(Name = "Descrição da Área")]
         public string Descricao { get; set; }
+
+        public List<Curso> Cursos { get; set; }
     }
 }

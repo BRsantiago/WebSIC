@@ -36,7 +36,7 @@ namespace Entity.Entities
         public int Prazo { get; set; }
 
         [Display(Name = "Área vinculada")]
-        public Area Area { get; set; }
+        public List<Area> Areas { get; set; }
 
         [Display(Name = "É obrigatório?")]
         public bool Obrigatorio { get; set; }

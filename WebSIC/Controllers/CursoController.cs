@@ -63,7 +63,7 @@ namespace WebSIC.Controllers
             {
                 curso.Criador =
                     curso.Atualizador = User.Identity.Name;
-                curso.Area = AreaService.Obter(int.Parse(form["Area.IdArea"]));
+                //curso.Areas = AreaService.Obter(int.Parse(form["Area.IdArea"]));
                 var check = Service.Incluir(curso);
 
                 return Json(check, JsonRequestBehavior.AllowGet);
@@ -80,7 +80,7 @@ namespace WebSIC.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Curso curso = Service.Obter(id.Value);
-            ViewBag.Areas = new SelectList(AreaService.Listar(), "IdArea", "Descricao", curso.Area.IdArea);
+            //ViewBag.Areas = new SelectList(AreaService.Listar(), "IdArea", "Descricao", curso.Area.IdArea);
             if (curso == null)
             {
                 return HttpNotFound();
@@ -99,7 +99,7 @@ namespace WebSIC.Controllers
             {
                 curso.Atualizacao = DateTime.Now;
                 curso.Atualizador = User.Identity.Name;
-                curso.Area = AreaService.Obter(int.Parse(form["Area.IdArea"]));
+                //curso.Area = AreaService.Obter(int.Parse(form["Area.IdArea"]));
                 var check = Service.Atualizar(curso);
 
                 return Json(check, JsonRequestBehavior.AllowGet);

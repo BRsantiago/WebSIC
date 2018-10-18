@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Entity.DTO;
 using Entity.Entities;
 using Repository.Context;
 using Service.Interface;
@@ -47,9 +48,15 @@ namespace WebSIC.Controllers
         // GET: Representante/Create
         public ActionResult Create(string idEmpresa)
         {
-            RepresentanteViewModel vm = new RepresentanteViewModel();
-            vm.IdEmpresa = idEmpresa;
-            return PartialView(vm);
+            RepresentanteViewModel model = new RepresentanteViewModel();
+            model.IdEmpresa = idEmpresa;
+            List<Genero> GeneroLista = new List<Genero>();
+            GeneroLista.Add(new Genero() { IdGenero = 0, Descricao = "Masculino" });
+            GeneroLista.Add(new Genero() { IdGenero = 1, Descricao = "Feminino" });
+
+            model.Generos = GeneroLista;
+
+            return PartialView(model);
         }
 
         // POST: Representante/Create

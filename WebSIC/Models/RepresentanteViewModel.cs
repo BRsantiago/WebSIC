@@ -1,4 +1,5 @@
-﻿using Entity.Entities;
+﻿using Entity.DTO;
+using Entity.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -46,13 +47,13 @@ namespace WebSIC.Models
         public string Genero { get; set; }
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
-        public string FlgCVE { get; set; }
         public string Email { get; set; }
         public string CNH { get; set; }
         public string CategoriaCNH { get; set; }
         public string DataValidadeCNH { get; set; }
 
         public string IdEmpresa { get; set; }
+        public List<Genero> Generos { get; set; }
 
         public RepresentanteViewModel(){}
 
@@ -81,7 +82,6 @@ namespace WebSIC.Models
             UFOrgaoExpeditor = representante.UFOrgaoExpeditor;
             Genero = representante.Genero;
             Observacao = representante.Observacao;
-            FlgCVE = representante.FlgCVE;
             Email = representante.Email;
             CNH = representante.CNH;
             CategoriaCNH = representante.CategoriaCNH;
@@ -115,7 +115,6 @@ namespace WebSIC.Models
             pessoa.UFOrgaoExpeditor = this.UFOrgaoExpeditor;
             pessoa.Genero = this.Genero;
             pessoa.Observacao = this.Observacao;
-            pessoa.FlgCVE = this.FlgCVE;
             pessoa.Email = this.Email;
             pessoa.CNH = this.CNH;
             pessoa.CategoriaCNH = this.CategoriaCNH;

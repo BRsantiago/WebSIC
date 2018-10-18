@@ -54,7 +54,7 @@ namespace Entity.Entities
         public string Genero { get; set; }
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
-        public string FlgCVE { get; set; }
+        public bool FlgCVE { get; set; }
         public string Email { get; set; }
         public string CNH { get; set; }
         public string CategoriaCNH { get; set; }

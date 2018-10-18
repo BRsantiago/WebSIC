@@ -19,24 +19,24 @@ namespace Repository.Repository
 
         public override List<Curso> ObterTodos()
         {
-            return contexto.Cursos.Include(c => c.Area).Where(c => c.Ativo == true).ToList();
+            return contexto.Cursos.Include(c => c.Areas).Where(c => c.Ativo == true).ToList();
         }
 
         public override Curso ObterPorId(int id)
         {
-            return contexto.Cursos.Include(c => c.Area).Include(c => c.Turmas).FirstOrDefault(c => c.IdCurso == id);
+            return contexto.Cursos.Include(c => c.Areas).Include(c => c.Turmas).FirstOrDefault(c => c.IdCurso == id);
         }
 
         public override void Incluir(Curso obj)
         {
-            contexto.Entry(obj.Area).State = EntityState.Modified;
+            contexto.Entry(obj.Areas).State = EntityState.Modified;
             contexto.Entry(obj).State = EntityState.Added;
             base.Incluir(obj);
         }
 
         public IList<Curso> ObterPorArea(int idArea)
         {
-            return contexto.Cursos.Include(c => c.Turmas).Where(c => c.Area.IdArea == idArea && c.Ativo == true).ToList();
+            return contexto.Cursos.Include(c => c.Turmas).Where(c => c.Areas.Any(a => a.IdArea == idArea) && c.Ativo == true).ToList();
         }
     }
 }
