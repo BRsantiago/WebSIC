@@ -14,8 +14,8 @@ namespace Service.Interface
         Apolice ObterPorNumero(string numero, bool withTracking);
 
         IList<Apolice> Listar();
-        IList<Apolice> ObterPorEmpresa(int idEmpresa);
-        IList<Apolice> ObterValidas(int idEmpresa);
+        IList<Apolice> ObterPorEmpresa(int idEmpresa, bool withTracking);
+        IList<Apolice> ObterValidas(int idEmpresa, bool withTracking);
 
         ServiceReturn Incluir(Apolice apolice);
         ServiceReturn Atualizar(Apolice apolice);

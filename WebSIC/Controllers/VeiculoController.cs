@@ -57,7 +57,7 @@ namespace WebSIC.Controllers
 
         public ActionResult GetApolices(int idEmpresa)
         {
-            var apoliceItems = ApoliceService.ObterValidas(idEmpresa)
+            var apoliceItems = ApoliceService.ObterValidas(idEmpresa, false)
                 .Select(a => new SelectListItem() { Text = a.Numero, Value = a.IdApolice.ToString() });
             return Json(apoliceItems, JsonRequestBehavior.AllowGet);
         }
@@ -67,12 +67,17 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdVeiculo,Descricao,Placa,Ano,Cor,Observacao,Chassi,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Veiculo veiculo)
+        public ActionResult Create([Bind(Include = "IdVeiculo,Marca,Modelo,AnoFabricacao,AnoModelo,Cor,Placa,Chassi,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Veiculo veiculo, FormCollection form)
         {
             if (ModelState.IsValid)
             {
                 veiculo.Criador =
                     veiculo.Atualizador = User.Identity.Name;
+                veiculo.Empresa = EmpresaService.ObterPorId(int.Parse(form["Empresa.IdEmpresa"]));
+                veiculo.Apolice = veiculo.Empresa.Apolices != null && veiculo.Empresa.Apolices.Any(a => a.IdApolice == int.Parse(form["Apolice.IdApolice"]))
+                    ? veiculo.Empresa.Apolices.FirstOrDefault(ap => ap.IdApolice == int.Parse(form["Apolice.IdApolice"])) 
+                    : ApoliceService.Obter(int.Parse(form["Apolice.IdApolice"]));
+
                 var check = Service.Incluir(veiculo);
 
                 return Json(check, JsonRequestBehavior.AllowGet);
@@ -92,7 +97,7 @@ namespace WebSIC.Controllers
             ViewBag.Empresas = new SelectList(
                 EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", veiculo.Empresa.IdEmpresa);
             ViewBag.Apolices = new SelectList(
-                ApoliceService.ObterValidas(veiculo.Empresa.IdEmpresa), "IdApolice", "Numero", veiculo.Apolice.IdApolice);
+                ApoliceService.ObterValidas(veiculo.Empresa.IdEmpresa, false), "IdApolice", "Numero", veiculo.Apolice.IdApolice);
             if (veiculo == null)
             {
                 return HttpNotFound();

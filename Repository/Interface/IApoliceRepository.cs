@@ -10,7 +10,7 @@ namespace Repository.Interface
     public interface IApoliceRepository : IRepositoryBase<Apolice>
     {
         Apolice ObterPorNumero(string numero, bool withTracking);
-        IList<Apolice> ObterValidas(int idEmpresa);
-        IList<Apolice> ObterPorEmpresa(int idEmpresa);
+        IList<Apolice> ObterValidas(int idEmpresa, bool withTracking);
+        IList<Apolice> ObterPorEmpresa(int idEmpresa, bool withTracking);
     }
 }
