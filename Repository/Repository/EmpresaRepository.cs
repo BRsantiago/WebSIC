@@ -37,6 +37,7 @@ namespace Repository.Repository
             return contexto.Empresas
                            .Include(e => e.TipoEmpresa)
                            .Include(e => e.Aeroportos)
+                           .Include(e => e.Apolices)
                            .Where(e => e.IdEmpresa == id)
                            .SingleOrDefault();
         }

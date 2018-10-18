@@ -107,13 +107,13 @@ namespace Services.Service
             return apolice;
         }
 
-        public IList<Apolice> ObterPorEmpresa(int idEmpresa)
+        public IList<Apolice> ObterPorEmpresa(int idEmpresa, bool withTracking)
         {
             IList<Apolice> apolices = null;
 
             try
             {
-                apolices = apoliceRepository.ObterPorEmpresa(idEmpresa);
+                apolices = apoliceRepository.ObterPorEmpresa(idEmpresa, withTracking);
             }
             catch (Exception ex)
             { }
@@ -135,14 +135,14 @@ namespace Services.Service
             return apolice;
         }
         
-        public IList<Apolice> ObterValidas(int idEmpresa)
+        public IList<Apolice> ObterValidas(int idEmpresa, bool withTracking)
         {
 
             IList<Apolice> apolices = null;
 
             try
             {
-                apolices = apoliceRepository.ObterValidas(idEmpresa);
+                apolices = apoliceRepository.ObterValidas(idEmpresa, withTracking);
             }
             catch (Exception ex)
             { }

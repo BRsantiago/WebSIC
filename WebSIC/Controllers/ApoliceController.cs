@@ -64,6 +64,7 @@ namespace WebSIC.Controllers
                 apolice.Criador =
                   apolice.Atualizador = User.Identity.Name;
                 apolice.Empresa = EmpresaService.ObterPorId(int.Parse(form["Empresa.IdEmpresa"]));
+
                 var check = Service.Incluir(apolice);
 
                 return Json(check, JsonRequestBehavior.AllowGet);

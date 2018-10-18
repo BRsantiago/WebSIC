@@ -25,7 +25,7 @@ namespace Services.Service
             {
                 var check1 = ObterPorChassi(veiculo.Chassi, false);
                 var check2 = ObterPorPlaca(veiculo.Placa, false);
-                if (check1 != null && check1.IdVeiculo == veiculo.IdVeiculo && check2 != null && check2.IdVeiculo == veiculo.IdVeiculo)
+                if ((check1 == null || check1.IdVeiculo == veiculo.IdVeiculo) && (check2 == null || check2.IdVeiculo == veiculo.IdVeiculo))
                 {
                     veiculoRepository.Atualizar(veiculo);
                     veiculoRepository.Salvar();
@@ -65,7 +65,7 @@ namespace Services.Service
             {
                 var check1 = ObterPorChassi(veiculo.Chassi, false);
                 var check2 = ObterPorPlaca(veiculo.Placa, false);
-                if (check1 != null && check1.IdVeiculo == veiculo.IdVeiculo && check2 != null && check2.IdVeiculo == veiculo.IdVeiculo)
+                if (check1 == null && check2 == null)
                 {
                     veiculoRepository.Incluir(veiculo);
                     veiculoRepository.Salvar();
@@ -77,7 +77,7 @@ namespace Services.Service
             }
             catch (Exception ex)
             {
-                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao cadastrar o veículo!", ex.GetType()) };
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao cadastrar o veículo! Mensagem: {1}", ex.GetType(), ex.Message) };
             }
         }
 

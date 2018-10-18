@@ -19,17 +19,26 @@
                     <thead>
                         <tr>
                             <th>
+                                @Html.DisplayNameFor(model => model.Empresa)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Apolice)
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.Marca)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Modelo)
                             </th>
                             <th>
+                                Ano (Fab/Mod)
+                            </th>
+                            @*<th>
                                 @Html.DisplayNameFor(model => model.AnoFabricacao)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.AnoModelo)
-                            </th>
+                            </th>*@
                             <th>
                                 @Html.DisplayNameFor(model => model.Cor)
                             </th>
@@ -39,15 +48,15 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Chassi)
                             </th>
-                            <th>
+                            @*<th>
                                 @Html.DisplayNameFor(model => model.Observacao)
-                            </th>
-                            <th>
+                            </th>*@
+                            @*<th>
                                 @Html.DisplayNameFor(model => model.Criacao)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Criador)
-                            </th>
+                            </th>*@
                             <th>
                                 @Html.DisplayNameFor(model => model.Atualizacao)
                             </th>
@@ -65,17 +74,26 @@
                         {
                             <tr>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.Empresa.NomeFantasia)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Apolice.Numero)
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.Marca)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Modelo)
                                 </td>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.AnoFabricacao) / @Html.DisplayFor(modelItem => item.AnoModelo)
+                                </td>
+                                @*<td>
                                     @Html.DisplayFor(modelItem => item.AnoFabricacao)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.AnoModelo)
-                                </td>
+                                </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Cor)
                                 </td>
@@ -85,15 +103,15 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Chassi)
                                 </td>
-                                <td>
+                                @*<td>
                                     @Html.DisplayFor(modelItem => item.Observacao)
-                                </td>
-                                <td>
+                                </td>*@
+                                @*<td>
                                     @Html.DisplayFor(modelItem => item.Criacao)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Criador)
-                                </td>
+                                </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Atualizacao)
                                 </td>
@@ -103,7 +121,7 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Ativo)
                                 </td>
-                                <td>
+                                <td class="min">
                                     @*@Html.ActionLink("Edit", "Edit", new { id = item.IdVeiculo }) |
                                         @Html.ActionLink("Details", "Details", new { id = item.IdVeiculo }) |
                                         @Html.ActionLink("Delete", "Delete", new { id = item.IdVeiculo })*@

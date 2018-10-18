@@ -29,14 +29,18 @@ namespace Repository.Repository
 
         public override void Incluir(Apolice obj)
         {
+            if (contexto.Entry(obj.Empresa).State == EntityState.Detached)
+                contexto.Empresas.Attach(obj.Empresa);
             contexto.Entry(obj.Empresa).State = EntityState.Modified;
             contexto.Entry(obj).State = EntityState.Added;
             base.Incluir(obj);
         }
 
-        public IList<Apolice> ObterPorEmpresa(int idEmpresa)
+        public IList<Apolice> ObterPorEmpresa(int idEmpresa, bool withTracking)
         {
-            return contexto.Apolices.Include(a => a.Empresa).Include(a => a.Veiculos).Where(ap => ap.Empresa.IdEmpresa == idEmpresa && ap.Ativo == true).ToList();
+            return withTracking
+                ? contexto.Apolices.Include(a => a.Empresa).Include(a => a.Veiculos).Where(ap => ap.Empresa.IdEmpresa == idEmpresa && ap.Ativo == true).ToList()
+                : contexto.Apolices.AsNoTracking().Include(a => a.Empresa).Include(a => a.Veiculos).Where(ap => ap.Empresa.IdEmpresa == idEmpresa && ap.Ativo == true).ToList();
         }
 
         public Apolice ObterPorNumero(string numero, bool withTracking)
@@ -46,9 +50,11 @@ namespace Repository.Repository
                 : contexto.Apolices.AsNoTracking().Include(a => a.Empresa).Include(a => a.Veiculos).Where(ap => ap.Numero == numero && ap.Ativo == true).FirstOrDefault();
         }
 
-        public IList<Apolice> ObterValidas(int idEmpresa)
+        public IList<Apolice> ObterValidas(int idEmpresa, bool withTracking)
         {
-            return contexto.Apolices.Include(a => a.Empresa).Include(a => a.Veiculos).Where(ap => ap.Empresa.IdEmpresa == idEmpresa && ap.DataValidade > DateTime.Now && ap.Ativo == true).ToList();
+            return withTracking
+                ? contexto.Apolices.Include(a => a.Empresa).Include(a => a.Veiculos).Where(ap => ap.Empresa.IdEmpresa == idEmpresa && ap.DataValidade > DateTime.Now && ap.Ativo == true).ToList()
+                : contexto.Apolices.AsNoTracking().Include(a => a.Empresa).Include(a => a.Veiculos).Where(ap => ap.Empresa.IdEmpresa == idEmpresa && ap.DataValidade > DateTime.Now && ap.Ativo == true).ToList();
         }
     }
 }

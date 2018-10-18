@@ -35,6 +35,7 @@ namespace Entity.Entities
         [Display(Name = "Observações")]
         public string Observacao { get; set; }
 
+        [Display(Name = "Nº da Apólice")]
         public Apolice Apolice { get; set; }
 
         public Empresa Empresa { get; set; }
