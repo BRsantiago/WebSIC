@@ -18,8 +18,6 @@ namespace WebSIC.Controllers
 
         public ActionResult Index()
         {
-            List<Empresa> retorno = this.EmpresaService.ObterTodos();
-
             return View();
         }
 
