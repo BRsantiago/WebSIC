@@ -21,7 +21,7 @@ namespace Entity.Entities
         [Required]
         public string Nome { get; set; }
         public string Apelido { get; set; }
-        [Display(Name = "Data de Nascimento")]
+        [Display(Name = "Data de Nasc.")]
         public string DataNascimento { get; set; }
         [Display(Name = "Pai")]
         public string NomePai { get; set; }
@@ -37,9 +37,9 @@ namespace Entity.Entities
         public string UF { get; set; }
         public string CEP { get; set; }
         [Required]
-        [Display(Name = "Tel. Emergência")]
+        [Display(Name = "Emergência")]
         public string TelefoneEmergencia { get; set; }
-        [Display(Name = "Tel. Residencial")]
+        [Display(Name = "Residencial")]
         public string TelefoneResidencial { get; set; }
         [Display(Name = "Celular")]
         public string TelefoneCelular { get; set; }
@@ -54,10 +54,13 @@ namespace Entity.Entities
         public string Genero { get; set; }
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
+        [Display(Name = "CVE")]
         public bool FlgCVE { get; set; }
         public string Email { get; set; }
         public string CNH { get; set; }
+        [Display(Name = "Categoria")]
         public string CategoriaCNH { get; set; }
+        [Display(Name = "Validade")]
         public string DataValidadeCNH { get; set; }
 
         public Usuario Usuario { get; set; }
