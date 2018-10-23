@@ -124,6 +124,12 @@ namespace Repository.Context
                 m.ToTable("Veiculo");
             });
 
+            modelBuilder.Entity<CursoSemTurma>().Map(m =>
+            {
+                m.MapInheritedProperties();
+                m.ToTable("CursoSemTurma");
+            });
+
             base.OnModelCreating(modelBuilder);
         }
 

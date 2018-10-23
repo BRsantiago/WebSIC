@@ -87,6 +87,10 @@
     <Compile Include="Migrations\201810231348525_CursoSemTurma.Designer.cs">
       <DependentUpon>201810231348525_CursoSemTurma.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810231400442_CorrecaoCursoSemTurma.cs" />
+    <Compile Include="Migrations\201810231400442_CorrecaoCursoSemTurma.Designer.cs">
+      <DependentUpon>201810231400442_CorrecaoCursoSemTurma.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\TipoCrachaRepository.cs" />
@@ -135,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810231348525_CursoSemTurma.resx">
       <DependentUpon>201810231348525_CursoSemTurma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810231400442_CorrecaoCursoSemTurma.resx">
+      <DependentUpon>201810231400442_CorrecaoCursoSemTurma.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

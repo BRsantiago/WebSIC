@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.Entity
+namespace Entity.Entities
 {
-    class CursoSemTurma : Base
+    public class CursoSemTurma : Base
     {
         public CursoSemTurma() : base()
         {
@@ -18,12 +18,15 @@ namespace Entity.Entity
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int IdCursoSemTurma { get; set; }
-        
+
         [Display(Name = "Data de Validade")]
         public DateTime DataValidade { get; set; }
 
-        public List<Curso> Cursos { get; set; }
+        [Required]
+        public Curso Curso { get; set; }
+
+        [Required]
         public Pessoa Pessoa { get; set; }
 
-}
+    }
 }

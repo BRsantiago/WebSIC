@@ -68,5 +68,6 @@ namespace Entity.Entities
         public IList<Turma> Turmas { get; set; }
         public IList<Credencial> Credenciais { get; set; }
         public IList<Empresa> Empresas { get; set; }
+        public IList<CursoSemTurma> Curso { get; set; }
     }
 }
