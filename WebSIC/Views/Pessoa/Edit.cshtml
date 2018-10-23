@@ -11,6 +11,7 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.IdPessoa)
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -336,25 +337,10 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.CursoSemTurma.First().Curso)
+                                            @Html.DisplayNameFor(model => model.Curso.First().Curso.Titulo)
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Solicitacaos.First().Empresa)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Solicitacaos.First().Area1)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Solicitacaos.First().Area2)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Solicitacaos.First().Contrato)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Solicitacaos.First().FlgMotorista)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Solicitacaos.First().Criacao)
+                                            @Html.DisplayNameFor(model => model.Curso.First().DataValidade)
                                         </th>
                                         <th>
 
@@ -362,33 +348,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model.Solicitacaos)
+                                    @foreach (var item in Model.Curso)
                                     {
                                         <tr>
                                             <td>
-                                                @Html.DisplayFor(model => item.TipoSolicitacao.Descricao)
+                                                @Html.DisplayFor(model => item.Curso.Titulo)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(model => item.Empresa.NomeFantasia)
+                                                @Html.DisplayFor(model => item.DataValidade)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(model => item.Area1.Sigla)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(model => item.Area2.Sigla)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(model => item.Contrato.Numero)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(model => item.FlgMotorista)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(model => item.Criacao)
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-primary" onclick="onShowModalEdit(@item.IdSolicitacao, 'Solicitacao')">Editar</a> |
-                                                <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdSolicitacao, 'Solicitacao')">Excluir</a>
+                                                <a class="btn btn-primary" onclick="onShowModalEdit(@item.IdCursoSemTurma, 'Pessoa')">Editar</a> |
+                                                <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdCursoSemTurma, 'Pessoa')">Excluir</a>
                                             </td>
                                         </tr>
                                     }

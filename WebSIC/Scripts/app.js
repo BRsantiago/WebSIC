@@ -30,7 +30,7 @@ function onShowModalCreate(id, tipo) {
     $.ajax({
         type: 'GET',
         url: '/' + tipo + '/Create/',
-        data: { idEmpresa: id },
+        data: { id: id },
         cache: false,
         dataType: 'html',
         success: function (data) {

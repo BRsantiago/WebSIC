@@ -7,11 +7,12 @@
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
             <h4 class="modal-title">Nova Solicitação</h4>
         </div>
-        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form-solicitacao" }))
-        {
-            @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form-solicitacao" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.IdPessoa);
 
-            <div class="form-horizontal">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @Html.LabelFor(model => model.Aeroportos, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -37,7 +38,7 @@
                     @Html.LabelFor(model => model.Contratos, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-4">
                         <div class="checkbox">
-                            @Html.DropDownListFor(d => d.IdContrato, new SelectList(Model.Contratos.OrderBy(o => o.IdContrato), "IdContrato", "Descricao"), "Selecione", new { @class = "form-control select2" })
+                            @Html.DropDownListFor(d => d.IdContrato, new SelectList(Model.Contratos.OrderBy(o => o.IdContrato), "IdContrato", "Numero"), "Selecione", new { @class = "form-control select2" })
                             @Html.ValidationMessageFor(model => model.IdContrato, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -82,8 +83,9 @@
                 </div>
 
 
-            </div>
-        }
+
+            }
+        </div>
         <div class="modal-footer">
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">

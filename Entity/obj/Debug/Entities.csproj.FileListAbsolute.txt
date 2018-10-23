@@ -12,7 +12,7 @@ C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Entity\obj\Debug\Entity.dl
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\Entity\obj\Debug\Entity.pdb
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Entity\bin\Debug\Entity.dll
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Entity\bin\Debug\Entity.pdb
+C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Entity\obj\Debug\Entities.csprojAssemblyReference.cache
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Entity\obj\Debug\Entities.csproj.CoreCompileInputs.cache
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Entity\obj\Debug\Entity.dll
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Entity\obj\Debug\Entity.pdb
-C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Entity\obj\Debug\Entities.csprojAssemblyReference.cache

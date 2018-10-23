@@ -58,6 +58,7 @@
     <Compile Include="Interface\IContratoRepository.cs" />
     <Compile Include="Interface\ICredencialRepository.cs" />
     <Compile Include="Interface\ICursoRepository.cs" />
+    <Compile Include="Interface\ICursoSemTurmaRepository.cs" />
     <Compile Include="Interface\ITipoCrachaRepository.cs" />
     <Compile Include="Interface\ITipoEmpresaRepository.cs" />
     <Compile Include="Interface\IEmpresaRepository.cs" />
@@ -91,12 +92,21 @@
     <Compile Include="Migrations\201810231400442_CorrecaoCursoSemTurma.Designer.cs">
       <DependentUpon>201810231400442_CorrecaoCursoSemTurma.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810231829513_CorrecaoCursoSemTurma2.cs" />
+    <Compile Include="Migrations\201810231829513_CorrecaoCursoSemTurma2.Designer.cs">
+      <DependentUpon>201810231829513_CorrecaoCursoSemTurma2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810232054127_correcao.cs" />
+    <Compile Include="Migrations\201810232054127_correcao.Designer.cs">
+      <DependentUpon>201810232054127_correcao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201810232034552_AlterarTipoEmissao.cs" />
     <Compile Include="Migrations\201810232034552_AlterarTipoEmissao.Designer.cs">
       <DependentUpon>201810232034552_AlterarTipoEmissao.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\CursoSemTurmaRepository.cs" />
     <Compile Include="Repository\TipoCrachaRepository.cs" />
     <Compile Include="Repository\TipoEmpresaRepository.cs" />
     <Compile Include="Repository\EmpresaRepository.cs" />
@@ -146,6 +156,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810231400442_CorrecaoCursoSemTurma.resx">
       <DependentUpon>201810231400442_CorrecaoCursoSemTurma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810231829513_CorrecaoCursoSemTurma2.resx">
+      <DependentUpon>201810231829513_CorrecaoCursoSemTurma2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810232054127_correcao.resx">
+      <DependentUpon>201810232054127_correcao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810232034552_AlterarTipoEmissao.resx">
       <DependentUpon>201810232034552_AlterarTipoEmissao.cs</DependentUpon>

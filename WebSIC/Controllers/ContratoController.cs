@@ -43,10 +43,10 @@ namespace WebSIC.Controllers
             return PartialView(contrato);
         }
 
-        public ActionResult Create(int idEmpresa)
+        public ActionResult Create(int id)
         {
             ContratoViewModel vm = new ContratoViewModel();
-            vm.IdEmpresa = idEmpresa;
+            vm.IdEmpresa = id;
             return PartialView(vm);
         }
 

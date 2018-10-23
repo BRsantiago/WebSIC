@@ -5,11 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.Interface
+namespace Repository.Interface
 {
-    public interface ISolicitacaoService
+    public interface ICursoSemTurmaRepository : IRepositoryBase<CursoSemTurma>
     {
-        List<Solicitacao> ObterTodos();
-        void Salvar(Solicitacao solicitacao);
     }
 }
