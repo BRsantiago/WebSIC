@@ -52,6 +52,7 @@
     <Compile Include="Entity\Contrato.cs" />
     <Compile Include="Entity\Credencial.cs" />
     <Compile Include="Entity\Curso.cs" />
+    <Compile Include="Entity\CursoSemTurma.cs" />
     <Compile Include="Entity\Empresa.cs" />
     <Compile Include="Entity\Cargo.cs" />
     <Compile Include="Entity\Ocorrencia.cs" />

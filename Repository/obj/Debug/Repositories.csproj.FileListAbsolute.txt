@@ -66,3 +66,4 @@ C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repositorie
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repositories.csproj.CopyComplete
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.dll
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.pdb
+C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.Migrations.CursoSemTurma.resources
