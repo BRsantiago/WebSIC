@@ -32,6 +32,7 @@ namespace Repository.Context
         public DbSet<Turma> Turmas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Veiculo> Veiculos { get; set; }
+        public DbSet<CursoSemTurma> CursosSemTurma { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

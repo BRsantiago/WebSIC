@@ -12,10 +12,13 @@ namespace Services.Service
     public class PessoaService : IPessoaService
     {
         public IPessoaRepository PessoaRepository;
+        public ICursoRepository CursoRepository;
 
-        public PessoaService(IPessoaRepository _PessoaRepository)
+        public PessoaService(IPessoaRepository _PessoaRepository,
+                                ICursoRepository _CursoRepository)
         {
             PessoaRepository = _PessoaRepository;
+            CursoRepository = _CursoRepository;
         }
 
         public Pessoa ObterPorCPF(string cpf)
@@ -31,6 +34,18 @@ namespace Services.Service
         public void IncluirPessoa(Pessoa pessoa)
         {
             PessoaRepository.Incluir(pessoa);
+
+            if (!String.IsNullOrEmpty(pessoa.CNH))
+            {
+                Curso DDA = CursoRepository.ObterTodos().Where(x => x.Titulo.Contains("DDA")).SingleOrDefault();
+                pessoa.Curso.Add(new CursoSemTurma()
+                {
+                    Curso = DDA,
+                    DataValidade = DateTime.Now
+                });
+            }
+
+            PessoaRepository.Salvar();
         }
 
         public Pessoa IncluirNovoRepresentante(Pessoa representante)

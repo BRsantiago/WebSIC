@@ -92,6 +92,7 @@ namespace WebSIC.App_Start
             kernel.Bind<IContratoRepository>().To<ContratoRepository>();
             kernel.Bind<ICredencialRepository>().To<CredencialRepository>();
             kernel.Bind<ICursoRepository>().To<CursoRepository>();
+            kernel.Bind<ICursoSemTurmaRepository>().To<CursoSemTurmaRepository>();
             kernel.Bind<IEmpresaRepository>().To<EmpresaRepository>();
             kernel.Bind<IOcorrenciaRepository>().To<OcorrenciaRepository>();
             kernel.Bind<IPessoaRepository>().To<PessoaRepository>();

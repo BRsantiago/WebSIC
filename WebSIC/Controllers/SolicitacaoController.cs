@@ -58,9 +58,11 @@ namespace WebSIC.Controllers
         }
 
         // GET: Solicitacao/Create
-        public ActionResult Create()
+        public ActionResult Create(string id)
         {
             SolicitacaoViewModel model = new SolicitacaoViewModel();
+
+            model.IdPessoa = Convert.ToInt32(id);
 
             List<TipoEmissao> TipoEmissaoLista = new List<TipoEmissao>();
             TipoEmissaoLista.Add(new TipoEmissao() { IdTipoEmissao = 0, Descricao = "Temporário" });
@@ -81,17 +83,28 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdSolicitacao,FlgMotorista,FlgTemporario,DataAutorizacao,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Solicitacao solicitacao)
+        public ActionResult Create(SolicitacaoViewModel model)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    db.Solicitacoes.Add(solicitacao);
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
+            try
+            {
+                SolicitacaoService.Salvar(model.MapearParaObjetoDominio());
+                return Json(new
+                {
+                    success = true,
+                    title = "Sucesso",
+                    message = "Representante cadastrado com sucesso !"
+                }, JsonRequestBehavior.AllowGet);
 
-            //ViewBag.IdSolicitacao = new SelectList(db.Schedules, "IdSchedule", "Descricao", solicitacao.IdSolicitacao);
-            return View(new Solicitacao());
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    title = "Erro",
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: Solicitacao/Edit/5

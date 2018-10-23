@@ -22,11 +22,10 @@ namespace WebSIC.Models
         [Display(Name = "Contrato")]
         public List<Contrato> Contratos { get; set; }
 
-        public bool FlgCredencial { get; set; }
-        public bool FlgATIV { get; set; }
 
         [Display(Name = "Permissão p/ Dirigir")]
         public bool FlgMotorista { get; set; }
+
         public bool FlgTemporario { get; set; }
 
         public int IdTipoSolicitacao { get; set; }
@@ -37,86 +36,31 @@ namespace WebSIC.Models
         [Display(Name = "Tipo de Emissão")]
         public List<TipoEmissao> TiposEmissao { get; set; }
 
-        public int IdTipoCredencial { get; set; }
-        [Display(Name = "Tipo de Credencial")]
-        public List<TipoCredencial> TiposCredencial { get; set; }
-
-        public int IdGenero { get; set; }
-        [Display(Name = "Gênero")]
-        public List<Genero> Generos { get; set; }
 
         [Display(Name = "Área")]
         public List<Area> Areas { get; set; }
         public int IdArea1 { get; set; }
         public int IdArea2 { get; set; }
 
-        public string IdPessoa { get; set; }
+        public int IdPessoa { get; set; }
 
-        [Display(Name = "Nome Completo")]
-        public string Nome { get; set; }
+        public SolicitacaoViewModel() { }
 
-        public string Apelido { get; set; }
+        public Solicitacao MapearParaObjetoDominio()
+        {
+            Solicitacao solicitacao = new Solicitacao();
 
-        [Display(Name = "Data de Nascimento")]
-        public string DataNascimento { get; set; }
+            solicitacao.IdSolicitacao = solicitacao.IdSolicitacao;
+            solicitacao.Empresa = new Empresa() { IdEmpresa = IdEmpresa };
+            solicitacao.Contrato = new Contrato() { IdContrato = IdContrato };
+            solicitacao.TipoSolicitacao = new TipoSolicitacao() { IdTipoSolicitacao = IdTipoSolicitacao };
+            solicitacao.Area1 = new Area() { IdArea = IdArea1 };
+            solicitacao.Area2 = new Area() { IdArea = IdArea2 };
+            solicitacao.Pessoa = new Pessoa() { IdPessoa = IdPessoa };
 
-        [Display(Name = "Nome do Pai")]
-        public string NomePai { get; set; }
+            solicitacao.FlgTemporario = (IdTipoEmissao == 0);
 
-        [Display(Name = "Nome da Mãe")]
-        public string NomeMae { get; set; }
-
-        [Display(Name = "Endereço")]
-        public string Endereco { get; set; }
-
-        [Display(Name = "Número")]
-        public string Numero { get; set; }
-
-        public string Complemento { get; set; }
-
-        public string Bairro { get; set; }
-
-        public string Cidade { get; set; }
-
-        public string UF { get; set; }
-
-        public string CEP { get; set; }
-
-        [Display(Name = "Tel. Emergência")]
-        public string TelefoneEmergencia { get; set; }
-
-        [Display(Name = "Tel. Residencial")]
-        public string TelefoneResidencial { get; set; }
-
-        [Display(Name = "Tel. Celular")]
-        public string TelefoneCelular { get; set; }
-
-        public string RNE { get; set; }
-        public string CPF { get; set; }
-        public string RG { get; set; }
-
-        [Display(Name = "Orgão expeditor")]
-        public string OrgaoExpeditor { get; set; }
-
-        [Display(Name = "UF")]
-        public string UFOrgaoExpeditor { get; set; }
-
-        public string Genero { get; set; }
-
-        [Display(Name = "Observação")]
-        public string Observacao { get; set; }
-
-        [Display(Name = "CVE")]
-        public bool FlgCVE { get; set; }
-
-        public string Email { get; set; }
-
-        public string CNH { get; set; }
-
-        [Display(Name = "Categoria")]
-        public string CategoriaCNH { get; set; }
-
-        [Display(Name = "Validade")]
-        public string DataValidadeCNH { get; set; }
+            return solicitacao;
+        }
     }
 }

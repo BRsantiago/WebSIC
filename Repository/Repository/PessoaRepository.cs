@@ -24,6 +24,7 @@ namespace Repository.Repository
                            .Include(p => p.Solicitacaos.Select(s => s.TipoSolicitacao))
                            .Include(p => p.Solicitacaos.Select(s => s.Area1))
                            .Include(p => p.Solicitacaos.Select(s => s.Area2))
+                           .Include(p => p.Curso.Select(c => c.Curso))
                            .Where(p => p.IdPessoa == idPessoa).SingleOrDefault();
         }
 
