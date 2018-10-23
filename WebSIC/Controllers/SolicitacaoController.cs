@@ -25,6 +25,8 @@ namespace WebSIC.Controllers
         public ISolicitacaoService SolicitacaoService;
         public IPessoaService PessoaService;
         public IAreaService AreaService;
+        public IVeiculoService VeiculoService;
+        public IPortaoAcessoService PortaoService;
 
         public SolicitacaoController(IAeroportoService _AeroportoService,
                                      IEmpresaService _EmpresaService,
@@ -32,7 +34,9 @@ namespace WebSIC.Controllers
                                      ITipoSolicitacaoService _TipoSolicitacaoService,
                                      ISolicitacaoService _SolicitacaoService,
                                      IPessoaService _PessoaService,
-                                     IAreaService _AreaService)
+                                     IAreaService _AreaService,
+                                     IVeiculoService _VeiculoService,
+                                     IPortaoAcessoService _PortaoService)
         {
             AeroportoService = _AeroportoService;
             EmpresaService = _EmpresaService;
@@ -41,6 +45,8 @@ namespace WebSIC.Controllers
             SolicitacaoService = _SolicitacaoService;
             PessoaService = _PessoaService;
             AreaService = _AreaService;
+            VeiculoService = _VeiculoService;
+            PortaoService = _PortaoService;
         }
 
 
@@ -62,15 +68,15 @@ namespace WebSIC.Controllers
         {
             SolicitacaoViewModel model = new SolicitacaoViewModel();
 
-            List<TipoEmissao> TipoEmissaoLista = new List<TipoEmissao>();
-            TipoEmissaoLista.Add(new TipoEmissao() { IdTipoEmissao = 0, Descricao = "Temporário" });
-            TipoEmissaoLista.Add(new TipoEmissao() { IdTipoEmissao = 1, Descricao = "Definitivo" });
+            //List<TipoEmissao> TipoEmissaoLista = new List<TipoEmissao>();
+            //TipoEmissaoLista.Add(new TipoEmissao() { IdTipoEmissao = 0, Descricao = "Temporário" });
+            //TipoEmissaoLista.Add(new TipoEmissao() { IdTipoEmissao = 1, Descricao = "Definitivo" });
 
             model.Aeroportos = AeroportoService.ObterTodos();
             model.Empresas = EmpresaService.ObterTodos();
             model.Contratos = ContratoService.ObterTodos();
             model.TiposSolicitacao = TipoSolicitacaoService.ObterTodos();
-            model.TiposEmissao = TipoEmissaoLista;
+            //model.TiposEmissao = TipoEmissaoLista;
             model.Areas = AreaService.Listar().ToList();
 
             return PartialView(model);
@@ -153,5 +159,47 @@ namespace WebSIC.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult CreateATIV(int? veiculoId)
+        {
+            if (veiculoId == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Veiculo veiculo = VeiculoService.Obter(veiculoId.Value);
+
+            ViewBag.VeiculoId =
+                veiculo.IdVeiculo;
+            ViewBag.Veiculo =
+                string.Format("{0} {1} {2}/{3} {4} {5} {6}", veiculo.Marca, veiculo.Modelo, veiculo.AnoFabricacao, veiculo.AnoModelo, veiculo.Cor, veiculo.Placa, veiculo.Chassi);
+            ViewBag.Empresas =
+                new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", veiculo.Empresa.IdEmpresa);
+            ViewBag.Contratos =
+                new SelectList(ContratoService.ObterVigentes(veiculo.EmpresaId.Value), "IdContrato", "Numero");
+            ViewBag.TiposSolicitacao =
+                new SelectList(TipoSolicitacaoService.Listar(), "IdTipoSolicitacao", "Descricao");
+            ViewBag.Areas =
+                new SelectList(AreaService.Listar(), "IdArea", "Descricao");
+            ViewBag.Portoes =
+                new SelectList(PortaoService.Listar(), "IdPortaoAcesso", "Descricao");
+            ViewBag.TiposEmissao =
+                new SelectList(new SelectListItem[] {
+                    new SelectListItem() { Text = "Temporário", Value = "0" },
+                    new SelectListItem() { Text = "Definitivo", Value = "1" }
+                });
+
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateATIV([Bind(Include = "IdSolicitacao,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Solicitacao solicitacao)
+        {
+            solicitacao.Criador =
+                solicitacao.Atualizador = User.Identity.Name;
+
+            ServiceReturn check = null;
+
+            return Json(check, JsonRequestBehavior.AllowGet);
+        }
     }
 }

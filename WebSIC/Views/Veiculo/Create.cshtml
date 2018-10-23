@@ -187,7 +187,8 @@
             $(function () {
 
                  $("#Empresa_IdEmpresa").change(function () {
-                    var val = $(this).val();
+                     var val = $(this).val();
+                     alert(val);
                     var options = "";
                     $.getJSON(
                         "@Url.Action("GetApolices", "Veiculo")", { idEmpresa: val },
@@ -200,6 +201,53 @@
                 });
 
             });
+
+            function SubmitForm() {
+                var form = $("form");
+                $.ajax({
+                    url: form.attr("action"),
+                    method: form.attr("method"),  // post
+                    data: form.serialize(),
+                    success: function (result) {
+                        if (result.success) {
+                            swal({
+                                title: "Good job!",
+                                text: result.message,
+                                icon: "success",
+                                showCancelButton: true,
+                                confirmButtonText: 'Solicitar ATIV',
+                                cancelButtonText: 'Não solicitar ATIV agora',
+                            })
+                                .then((result) => {
+                                    if (result.dismiss === swal.DismissReason.cancel) {
+                                        $('#modal').modal('hide');
+                                        window.location = baseURL;
+                                    }
+                                    else {
+                                        $("#modal").load("Solicitacao/CreateATIV", function () {
+                                            $("#modal").modal();
+                                        })
+                                    }
+                                });
+                        } else {
+                            swal({
+                                title: "Atenção!",
+                                text: result.message,
+                                icon: "warning",
+                                button: "OK!"
+                            })
+                        }
+
+                    },
+                    error: function () {
+                        swal({
+                            title: "Erro de sistema!",
+                            text: "Por favor entre em contato com o setor de TI!",
+                            icon: "error"
+                        });
+                    }
+                });
+            }
         </script>
 
     </div>

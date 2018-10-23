@@ -68,3 +68,6 @@ C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.pdb
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.Migrations.CursoSemTurma.resources
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.Migrations.CorrecaoCursoSemTurma.resources
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Repository\obj\Debug\Repository.Migrations.CursoSemTurma.resources
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Repository\obj\Debug\Repository.Migrations.CorrecaoCursoSemTurma.resources
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Repository\obj\Debug\Repository.Migrations.AlterarTipoEmissao.resources
