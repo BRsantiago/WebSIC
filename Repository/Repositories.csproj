@@ -100,6 +100,10 @@
     <Compile Include="Migrations\201810232054127_correcao.Designer.cs">
       <DependentUpon>201810232054127_correcao.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810232034552_AlterarTipoEmissao.cs" />
+    <Compile Include="Migrations\201810232034552_AlterarTipoEmissao.Designer.cs">
+      <DependentUpon>201810232034552_AlterarTipoEmissao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CursoSemTurmaRepository.cs" />
@@ -158,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810232054127_correcao.resx">
       <DependentUpon>201810232054127_correcao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810232034552_AlterarTipoEmissao.resx">
+      <DependentUpon>201810232034552_AlterarTipoEmissao.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

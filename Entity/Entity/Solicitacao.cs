@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -23,16 +24,25 @@ namespace Entity.Entities
         
         public DateTime DataAutorizacao { get; set; }
 
+        [Display(Name = "Tipo de Solicitação")]
         public TipoSolicitacao TipoSolicitacao { get; set; }
-        public Pessoa Pessoa { get; set; }
-        public Empresa Empresa { get; set; }
-        public Veiculo Veiculo { get; set; }
-        public Schedule Schedule { get; set; }
-        public Contrato Contrato { get; set; }
-        public Credencial Credencial { get; set; }
+        [Display(Name = "Tipo de Emissão")]
+        public TipoEmissao TipoEmissao { get; set; }
+        [Display(Name = "1ª Área")]
         public Area Area1 { get; set; }
+        [Display(Name = "2ª Área")]
         public Area Area2 { get; set; }
+        [Display(Name = "Portão de Acesso")]
         public PortaoAcesso PortaoAcesso { get; set; }
+                
+        public Empresa Empresa { get; set; }
+        public Contrato Contrato { get; set; }
 
+        public Veiculo Veiculo { get; set; }
+        public Pessoa Pessoa { get; set; }
+
+        public Schedule Schedule { get; set; }
+        
+        public Credencial Credencial { get; set; }
     }
 }

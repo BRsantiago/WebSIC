@@ -83,6 +83,32 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Categoria, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EnumDropDownListFor(model => model.Categoria, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Categoria, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TipoServico, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EnumDropDownListFor(model => model.TipoServico, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.TipoServico, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AcessoManobra, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.AcessoManobra)
+                                @Html.ValidationMessageFor(model => model.AcessoManobra, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
                     @*<div class="form-group">
                             @Html.LabelFor(model => model.Criacao, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
@@ -128,16 +154,16 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Empresa, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.Empresa.IdEmpresa, ViewBag.Empresas as SelectList, "--Selecione a empresa--", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Empresa, "", new { @class = "text-danger" })
+                            @Html.DropDownListFor(model => model.EmpresaId, ViewBag.Empresas as SelectList, "--Selecione a empresa--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.EmpresaId, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.Apolice, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.Apolice.IdApolice, ViewBag.Apolices as IEnumerable<SelectListItem>, "--Selecione a apólice--", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Apolice, "", new { @class = "text-danger" })
+                            @Html.DropDownListFor(model => model.ApoliceId, ViewBag.Apolices as IEnumerable<SelectListItem>, "--Selecione a apólice--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ApoliceId, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -161,7 +187,8 @@
             $(function () {
 
                  $("#Empresa_IdEmpresa").change(function () {
-                    var val = $(this).val();
+                     var val = $(this).val();
+                     alert(val);
                     var options = "";
                     $.getJSON(
                         "@Url.Action("GetApolices", "Veiculo")", { idEmpresa: val },
@@ -174,6 +201,53 @@
                 });
 
             });
+
+            function SubmitForm() {
+                var form = $("form");
+                $.ajax({
+                    url: form.attr("action"),
+                    method: form.attr("method"),  // post
+                    data: form.serialize(),
+                    success: function (result) {
+                        if (result.success) {
+                            swal({
+                                title: "Good job!",
+                                text: result.message,
+                                icon: "success",
+                                showCancelButton: true,
+                                confirmButtonText: 'Solicitar ATIV',
+                                cancelButtonText: 'Não solicitar ATIV agora',
+                            })
+                                .then((result) => {
+                                    if (result.dismiss === swal.DismissReason.cancel) {
+                                        $('#modal').modal('hide');
+                                        window.location = baseURL;
+                                    }
+                                    else {
+                                        $("#modal").load("Solicitacao/CreateATIV", function () {
+                                            $("#modal").modal();
+                                        })
+                                    }
+                                });
+                        } else {
+                            swal({
+                                title: "Atenção!",
+                                text: result.message,
+                                icon: "warning",
+                                button: "OK!"
+                            })
+                        }
+
+                    },
+                    error: function () {
+                        swal({
+                            title: "Erro de sistema!",
+                            text: "Por favor entre em contato com o setor de TI!",
+                            icon: "error"
+                        });
+                    }
+                });
+            }
         </script>
 
     </div>
