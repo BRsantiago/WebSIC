@@ -45,10 +45,10 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.TiposEmissao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.IdTipoEmissao, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-4">
                         <div class="checkbox">
-                            @Html.DropDownListFor(d => d.IdTipoEmissao, new SelectList(Model.TiposEmissao.OrderBy(o => o.IdTipoEmissao), "IdTipoEmissao", "Descricao"), "Selecione", new { @class = "form-control select2" })
+                            @Html.EnumDropDownListFor(d => d.TiposEmissao, "Selecione", new { @class = "form-control select2" })
                             @Html.ValidationMessageFor(model => model.IdTipoEmissao, "", new { @class = "text-danger" })
                         </div>
                     </div>

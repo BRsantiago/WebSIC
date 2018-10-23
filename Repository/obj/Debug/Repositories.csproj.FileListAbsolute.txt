@@ -64,9 +64,10 @@ C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.Migrations.CursoSemTurma.resources
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.Migrations.CorrecaoCursoSemTurma.resources
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.Migrations.CorrecaoCursoSemTurma2.resources
+C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.Migrations.correcao.resources
+C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.Migrations.AlterarTipoEmissao.resources
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repositories.csproj.GenerateResource.cache
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repositories.csproj.CoreCompileInputs.cache
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repositories.csproj.CopyComplete
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.dll
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.pdb
-C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.Migrations.correcao.resources

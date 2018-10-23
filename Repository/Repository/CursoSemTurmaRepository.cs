@@ -18,7 +18,7 @@ namespace Repository.Repository
             contexto = _contexto;
         }
 
-        public void Incluir(CursoSemTurma cst)
+        public void IncluirNovoCursoSemTurma(CursoSemTurma cst)
         {
             contexto.Entry(cst.Curso).State = System.Data.Entity.EntityState.Unchanged;
             contexto.Entry(cst.Pessoa).State = System.Data.Entity.EntityState.Unchanged;

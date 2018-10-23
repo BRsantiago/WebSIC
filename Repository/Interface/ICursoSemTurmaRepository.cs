@@ -9,5 +9,6 @@ namespace Repository.Interface
 {
     public interface ICursoSemTurmaRepository : IRepositoryBase<CursoSemTurma>
     {
+        void IncluirNovoCursoSemTurma(CursoSemTurma cst);
     }
 }

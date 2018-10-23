@@ -1,6 +1,4 @@
-﻿using Entity.DTO;
-using Entity.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -34,7 +32,7 @@ namespace WebSIC.Models
 
         public int IdTipoEmissao { get; set; }
         [Display(Name = "Tipo de Emissão")]
-        public List<TipoEmissao> TiposEmissao { get; set; }
+        public TipoEmissao TiposEmissao { get; set; }
 
 
         [Display(Name = "Área")]
