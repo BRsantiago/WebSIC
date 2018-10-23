@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using Entity.DTO;
 using Entity.Entities;
 using Repository.Context;
 using Service.Interface;
@@ -17,9 +18,6 @@ namespace WebSIC.Controllers
     {
         public IPessoaService PessoaService;
 
-        private WebSICContext db = new WebSICContext();
-
-
         public PessoaController(IPessoaService _PessoaService)
         {
             PessoaService = _PessoaService;
@@ -28,8 +26,8 @@ namespace WebSIC.Controllers
         // GET: Pessoa
         public ActionResult Index()
         {
-            var pessoas = db.Pessoas.Include(p => p.Usuario);
-            return View(pessoas.ToList());
+            var pessoas = PessoaService.ObterTodos();
+            return View(pessoas);
         }
 
         // GET: Pessoa/Details/5
@@ -39,7 +37,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pessoa pessoa = db.Pessoas.Find(id);
+            Pessoa pessoa = PessoaService.ObterPorId(id);
             if (pessoa == null)
             {
                 return HttpNotFound();
@@ -50,7 +48,10 @@ namespace WebSIC.Controllers
         // GET: Pessoa/Create
         public ActionResult Create()
         {
-            ViewBag.IdPessoa = new SelectList(db.Usuarios, "IdUsuario", "Login");
+            List<Genero> GeneroLista = new List<Genero>();
+            GeneroLista.Add(new Genero() { IdGenero = 0, Descricao = "Masculino" });
+            GeneroLista.Add(new Genero() { IdGenero = 1, Descricao = "Feminino" });
+
             return View();
         }
 
@@ -63,28 +64,16 @@ namespace WebSIC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Pessoas.Add(pessoa);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                PessoaService.IncluirPessoa(pessoa);
+                return RedirectToAction("Edit", new { id = pessoa.IdPessoa });
             }
-
-            ViewBag.IdPessoa = new SelectList(db.Usuarios, "IdUsuario", "Login", pessoa.IdPessoa);
             return View(pessoa);
         }
 
         // GET: Pessoa/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Pessoa pessoa = db.Pessoas.Find(id);
-            if (pessoa == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.IdPessoa = new SelectList(db.Usuarios, "IdUsuario", "Login", pessoa.IdPessoa);
+            Pessoa pessoa = PessoaService.ObterPorId(id);
             return View(pessoa);
         }
 
@@ -95,14 +84,26 @@ namespace WebSIC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdPessoa,Nome,Apelido,DataNascimento,NomePai,NomeMae,Endereco,Numero,Complemento,Bairro,Cidade,UF,CEP,TelefoneEmergencia,TelefoneResidencial,TelefoneCelular,RNE,CPF,RG,OrgaoExpeditor,UFOrgaoExpeditor,Genero,Observacao,FlgCVE,Email,CNH,CategoriaCNH,DataValidadeCNH,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Pessoa pessoa)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(pessoa).State = EntityState.Modified;
-                db.SaveChanges();
+                PessoaService.Atualizar(pessoa);
+                //return RedirectToAction("Index");
+                var msg = "<script> swal({title: 'Good job!', text: 'Empresa atualizada com sucesso !', icon: 'success', button: 'OK!'}) </script>";
+
+                TempData["notification"] = msg;
+
                 return RedirectToAction("Index");
             }
-            ViewBag.IdPessoa = new SelectList(db.Usuarios, "IdUsuario", "Login", pessoa.IdPessoa);
-            return View(pessoa);
+            catch (Exception ex)
+            {
+
+                var msg = "<script> swal({title: 'Atenção!', text: '" + ex.Message + "', icon: 'warning', button: 'OK!'}) </script>";
+
+                TempData["notification"] = msg;
+
+                //return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+                return PartialView(pessoa);
+            }
         }
 
         // GET: Pessoa/Delete/5
@@ -112,7 +113,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pessoa pessoa = db.Pessoas.Find(id);
+            Pessoa pessoa = PessoaService.ObterPorId(id);
             if (pessoa == null)
             {
                 return HttpNotFound();
@@ -125,19 +126,9 @@ namespace WebSIC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Pessoa pessoa = db.Pessoas.Find(id);
-            db.Pessoas.Remove(pessoa);
-            db.SaveChanges();
+            Pessoa pessoa = PessoaService.ObterPorId(id);
+            PessoaService.ExcluirPessoa(pessoa);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
 
         public ActionResult ObterPessoaPorCPF(string cpf)

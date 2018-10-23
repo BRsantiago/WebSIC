@@ -16,5 +16,7 @@ namespace Service.Interface
         List<Pessoa> ObterTodos();
         void Atualizar(Pessoa representante);
         void ExcluirRepresentante(Pessoa representante, int idEmpresa);
+        void IncluirPessoa(Pessoa pessoa);
+        void ExcluirPessoa(Pessoa pessoa);
     }
 }

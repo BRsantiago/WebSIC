@@ -24,13 +24,15 @@ namespace WebSIC.Controllers
         public ITipoSolicitacaoService TipoSolicitacaoService;
         public ISolicitacaoService SolicitacaoService;
         public IPessoaService PessoaService;
+        public IAreaService AreaService;
 
         public SolicitacaoController(IAeroportoService _AeroportoService,
                                      IEmpresaService _EmpresaService,
                                      IContratoService _ContratoService,
                                      ITipoSolicitacaoService _TipoSolicitacaoService,
                                      ISolicitacaoService _SolicitacaoService,
-                                     IPessoaService _PessoaService)
+                                     IPessoaService _PessoaService,
+                                     IAreaService _AreaService)
         {
             AeroportoService = _AeroportoService;
             EmpresaService = _EmpresaService;
@@ -38,6 +40,7 @@ namespace WebSIC.Controllers
             TipoSolicitacaoService = _TipoSolicitacaoService;
             SolicitacaoService = _SolicitacaoService;
             PessoaService = _PessoaService;
+            AreaService = _AreaService;
         }
 
 
@@ -59,28 +62,18 @@ namespace WebSIC.Controllers
         {
             SolicitacaoViewModel model = new SolicitacaoViewModel();
 
-            List<TipoCredencial> TipoCredencialLista = new List<TipoCredencial>();
-            TipoCredencialLista.Add(new TipoCredencial() { IdTipoCredencial = 0, Descricao = "Normal" });
-            TipoCredencialLista.Add(new TipoCredencial() { IdTipoCredencial = 1, Descricao = "ATIV" });
-
             List<TipoEmissao> TipoEmissaoLista = new List<TipoEmissao>();
             TipoEmissaoLista.Add(new TipoEmissao() { IdTipoEmissao = 0, Descricao = "Temporário" });
             TipoEmissaoLista.Add(new TipoEmissao() { IdTipoEmissao = 1, Descricao = "Definitivo" });
-
-            List<Genero> GeneroLista = new List<Genero>();
-            GeneroLista.Add(new Genero() { IdGenero = 0, Descricao = "Masculino" });
-            GeneroLista.Add(new Genero() { IdGenero = 1, Descricao = "Feminino" });
 
             model.Aeroportos = AeroportoService.ObterTodos();
             model.Empresas = EmpresaService.ObterTodos();
             model.Contratos = ContratoService.ObterTodos();
             model.TiposSolicitacao = TipoSolicitacaoService.ObterTodos();
-            model.Generos = GeneroLista;
-            model.TiposCredencial = TipoCredencialLista;
             model.TiposEmissao = TipoEmissaoLista;
+            model.Areas = AreaService.Listar().ToList();
 
-
-            return View(model);
+            return PartialView(model);
         }
 
         // POST: Solicitacao/Create
@@ -159,6 +152,6 @@ namespace WebSIC.Controllers
             //db.SaveChanges();
             return RedirectToAction("Index");
         }
-       
+
     }
 }

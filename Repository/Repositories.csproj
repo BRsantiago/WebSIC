@@ -83,9 +83,13 @@
     <Compile Include="Migrations\201810182205574_CursoUmPraMuitasAreas.Designer.cs">
       <DependentUpon>201810182205574_CursoUmPraMuitasAreas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201810231452439_AddInfoVeiculos.cs" />
-    <Compile Include="Migrations\201810231452439_AddInfoVeiculos.Designer.cs">
-      <DependentUpon>201810231452439_AddInfoVeiculos.cs</DependentUpon>
+    <Compile Include="Migrations\201810231348525_CursoSemTurma.cs" />
+    <Compile Include="Migrations\201810231348525_CursoSemTurma.Designer.cs">
+      <DependentUpon>201810231348525_CursoSemTurma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810231400442_CorrecaoCursoSemTurma.cs" />
+    <Compile Include="Migrations\201810231400442_CorrecaoCursoSemTurma.Designer.cs">
+      <DependentUpon>201810231400442_CorrecaoCursoSemTurma.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -133,8 +137,11 @@
     <EmbeddedResource Include="Migrations\201810182205574_CursoUmPraMuitasAreas.resx">
       <DependentUpon>201810182205574_CursoUmPraMuitasAreas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810231452439_AddInfoVeiculos.resx">
-      <DependentUpon>201810231452439_AddInfoVeiculos.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810231348525_CursoSemTurma.resx">
+      <DependentUpon>201810231348525_CursoSemTurma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810231400442_CorrecaoCursoSemTurma.resx">
+      <DependentUpon>201810231400442_CorrecaoCursoSemTurma.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

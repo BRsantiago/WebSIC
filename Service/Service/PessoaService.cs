@@ -28,6 +28,11 @@ namespace Services.Service
             return this.PessoaRepository.ObterPorEmpresa(idEmpresa);
         }
 
+        public void IncluirPessoa(Pessoa pessoa)
+        {
+            PessoaRepository.Incluir(pessoa);
+        }
+
         public Pessoa IncluirNovoRepresentante(Pessoa representante)
         {
             try
@@ -63,6 +68,12 @@ namespace Services.Service
         {
             representante.Empresas.Remove(representante.Empresas.Where(e => e.IdEmpresa == idEmpresa).SingleOrDefault());
             this.Atualizar(representante);
+        }
+
+        public void ExcluirPessoa(Pessoa pessoa)
+        {
+            PessoaRepository.Remover(pessoa);
+            PessoaRepository.Salvar();
         }
     }
 }

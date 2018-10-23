@@ -18,5 +18,6 @@ namespace Service.Interface
         ServiceReturn Incluir(Area area);
         ServiceReturn Atualizar(Area area);
         ServiceReturn Excluir(int id);
+        
     }
 }
