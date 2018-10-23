@@ -41,6 +41,19 @@ namespace Repository.Interface
             base.Incluir(obj);
         }
 
+        public override void Atualizar(Veiculo obj)
+        {
+            if (contexto.Entry(obj.Empresa).State == EntityState.Detached)
+                contexto.Empresas.Attach(obj.Empresa);
+            contexto.Entry(obj.Empresa).State = EntityState.Modified;
+
+            if (contexto.Entry(obj.Apolice).State == EntityState.Detached)
+                contexto.Apolices.Attach(obj.Apolice);
+            contexto.Entry(obj.Apolice).State = EntityState.Modified;
+
+            base.Atualizar(obj);
+        }
+
         public IList<Veiculo> ObterPorAno(string ano)
         {
             return contexto.Veiculos.Include(v => v.Empresa).Include(v => v.Apolice).Where(v => (v.AnoFabricacao == ano || v.AnoModelo == ano) && v.Ativo == true).ToList();

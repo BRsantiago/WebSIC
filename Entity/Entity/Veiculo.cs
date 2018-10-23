@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,6 +26,12 @@ namespace Entity.Entities
         [Display(Name = "Ano do Modelo")]
         public string AnoModelo { get; set; }
         public string Cor { get; set; }
+        [Display(Name = "Tipo de Serviço")]
+        public TipoServico TipoServico { get; set; }
+        [Display(Name = "Categoria do Veículo")]
+        public Categoria Categoria { get; set; }
+        [Display(Name = "Acesso à Área de Manobra")]
+        public bool AcessoManobra { get; set; }
 
         [Required]
         public string Placa { get; set; }
@@ -37,8 +44,14 @@ namespace Entity.Entities
 
         [Display(Name = "Nº da Apólice")]
         public Apolice Apolice { get; set; }
+        [Column("Apolice_IdApolice")]
+        [ForeignKey("Apolice")]
+        public Nullable<int> ApoliceId { get; set; }
 
         public Empresa Empresa { get; set; }
+        [Column("Empresa_IdEmpresa")]
+        [ForeignKey("Empresa")]
+        public Nullable<int> EmpresaId { get; set; }
 
         public IList<Solicitacao> Solicitacoes { get; set; }
 

@@ -67,20 +67,23 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdVeiculo,Marca,Modelo,AnoFabricacao,AnoModelo,Cor,Placa,Chassi,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Veiculo veiculo, FormCollection form)
+        public ActionResult Create([Bind(Include = "IdVeiculo,Marca,Modelo,AnoFabricacao,AnoModelo,Cor,Placa,Chassi,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo,TipoServico,Categoria,AcessoManobra,EmpresaId,ApoliceId")] Veiculo veiculo)
         {
             if (ModelState.IsValid)
             {
                 veiculo.Criador =
                     veiculo.Atualizador = User.Identity.Name;
-                veiculo.Empresa = EmpresaService.ObterPorId(int.Parse(form["Empresa.IdEmpresa"]));
-                veiculo.Apolice = veiculo.Empresa.Apolices != null && veiculo.Empresa.Apolices.Any(a => a.IdApolice == int.Parse(form["Apolice.IdApolice"]))
-                    ? veiculo.Empresa.Apolices.FirstOrDefault(ap => ap.IdApolice == int.Parse(form["Apolice.IdApolice"])) 
-                    : ApoliceService.Obter(int.Parse(form["Apolice.IdApolice"]));
+
+                veiculo.Empresa = EmpresaService.ObterPorId(veiculo.EmpresaId.Value);
+                veiculo.Apolice = (veiculo.Empresa.Apolices != null && veiculo.Empresa.Apolices.Any(a => a.IdApolice == veiculo.ApoliceId.Value))
+                    ? veiculo.Empresa.Apolices.FirstOrDefault(ap => ap.IdApolice == veiculo.ApoliceId.Value)
+                    : ApoliceService.Obter(veiculo.ApoliceId.Value);
 
                 var check = Service.Incluir(veiculo);
 
-                return Json(check, JsonRequestBehavior.AllowGet);
+                //return Json(check, JsonRequestBehavior.AllowGet);
+                if (check.success)
+                    return RedirectToAction("Edit", new { id = veiculo.IdVeiculo });
             }
 
             return PartialView(veiculo);
@@ -110,12 +113,18 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdVeiculo,Descricao,Placa,Ano,Cor,Observacao,Chassi,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Veiculo veiculo)
+        public ActionResult Edit([Bind(Include = "IdVeiculo,Marca,Modelo,AnoFabricacao,AnoModelo,Cor,Placa,Chassi,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo,TipoServico,Categoria,AcessoManobra,EmpresaId,ApoliceId")] Veiculo veiculo)
         {
             if (ModelState.IsValid)
             {
                 veiculo.Atualizacao = DateTime.Now;
                 veiculo.Atualizador = User.Identity.Name;
+
+                veiculo.Empresa = EmpresaService.ObterPorId(veiculo.EmpresaId.Value);
+                veiculo.Apolice = (veiculo.Empresa.Apolices != null && veiculo.Empresa.Apolices.Any(a => a.IdApolice == veiculo.ApoliceId.Value))
+                    ? veiculo.Empresa.Apolices.FirstOrDefault(ap => ap.IdApolice == veiculo.ApoliceId.Value)
+                    : ApoliceService.Obter(veiculo.ApoliceId.Value);
+
                 var check = Service.Atualizar(veiculo);
 
                 return Json(check, JsonRequestBehavior.AllowGet);

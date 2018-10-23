@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Cursos</h1>
+        <h1 class="page-header">Veículos</h1>
     </div>
 </div>
 
@@ -63,15 +63,18 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.Criador)
                                 </th>*@
-                            <th>
+                            @*<th>
                                 @Html.DisplayNameFor(model => model.Atualizacao)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Atualizador)
-                            </th>
+                            </th>*@
                             @*<th>
                                     @Html.DisplayNameFor(model => model.Ativo)
                                 </th>*@
+                            <th>
+                                Última Solicitação em
+                            </th>
                             <th>
                                 Total de Solicitações
                             </th>
@@ -81,73 +84,76 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr>
-                            <td>
-                                <input type="radio" id="rdbSelectedId" name="rdbSelectedId" value="@item.IdVeiculo" />
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Empresa.NomeFantasia)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Apolice.Numero)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Apolice.DataValidade)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Marca)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Modelo)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.AnoFabricacao) / @Html.DisplayFor(modelItem => item.AnoModelo)
-                            </td>
-                            @*<td>
-            @Html.DisplayFor(modelItem => item.AnoFabricacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AnoModelo)
-        </td>*@
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Cor)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Placa)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Chassi)
-                            </td>
-                            @*<td>
-            @Html.DisplayFor(modelItem => item.Observacao)
-        </td>*@
-                            @*<td>
-            @Html.DisplayFor(modelItem => item.Criacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Criador)
-        </td>*@
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Atualizacao)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Atualizador)
-                            </td>
-                            @*<td>
-            @Html.DisplayFor(modelItem => item.Ativo)
-        </td>*@
-                            <td>
-                                <text> @Html.Encode(item.Solicitacoes != null ? item.Solicitacoes.Count : 0) </text>
-                            </td>
-                            <td class="min">
-                                @*@Html.ActionLink("Edit", "Edit", new { id = item.IdVeiculo }) |
-            @Html.ActionLink("Details", "Details", new { id = item.IdVeiculo }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.IdVeiculo })*@
-                                <button class="btn btn-warning details" data-id="@item.IdVeiculo">Detalhar<i class="glyphicon glyphicon-file"></i></button>
-                                <button class="btn btn-primary edit" data-id="@item.IdVeiculo">Editar<i class="glyphicon glyphicon-edit"></i></button>
-                                <button class="btn btn-danger delete" data-id="@item.IdVeiculo">Deletar<i class="glyphicon glyphicon-trash"></i></button>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" id="rdbSelectedId" name="rdbSelectedId" value="@item.IdVeiculo" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Empresa.NomeFantasia)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Apolice.Numero)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Apolice.DataValidade)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Marca)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Modelo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AnoFabricacao) / @Html.DisplayFor(modelItem => item.AnoModelo)
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.AnoFabricacao)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AnoModelo)
+                                    </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cor)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Placa)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Chassi)
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.Observacao)
+                                    </td>*@
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.Criacao)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Criador)
+                                    </td>*@
+                                @*<td>
+                                    @Html.DisplayFor(modelItem => item.Atualizacao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Atualizador)
+                                </td>*@
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.Ativo)
+                                    </td>*@
+                                <td>
+                                    @Html.Encode(item.Solicitacoes != null && item.Solicitacoes.Count > 0 ? item.Solicitacoes.Last().Criacao.ToString("dd/MM/yyyy HH:mm") : "")
+                                </td>
+                                <td>
+                                    <text> @Html.Encode(item.Solicitacoes != null ? item.Solicitacoes.Count : 0) </text>
+                                </td>
+                                <td class="min">
+                                    @*@Html.ActionLink("Edit", "Edit", new { id = item.IdVeiculo }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.IdVeiculo }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.IdVeiculo })*@
+                                    <button class="btn btn-warning details" data-id="@item.IdVeiculo">Detalhar<i class="glyphicon glyphicon-file"></i></button>
+                                    <button class="btn btn-primary edit" data-id="@item.IdVeiculo">Editar<i class="glyphicon glyphicon-edit"></i></button>
+                                    <button class="btn btn-danger delete" data-id="@item.IdVeiculo">Deletar<i class="glyphicon glyphicon-trash"></i></button>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>

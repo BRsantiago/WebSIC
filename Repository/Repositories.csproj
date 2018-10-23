@@ -83,6 +83,10 @@
     <Compile Include="Migrations\201810182205574_CursoUmPraMuitasAreas.Designer.cs">
       <DependentUpon>201810182205574_CursoUmPraMuitasAreas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810231452439_AddInfoVeiculos.cs" />
+    <Compile Include="Migrations\201810231452439_AddInfoVeiculos.Designer.cs">
+      <DependentUpon>201810231452439_AddInfoVeiculos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\TipoCrachaRepository.cs" />
@@ -128,6 +132,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810182205574_CursoUmPraMuitasAreas.resx">
       <DependentUpon>201810182205574_CursoUmPraMuitasAreas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810231452439_AddInfoVeiculos.resx">
+      <DependentUpon>201810231452439_AddInfoVeiculos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
