@@ -47,12 +47,6 @@ namespace Services.Service
 
         public void Salvar(Solicitacao solicitacao)
         {
-            //solicitacao.Pessoa = PessoaRepository.ObterPorId(solicitacao.Pessoa.IdPessoa);
-            //solicitacao.Area1 = AreaRepository.ObterPorId(solicitacao.Area1.IdArea);
-            //solicitacao.Area2 = AreaRepository.ObterPorId(solicitacao.Area2.IdArea);
-            //solicitacao.Contrato = ContratoRepository.ObterPorId(solicitacao.Contrato.IdContrato);
-            //solicitacao.Empresa = EmpresaRepository.ObterPorId(solicitacao.Empresa.IdEmpresa);
-            //solicitacao.TipoSolicitacao = TipoSolicitacaoRepository.ObterPorId(solicitacao.TipoSolicitacao.IdTipoSolicitacao);
 
             solicitacao.DataAutorizacao = DateTime.Now; //Isto precisar mudar quando pessoas de fora fizerem o cadastro da solicitacao.
 
@@ -69,7 +63,7 @@ namespace Services.Service
                     DataValidade = DateTime.Now
                 };
 
-                CursoSemTurmaRepository.Incluir(cst);
+                CursoSemTurmaRepository.IncluirNovoCursoSemTurma(cst);
             }
 
             SolicitacaoRepository.Salvar();
