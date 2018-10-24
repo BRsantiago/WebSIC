@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -11,16 +12,20 @@ using Entity.DTO;
 using Entity.Entities;
 using Repository.Context;
 using Service.Interface;
+using WebSIC.Models;
 
 namespace WebSIC.Controllers
 {
     public class PessoaController : Controller
     {
         public IPessoaService PessoaService;
+        public ICursoSemTurmaService CursoSemTurmaService;
 
-        public PessoaController(IPessoaService _PessoaService)
+        public PessoaController(IPessoaService _PessoaService,
+                                    ICursoSemTurmaService _CursoSemTurmaService)
         {
             PessoaService = _PessoaService;
+            CursoSemTurmaService = _CursoSemTurmaService;
         }
 
         // GET: Pessoa
@@ -60,21 +65,22 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdPessoa,Nome,Apelido,DataNascimento,NomePai,NomeMae,Endereco,Numero,Complemento,Bairro,Cidade,UF,CEP,TelefoneEmergencia,TelefoneResidencial,TelefoneCelular,RNE,CPF,RG,OrgaoExpeditor,UFOrgaoExpeditor,Genero,Observacao,FlgCVE,Email,CNH,CategoriaCNH,DataValidadeCNH,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Pessoa pessoa)
+        public ActionResult Create(PessoaViewModel model)
         {
             if (ModelState.IsValid)
             {
+                Pessoa pessoa = model.MapearParaObjetoDominio();
                 PessoaService.IncluirPessoa(pessoa);
                 return RedirectToAction("Edit", new { id = pessoa.IdPessoa });
             }
-            return View(pessoa);
+            return View(model);
         }
 
         // GET: Pessoa/Edit/5
         public ActionResult Edit(string id)
         {
             Pessoa pessoa = PessoaService.ObterPorId(id);
-            return View(pessoa);
+            return View(new PessoaViewModel(pessoa));
         }
 
         // POST: Pessoa/Edit/5
@@ -82,11 +88,11 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdPessoa,Nome,Apelido,DataNascimento,NomePai,NomeMae,Endereco,Numero,Complemento,Bairro,Cidade,UF,CEP,TelefoneEmergencia,TelefoneResidencial,TelefoneCelular,RNE,CPF,RG,OrgaoExpeditor,UFOrgaoExpeditor,Genero,Observacao,FlgCVE,Email,CNH,CategoriaCNH,DataValidadeCNH,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Pessoa pessoa)
+        public ActionResult Edit(PessoaViewModel model)
         {
             try
             {
-                PessoaService.Atualizar(pessoa);
+                PessoaService.Atualizar(model.MapearParaObjetoDominio());
                 //return RedirectToAction("Index");
                 var msg = "<script> swal({title: 'Good job!', text: 'Empresa atualizada com sucesso !', icon: 'success', button: 'OK!'}) </script>";
 
@@ -102,7 +108,7 @@ namespace WebSIC.Controllers
                 TempData["notification"] = msg;
 
                 //return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
-                return PartialView(pessoa);
+                return PartialView(model);
             }
         }
 
@@ -118,17 +124,35 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(pessoa);
+            return PartialView(new PessoaViewModel(pessoa));
         }
 
         // POST: Pessoa/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(string IdPessoa)
         {
-            Pessoa pessoa = PessoaService.ObterPorId(id);
-            PessoaService.ExcluirPessoa(pessoa);
-            return RedirectToAction("Index");
+            try
+            {
+                Pessoa pessoa = PessoaService.ObterPorId(IdPessoa);
+                PessoaService.ExcluirPessoa(pessoa);
+
+                return Json(new
+                {
+                    success = true,
+                    title = "Sucesso",
+                    message = "Pessoa excluída com sucesso !"
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    title = "Erro",
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public ActionResult ObterPessoaPorCPF(string cpf)
@@ -140,5 +164,85 @@ namespace WebSIC.Controllers
             string result = javaScriptSerializer.Serialize(pessoa);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult CriarNovoCST(string id)
+        {
+            CursoSemTurma cst = new CursoSemTurma();
+            cst.Pessoa = new Pessoa() { IdPessoa = Convert.ToInt32(id) };
+            return View("../CursoSemTurma/Create", cst);
+        }
+
+        // POST: Pessoa/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CriarNovoCST(CursoSemTurma cst)
+        {
+            try
+            {
+                CursoSemTurmaService.IncluirNovoCST(cst);
+                return Json(new { success = true, title = "Sucesso", message = "Representante cadastrado com sucesso !" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        public ActionResult ExcluirCursoSemTurma(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CursoSemTurma cst = CursoSemTurmaService.ObterPorId(Convert.ToInt32(id));
+            if (cst == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("../CursoSemTurma/Delete", cst);
+        }
+
+        [HttpPost, ActionName("ExcluirCursoSemTurma")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ExcluirCursoSemTurmaConfirmacao(string IdCursoSemTurma)
+        {
+            try
+            {
+                CursoSemTurma cst = CursoSemTurmaService.ObterPorId(Convert.ToInt32(IdCursoSemTurma));
+                CursoSemTurmaService.Excluir(cst);
+
+                return Json(new { success = true, title = "Sucesso", message = "Curso excluído com sucesso !" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult EditarCursoSemTurma(string id)
+        {
+            CursoSemTurma cst = CursoSemTurmaService.ObterPorId(Convert.ToInt32(id));
+            return PartialView("../CursoSemTurma/Edit", cst);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarCursoSemTurma(CursoSemTurma cst)
+        {
+            try
+            {
+                CursoSemTurmaService.Atualizar(cst);
+                return Json(new { success = true, title = "Sucesso", message = "Registro Atualizado com sucesso !" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
     }
 }

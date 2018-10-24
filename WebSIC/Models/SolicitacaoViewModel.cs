@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Entity.DTO;
+using Entity.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;

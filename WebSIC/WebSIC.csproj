@@ -178,6 +178,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OcorrenciaController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
+    <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\PortaoAcessoController.cs" />
     <Compile Include="Controllers\RepresentanteController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
@@ -193,6 +194,7 @@
     </Compile>
     <Compile Include="Models\ContratoViewModel.cs" />
     <Compile Include="Models\EmpresaViewModel.cs" />
+    <Compile Include="Models\PessoaViewModel.cs" />
     <Compile Include="Models\RepresentanteViewModel.cs" />
     <Compile Include="Models\SolicitacaoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -458,6 +460,7 @@
     <Content Include="Content\vendor\metisMenu\metisMenu.js" />
     <Content Include="Content\vendor\metisMenu\metisMenu.min.css" />
     <Content Include="Content\vendor\metisMenu\metisMenu.min.js" />
+    <Content Include="Images\Foto\person.jpg" />
     <Content Include="Images\Logo\TOPLYNE.jpg" />
     <Content Include="Images\Logo\TOPLYNE.png" />
     <Content Include="img\logo_vinci.png" />
@@ -542,6 +545,9 @@
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
     <Content Include="Scripts\Index.js" />
+    <Content Include="Scripts\jquery.webcam.js" />
+    <Content Include="Scripts\jscam.swf" />
+    <Content Include="Scripts\jscam_canvas_only.swf" />
     <Content Include="Scripts\locales\bootstrap-datepicker-en-CA.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar-tn.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar.min.js" />
@@ -885,10 +891,14 @@
     <Content Include="Views\Representante\Edit.cshtml" />
     <Content Include="Views\Representante\Index.cshtml" />
     <Content Include="Views\Solicitacao\CreateATIV.cshtml" />
+    <Content Include="Views\CursoSemTurma\Edit.cshtml" />
+    <Content Include="Views\CursoSemTurma\Delete.cshtml" />
+    <Content Include="Views\CursoSemTurma\Create.cshtml" />
+    <Content Include="Views\Photo\Changephoto.cshtml" />
+    <Content Include="Views\Photo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\Foto\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

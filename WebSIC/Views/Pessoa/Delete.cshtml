@@ -1,289 +1,249 @@
-﻿@model Entity.Entities.Pessoa
+﻿@model WebSIC.Models.PessoaViewModel
 
-@{
-    ViewBag.Title = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Pessoa</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Usuario.Login)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Usuario.Login)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Apelido)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Apelido)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DataNascimento)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataNascimento)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NomePai)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NomePai)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NomeMae)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NomeMae)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Endereco)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Endereco)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Numero)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Numero)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Complemento)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Complemento)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Bairro)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Bairro)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Cidade)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cidade)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UF)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UF)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CEP)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CEP)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TelefoneEmergencia)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TelefoneEmergencia)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TelefoneResidencial)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TelefoneResidencial)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TelefoneCelular)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TelefoneCelular)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RNE)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RNE)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CPF)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CPF)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RG)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RG)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OrgaoExpeditor)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OrgaoExpeditor)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UFOrgaoExpeditor)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UFOrgaoExpeditor)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Genero)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Genero)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Observacao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Observacao)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FlgCVE)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FlgCVE)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CNH)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CNH)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoriaCNH)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CategoriaCNH)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DataValidadeCNH)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataValidadeCNH)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Criacao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Criacao)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Criador)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Criador)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Atualizacao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Atualizacao)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Atualizador)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Atualizador)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Ativo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Ativo)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+<div class="modal-dialog" style="margin-left: 490px !important;">
+    <div class="modal-content" style="width: 782px !important;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Deseja excluir a pessoa abaixo ?</h4>
         </div>
-    }
-</div>
+        <div class="modal-body">
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RG, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.RG, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    @Html.LabelFor(model => model.OrgaoExpeditor, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.OrgaoExpeditor, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    @Html.LabelFor(model => model.UFOrgaoExpeditor, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-1">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.UFOrgaoExpeditor, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CPF, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.CPF, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    @Html.LabelFor(model => model.RNE, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.RNE, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                    @Html.LabelFor(model => model.Apelido, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.Apelido, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DataNascimento, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.DataNascimento, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                    @*@Html.LabelFor(model => model.Generos, htmlAttributes: new { @class = "control-label col-md-1" })
+                        <div class="col-md-2">
+                            <div class="checkbox">
+                                @Html.DropDownListFor(d => d.IdGenero, new SelectList(Model.Generos.OrderBy(o => o.IdGenero), "IdGenero", "Descricao"), "Selecione", new { @class = "form-control select2" })
+                                @Html.ValidationMessageFor(model => model.IdGenero, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NomePai, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.NomePai, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NomeMae, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-6">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.NomeMae, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CEP, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.CEP, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Endereco, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-6">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.Endereco, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    @Html.LabelFor(model => model.Complemento, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-1">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    @Html.LabelFor(model => model.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Cidade, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.Cidade, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    @Html.LabelFor(model => model.UF, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-1">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.UF, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TelefoneResidencial, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.TelefoneResidencial, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    @Html.LabelFor(model => model.TelefoneCelular, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.TelefoneCelular, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    @Html.LabelFor(model => model.TelefoneEmergencia, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.TelefoneEmergencia, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Observacao, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.Observacao, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CNH, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.CNH, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    @Html.LabelFor(model => model.DataValidadeCNH, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.DataValidadeCNH, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    @Html.LabelFor(model => model.CategoriaCNH, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-1">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.CategoriaCNH, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FlgCVE, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-1">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(model => model.FlgCVE, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form-pessoa" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.IdPessoa)
+                }
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button id="btnSave" class="btn btn-danger" onclick="Salvar('#form-pessoa')">Excluir</button>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

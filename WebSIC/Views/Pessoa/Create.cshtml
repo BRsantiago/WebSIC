@@ -1,4 +1,4 @@
-﻿@model Entity.Entities.Pessoa
+﻿@model WebSIC.Models.PessoaViewModel
 
 <div class="row">
     <div class="col-lg-12">
@@ -12,6 +12,22 @@
 
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label for="file" class="control-label col-md-1">Foto</label>
+            <div class="col-md-10">
+                @*@Html.TextBoxFor(model => model.Foto, new { @type = "file", @class = "btn btn-default", @onchange = "loadFile(event)" })
+                        <br />
+                    <img id="output" style="width: 150px; height: 100px;" />
+                *@
+
+                <img id="Userpic" src="@ViewBag.Picture" />
+                <br />
+                <input type="button" id="btnSave" value="Take Photo" onclick="ShowPopUp();" />
+
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.RG, htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-2">
@@ -40,7 +56,6 @@
             <div class="col-md-2">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.CPF, new { htmlAttributes = new { @class = "form-control" } })
-                    <a class="fa fa-search" onclick="ObterPessoaPorCPF()"></a>
                 </div>
             </div>
 
@@ -244,4 +259,120 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        function ShowPopUp() {
+            window.open('/Photo/Index/', "wndPopUp", 'width=800,height=400,left=100,top=100,resizable=no');
+        }
+    </script>
+
+
+    <script>
+
+
+
+function PopUpResult(result) {
+    var html;
+    if (result.html)
+        html = result.html;
+    if (result.src)
+        html = '<img src="' + result.src + '" />';
+
+    swal({
+        title: '',
+        html: true,
+        text: html,
+        allowOutsideClick: true,
+        icon: "success"
+    });
+
+    setTimeout(function () {
+        $('.sweet-alert').css('margin', function () {
+            var top = -1 * ($(this).height() / 2);
+            var left = -1 * ($(this).width() / 2);
+            return top + 'px 0 0 ' + left + 'px';
+        });
+    }, 1);
+}
+function UploadPic() {
+    $.ajax({
+        type: 'POST',
+        url: ("@Url.Content("~/Photo/Rebind")/"),
+        dataType: 'json',
+            success: function (data) {
+                $("#show").croppie("bind", { url: data });
+                document.getElementById('Submit1').disabled = false;
+                swal({
+                    title: "Good job!",
+                    text: "Photo Capture successfully!",
+                    icon: "success",
+                    button: "OK!",
+                });
+            }
+});
+    }
+function UploadSubmit() {
+    debugger;
+    $("#show").croppie('result', {
+        type: 'canvas',
+        size: 'viewport'
+    }).then(function (resp) {
+        $.ajax({
+            type: 'POST',
+            url: ("@Url.Content("~/Photo/Index")/"),
+            dataType: 'json',
+                data: { base64Image: resp },
+        success: function () {
+            swal({
+                title: "Good job!",
+                text: "Photo was upload successfully!",
+                icon: "success",
+                button: "OK!",
+            });
+        }
+    });
+});
+window.opener.location.href = "http://localhost:55694/Photo/Changephoto";
+self.close();
+    }
+function Load() {
+    debugger;
+    $("#Camera").webcam({
+        width: 320,
+        height: 240,
+        mode: "save",
+        swffile: "@Url.Content("~/Scripts/jscam.swf")",
+        onTick: function () { },
+        onSave: function () {
+            UploadPic();
+        },
+        onCapture: function () {
+            webcam.save("@Url.Content("~/Photo/Capture")/");
+        },
+        debug: function () { },
+        onLoad: function () { }
+        });
+
+document.getElementById('Submit1').disabled = true;
+
+$("#show").croppie({
+    viewport: {
+        width: 150,
+        height: 200
+    },
+    boundary: {
+        width: 320,
+        height: 240
+    },
+    showZoomer: true,
+    enableResize: true,
+    enableOrientation: true
+});
+    }
+
+$(document).ready(function () {
+    Load();
+});
+
+    </script>
 }

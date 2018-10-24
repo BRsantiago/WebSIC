@@ -41,7 +41,7 @@
                                 </td>
                                 <td>
                                     @Html.ActionLink("Editar", "Edit", new { id = item.IdPessoa }, new { @class = "btn btn-primary " }) |
-                                    @Html.ActionLink("Excluir", "Delete", new { id = item.IdPessoa }, new { @class = "btn btn-danger " })
+                                    <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdPessoa,'Pessoa')">Excluir</a>
                                 </td>
                             </tr>
                         }

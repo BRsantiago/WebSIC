@@ -46,6 +46,7 @@
     <Compile Include="Interface\ICargoService.cs" />
     <Compile Include="Interface\IContratoService.cs" />
     <Compile Include="Interface\ICredencialService.cs" />
+    <Compile Include="Interface\ICursoSemTurmaService.cs" />
     <Compile Include="Interface\ICursoService.cs" />
     <Compile Include="Interface\ITipoCrachaService.cs" />
     <Compile Include="Interface\ITipoEmpresaService.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Interface\IUsuarioService.cs" />
     <Compile Include="Interface\IVeiculoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\CursoSemTurmaService.cs" />
     <Compile Include="Service\TipoCrachaService.cs" />
     <Compile Include="Service\TipoEmpresaService.cs" />
     <Compile Include="Service\EmpresaService.cs" />

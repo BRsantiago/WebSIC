@@ -16,20 +16,20 @@ namespace WebSIC.App_Start
     using Service.Service;
     using Services.Service;
 
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -37,7 +37,7 @@ namespace WebSIC.App_Start
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -84,6 +84,7 @@ namespace WebSIC.App_Start
             kernel.Bind<ITurmaService>().To<TurmaService>();
             kernel.Bind<IUsuarioService>().To<UsuarioService>();
             kernel.Bind<IVeiculoService>().To<VeiculoService>();
+            kernel.Bind<ICursoSemTurmaService>().To<CursoSemTurmaService>();
 
             kernel.Bind<IAeroportoRepository>().To<AeroportoRepository>();
             kernel.Bind<IApoliceRepository>().To<ApoliceRepository>();
@@ -104,6 +105,6 @@ namespace WebSIC.App_Start
             kernel.Bind<ITurmaRepository>().To<TurmaRepository>();
             kernel.Bind<IUsuarioRepository>().To<UsuarioRepository>();
             kernel.Bind<IVeiculoRepository>().To<VeiculoRepository>();
-        }        
+        }
     }
 }

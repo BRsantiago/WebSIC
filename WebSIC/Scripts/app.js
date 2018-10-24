@@ -228,3 +228,210 @@ var loadFile = function (event) {
     var output = document.getElementById('output');
     output.src = URL.createObjectURL(event.target.files[0]);
 };
+
+
+
+
+function onShowModalCreateCST(id) {
+    $.ajax({
+        type: 'GET',
+        url: '/Pessoa/CriarNovoCST',
+        data: { id: id },
+        cache: false,
+        dataType: 'html',
+        success: function (data) {
+            $('#modal').html(data);
+            $('#modal').appendTo("body").modal('show');
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            //TrataErroAjax(xhr);
+            alert("erro");
+        }
+    });
+};
+
+function onShowModalEditCST(id) {
+
+    var params = { id: id };
+
+    $.ajax({
+        type: 'GET',
+        url: '/Pessoa/EditarCursoSemTurma',
+        data: params,
+        cache: false,
+        dataType: 'html',
+        success: function (data) {
+            $('#modal').html(data);
+            $('#modal').modal('show');
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            //TrataErroAjax(xhr);
+            alert("erro");
+        }
+    });
+};
+
+function onShowModalDeleteCST(id) {
+
+    var params = { id: id };
+
+    $.ajax({
+        type: 'GET',
+        url: '/Pessoa/ExcluirCursoSemTurma',
+        data: params,
+        cache: false,
+        dataType: 'html',
+        success: function (data) {
+            $('#modal').html(data);
+            $('#modal').modal('show');
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert("erro");
+        }
+    });
+};
+
+
+function SalvarComParametros(form, url) {
+
+    baseURL = window.location;
+
+    var form = $(form);
+
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: form.serialize(),
+        success: function (result) {
+            if (result.success) {
+                swal({
+                    title: "Good job!",
+                    text: result.message,
+                    icon: "success",
+                    button: "OK!"
+                })
+                    .then((value) => {
+                        $('#modal').modal('hide');
+                        window.location = baseURL;
+                    });
+            } else {
+                swal({
+                    title: "Atenção!",
+                    text: result.message,
+                    icon: "warning",
+                    button: "OK!"
+                })
+            }
+        },
+        error: function () {
+            swal({
+                title: "Erro de sistema!",
+                text: "Por favor entre em contato com o setor de TI!",
+                icon: "error"
+            });
+        }
+    });
+}
+
+//function PopUpResult(result) {
+//    var html;
+//    if (result.html)
+//        html = result.html;
+//    if (result.src)
+//        html = '<img src="' + result.src + '" />';
+
+//    swal({
+//        title: '',
+//        html: true,
+//        text: html,
+//        allowOutsideClick: true,
+//        icon: "success"
+//    });
+
+//    setTimeout(function () {
+//        $('.sweet-alert').css('margin', function () {
+//            var top = -1 * ($(this).height() / 2);
+//            var left = -1 * ($(this).width() / 2);
+//            return top + 'px 0 0 ' + left + 'px';
+//        });
+//    }, 1);
+//}
+//function UploadPic() {
+//    $.ajax({
+//        type: 'POST',
+//        url: ("/Photo/Rebind/"),
+//        dataType: 'json',
+//        success: function (data) {
+//            $("#show").croppie("bind", { url: data });
+//            document.getElementById('Submit1').disabled = false;
+//            swal({
+//                title: "Good job!",
+//                text: "Photo Capture successfully!",
+//                icon: "success",
+//                button: "OK!",
+//            });
+//        }
+//    });
+//}
+//function UploadSubmit() {
+//    debugger;
+//    $("#show").croppie('result', {
+//        type: 'canvas',
+//        size: 'viewport'
+//    }).then(function (resp) {
+//        $.ajax({
+//            type: 'POST',
+//            url: ("/Photo/Index/"),
+//            dataType: 'json',
+//            data: { base64Image: resp },
+//            success: function () {
+//                swal({
+//                    title: "Good job!",
+//                    text: "Photo was upload successfully!",
+//                    icon: "success",
+//                    button: "OK!",
+//                });
+//            }
+//        });
+//    });
+//    window.opener.location.href = "http://localhost:55694/Photo/Changephoto";
+//    self.close();
+//}
+//function Load() {
+//    debugger;
+//    $("#Camera").webcam({
+//        width: 320,
+//        height: 240,
+//        mode: "save",
+//        swffile: "/Scripts/jscam.swf",
+//        onTick: function () { },
+//        onSave: function () {
+//            UploadPic();
+//        },
+//        onCapture: function () {
+//            webcam.save("/Photo/Capture/");
+//        },
+//        debug: function () { },
+//        onLoad: function () { }
+//    });
+
+//    document.getElementById('Submit1').disabled = true;
+
+//    $("#show").croppie({
+//        viewport: {
+//            width: 150,
+//            height: 200
+//        },
+//        boundary: {
+//            width: 320,
+//            height: 240
+//        },
+//        showZoomer: true,
+//        enableResize: true,
+//        enableOrientation: true
+//    });
+//}
+
+//$(document).ready(function () {
+//    Load();
+//});

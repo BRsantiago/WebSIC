@@ -66,6 +66,20 @@ namespace Services.Service
                 CursoSemTurmaRepository.IncluirNovoCursoSemTurma(cst);
             }
 
+            CursosExigidos = CursoRepository.ObterPorArea(solicitacao.Area2.IdArea);
+
+            foreach (Curso curso in CursosExigidos)
+            {
+                CursoSemTurma cst = new CursoSemTurma()
+                {
+                    Curso = curso,
+                    Pessoa = solicitacao.Pessoa,
+                    DataValidade = DateTime.Now
+                };
+
+                CursoSemTurmaRepository.IncluirNovoCursoSemTurma(cst);
+            }
+
             SolicitacaoRepository.Salvar();
         }
     }

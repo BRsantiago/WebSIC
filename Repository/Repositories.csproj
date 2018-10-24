@@ -108,6 +108,10 @@
     <Compile Include="Migrations\201810232117256_AlteracaoVeiculo.Designer.cs">
       <DependentUpon>201810232117256_AlteracaoVeiculo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810242217320_FotoPessoa.cs" />
+    <Compile Include="Migrations\201810242217320_FotoPessoa.Designer.cs">
+      <DependentUpon>201810242217320_FotoPessoa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CursoSemTurmaRepository.cs" />
@@ -172,6 +176,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810232117256_AlteracaoVeiculo.resx">
       <DependentUpon>201810232117256_AlteracaoVeiculo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810242217320_FotoPessoa.resx">
+      <DependentUpon>201810242217320_FotoPessoa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

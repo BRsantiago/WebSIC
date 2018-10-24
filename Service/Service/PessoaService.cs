@@ -38,6 +38,7 @@ namespace Services.Service
             if (!String.IsNullOrEmpty(pessoa.CNH))
             {
                 Curso DDA = CursoRepository.ObterTodos().Where(x => x.Titulo.Contains("DDA")).SingleOrDefault();
+                pessoa.Curso = new List<CursoSemTurma>();
                 pessoa.Curso.Add(new CursoSemTurma()
                 {
                     Curso = DDA,
