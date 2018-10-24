@@ -15,3 +15,9 @@ C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Entity\bin\Debug\Entity.pdb
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Entity\obj\Debug\Entities.csproj.CoreCompileInputs.cache
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Entity\obj\Debug\Entity.dll
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Entity\obj\Debug\Entity.pdb
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Entity\bin\Debug\Entity.dll
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Entity\bin\Debug\Entity.pdb
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Entity\obj\Debug\Entities.csprojAssemblyReference.cache
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Entity\obj\Debug\Entities.csproj.CoreCompileInputs.cache
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Entity\obj\Debug\Entity.dll
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Entity\obj\Debug\Entity.pdb

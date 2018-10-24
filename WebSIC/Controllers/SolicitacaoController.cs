@@ -205,12 +205,50 @@ namespace WebSIC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateATIV([Bind(Include = "IdSolicitacao,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Solicitacao solicitacao)
+        public ActionResult CreateATIV([Bind(Include = "IdSolicitacao,Criacao,Criador,Atualizacao,Atualizador,Ativo,TipoEmissao")] Solicitacao solicitacao, FormCollection form)
         {
             solicitacao.Criador =
                 solicitacao.Atualizador = User.Identity.Name;
 
+            //solicitacao.Veiculo = VeiculoService.Obter(int.Parse(form["VeiculoId"]));
+            //solicitacao.Empresa = EmpresaService.ObterPorId(int.Parse(form["EmpresaId"]));
+            //solicitacao.Contrato = ContratoService.Obter(int.Parse(form["Contrato.IdContrato"]));
+            //solicitacao.Area1 = AreaService.Obter(int.Parse(form["Area1.IdArea"]));
+            //solicitacao.Area2 = AreaService.Obter(int.Parse(form["Area2.IdArea"]));
+            //solicitacao.TipoSolicitacao = TipoSolicitacaoService.Obter(int.Parse(form["TipoSolicitacao.IdTipoSolicitacao"]));
+            //solicitacao.PortaoAcesso = PortaoService.Obter(int.Parse(form["PortaoAcesso.IdPortaoAcesso"]));
+
+            solicitacao.Veiculo = new Veiculo() { IdVeiculo = (int.Parse(form["VeiculoId"])) };
+            solicitacao.Empresa = new Empresa() { IdEmpresa = (int.Parse(form["EmpresaId"])) };
+            solicitacao.Contrato = new Contrato() { IdContrato = int.Parse(form["Contrato.IdContrato"]) };
+            solicitacao.TipoSolicitacao = new TipoSolicitacao() { IdTipoSolicitacao = int.Parse(form["TipoSolicitacao.IdTipoSolicitacao"]) };
+            solicitacao.Area1 = new Area() { IdArea = int.Parse(form["Area1.IdArea"]) };
+            solicitacao.Area2 = new Area() { IdArea = int.Parse(form["Area2.IdArea"]) };
+            solicitacao.PortaoAcesso = new PortaoAcesso() { IdPortaoAcesso = int.Parse(form["PortaoAcesso.IdPortaoAcesso"]) };
+
             ServiceReturn check = null;
+
+            try
+            {
+                SolicitacaoService.Salvar(solicitacao);
+                check = new ServiceReturn()
+                {
+                    success = true,
+                    title = "Sucesso",
+                    message = "Solicitação de ATIV cadastrada com sucesso!",
+                    id = solicitacao.IdSolicitacao
+                };
+            }
+            catch (Exception ex)
+            {
+                check = new ServiceReturn()
+                {
+                    success = false,
+                    title = "Erro",
+                    message = string.Format("Erro ao cadastrar a solicitação de ATIV! {0} - {1}", ex.GetType(), ex.Message),
+                    id = 0
+                };
+            }
 
             return Json(check, JsonRequestBehavior.AllowGet);
         }

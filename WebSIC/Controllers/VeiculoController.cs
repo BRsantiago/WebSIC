@@ -81,9 +81,9 @@ namespace WebSIC.Controllers
 
                 var check = Service.Incluir(veiculo);
 
-                //return Json(check, JsonRequestBehavior.AllowGet);
-                if (check.success)
-                    return RedirectToAction("Edit", new { id = veiculo.IdVeiculo });
+                return Json(check, JsonRequestBehavior.AllowGet);
+                //if (check.success)
+                //    return RedirectToAction("Edit", new { id = veiculo.IdVeiculo });
             }
 
             return PartialView(veiculo);

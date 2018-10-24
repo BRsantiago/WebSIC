@@ -68,5 +68,11 @@ namespace Services.Service
 
             SolicitacaoRepository.Salvar();
         }
+
+        public void SalvarATIV(Solicitacao solicitacao)
+        {
+            SolicitacaoRepository.IncluirNovaSolicitacao(solicitacao);
+            SolicitacaoRepository.Salvar();
+        }
     }
 }

@@ -5,6 +5,21 @@
         Layout = "~/Views/Shared/_Layout.cshtml";
     }*@
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7/dist/sweetalert2.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@7/dist/sweetalert2.css">
+
+<style type="text/css">
+    .swal2-popup {
+        font-size: 1.6rem !important;
+    }
+
+    .swal2-icon {
+        width: 5em !important;
+        height: 5em !important;
+        border-width: .25em !important;
+    }
+</style>
+
 <div class="modal-dialog" style="margin-left: 490px !important;">
     <div class="modal-content" style="width: 782px !important;">
         <div class="modal-header">
@@ -173,7 +188,7 @@
         <div class="modal-footer">
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <button id="btnSave" class="btn btn-primary" onclick="SubmitForm()">Salvar</button>
+                    <button id="btnSave" class="btn btn-primary" onclick="SubmitFormX()">Salvar</button>
                     @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
                 </div>
             </div>
@@ -185,7 +200,6 @@
 
         <script type="text/javascript">
             $(function () {
-
                  $("#EmpresaId").change(function () {
                      var val = $(this).val();
                     var options = "";
@@ -198,8 +212,55 @@
                             $("#ApoliceId").html(options);
                         });
                 });
-
             });
+
+            function SubmitFormX() {
+                var form = $("form");
+                $.ajax({
+                    url: form.attr("action"),
+                    method: form.attr("method"),  // post
+                    data: form.serialize(),
+                    success: function (serviceReturn) {
+                        if (serviceReturn.success) {
+                            swal({
+                                title: "Good job!",
+                                text: serviceReturn.message,
+                                type: "success",
+                                showConfirmButton: true,
+                                confirmButtonText: 'Solicitar ATIV!',
+                                showCancelButton: true,
+                                cancelButtonText: 'Cancelar solicitação de ATIV!'
+                            })
+                                .then((result) => {
+                                    if (result.value) {
+                                        $("#modal").load("Solicitacao/CreateATIV?veiculoId=" + serviceReturn.id, function () {
+                                            $("#modal").modal();
+                                        });
+                                    }
+                                    else {
+                                        $('#modal').modal('hide');
+                                        window.location = baseURL;
+                                    }
+                                });
+                        } else {
+                            swal({
+                                title: "Atenção!",
+                                text: serviceReturn.message,
+                                icon: "warning",
+                                button: "OK!"
+                            })
+                        }
+
+                    },
+                    error: function () {
+                        swal({
+                            title: "Erro de sistema!",
+                            text: "Por favor entre em contato com o setor de TI!",
+                            icon: "error"
+                        });
+                    }
+                });
+            }
         </script>
 
     </div>

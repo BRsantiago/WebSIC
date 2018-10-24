@@ -40,3 +40,17 @@ C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Service\obj\Debug\Services.cspro
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Service\obj\Debug\Services.csproj.CopyComplete
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Service\obj\Debug\Service.dll
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Service\obj\Debug\Service.pdb
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Service\bin\Debug\Service.dll
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Service\bin\Debug\Service.pdb
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Service\bin\Debug\Entity.dll
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Service\bin\Debug\Repository.dll
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Service\bin\Debug\EntityFramework.dll
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Service\bin\Debug\Entity.pdb
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Service\bin\Debug\Repository.pdb
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Service\bin\Debug\Repository.dll.config
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Service\bin\Debug\EntityFramework.xml
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Service\obj\Debug\Services.csprojAssemblyReference.cache
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Service\obj\Debug\Services.csproj.CoreCompileInputs.cache
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Service\obj\Debug\Services.csproj.CopyComplete
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Service\obj\Debug\Service.dll
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\Service\obj\Debug\Service.pdb
