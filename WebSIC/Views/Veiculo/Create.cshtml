@@ -5,6 +5,21 @@
         Layout = "~/Views/Shared/_Layout.cshtml";
     }*@
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7/dist/sweetalert2.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@7/dist/sweetalert2.css">
+
+<style type="text/css">
+    .swal2-popup {
+        font-size: 1.6rem !important;
+    }
+
+    .swal2-icon {
+        width: 5em !important;
+        height: 5em !important;
+        border-width: .25em !important;
+    }
+</style>
+
 <div class="modal-dialog" style="margin-left: 490px !important;">
     <div class="modal-content" style="width: 782px !important;">
         <div class="modal-header">
@@ -173,7 +188,7 @@
         <div class="modal-footer">
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <button id="btnSave" class="btn btn-primary" onclick="SubmitForm()">Salvar</button>
+                    <button id="btnSave" class="btn btn-primary" onclick="SubmitFormX()">Salvar</button>
                     @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
                 </div>
             </div>
@@ -185,10 +200,8 @@
 
         <script type="text/javascript">
             $(function () {
-
-                 $("#Empresa_IdEmpresa").change(function () {
+                 $("#EmpresaId").change(function () {
                      var val = $(this).val();
-                     alert(val);
                     var options = "";
                     $.getJSON(
                         "@Url.Action("GetApolices", "Veiculo")", { idEmpresa: val },
@@ -196,43 +209,43 @@
                             $.each(data, function(index, item){
                                 options += "<option value='" + item.Value + "'>" + item.Text + "</option>";
                             });
-                            $("#Apolice_IdApolice").html(options);
+                            $("#ApoliceId").html(options);
                         });
                 });
-
             });
 
-            function SubmitForm() {
+            function SubmitFormX() {
                 var form = $("form");
                 $.ajax({
                     url: form.attr("action"),
                     method: form.attr("method"),  // post
                     data: form.serialize(),
-                    success: function (result) {
-                        if (result.success) {
+                    success: function (serviceReturn) {
+                        if (serviceReturn.success) {
                             swal({
                                 title: "Good job!",
-                                text: result.message,
-                                icon: "success",
+                                text: serviceReturn.message,
+                                type: "success",
+                                showConfirmButton: true,
+                                confirmButtonText: 'Solicitar ATIV!',
                                 showCancelButton: true,
-                                confirmButtonText: 'Solicitar ATIV',
-                                cancelButtonText: 'Não solicitar ATIV agora',
+                                cancelButtonText: 'Cancelar solicitação de ATIV!'
                             })
                                 .then((result) => {
-                                    if (result.dismiss === swal.DismissReason.cancel) {
-                                        $('#modal').modal('hide');
-                                        window.location = baseURL;
+                                    if (result.value) {
+                                        $("#modal").load("Solicitacao/CreateATIV?veiculoId=" + serviceReturn.id, function () {
+                                            $("#modal").modal();
+                                        });
                                     }
                                     else {
-                                        $("#modal").load("Solicitacao/CreateATIV", function () {
-                                            $("#modal").modal();
-                                        })
+                                        $('#modal').modal('hide');
+                                        window.location = baseURL;
                                     }
                                 });
                         } else {
                             swal({
                                 title: "Atenção!",
-                                text: result.message,
+                                text: serviceReturn.message,
                                 icon: "warning",
                                 button: "OK!"
                             })

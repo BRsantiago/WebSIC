@@ -86,7 +86,7 @@
                         {
                             <tr>
                                 <td>
-                                    <input type="radio" id="rdbSelectedId" name="rdbSelectedId" value="@item.IdVeiculo" />
+                                    <input type="radio" id="rdbSelectedId_@item.IdVeiculo" name="rdbSelectedId" value="@item.IdVeiculo" />
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Empresa.NomeFantasia)
@@ -178,8 +178,9 @@
 <script>
     $(function () {
         $(".request").click(function () {
-            if ($('#rdbSelectedId').is(':checked')) {
-                $("#modal").load("@Url.Action("CreateVeiculo", "Solicitacao")", function () {
+            alert($('input:checked').val());
+            if ($('input:checked').val() != undefined) {
+                $("#modal").load("Solicitacao/CreateATIV?veiculoId=" + $('input:checked').val(), function () {
                     $("#modal").modal();
                 })
             }

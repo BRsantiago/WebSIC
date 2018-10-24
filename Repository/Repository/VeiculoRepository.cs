@@ -19,12 +19,12 @@ namespace Repository.Interface
 
         public override List<Veiculo> ObterTodos()
         {
-            return contexto.Veiculos.Include(v => v.Empresa).Include(v => v.Apolice).Where(v => v.Ativo == true).ToList();
+            return contexto.Veiculos.Include(v => v.Empresa).Include(v => v.Apolice).Include(v => v.Solicitacoes).Where(v => v.Ativo == true).ToList();
         }
 
         public override Veiculo ObterPorId(int id)
         {
-            return contexto.Veiculos.Include(v => v.Empresa).Include(v => v.Apolice).FirstOrDefault(v => v.IdVeiculo == id);
+            return contexto.Veiculos.Include(v => v.Empresa).Include(v => v.Apolice).Include(v => v.Solicitacoes).FirstOrDefault(v => v.IdVeiculo == id);
         }
 
         public override void Incluir(Veiculo obj)

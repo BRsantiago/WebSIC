@@ -30,7 +30,7 @@ namespace Services.Service
                     veiculoRepository.Atualizar(veiculo);
                     veiculoRepository.Salvar();
 
-                    return new ServiceReturn() { success = true, title = "Sucesso", message = "Veículo atualizado com sucesso!" };
+                    return new ServiceReturn() { success = true, title = "Sucesso", message = "Veículo atualizado com sucesso!", id = veiculo.IdVeiculo };
                 }
 
                 return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Não foi possível atualizar o veículo pois já existe outro registro com {0}!", check1 != null ? "mesmo chassi" : check2 != null ? "mesma placa" : "causa não identificada") };
@@ -70,7 +70,7 @@ namespace Services.Service
                     veiculoRepository.Incluir(veiculo);
                     veiculoRepository.Salvar();
 
-                    return new ServiceReturn() { success = true, title = "Sucesso", message = "Veículo cadastrado com sucesso!" };
+                    return new ServiceReturn() { success = true, title = "Sucesso", message = "Veículo cadastrado com sucesso!", id = veiculo.IdVeiculo };
                 }
 
                 return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Não foi possível cadastrar o veículo pois já existe outro registro com {0}!", check1 != null ? "mesmo chassi" : check2 != null ? "mesma placa" : "causa não identificada") };

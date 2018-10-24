@@ -46,7 +46,7 @@ namespace WebSIC.Controllers
         // GET: PortaoAcesso/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: PortaoAcesso/Create

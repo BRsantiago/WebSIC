@@ -109,12 +109,6 @@ c:\users\bruno.santiago.cassa\source\repos\WebSIC\WebSIC\bin\Repository.dll.conf
 c:\users\bruno.santiago.cassa\source\repos\WebSIC\WebSIC\bin\EntityFramework.xml
 c:\users\bruno.santiago.cassa\source\repos\WebSIC\WebSIC\bin\EntityFramework.SqlServer.dll
 c:\users\bruno.santiago.cassa\source\repos\WebSIC\WebSIC\bin\EntityFramework.SqlServer.xml
-T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.dll
-T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\System.IO.Compression.dll
-T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\VBCSCompiler.exe
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.dll
 C:\Users\bruno.santiago.CASSA\Documents\GitHub\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
@@ -241,9 +235,13 @@ T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\csi.ex
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\csi.exe.config
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\csi.rsp
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.dll
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\Microsoft.CSharp.Core.targets
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\Microsoft.VisualBasic.Core.targets
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\Microsoft.Win32.Primitives.dll
@@ -253,6 +251,7 @@ T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\System
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\System.Diagnostics.Process.dll
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\System.Diagnostics.StackTrace.dll
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\System.IO.Compression.dll
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\System.IO.FileSystem.dll
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\System.IO.FileSystem.Primitives.dll
@@ -275,6 +274,7 @@ T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\System
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\vbc.exe
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\vbc.exe.config
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\vbc.rsp
+T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\VBCSCompiler.exe
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\roslyn\VBCSCompiler.exe.config
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\Antlr3.Runtime.dll
 T:\BACKUP\alexandre.monteiro\Source\source\repos\WebSIC\WebSIC\bin\Entity.dll

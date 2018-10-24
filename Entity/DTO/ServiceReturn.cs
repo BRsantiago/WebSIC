@@ -11,5 +11,6 @@ namespace Entity.DTO
         public bool success { get; set; }
         public string title { get; set; }
         public string message { get; set; }
+        public int id { get; set; }
     }
 }
