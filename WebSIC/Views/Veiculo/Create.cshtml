@@ -186,9 +186,8 @@
         <script type="text/javascript">
             $(function () {
 
-                 $("#Empresa_IdEmpresa").change(function () {
+                 $("#EmpresaId").change(function () {
                      var val = $(this).val();
-                     alert(val);
                     var options = "";
                     $.getJSON(
                         "@Url.Action("GetApolices", "Veiculo")", { idEmpresa: val },
@@ -196,58 +195,11 @@
                             $.each(data, function(index, item){
                                 options += "<option value='" + item.Value + "'>" + item.Text + "</option>";
                             });
-                            $("#Apolice_IdApolice").html(options);
+                            $("#ApoliceId").html(options);
                         });
                 });
 
             });
-
-            function SubmitForm() {
-                var form = $("form");
-                $.ajax({
-                    url: form.attr("action"),
-                    method: form.attr("method"),  // post
-                    data: form.serialize(),
-                    success: function (result) {
-                        if (result.success) {
-                            swal({
-                                title: "Good job!",
-                                text: result.message,
-                                icon: "success",
-                                showCancelButton: true,
-                                confirmButtonText: 'Solicitar ATIV',
-                                cancelButtonText: 'Não solicitar ATIV agora',
-                            })
-                                .then((result) => {
-                                    if (result.dismiss === swal.DismissReason.cancel) {
-                                        $('#modal').modal('hide');
-                                        window.location = baseURL;
-                                    }
-                                    else {
-                                        $("#modal").load("Solicitacao/CreateATIV", function () {
-                                            $("#modal").modal();
-                                        })
-                                    }
-                                });
-                        } else {
-                            swal({
-                                title: "Atenção!",
-                                text: result.message,
-                                icon: "warning",
-                                button: "OK!"
-                            })
-                        }
-
-                    },
-                    error: function () {
-                        swal({
-                            title: "Erro de sistema!",
-                            text: "Por favor entre em contato com o setor de TI!",
-                            icon: "error"
-                        });
-                    }
-                });
-            }
         </script>
 
     </div>

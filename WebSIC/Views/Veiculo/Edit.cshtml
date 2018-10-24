@@ -186,7 +186,7 @@
         <script type="text/javascript">
             $(function () {
 
-                 $("#Empresa_IdEmpresa").change(function () {
+                 $("#EmpresaId").change(function () {
                     var val = $(this).val();
                     var options = "";
                     $.getJSON(
@@ -195,7 +195,7 @@
                             $.each(data, function(index, item){
                                 options += "<option value='" + item.Value + "'>" + item.Text + "</option>";
                             });
-                            $("#Apolice_IdApolice").html(options);
+                            $("#ApoliceId").html(options);
                         });
                 });
 
