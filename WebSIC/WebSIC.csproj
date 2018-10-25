@@ -545,9 +545,13 @@
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
     <Content Include="Scripts\Index.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.webcam.js" />
     <Content Include="Scripts\jscam.swf" />
     <Content Include="Scripts\jscam_canvas_only.swf" />
+    <Content Include="Scripts\knockout-2.1.0.debug.js" />
+    <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker-en-CA.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar-tn.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar.min.js" />
@@ -765,6 +769,8 @@
     <Content Include="Content\vendor\font-awesome\scss\_spinning.scss" />
     <Content Include="Content\vendor\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\vendor\font-awesome\scss\_variables.scss" />
+    <Content Include="WebImages\20181025150939test.jpg" />
+    <Content Include="WebImages\person.jpg" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -894,8 +900,8 @@
     <Content Include="Views\CursoSemTurma\Edit.cshtml" />
     <Content Include="Views\CursoSemTurma\Delete.cshtml" />
     <Content Include="Views\CursoSemTurma\Create.cshtml" />
-    <Content Include="Views\Photo\Changephoto.cshtml" />
     <Content Include="Views\Photo\Index.cshtml" />
+    <Content Include="Views\Photo\Changephoto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
