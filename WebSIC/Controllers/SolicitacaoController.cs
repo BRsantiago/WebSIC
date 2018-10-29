@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using CrystalDecisions.CrystalReports.Engine;
 using Entity.DTO;
 using Entity.Entities;
 using Repository.Context;
@@ -73,7 +74,7 @@ namespace WebSIC.Controllers
             //TipoEmissaoLista.Add(new TipoEmissao() { IdTipoEmissao = 1, Descricao = "Definitivo" });
             model.IdPessoa = Convert.ToInt32(id);
 
-            
+
             model.Aeroportos = AeroportoService.ObterTodos();
             model.Empresas = EmpresaService.ObterTodos();
             model.Contratos = ContratoService.ObterTodos();
@@ -222,8 +223,8 @@ namespace WebSIC.Controllers
             solicitacao.Empresa = new Empresa() { IdEmpresa = (int.Parse(form["EmpresaId"])) };
             solicitacao.Contrato = new Contrato() { IdContrato = int.Parse(form["Contrato.IdContrato"]) };
             solicitacao.TipoSolicitacao = new TipoSolicitacao() { IdTipoSolicitacao = int.Parse(form["TipoSolicitacao.IdTipoSolicitacao"]) };
-            solicitacao.Area1 = new Area() { IdArea = int.Parse(form["Area1.IdArea"]) };
-            solicitacao.Area2 = new Area() { IdArea = int.Parse(form["Area2.IdArea"]) };
+            solicitacao.Area1 = new Entity.Entities.Area() { IdArea = int.Parse(form["Area1.IdArea"]) };
+            solicitacao.Area2 = new Entity.Entities.Area() { IdArea = int.Parse(form["Area2.IdArea"]) };
             solicitacao.PortaoAcesso = new PortaoAcesso() { IdPortaoAcesso = int.Parse(form["PortaoAcesso.IdPortaoAcesso"]) };
 
             ServiceReturn check = null;
@@ -251,6 +252,64 @@ namespace WebSIC.Controllers
             }
 
             return Json(check, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public void Imprimir()
+        {
+            ReportDocument cryRpt = new ReportDocument();
+            cryRpt.Load(Server.MapPath("/Credenciais/VinciCardFrontBack.rpt"));
+
+            cryRpt.SetParameterValue("Nombre", "Bruno Santiago");
+            cryRpt.SetParameterValue("Fecha", "17/07/2018");
+            cryRpt.SetParameterValue("Acceso", "A R");
+            cryRpt.SetParameterValue("Pocision", "Analista de Sistemas");
+            cryRpt.SetParameterValue("FotoPath", "../../WebImages/person.jpg");
+            cryRpt.SetParameterValue("Motorista1", "N");
+            cryRpt.SetParameterValue("Motorista2", "N");
+            cryRpt.SetParameterValue("EmpresaPath", "");
+            cryRpt.SetParameterValue("RG", "99999999-99");
+            cryRpt.SetParameterValue("CPF", "999.999.999-99");
+            cryRpt.SetParameterValue("Matricula", "99999");
+            cryRpt.SetParameterValue("Empresa", "Vinci");
+            cryRpt.SetParameterValue("Emergencia", "71 99999-9999");
+            cryRpt.SetParameterValue("Expedicao", "26/10/2018");
+
+            //cryRpt.SetParameterValue("Nombre", "Alexandre H. A. Monteiro");
+            //cryRpt.SetParameterValue("Fecha", "26/09/2021");
+            //cryRpt.SetParameterValue("Acceso", "R");
+            //cryRpt.SetParameterValue("Pocision", "Analista de TI Senior");
+            //cryRpt.SetParameterValue("Motorista1", "B");
+            //cryRpt.SetParameterValue("Motorista2", "");
+            //cryRpt.SetParameterValue("FotoPath", @"\\172.21.12.21\id-img\user.jpg");
+
+            //cryRpt.SetParameterValue("Expedicao", "26/09/2018");
+            //cryRpt.SetParameterValue("RG", "08.790.022-04");
+            //cryRpt.SetParameterValue("CPF", "020.062.495-41");
+            //cryRpt.SetParameterValue("Empresa", "Vinci Airports");
+            //cryRpt.SetParameterValue("Matricula", "01.547-18");
+            //cryRpt.SetParameterValue("Emergencia", "71 99981-8816");
+
+
+
+
+            cryRpt.ReportClientDocument.PrintOutputController.PrintReport();
+            //cryRpt.PrintToPrinter(1, true, 1, 2);
+
+            //DiskFileDestinationOptions CrDiskFileDestinationOptions = new DiskFileDestinationOptions();
+            //CrDiskFileDestinationOptions.DiskFileName = resultPath;
+            //PdfRtfWordFormatOptions CrFormatTypeOptions = new PdfRtfWordFormatOptions();
+            //ExportOptions CrExportOptions = cryRpt.ExportOptions; //cryRptFront.ExportOptions;
+            //{
+            //    CrExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
+            //    CrExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
+            //    CrExportOptions.DestinationOptions = CrDiskFileDestinationOptions;
+            //    CrExportOptions.FormatOptions = CrFormatTypeOptions;
+            //}
+            //#region
+            ////cryRptFront.Export();
+            //#endregion
+
         }
     }
 }

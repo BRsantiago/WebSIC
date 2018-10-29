@@ -312,6 +312,7 @@
                                                 @Html.DisplayFor(model => item.Criacao)
                                             </td>
                                             <td>
+                                                <a class="btn btn-success" onclick="Imprimir()">Imprimir</a> |
                                                 <a class="btn btn-primary" onclick="onShowModalEdit(@item.IdSolicitacao, 'Solicitacao')">Editar</a> |
                                                 <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdSolicitacao, 'Solicitacao')">Excluir</a>
                                             </td>
