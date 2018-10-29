@@ -1,133 +1,53 @@
-﻿
-@using (Html.BeginForm())
-{
-    @section scripts
-    {
-        <script src="@Url.Content("~/Scripts/jquery.webcam.js")"></script>
-    }
-    <!--https://foliotek.github.io/Croppie/-->
-    <div class="demo-wrap">
-        <div class="container">
-            <div class="grid">
-                <div class="col-1-2">
-                    <div id="Camera"></div>
-                    <div class="actions">
-                        <input type="button" value="Capture" onclick="webcam.capture();" />
+﻿@model WebSIC.Models.PessoaViewModel
+
+<div class="modal-dialog" style="margin-left: 490px !important;">
+    <div class="modal-content" style="width: 782px !important;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Tirar foto</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-horizontal">
+                @using (Html.BeginForm())
+                {
+                        <div class="container">
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <div id="Camera"></div>
+                                    <div class="checkbox">
+                                        <input type="button" value="Capturar imagem" onclick="webcam.capture();" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div id="resizer-demo">
+                                        <img id="show" style="width: 320px; height: 240px;" src="@Url.Content("~/WebImages/person.jpg")" />
+                                    </div>
+                                    <div class="checkbox">
+                                        <input id="Submit1" type="button" onclick="UploadSubmit(@Model.IdPessoa);" value="Salvar"  class="btn btn-primary"/>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
-                </div>
-                <div class="col-1-2">
-                    <div id="resizer-demo">
-                        <img id="show" style="width: 320px; height: 240px;" src="@Url.Content("~/Images/Foto/person.jpg")" />
-                    </div>
-                    <div class="actions">
-                        <input id="Submit1" type="button" onclick="UploadSubmit();" value="submit" />
-                    </div>
-                </div>
+                }
             </div>
         </div>
-    </div>
-}
-<script type="text/javascript">
-    function PopUpResult(result) {
-        var html;
-        if (result.html)
-            html = result.html;
-        if (result.src)
-            html = '<img src="' + result.src + '" />';
+        <div class="modal-footer">
+            @*<div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Salvar" class="btn btn-priamary" />
+                </div>
+            </div>*@
+        </div>
 
-        swal({
-            title: '',
-            html: true,
-            text: html,
-            allowOutsideClick: true,
-            icon: "success"
-        });
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+@*<script src="@Url.Content("~/Scripts/jquery.webcam.js")"></script>
+    <script src="@Url.Content("~/Scripts/app.js")"></script>*@
 
-        setTimeout(function () {
-            $('.sweet-alert').css('margin', function () {
-                var top = -1 * ($(this).height() / 2);
-                var left = -1 * ($(this).width() / 2);
-                return top + 'px 0 0 ' + left + 'px';
-            });
-        }, 1);
-    }
-    function UploadPic() {
-        $.ajax({
-            type: 'POST',
-            url: ("@Url.Content("~/Photo/Rebind")/"),
-            dataType: 'json',
-            success: function (data) {
-                $("#show").croppie("bind", { url: data });
-                document.getElementById('Submit1').disabled = false;
-                swal({
-                    title: "Good job!",
-                    text: "Photo Capture successfully!",
-                    icon: "success",
-                    button: "OK!",
-                });
-            }
-        });
-    }
-    function UploadSubmit() {
-        debugger;
-        $("#show").croppie('result', {
-            type: 'canvas',
-            size: 'viewport'
-        }).then(function (resp) {
-            $.ajax({
-                type: 'POST',
-                url: ("@Url.Content("~/Photo/Index")/"),
-                dataType: 'json',
-                data: { base64Image: resp },
-                success: function () {
-                    swal({
-                        title: "Good job!",
-                        text: "Photo was upload successfully!",
-                        icon: "success",
-                        button: "OK!",
-                    });
-                }
-           });
-        });
-        window.opener.location.href = "http://localhost:55694/Photo/Changephoto";
-        self.close();
-    }
-    function Load() {
-        debugger;
-        $("#Camera").webcam({
-            width: 320,
-            height: 240,
-            mode: "save",
-            swffile: "@Url.Content("~/Scripts/jscam.swf")",
-            onTick: function () { },
-            onSave: function () {
-                UploadPic();
-            },
-            onCapture: function () {
-                webcam.save("@Url.Content("~/Photo/Capture")/");
-            },
-            debug: function () { },
-            onLoad: function () { }
-        });
-
-        document.getElementById('Submit1').disabled = true;
-
-        $("#show").croppie({
-            viewport: {
-                width: 150,
-                height: 200
-            },
-            boundary: {
-                width: 320,
-                height: 240
-            },
-            showZoomer: true,
-            enableResize: true,
-            enableOrientation: true
-        });
-    }
+<script>
 
     $(document).ready(function () {
         Load();
     });
+
 </script>

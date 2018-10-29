@@ -49,9 +49,9 @@ C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.Migrations.correcao.resources
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.Migrations.AlterarTipoEmissao.resources
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.Migrations.AlteracaoVeiculo.resources
+C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.Migrations.FotoPessoa.resources
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repositories.csproj.GenerateResource.cache
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repositories.csproj.CoreCompileInputs.cache
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repositories.csproj.CopyComplete
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.dll
 C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.pdb
-C:\Users\bruno.santiago\Documents\GitHub\WebSIC\Repository\obj\Debug\Repository.Migrations.FotoPessoa.resources

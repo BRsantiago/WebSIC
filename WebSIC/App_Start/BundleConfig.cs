@@ -37,7 +37,8 @@ namespace WebSIC
                       //"~/SweetAlert2/sweetalert2.js",
                       "~/Content/vendor/datatables/js/jquery.dataTables.min.js",
                       "~/Content/vendor/datatables-plugins/dataTables.bootstrap.min.js",
-                      "~/Content/vendor/datatables-responsive/dataTables.responsive.js"));
+                      "~/Content/vendor/datatables-responsive/dataTables.responsive.js",
+                      "~/Scripts/jquery.webcam.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/vendor/bootstrap/css/bootstrap.min.css",

@@ -53,6 +53,9 @@ namespace WebSIC.Controllers
         // GET: Pessoa/Create
         public ActionResult Create()
         {
+
+            ViewBag.Picture = "../../WebImages/person.jpg";
+
             List<Genero> GeneroLista = new List<Genero>();
             GeneroLista.Add(new Genero() { IdGenero = 0, Descricao = "Masculino" });
             GeneroLista.Add(new Genero() { IdGenero = 1, Descricao = "Feminino" });
@@ -70,6 +73,7 @@ namespace WebSIC.Controllers
             if (ModelState.IsValid)
             {
                 Pessoa pessoa = model.MapearParaObjetoDominio();
+                pessoa.ImageUrl = "../../WebImages/person.jpg";
                 PessoaService.IncluirPessoa(pessoa);
                 return RedirectToAction("Edit", new { id = pessoa.IdPessoa });
             }
@@ -79,6 +83,8 @@ namespace WebSIC.Controllers
         // GET: Pessoa/Edit/5
         public ActionResult Edit(string id)
         {
+            //ViewBag.Picture = (Convert.ToString(Session["val"]) != string.Empty) ? "../../WebImages/" + Session["val"].ToString() : "../../WebImages/person.jpg";
+
             Pessoa pessoa = PessoaService.ObterPorId(id);
             return View(new PessoaViewModel(pessoa));
         }
