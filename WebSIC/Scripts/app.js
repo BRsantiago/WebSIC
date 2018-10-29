@@ -456,3 +456,31 @@ function onShowModalToTakeAPicture(idPessoa) {
         }
     });
 };
+
+
+
+
+function Imprimir() {
+    $.ajax({
+        type: 'POST',
+        url: '/Solicitacao/Imprimir/',
+        //data: { idSolicitacao: idPessoa },
+        cache: false,
+        dataType: 'html',
+        success: function (data) {
+            swal({
+                title: "Good job!",
+                text: "Photo was upload successfully!",
+                icon: "success",
+                button: "OK!",
+            })
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            swal({
+                title: "Erro de sistema!",
+                text: "Por favor entre em contato com o TI!",
+                icon: "error"
+            });
+        }
+    });
+};
