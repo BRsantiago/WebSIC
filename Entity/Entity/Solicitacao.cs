@@ -21,7 +21,9 @@ namespace Entity.Entities
 
         public bool FlgMotorista { get; set; }
         public bool FlgTemporario { get; set; }
-        
+
+        [Display(Name = "Documentação")]
+        public string CaminhoArquivoDigitalizado { get; set; }
         public DateTime DataAutorizacao { get; set; }
 
         [Display(Name = "Tipo de Solicitação")]
@@ -42,7 +44,7 @@ namespace Entity.Entities
         public Pessoa Pessoa { get; set; }
 
         public Schedule Schedule { get; set; }
-        
+        public Cargo Cargo { get; set; }
         public Credencial Credencial { get; set; }
     }
 }

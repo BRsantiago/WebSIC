@@ -92,6 +92,10 @@
     <Compile Include="Migrations\201810231400442_CorrecaoCursoSemTurma.Designer.cs">
       <DependentUpon>201810231400442_CorrecaoCursoSemTurma.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810231452439_AddInfoVeiculos.cs" />
+    <Compile Include="Migrations\201810231452439_AddInfoVeiculos.Designer.cs">
+      <DependentUpon>201810231452439_AddInfoVeiculos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201810231829513_CorrecaoCursoSemTurma2.cs" />
     <Compile Include="Migrations\201810231829513_CorrecaoCursoSemTurma2.Designer.cs">
       <DependentUpon>201810231829513_CorrecaoCursoSemTurma2.cs</DependentUpon>
@@ -111,6 +115,10 @@
     <Compile Include="Migrations\201810242217320_FotoPessoa.cs" />
     <Compile Include="Migrations\201810242217320_FotoPessoa.Designer.cs">
       <DependentUpon>201810242217320_FotoPessoa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810311725078_AlterSolicitacaoCredencial.cs" />
+    <Compile Include="Migrations\201810311725078_AlterSolicitacaoCredencial.Designer.cs">
+      <DependentUpon>201810311725078_AlterSolicitacaoCredencial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -165,6 +173,9 @@
     <EmbeddedResource Include="Migrations\201810231400442_CorrecaoCursoSemTurma.resx">
       <DependentUpon>201810231400442_CorrecaoCursoSemTurma.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810231452439_AddInfoVeiculos.resx">
+      <DependentUpon>201810231452439_AddInfoVeiculos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810231829513_CorrecaoCursoSemTurma2.resx">
       <DependentUpon>201810231829513_CorrecaoCursoSemTurma2.cs</DependentUpon>
     </EmbeddedResource>
@@ -179,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810242217320_FotoPessoa.resx">
       <DependentUpon>201810242217320_FotoPessoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810311725078_AlterSolicitacaoCredencial.resx">
+      <DependentUpon>201810311725078_AlterSolicitacaoCredencial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

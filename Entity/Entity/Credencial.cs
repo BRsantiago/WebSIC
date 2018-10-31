@@ -22,6 +22,8 @@ namespace Entity.Entities
         public bool FlgMotorista { get; set; }
         public bool FlgTemporario { get; set; }
         public bool FlgCVE { get; set; }
+        public string NomeImpressaoFrenteCracha { get; set; }
+        public string DescricaoFuncaoFrenteCracha { get; set; }
 
         [Required]
         public string DataExpedicao { get; set; }
