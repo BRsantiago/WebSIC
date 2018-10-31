@@ -269,6 +269,57 @@
     <Compile Include="Controllers\TurmaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\VeiculoController.cs" />
+    <Compile Include="Credenciais\ClientApp.Reports.CardBack1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClientApp.Reports.CardBack.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Credenciais\ClientApp.Reports.CardBackEmergencia.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Credenciais\ClientApp.Reports.CardBackEmergencia1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClientApp.Reports.CardBackEmergencia.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Credenciais\ClientApp.Reports.Employe.VinciFront.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Credenciais\ClientApp.Reports.Employe.VinciFront1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClientApp.Reports.Employe.VinciFront.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Credenciais\ClientApp.Reports.Gobierno.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Credenciais\ClientApp.Reports.Gobierno1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClientApp.Reports.Gobierno.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Credenciais\ClientApp.Reports.Marbete.MarbeteManeobraFront.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Credenciais\ClientApp.Reports.Marbete.MarbeteManeobraFront1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClientApp.Reports.Marbete.MarbeteManeobraFront.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Credenciais\ClientApp.Reports.Marbete.MarbeteTransitoFront.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Credenciais\ClientApp.Reports.Marbete.MarbeteTransitoFront1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClientApp.Reports.Marbete.MarbeteTransitoFront.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1069,6 +1120,35 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Credenciais\ClientApp.Reports.CardBack.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ClientApp.Reports.CardBack1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Credenciais\ClientApp.Reports.CardBackEmergencia.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ClientApp.Reports.CardBackEmergencia1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Credenciais\ClientApp.Reports.Employe.VinciFront.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ClientApp.Reports.Employe.VinciFront1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Credenciais\ClientApp.Reports.Gobierno.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ClientApp.Reports.Gobierno1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Credenciais\ClientApp.Reports.Marbete.MarbeteManeobraFront.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ClientApp.Reports.Marbete.MarbeteManeobraFront1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Credenciais\ClientApp.Reports.Marbete.MarbeteTransitoFront.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ClientApp.Reports.Marbete.MarbeteTransitoFront1.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
