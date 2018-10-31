@@ -269,22 +269,16 @@
     <Compile Include="Controllers\TurmaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\VeiculoController.cs" />
-    <Compile Include="Credenciais\ClientApp.Reports.CardBack1.cs">
+    <Compile Include="Credenciais\ClientApp.Reports.CardBack.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ClientApp.Reports.CardBack.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Credenciais\ClientApp.Reports.CardBackEmergencia.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Credenciais\ClientApp.Reports.CardBackEmergencia1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ClientApp.Reports.CardBackEmergencia.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Credenciais\ClientApp.Reports.Employe.VinciFront.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Credenciais\ClientApp.Reports.Employe.VinciFront1.cs">
@@ -293,25 +287,16 @@
       <DependentUpon>ClientApp.Reports.Employe.VinciFront.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Credenciais\ClientApp.Reports.Gobierno.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Credenciais\ClientApp.Reports.Gobierno1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ClientApp.Reports.Gobierno.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Credenciais\ClientApp.Reports.Marbete.MarbeteManeobraFront.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Credenciais\ClientApp.Reports.Marbete.MarbeteManeobraFront1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ClientApp.Reports.Marbete.MarbeteManeobraFront.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Credenciais\ClientApp.Reports.Marbete.MarbeteTransitoFront.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Credenciais\ClientApp.Reports.Marbete.MarbeteTransitoFront1.cs">
@@ -1124,11 +1109,11 @@
   <ItemGroup>
     <EmbeddedResource Include="Credenciais\ClientApp.Reports.CardBack.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ClientApp.Reports.CardBack1.cs</LastGenOutput>
+      <LastGenOutput>ClientApp.Reports.CardBack.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Credenciais\ClientApp.Reports.CardBackEmergencia.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ClientApp.Reports.CardBackEmergencia1.cs</LastGenOutput>
+      <LastGenOutput>ClientApp.Reports.CardBackEmergencia.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Credenciais\ClientApp.Reports.Employe.VinciFront.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
