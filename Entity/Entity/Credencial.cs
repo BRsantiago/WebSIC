@@ -16,22 +16,21 @@ namespace Entity.Entities
 
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "Matrícula")]
         public int IdCredencial { get; set; }
+
+        public DateTime DataDesativacao { get; set; }
+        
         [Required]
-        public string Matricula { get; set; }
-        public bool FlgMotorista { get; set; }
-        public bool FlgTemporario { get; set; }
-        public bool FlgCVE { get; set; }
+        public DateTime DataVencimento { get; set; }
+        [Required]
+        public DateTime DataExpedicao { get; set; }
         public string NomeImpressaoFrenteCracha { get; set; }
         public string DescricaoFuncaoFrenteCracha { get; set; }
-
-        [Required]
-        public string DataExpedicao { get; set; }
-        public string DataDesativacao { get; set; }
-        [Required]
-        public string DataVencimento { get; set; }
-
-
+        public string CategoriaMotorista1 { get; set; }
+        public string CategoriaMotorista2 { get; set; }
+        public bool FlgCVE { get; set; }
+        public bool FlgTemporario { get; set; }
 
         public Pessoa Pessoa { get; set; }
         public Veiculo Veiculo { get; set; }

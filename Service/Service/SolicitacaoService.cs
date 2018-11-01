@@ -19,6 +19,7 @@ namespace Services.Service
         public IContratoRepository ContratoRepository;
         public IEmpresaRepository EmpresaRepository;
         public ITipoSolicitacaoRepository TipoSolicitacaoRepository;
+        public ICredencialRepository CredencialRepository;
 
 
         public SolicitacaoService(ISolicitacaoRepository _SolicitacaoRepository,
@@ -28,7 +29,8 @@ namespace Services.Service
                                                 IAreaRepository _AreaRepository,
                                                     IContratoRepository _ContratoRepository,
                                                         IEmpresaRepository _EmpresaRepository,
-                                                            ITipoSolicitacaoRepository _TipoSolicitacaoRepository)
+                                                            ITipoSolicitacaoRepository _TipoSolicitacaoRepository,
+                                                                ICredencialRepository _CredencialRepository)
         {
             SolicitacaoRepository = _SolicitacaoRepository;
             CursoRepository = _CursoRepository;
@@ -38,6 +40,7 @@ namespace Services.Service
             ContratoRepository = _ContratoRepository;
             EmpresaRepository = _EmpresaRepository;
             TipoSolicitacaoRepository = _TipoSolicitacaoRepository;
+            CredencialRepository = _CredencialRepository;
         }
 
         public List<Solicitacao> ObterTodos()
@@ -52,6 +55,54 @@ namespace Services.Service
 
             SolicitacaoRepository.IncluirNovaSolicitacao(solicitacao);
 
+            CarregarCursosExigidos(solicitacao);
+            GerarCredencial(solicitacao);
+
+            SolicitacaoRepository.Salvar();
+        }
+
+        private void GerarCredencial(Solicitacao solicitacao)
+        {
+            Credencial credencial = this.CredencialRepository.ObterPorEmpresaPessoaTipoEmissao(solicitacao.Empresa.IdEmpresa, solicitacao.Pessoa.IdPessoa, solicitacao.TipoEmissao == 0);
+
+            if (credencial == null)
+            {
+                credencial = new Credencial();
+
+                credencial.FlgTemporario = solicitacao.TipoEmissao == 0; //Temporário
+                credencial.FlgCVE = solicitacao.Pessoa.FlgCVE;
+                credencial.NomeImpressaoFrenteCracha = solicitacao.Pessoa.Nome;
+                credencial.DescricaoFuncaoFrenteCracha = solicitacao.Cargo.Descricao;
+
+                this.CredencialRepository.IncluirNovaCredencial(credencial);
+            }
+            else
+            {
+                credencial.FlgCVE = solicitacao.Pessoa.FlgCVE;
+                credencial.NomeImpressaoFrenteCracha = solicitacao.Pessoa.Nome;
+                credencial.DescricaoFuncaoFrenteCracha = solicitacao.Cargo.Descricao;
+                credencial.CategoriaMotorista1 = solicitacao.Pessoa.CategoriaUm.ToString();
+                credencial.CategoriaMotorista2 = solicitacao.Pessoa.CategoriaUm.ToString();
+
+                if (solicitacao.TipoSolicitacao.Descricao.Contains("BAIXA"))
+                {
+                    credencial.DataDesativacao = DateTime.Now;
+                }
+
+                this.CredencialRepository.AtualizarCredencial(credencial);
+            }
+
+            solicitacao.Credencial = credencial;
+        }
+
+        public void SalvarATIV(Solicitacao solicitacao)
+        {
+            SolicitacaoRepository.IncluirNovaSolicitacao(solicitacao);
+            SolicitacaoRepository.Salvar();
+        }
+
+        private void CarregarCursosExigidos(Solicitacao solicitacao)
+        {
             IList<Curso> CursosExigidos = CursoRepository.ObterPorArea(solicitacao.Area1.IdArea);
 
             foreach (Curso curso in CursosExigidos)
@@ -79,14 +130,6 @@ namespace Services.Service
 
                 CursoSemTurmaRepository.IncluirNovoCursoSemTurma(cst);
             }
-
-            SolicitacaoRepository.Salvar();
-        }
-
-        public void SalvarATIV(Solicitacao solicitacao)
-        {
-            SolicitacaoRepository.IncluirNovaSolicitacao(solicitacao);
-            SolicitacaoRepository.Salvar();
         }
     }
 }

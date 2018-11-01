@@ -19,13 +19,10 @@ namespace Entity.Entities
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int IdSolicitacao { get; set; }
 
-        public bool FlgMotorista { get; set; }
-        public bool FlgTemporario { get; set; }
+        public DateTime DataAutorizacao { get; set; }
 
         [Display(Name = "Documentação")]
         public string CaminhoArquivoDigitalizado { get; set; }
-        public DateTime DataAutorizacao { get; set; }
-
         [Display(Name = "Tipo de Solicitação")]
         public TipoSolicitacao TipoSolicitacao { get; set; }
         [Display(Name = "Tipo de Emissão")]

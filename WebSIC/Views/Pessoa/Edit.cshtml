@@ -223,13 +223,17 @@
                 </div>
             </div>
 
-            @Html.LabelFor(model => model.CategoriaCNH, htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.CategoriaCNH, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EnumDropDownListFor(d => d.CategoriaUm, "Selecione", new { @class = "form-control select1" })
                 </div>
             </div>
 
+            <div class="col-md-2">
+                <div class="checkbox">
+                    @Html.EnumDropDownListFor(d => d.CategoriaDois, "Selecione", new { @class = "form-control select1" })
+                </div>
+            </div>
         </div>
 
         <div class="form-group" style="height: 50px;">
@@ -276,9 +280,6 @@
                                             @Html.DisplayNameFor(model => model.Solicitacaos.First().Contrato)
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Solicitacaos.First().FlgMotorista)
-                                        </th>
-                                        <th>
                                             @Html.DisplayNameFor(model => model.Solicitacaos.First().Criacao)
                                         </th>
                                         <th>
@@ -306,13 +307,9 @@
                                                 @Html.DisplayFor(model => item.Contrato.Numero)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(model => item.FlgMotorista)
-                                            </td>
-                                            <td>
                                                 @Html.DisplayFor(model => item.Criacao)
                                             </td>
                                             <td>
-                                                <a class="btn btn-success" onclick="Imprimir()">Imprimir</a> |
                                                 <a class="btn btn-primary" onclick="onShowModalEdit(@item.IdSolicitacao, 'Solicitacao')">Editar</a> |
                                                 <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdSolicitacao, 'Solicitacao')">Excluir</a>
                                             </td>

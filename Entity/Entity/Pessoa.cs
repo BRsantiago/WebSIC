@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -78,7 +79,10 @@ namespace Entity.Entities
         public string CNH { get; set; }
 
         [Display(Name = "Categoria")]
-        public string CategoriaCNH { get; set; }
+        public Categoria CategoriaUm { get; set; }
+
+        [Display(Name = "Categoria")]
+        public Categoria CategoriaDois { get; set; }
 
         [Display(Name = "Validade")]
         public string DataValidadeCNH { get; set; }
