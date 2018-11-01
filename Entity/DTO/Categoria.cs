@@ -10,14 +10,14 @@ namespace Entity.DTO
     public enum Categoria
     {
         [Display(Name = "A - Motocicletas")]
-        A,
+        A = 1,
         [Display(Name = "B - Veículos de Passeio")]
-        B,
+        B = 2,
         [Display(Name = "C - Caminhões")]
-        C,
+        C = 3,
         [Display(Name = "D - Cargas Tóxicas")]
-        D,
+        D = 4,
         [Display(Name = "E - Cargas Vivas")]
-        E
+        E = 5
     }
 }

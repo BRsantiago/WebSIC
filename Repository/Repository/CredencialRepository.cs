@@ -19,12 +19,19 @@ namespace Repository.Repository
 
         public void AtualizarCredencial(Credencial credencial)
         {
-            throw new NotImplementedException();
+            contexto.Entry(credencial).State = System.Data.Entity.EntityState.Modified;
         }
 
         public void IncluirNovaCredencial(Credencial credencial)
         {
-            throw new NotImplementedException();
+
+            if (credencial.Pessoa != null) contexto.Entry(credencial.Pessoa).State = System.Data.Entity.EntityState.Unchanged;
+            if (credencial.Area1 != null) contexto.Entry(credencial.Area1).State = System.Data.Entity.EntityState.Unchanged;
+            if (credencial.Area2 != null) contexto.Entry(credencial.Area2).State = System.Data.Entity.EntityState.Unchanged;
+            if (credencial.Empresa != null) contexto.Entry(credencial.Empresa).State = System.Data.Entity.EntityState.Unchanged;
+            if (credencial.Veiculo != null) contexto.Entry(credencial.Veiculo).State = System.Data.Entity.EntityState.Unchanged;
+
+            this.contexto.Credenciais.Add(credencial);
         }
 
         public Credencial ObterPorEmpresaPessoaTipoEmissao(int idEmpresa, int idPessoa, bool flgTemporario)

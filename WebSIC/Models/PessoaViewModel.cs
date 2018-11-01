@@ -59,8 +59,9 @@ namespace WebSIC.Models
         [Display(Name = "UF")]
         public string UFOrgaoExpeditor { get; set; }
 
+        public string IdGenero { get; set; }
         [Display(Name = "Gênero")]
-        public string Genero { get; set; }
+        public Genero Genero { get; set; }
 
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
@@ -71,9 +72,11 @@ namespace WebSIC.Models
         public string Email { get; set; }
         public string CNH { get; set; }
 
+        public string IdCategoriaUm { get; set; }
         [Display(Name = "Categoria")]
         public Categoria CategoriaUm { get; set; }
 
+        public string IdCategoriaDois { get; set; }
         [Display(Name = "Categoria")]
         public Categoria CategoriaDois { get; set; }
 
@@ -179,13 +182,13 @@ namespace WebSIC.Models
             pessoa.RG = this.RG;
             pessoa.OrgaoExpeditor = this.OrgaoExpeditor;
             pessoa.UFOrgaoExpeditor = this.UFOrgaoExpeditor;
-            pessoa.Genero = this.Genero;
+            pessoa.Genero = (Genero)Enum.ToObject(typeof(Genero), IdGenero); ;
             pessoa.Observacao = this.Observacao;
             pessoa.FlgCVE = this.FlgCVE;
             pessoa.Email = this.Email;
             pessoa.CNH = this.CNH;
-            pessoa.CategoriaUm = this.CategoriaUm;
-            pessoa.CategoriaDois = this.CategoriaDois;
+            pessoa.CategoriaUm = this.CategoriaUm;//(Categoria)Enum.ToObject(typeof(Categoria), IdCategoriaUm);
+            pessoa.CategoriaDois = this.CategoriaDois; //(Categoria)Enum.ToObject(typeof(Categoria), IdCategoriaDois);
             pessoa.DataValidadeCNH = this.DataValidadeCNH;
             pessoa.Usuario = this.Usuario;
             pessoa.Solicitacaos = this.Solicitacaos;

@@ -28,6 +28,7 @@ namespace WebSIC.Controllers
         public IAreaService AreaService;
         public IVeiculoService VeiculoService;
         public IPortaoAcessoService PortaoService;
+        public ICargoService CargoService;
 
         public SolicitacaoController(IAeroportoService _AeroportoService,
                                      IEmpresaService _EmpresaService,
@@ -37,7 +38,8 @@ namespace WebSIC.Controllers
                                      IPessoaService _PessoaService,
                                      IAreaService _AreaService,
                                      IVeiculoService _VeiculoService,
-                                     IPortaoAcessoService _PortaoService)
+                                     IPortaoAcessoService _PortaoService,
+                                     ICargoService _CargoService)
         {
             AeroportoService = _AeroportoService;
             EmpresaService = _EmpresaService;
@@ -48,6 +50,7 @@ namespace WebSIC.Controllers
             AreaService = _AreaService;
             VeiculoService = _VeiculoService;
             PortaoService = _PortaoService;
+            CargoService = _CargoService;
         }
 
 
@@ -69,9 +72,6 @@ namespace WebSIC.Controllers
         {
             SolicitacaoViewModel model = new SolicitacaoViewModel();
 
-            //List<TipoEmissao> TipoEmissaoLista = new List<TipoEmissao>();
-            //TipoEmissaoLista.Add(new TipoEmissao() { IdTipoEmissao = 0, Descricao = "Temporário" });
-            //TipoEmissaoLista.Add(new TipoEmissao() { IdTipoEmissao = 1, Descricao = "Definitivo" });
             model.IdPessoa = Convert.ToInt32(id);
 
 
@@ -79,8 +79,8 @@ namespace WebSIC.Controllers
             model.Empresas = EmpresaService.ObterTodos();
             model.Contratos = ContratoService.ObterTodos();
             model.TiposSolicitacao = TipoSolicitacaoService.ObterTodos();
-            //model.TiposEmissao = TipoEmissaoLista;
             model.Areas = AreaService.Listar().ToList();
+            model.Cargo = CargoService.Listar().ToList();
 
             return PartialView(model);
         }
@@ -117,17 +117,19 @@ namespace WebSIC.Controllers
         // GET: Solicitacao/Edit/5
         public ActionResult Edit(int? id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //Solicitacao solicitacao = db.Solicitacoes.Find(id);
-            //if (solicitacao == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //ViewBag.IdSolicitacao = new SelectList(db.Schedules, "IdSchedule", "Descricao", solicitacao.IdSolicitacao);
-            return View(new Solicitacao());
+            SolicitacaoViewModel model = new SolicitacaoViewModel();
+
+            model.IdPessoa = Convert.ToInt32(id);
+
+
+            model.Aeroportos = AeroportoService.ObterTodos();
+            model.Empresas = EmpresaService.ObterTodos();
+            model.Contratos = ContratoService.ObterTodos();
+            model.TiposSolicitacao = TipoSolicitacaoService.ObterTodos();
+            model.Areas = AreaService.Listar().ToList();
+            model.Cargo = CargoService.Listar().ToList();
+
+            return PartialView(model);
         }
 
         // POST: Solicitacao/Edit/5
@@ -135,16 +137,28 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdSolicitacao,FlgMotorista,FlgTemporario,DataAutorizacao,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Solicitacao solicitacao)
+        public ActionResult Edit(SolicitacaoViewModel model)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    db.Entry(solicitacao).State = EntityState.Modified;
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
-            //ViewBag.IdSolicitacao = new SelectList(db.Schedules, "IdSchedule", "Descricao", solicitacao.IdSolicitacao);
-            return View(new Solicitacao());
+            try
+            {
+                SolicitacaoService.Atualizar(model.MapearParaObjetoDominio());
+                return Json(new
+                {
+                    success = true,
+                    title = "Sucesso",
+                    message = "Representante cadastrado com sucesso !"
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    title = "Erro",
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: Solicitacao/Delete/5

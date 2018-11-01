@@ -67,7 +67,7 @@ namespace Entity.Entities
         public string UFOrgaoExpeditor { get; set; }
 
         [Display(Name = "Gênero")]
-        public string Genero { get; set; }
+        public Genero Genero { get; set; }
 
         [Display(Name = "Observação")]
         public string Observacao { get; set; }

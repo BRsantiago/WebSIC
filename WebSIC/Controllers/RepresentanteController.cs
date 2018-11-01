@@ -50,11 +50,6 @@ namespace WebSIC.Controllers
         {
             RepresentanteViewModel model = new RepresentanteViewModel();
             model.IdEmpresa = id;
-            List<Genero> GeneroLista = new List<Genero>();
-            GeneroLista.Add(new Genero() { IdGenero = 0, Descricao = "Masculino" });
-            GeneroLista.Add(new Genero() { IdGenero = 1, Descricao = "Feminino" });
-
-            model.Generos = GeneroLista;
 
             return PartialView(model);
         }

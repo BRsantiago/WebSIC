@@ -53,12 +53,7 @@ namespace WebSIC.Controllers
         // GET: Pessoa/Create
         public ActionResult Create()
         {
-
             ViewBag.Picture = "../../WebImages/person.jpg";
-
-            List<Genero> GeneroLista = new List<Genero>();
-            GeneroLista.Add(new Genero() { IdGenero = 0, Descricao = "Masculino" });
-            GeneroLista.Add(new Genero() { IdGenero = 1, Descricao = "Feminino" });
 
             return View();
         }

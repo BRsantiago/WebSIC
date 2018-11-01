@@ -70,13 +70,13 @@
                 @Html.EditorFor(model => model.DataNascimento, new { htmlAttributes = new { @class = "form-control" } })
             </div>
 
-            @*@Html.LabelFor(model => model.Generos, htmlAttributes: new { @class = "control-label col-md-1" })
+            @Html.LabelFor(model => model.Genero, htmlAttributes: new { @class = "control-label col-md-1" })
                 <div class="col-md-2">
                     <div class="checkbox">
-                        @Html.DropDownListFor(d => d.IdGenero, new SelectList(Model.Generos.OrderBy(o => o.IdGenero), "IdGenero", "Descricao"), "Selecione", new { @class = "form-control select2" })
-                        @Html.ValidationMessageFor(model => model.IdGenero, "", new { @class = "text-danger" })
+                        @Html.EnumDropDownListFor(d => d.Genero, "Selecione", new { @class = "form-control select2" })
+                        @Html.ValidationMessageFor(model => model.Genero, "", new { @class = "text-danger" })
                     </div>
-                </div>*@
+                </div>
 
         </div>
 
@@ -213,10 +213,15 @@
                 </div>
             </div>
 
-            @Html.LabelFor(model => model.CategoriaCNH, htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.CategoriaCNH, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EnumDropDownListFor(d => d.CategoriaUm, "Selecione", new { @class = "form-control select1" })
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="checkbox">
+                    @Html.EnumDropDownListFor(d => d.CategoriaDois, "Selecione", new { @class = "form-control select1" })
                 </div>
             </div>
 
@@ -232,7 +237,7 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-10">
+            <div class="col-md-4">
                 <input type="submit" value="Salvar" class="btn btn-primary" />
                 @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-danger" })
             </div>
@@ -241,23 +246,19 @@
 
 }
 
-<div class="modal" id="modal" role="dialog" data-backdrop="static" data-keyboard="false"></div>
-
-
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
     <script src="@Url.Content("~/Scripts/jquery.webcam.js")"></script>
-    <script src="@Url.Content("~/Scripts/app.js")"></script>
+    @*<script src="@Url.Content("~/Scripts/app.js")"></script>*@
 
     <script type="text/javascript">
 
 
 
-                            //function ShowPopUp() {
-                            //    window.open('/Photo/Index/', "wndPopUp", 'width=800,height=400,left=100,top=100,resizable=no');
-                            //}
+                                    //function ShowPopUp() {
+                                    //    window.open('/Photo/Index/', "wndPopUp", 'width=800,height=400,left=100,top=100,resizable=no');
+                                    //}
     </script>
 
 }

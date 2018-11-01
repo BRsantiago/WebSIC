@@ -11,5 +11,6 @@ namespace Service.Interface
     {
         List<Solicitacao> ObterTodos();
         void Salvar(Solicitacao solicitacao);
+        void Atualizar(Solicitacao solicitacao);
     }
 }
