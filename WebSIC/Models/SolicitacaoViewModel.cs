@@ -58,7 +58,7 @@ namespace WebSIC.Models
             solicitacao.Area2 = new Area() { IdArea = IdArea2 };
             solicitacao.Pessoa = new Pessoa() { IdPessoa = IdPessoa };
 
-            solicitacao.FlgTemporario = (IdTipoEmissao == 0);
+           // solicitacao.TipoEmissao = Enum.Parse(typeof(Categoria), IdTipoEmissao);//(IdTipoEmissao == 0);
 
             return solicitacao;
         }

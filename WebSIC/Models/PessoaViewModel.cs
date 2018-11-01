@@ -1,4 +1,5 @@
-﻿using Entity.Entities;
+﻿using Entity.DTO;
+using Entity.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -71,7 +72,10 @@ namespace WebSIC.Models
         public string CNH { get; set; }
 
         [Display(Name = "Categoria")]
-        public string CategoriaCNH { get; set; }
+        public Categoria CategoriaUm { get; set; }
+
+        [Display(Name = "Categoria")]
+        public Categoria CategoriaDois { get; set; }
 
         [Display(Name = "Validade")]
         public string DataValidadeCNH { get; set; }
@@ -133,7 +137,8 @@ namespace WebSIC.Models
             this.FlgCVE = pessoa.FlgCVE;
             this.Email = pessoa.Email;
             this.CNH = pessoa.CNH;
-            this.CategoriaCNH = pessoa.CategoriaCNH;
+            this.CategoriaUm = pessoa.CategoriaUm;
+            this.CategoriaDois = pessoa.CategoriaDois;
             this.DataValidadeCNH = pessoa.DataValidadeCNH;
             this.ImageUrl = pessoa.ImageUrl;
             this.Usuario = pessoa.Usuario;
@@ -179,7 +184,8 @@ namespace WebSIC.Models
             pessoa.FlgCVE = this.FlgCVE;
             pessoa.Email = this.Email;
             pessoa.CNH = this.CNH;
-            pessoa.CategoriaCNH = this.CategoriaCNH;
+            pessoa.CategoriaUm = this.CategoriaUm;
+            pessoa.CategoriaDois = this.CategoriaDois;
             pessoa.DataValidadeCNH = this.DataValidadeCNH;
             pessoa.Usuario = this.Usuario;
             pessoa.Solicitacaos = this.Solicitacaos;

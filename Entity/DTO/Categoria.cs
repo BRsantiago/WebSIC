@@ -18,14 +18,6 @@ namespace Entity.DTO
         [Display(Name = "D - Cargas Tóxicas")]
         D,
         [Display(Name = "E - Cargas Vivas")]
-        E,
-        [Display(Name = "AB - Motocicletas e Veículos de Passeio")]
-        AB,
-        [Display(Name = "AC - Motocicletas e Caminhões")]
-        AC,
-        [Display(Name = "AD - Motocicletas e Cargas Tóxicas")]
-        AD,
-        [Display(Name = "AE - Motocicletas e Cargas Vivas")]
-        AE
+        E
     }
 }

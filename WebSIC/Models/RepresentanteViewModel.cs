@@ -55,7 +55,7 @@ namespace WebSIC.Models
         public string IdEmpresa { get; set; }
         public List<Genero> Generos { get; set; }
 
-        public RepresentanteViewModel(){}
+        public RepresentanteViewModel() { }
 
         public RepresentanteViewModel(Pessoa representante)
         {
@@ -84,7 +84,6 @@ namespace WebSIC.Models
             Observacao = representante.Observacao;
             Email = representante.Email;
             CNH = representante.CNH;
-            CategoriaCNH = representante.CategoriaCNH;
             DataValidadeCNH = representante.DataValidadeCNH;
         }
 
@@ -117,7 +116,6 @@ namespace WebSIC.Models
             pessoa.Observacao = this.Observacao;
             pessoa.Email = this.Email;
             pessoa.CNH = this.CNH;
-            pessoa.CategoriaCNH = this.CategoriaCNH;
             pessoa.DataValidadeCNH = this.DataValidadeCNH;
 
 
