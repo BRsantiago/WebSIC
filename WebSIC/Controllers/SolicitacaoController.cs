@@ -186,7 +186,16 @@ namespace WebSIC.Controllers
         // GET: Solicitacao/Details/5
         public ActionResult DetailsATIV(int? id)
         {
-            return View(new Solicitacao());
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Solicitacao solicitacao = SolicitacaoService.Obter(id.Value);
+            if (solicitacao == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(solicitacao);
         }
 
         public ActionResult CreateATIV(int? veiculoId)

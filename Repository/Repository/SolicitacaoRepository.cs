@@ -45,5 +45,17 @@ namespace Repository.Interface
                 .Where(s => s.Veiculo.IdVeiculo == veiculoId)
                 .ToList();
         }
+
+        public override Solicitacao ObterPorId(int id)
+        {
+            return contexto.Solicitacoes
+                .Include(s => s.Veiculo)
+                .Include(s => s.Empresa)
+                .Include(s => s.Contrato)
+                .Include(s => s.Area1)
+                .Include(s => s.Area2)
+                .Include(s => s.PortaoAcesso)
+                .SingleOrDefault(s => s.IdSolicitacao == id);
+        }
     }
 }

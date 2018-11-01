@@ -60,7 +60,7 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.Display(string.Format("{0} {1} {2}/{3}", item.Veiculo.Marca, item.Veiculo.Modelo, item.Veiculo.AnoFabricacao, item.Veiculo.AnoModelo))
+                                    <text>@Html.Encode(string.Format("{0} {1} {2}/{3}", item.Veiculo.Marca, item.Veiculo.Modelo, item.Veiculo.AnoFabricacao, item.Veiculo.AnoModelo))</text>
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Area1.Descricao)
@@ -92,9 +92,9 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Ativo)
                                 </td>
-                                <td>
-                                    @Html.ActionLink("Detalhar", "Details", new { id = item.IdSolicitacao }, new { @class = "btn btn-warning" }) |
-                                    @Html.ActionLink("Aprovar", "Approve", new { id = item.IdSolicitacao }, new { @class = "btn btn-primary" }) |
+                                <td class="min">
+                                    @Html.ActionLink("Detalhar", "Details", new { id = item.IdSolicitacao }, new { @class = "btn btn-warning" })
+                                    @Html.ActionLink("Aprovar", "Approve", new { id = item.IdSolicitacao }, new { @class = "btn btn-primary" })
                                     @Html.ActionLink("Cancelar", "Cancel", new { id = item.IdSolicitacao }, new { @class = "btn btn-danger" })
                                 </td>
                             </tr>
@@ -109,3 +109,15 @@
 <div class="modal" id="modal" role="dialog" data-backdrop="static" data-keyboard="false"></div>
 
 <script src="~/Scripts/Index.js"></script>
+
+<script>
+    $(function () {
+        $(".details").click(function () {
+            var id = $(this).attr("data-id");
+            //alert(id);
+            $("#modal").load(baseURL + "/DetailsATIV?id=" + id, function () {
+                $("#modal").modal();
+            })
+        });
+    });
+</script>

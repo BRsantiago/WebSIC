@@ -136,5 +136,10 @@ namespace Services.Service
         {
             return SolicitacaoRepository.ObterPorVeiculo(veiculoId);
         }
+
+        public Solicitacao Obter(int id)
+        {
+            return SolicitacaoRepository.ObterPorId(id);
+        }
     }
 }
