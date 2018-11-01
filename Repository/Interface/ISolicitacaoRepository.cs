@@ -10,5 +10,7 @@ namespace Repository.Interface
     public interface ISolicitacaoRepository : IRepositoryBase<Solicitacao>
     {
         void IncluirNovaSolicitacao(Solicitacao solicitacao);
+
+        List<Solicitacao> ObterPorVeiculo(int veiculoId);
     }
 }

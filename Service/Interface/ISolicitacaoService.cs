@@ -11,5 +11,7 @@ namespace Service.Interface
     {
         List<Solicitacao> ObterTodos();
         void Salvar(Solicitacao solicitacao);
+
+        List<Solicitacao> ObterPorVeiculo(int veiculoId);
     }
 }

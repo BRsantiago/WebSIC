@@ -173,6 +173,22 @@ namespace WebSIC.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult IndexATIV(int? veiculoId)
+        {
+            if (veiculoId == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            List<Solicitacao> solicitacoes = SolicitacaoService.ObterPorVeiculo(veiculoId.Value);
+
+            return View(solicitacoes);
+        }
+
+        // GET: Solicitacao/Details/5
+        public ActionResult DetailsATIV(int? id)
+        {
+            return View(new Solicitacao());
+        }
+
         public ActionResult CreateATIV(int? veiculoId)
         {
             if (veiculoId == null)
@@ -194,12 +210,6 @@ namespace WebSIC.Controllers
                 new SelectList(AreaService.Listar(), "IdArea", "Descricao");
             ViewBag.Portoes =
                 new SelectList(PortaoService.Listar(), "IdPortaoAcesso", "Descricao");
-            ViewBag.TiposEmissao =
-                new SelectList(new SelectListItem[] {
-                    new SelectListItem() { Text = "Temporário", Value = "0" },
-                    new SelectListItem() { Text = "Definitivo", Value = "1" }
-                });
-
 
             return View();
         }
@@ -210,15 +220,7 @@ namespace WebSIC.Controllers
         {
             solicitacao.Criador =
                 solicitacao.Atualizador = User.Identity.Name;
-
-            //solicitacao.Veiculo = VeiculoService.Obter(int.Parse(form["VeiculoId"]));
-            //solicitacao.Empresa = EmpresaService.ObterPorId(int.Parse(form["EmpresaId"]));
-            //solicitacao.Contrato = ContratoService.Obter(int.Parse(form["Contrato.IdContrato"]));
-            //solicitacao.Area1 = AreaService.Obter(int.Parse(form["Area1.IdArea"]));
-            //solicitacao.Area2 = AreaService.Obter(int.Parse(form["Area2.IdArea"]));
-            //solicitacao.TipoSolicitacao = TipoSolicitacaoService.Obter(int.Parse(form["TipoSolicitacao.IdTipoSolicitacao"]));
-            //solicitacao.PortaoAcesso = PortaoService.Obter(int.Parse(form["PortaoAcesso.IdPortaoAcesso"]));
-
+            
             solicitacao.Veiculo = new Veiculo() { IdVeiculo = (int.Parse(form["VeiculoId"])) };
             solicitacao.Empresa = new Empresa() { IdEmpresa = (int.Parse(form["EmpresaId"])) };
             solicitacao.Contrato = new Contrato() { IdContrato = int.Parse(form["Contrato.IdContrato"]) };

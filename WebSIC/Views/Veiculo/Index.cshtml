@@ -106,12 +106,6 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.AnoFabricacao) / @Html.DisplayFor(modelItem => item.AnoModelo)
                                 </td>
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.AnoFabricacao)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.AnoModelo)
-                                    </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Cor)
                                 </td>
@@ -121,34 +115,13 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Chassi)
                                 </td>
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.Observacao)
-                                    </td>*@
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.Criacao)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Criador)
-                                    </td>*@
-                                @*<td>
-                                    @Html.DisplayFor(modelItem => item.Atualizacao)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Atualizador)
-                                </td>*@
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.Ativo)
-                                    </td>*@
                                 <td>
                                     @Html.Encode(item.Solicitacoes != null && item.Solicitacoes.Count > 0 ? item.Solicitacoes.Last().Criacao.ToString("dd/MM/yyyy HH:mm") : "")
                                 </td>
                                 <td>
-                                    <text> @Html.Encode(item.Solicitacoes != null ? item.Solicitacoes.Count : 0) </text>
+                                    <a href="@Url.Action("IndexATIV", "Solicitacao", new { veiculoId = item.IdVeiculo })"> <text> @Html.Encode(item.Solicitacoes != null ? item.Solicitacoes.Count : 0) </text> </a>
                                 </td>
                                 <td class="min">
-                                    @*@Html.ActionLink("Edit", "Edit", new { id = item.IdVeiculo }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.IdVeiculo }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.IdVeiculo })*@
                                     <button class="btn btn-warning details" data-id="@item.IdVeiculo">Detalhar<i class="glyphicon glyphicon-file"></i></button>
                                     <button class="btn btn-primary edit" data-id="@item.IdVeiculo">Editar<i class="glyphicon glyphicon-edit"></i></button>
                                     <button class="btn btn-danger delete" data-id="@item.IdVeiculo">Deletar<i class="glyphicon glyphicon-trash"></i></button>

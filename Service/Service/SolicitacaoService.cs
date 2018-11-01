@@ -88,5 +88,10 @@ namespace Services.Service
             SolicitacaoRepository.IncluirNovaSolicitacao(solicitacao);
             SolicitacaoRepository.Salvar();
         }
+
+        public List<Solicitacao> ObterPorVeiculo(int veiculoId)
+        {
+            return SolicitacaoRepository.ObterPorVeiculo(veiculoId);
+        }
     }
 }

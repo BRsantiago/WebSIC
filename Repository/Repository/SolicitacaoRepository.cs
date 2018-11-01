@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace Repository.Interface
 {
@@ -30,6 +31,19 @@ namespace Repository.Interface
             if (solicitacao.TipoSolicitacao != null) contexto.Entry(solicitacao.TipoSolicitacao).State = System.Data.Entity.EntityState.Unchanged;
 
             contexto.Solicitacoes.Add(solicitacao);
+        }
+
+        public List<Solicitacao> ObterPorVeiculo(int veiculoId)
+        {
+            return contexto.Solicitacoes
+                .Include(s => s.Veiculo)
+                .Include(s => s.Empresa)
+                .Include(s => s.Contrato)
+                .Include(s => s.Area1)
+                .Include(s => s.Area2)
+                .Include(s => s.PortaoAcesso)
+                .Where(s => s.Veiculo.IdVeiculo == veiculoId)
+                .ToList();
         }
     }
 }

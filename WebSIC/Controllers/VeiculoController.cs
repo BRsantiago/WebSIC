@@ -29,7 +29,8 @@ namespace WebSIC.Controllers
         // GET: Veiculo
         public ActionResult Index()
         {
-            return View(Service.Listar());
+            var lista = Service.Listar();
+            return View(lista);
         }
 
         // GET: Veiculo/Details/5
