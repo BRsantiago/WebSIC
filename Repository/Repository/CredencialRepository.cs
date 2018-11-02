@@ -7,14 +7,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace Repository.Repository
 {
-    public class CredencialRepository : RepositoryBase<Credencial>, ICredencialRepository
+    public class CredencialRepository : ICredencialRepository
     {
+        WebSICContext contexto;
+
         public CredencialRepository(WebSICContext _contexto)
-            : base(_contexto)
         {
+            contexto = _contexto;
         }
 
         public void AtualizarCredencial(Credencial credencial)
@@ -39,6 +42,56 @@ namespace Repository.Repository
             return this.contexto.Credenciais
                                 .Where(c => c.Empresa.IdEmpresa == idEmpresa && c.Pessoa.IdPessoa == idEmpresa && c.FlgTemporario == flgTemporario)
                                 .SingleOrDefault();
+        }
+
+
+
+        //public virtual void Incluir(TEntity obj)
+        //{
+        //    contexto.Set<TEntity>().Add(obj);
+        //}
+
+        public Credencial ObterPorId(int id)
+        {
+            return contexto.Credenciais
+                           .Include(c => c.Pessoa)
+                           .Include(c => c.Area1)
+                           .Include(c => c.Area2)
+                           .Include(c => c.Empresa)
+                           .Include(c => c.Veiculo)
+                           .Where(c => c.IdCredencial == id)
+                           .SingleOrDefault();
+        }
+
+        public List<Credencial> ObterTodos()
+        {
+            return contexto.Credenciais
+                           .Include(c => c.Pessoa)
+                           .Include(c => c.Area1)
+                           .Include(c => c.Area2)
+                           .Include(c => c.Empresa)
+                           .Include(c => c.Veiculo)
+                           .ToList();
+        }
+
+        public void Atualizar(Credencial obj)
+        {
+            contexto.Entry(obj).State = System.Data.Entity.EntityState.Modified;
+        }
+
+        public void Remover(Credencial obj)
+        {
+            contexto.Credenciais.Remove(obj);
+        }
+
+        public void Dispose()
+        {
+            contexto.Dispose();
+        }
+
+        public void Salvar()
+        {
+            contexto.SaveChanges();
         }
     }
 }

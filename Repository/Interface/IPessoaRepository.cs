@@ -14,5 +14,6 @@ namespace Repository.Interface
         List<Pessoa> ObterPorEmpresa(int idEmpresa);
         void IncluirNovoRepresentante(Pessoa representante);
         void AtualizarRepresentante(Pessoa representante);
+        void IncluirNovaPessoa(Pessoa pessoa);
     }
 }

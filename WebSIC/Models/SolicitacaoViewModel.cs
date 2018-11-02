@@ -22,10 +22,6 @@ namespace WebSIC.Models
         [Display(Name = "Contrato")]
         public List<Contrato> Contratos { get; set; }
 
-
-        [Display(Name = "Permissão p/ Dirigir")]
-        public bool FlgMotorista { get; set; }
-
         public bool FlgTemporario { get; set; }
 
         public int IdTipoSolicitacao { get; set; }
@@ -46,6 +42,21 @@ namespace WebSIC.Models
         public int IdArea2 { get; set; }
 
         public int IdPessoa { get; set; }
+        public int IdSolicitacao { get; set; }
+
+        public SolicitacaoViewModel(Solicitacao solicitacao)
+        {
+            this.IdSolicitacao = solicitacao.IdSolicitacao;
+            this.IdEmpresa = solicitacao.Empresa.IdEmpresa;
+            this.IdContrato = solicitacao.Contrato.IdContrato;
+            this.IdTipoSolicitacao = solicitacao.TipoSolicitacao.IdTipoSolicitacao;
+            this.TiposEmissao = solicitacao.TipoEmissao;
+            this.IdArea1 = solicitacao.Area1 != null ? solicitacao.Area1.IdArea : 0;
+            this.IdArea2 = solicitacao.Area2 != null ? solicitacao.Area2.IdArea : 0;
+            this.IdPessoa = solicitacao.Pessoa.IdPessoa;
+            this.IdCargo = solicitacao.Cargo.IdCargo;
+
+        }
 
         public SolicitacaoViewModel() { }
 
@@ -53,12 +64,12 @@ namespace WebSIC.Models
         {
             Solicitacao solicitacao = new Solicitacao();
 
-            solicitacao.IdSolicitacao = solicitacao.IdSolicitacao;
+            solicitacao.IdSolicitacao = this.IdSolicitacao;
             solicitacao.Empresa = new Empresa() { IdEmpresa = IdEmpresa };
             solicitacao.Contrato = new Contrato() { IdContrato = IdContrato };
             solicitacao.TipoSolicitacao = new TipoSolicitacao() { IdTipoSolicitacao = IdTipoSolicitacao };
-            solicitacao.Area1 = new Area() { IdArea = IdArea1 };
-            solicitacao.Area2 = new Area() { IdArea = IdArea2 };
+            solicitacao.Area1 = this.IdArea1 != 0 ? new Area() { IdArea = IdArea1 } : null;
+            solicitacao.Area2 = this.IdArea2 != 0 ? new Area() { IdArea = IdArea2 } : null;
             solicitacao.Pessoa = new Pessoa() { IdPessoa = IdPessoa };
             solicitacao.Cargo = new Cargo() { IdCargo = IdCargo };
 

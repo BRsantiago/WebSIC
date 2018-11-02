@@ -41,6 +41,10 @@ namespace Entity.Entities
         [Display(Name = "É obrigatório?")]
         public bool Obrigatorio { get; set; }
 
+        [Display(Name = "Permite dirigir em áreas restritas")]
+        public bool PermiteDirigirEmAreasRestritas { get; set; }
+
         public IList<Turma> Turmas { get; set; }
+        public List<CursoSemTurma> CursosSemTurma { get; set; }
     }
 }
