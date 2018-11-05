@@ -36,6 +36,9 @@ namespace WebSIC.Models
         [Display(Name = "Tipo de Emissão")]
         public TipoEmissao TiposEmissao { get; set; }
 
+        public int IdCargo { get; set; }
+        [Display(Name = "Cargo")]
+        public List<Cargo> Cargo { get; set; }
 
         [Display(Name = "Área")]
         public List<Area> Areas { get; set; }
@@ -57,8 +60,9 @@ namespace WebSIC.Models
             solicitacao.Area1 = new Area() { IdArea = IdArea1 };
             solicitacao.Area2 = new Area() { IdArea = IdArea2 };
             solicitacao.Pessoa = new Pessoa() { IdPessoa = IdPessoa };
+            solicitacao.Cargo = new Cargo() { IdCargo = IdCargo };
 
-           // solicitacao.TipoEmissao = Enum.Parse(typeof(Categoria), IdTipoEmissao);//(IdTipoEmissao == 0);
+            solicitacao.TipoEmissao = (TipoEmissao)Enum.ToObject(typeof(TipoEmissao), IdTipoEmissao); //(IdTipoEmissao == 0);
 
             return solicitacao;
         }

@@ -44,7 +44,7 @@ namespace WebSIC.Models
         [Display(Name = "UF")]
         public string UFOrgaoExpeditor { get; set; }
         [Display(Name = "Gênero")]
-        public string Genero { get; set; }
+        public Genero Genero { get; set; }
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
         public string Email { get; set; }
@@ -53,7 +53,6 @@ namespace WebSIC.Models
         public string DataValidadeCNH { get; set; }
 
         public string IdEmpresa { get; set; }
-        public List<Genero> Generos { get; set; }
 
         public RepresentanteViewModel() { }
 

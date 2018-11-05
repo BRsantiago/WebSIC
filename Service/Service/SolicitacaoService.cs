@@ -74,6 +74,13 @@ namespace Services.Service
                 credencial.NomeImpressaoFrenteCracha = solicitacao.Pessoa.Nome;
                 credencial.DescricaoFuncaoFrenteCracha = solicitacao.Cargo.Descricao;
 
+                credencial.Empresa = solicitacao.Empresa;
+                credencial.Pessoa = solicitacao.Pessoa;
+                credencial.Veiculo = solicitacao.Veiculo;
+                credencial.Area1 = solicitacao.Area1;
+                credencial.Area2 = solicitacao.Area2;
+                credencial.Cargo = solicitacao.Cargo;
+
                 this.CredencialRepository.IncluirNovaCredencial(credencial);
             }
             else
@@ -83,6 +90,10 @@ namespace Services.Service
                 credencial.DescricaoFuncaoFrenteCracha = solicitacao.Cargo.Descricao;
                 credencial.CategoriaMotorista1 = solicitacao.Pessoa.CategoriaUm.ToString();
                 credencial.CategoriaMotorista2 = solicitacao.Pessoa.CategoriaUm.ToString();
+
+                credencial.Area1 = solicitacao.Area1;
+                credencial.Area2 = solicitacao.Area2;
+                credencial.Cargo = solicitacao.Cargo;
 
                 if (solicitacao.TipoSolicitacao.Descricao.Contains("BAIXA"))
                 {
@@ -130,6 +141,11 @@ namespace Services.Service
 
                 CursoSemTurmaRepository.IncluirNovoCursoSemTurma(cst);
             }
+        }
+
+        public void Atualizar(Solicitacao solicitacao)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Solicitacao> ObterPorVeiculo(int veiculoId)
