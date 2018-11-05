@@ -19,5 +19,7 @@ namespace Repository.Interface
         void Remover(Credencial obj);
         void Dispose();
         void Salvar();
+
+        Credencial ObterPorVeiculo(int veiculoId, bool isTemp);
     }
 }

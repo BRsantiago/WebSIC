@@ -22,20 +22,26 @@ namespace Entity.Entities
         public DateTime? DataDesativacao { get; set; }
         public DateTime? DataVencimento { get; set; }
         public DateTime? DataExpedicao { get; set; }
+
+        public bool FlgTemporario { get; set; }
+
+        public Pessoa Pessoa { get; set; }
+        public Cargo Cargo { get; set; }
         public string NomeImpressaoFrenteCracha { get; set; }
         public string DescricaoFuncaoFrenteCracha { get; set; }
         public string CategoriaMotorista1 { get; set; }
         public string CategoriaMotorista2 { get; set; }
         public bool FlgCVE { get; set; }
-        public bool FlgTemporario { get; set; }
 
-        public Pessoa Pessoa { get; set; }
-        public Veiculo Veiculo { get; set; }
-        public Empresa Empresa { get; set; }
         public Aeroporto Aeroporto { get; set; }
+        public Empresa Empresa { get; set; }
+        public Contrato Contrato { get; set; }
+
+        public Veiculo Veiculo { get; set; }
         public Area Area1 { get; set; }
         public Area Area2 { get; set; }
-        public Cargo Cargo { get; set; }
+        public PortaoAcesso PortaoAcesso { get; set; }
+        
         public IList<Solicitacao> Solicitacoes { get; set; }
         public IList<Ocorrencia> Ocorrencias { get; set; }
 

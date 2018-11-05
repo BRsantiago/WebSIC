@@ -108,12 +108,6 @@ namespace Services.Service
 
         }
 
-        public void SalvarATIV(Solicitacao solicitacao)
-        {
-            SolicitacaoRepository.IncluirNovaSolicitacao(solicitacao);
-            SolicitacaoRepository.Salvar();
-        }
-
         private void CarregarCursosExigidos(Solicitacao solicitacao)
         {
             IList<Curso> CursosRealizadosComValidade = this.CursoRepository.ObterCursosRealizadosComValidadePorIdPessoa(solicitacao.Pessoa.IdPessoa);
@@ -158,7 +152,7 @@ namespace Services.Service
 
         public void Atualizar(Solicitacao solicitacao)
         {
-            throw new NotImplementedException();
+            SolicitacaoRepository.Atualizar(solicitacao);
         }
 
         public Solicitacao ObterPorId(int? id)
@@ -166,14 +160,51 @@ namespace Services.Service
             return this.SolicitacaoRepository.ObterSolicitacaoPorId(id.Value);
         }
 
+        public Solicitacao Obter(int id)
+        {
+            return SolicitacaoRepository.ObterPorId(id);
+        }
+
         public List<Solicitacao> ObterPorVeiculo(int veiculoId)
         {
             return SolicitacaoRepository.ObterPorVeiculo(veiculoId);
         }
 
-        public Solicitacao Obter(int id)
+        public void SalvarATIV(Solicitacao solicitacao)
         {
-            return SolicitacaoRepository.ObterPorId(id);
+            SolicitacaoRepository.IncluirNovaSolicitacao(solicitacao);
+            SolicitacaoRepository.Salvar();
+        }
+
+        public void AprovarATIV(Solicitacao solicitacao)
+        {
+            Atualizar(solicitacao);
+
+            Credencial credencial = CredencialRepository
+                .ObterPorVeiculo(solicitacao.Veiculo.IdVeiculo, solicitacao.TipoEmissao == Entity.DTO.TipoEmissao.Temporaria);
+
+            if (credencial != null)
+            {
+                credencial.DataVencimento = solicitacao.Veiculo.Apolice.DataValidade;
+                CredencialRepository.Atualizar(credencial);
+            }
+            else
+            {
+                Credencial newCredencial = new Credencial()
+                {
+                    Empresa = solicitacao.Veiculo.Empresa,
+                    Contrato = solicitacao.Contrato,
+                    Veiculo = solicitacao.Veiculo,
+                    Area1 = solicitacao.Area1,
+                    Area2 = solicitacao.Area2,
+                    PortaoAcesso = solicitacao.PortaoAcesso,
+                    FlgTemporario = solicitacao.TipoEmissao == Entity.DTO.TipoEmissao.Temporaria,
+                    DataVencimento = solicitacao.Veiculo.Apolice.DataValidade
+                };
+                CredencialRepository.IncluirNovaCredencial(credencial);
+            }
+
+            SolicitacaoRepository.Salvar();
         }
     }
 }

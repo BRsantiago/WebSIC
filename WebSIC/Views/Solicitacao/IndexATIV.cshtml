@@ -94,8 +94,8 @@
                                 </td>
                                 <td class="min">
                                     <button class="btn btn-warning details" data-id="@item.IdSolicitacao">Detalhar<i class="glyphicon glyphicon-file"></i></button>
-                                    <button class="btn btn-primary edit" data-id="@item.IdSolicitacao">Aprovar<i class="glyphicon glyphicon-edit"></i></button>
-                                    <button class="btn btn-danger delete" data-id="@item.IdSolicitacao">Cancelar<i class="glyphicon glyphicon-trash"></i></button>
+                                    <button class="btn btn-primary edit" data-id="@item.IdSolicitacao" disabled="@item.Ativo">Aprovar<i class="glyphicon glyphicon-edit"></i></button>
+                                    <button class="btn btn-danger delete" data-id="@item.IdSolicitacao" disabled="@item.Ativo">Cancelar<i class="glyphicon glyphicon-trash"></i></button>
                                 </td>
                             </tr>
                         }
@@ -106,32 +106,72 @@
     </div>
 </div>
 
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-4">
+            @*@Html.ActionLink("Voltar à Listagem de Veículos", "Index", "Veiculo", null, new { @class = "btn btn-default" })*@ 
+            <button class="btn btn-default" onclick="window.history.back();">Voltar à Listagem de Veículos <i class="glyphicon glyphicon-circle-arrow-left"></i></button>
+        </div>
+    </div>
+</div>
+
 <div class="modal" id="modal" role="dialog" data-backdrop="static" data-keyboard="false"></div>
 
 @*<script src="~/Scripts/Index.js"></script>*@
 
 <script>
+    function MakeAjaxRequest(path, id) {
+        $.ajax({
+            url: baseURL + "/" + path,
+            method: "POST",  // post
+            data: { id: id },
+            success: function (result) {
+                if (result.success) {
+                    swal({
+                        title: "Good job!",
+                        text: result.message,
+                        icon: "success",
+                        button: "OK!"
+                    })
+                        .then((value) => {
+                            window.location.reload(true);
+                        });
+                } else {
+                    swal({
+                        title: "Atenção!",
+                        text: result.message,
+                        icon: "warning",
+                        button: "OK!"
+                    })
+                }
+            },
+            error: function () {
+                swal({
+                    title: "Erro de sistema!",
+                    text: "Por favor entre em contato com o setor de TI!",
+                    icon: "error"
+                });
+            }
+        });
+    }
+
     $(function () {
+        baseURL = "/Solicitacao";
+
         $(".details").click(function () {
             var id = $(this).attr("data-id");
-            alert(id);
+            //alert(id);
             $("#modal").load(baseURL + "/DetailsATIV?id=" + id, function () {
                 $("#modal").modal();
             })
         });
         $(".edit").click(function () {
             var id = $(this).attr("data-id");
-            //alert(id);
-            $("#modal").load(baseURL + "/ApproveATIV?id=" + id, function () {
-                $("#modal").modal();
-            })
+            MakeAjaxRequest("ApproveATIV", id);
         });
         $(".delete").click(function () {
             var id = $(this).attr("data-id");
-            //alert(id);
-            $("#modal").load(baseURL + "/CancelATIV?id=" + id, function () {
-                $("#modal").modal();
-            })
+            MakeAjaxRequest("CancelATIV", id);
         });
     });
 </script>

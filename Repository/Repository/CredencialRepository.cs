@@ -28,11 +28,13 @@ namespace Repository.Repository
         public void IncluirNovaCredencial(Credencial credencial)
         {
 
+            if (credencial.Empresa != null) contexto.Entry(credencial.Empresa).State = System.Data.Entity.EntityState.Unchanged;
+            if (credencial.Contrato != null) contexto.Entry(credencial.Contrato).State = System.Data.Entity.EntityState.Unchanged;
             if (credencial.Pessoa != null) contexto.Entry(credencial.Pessoa).State = System.Data.Entity.EntityState.Unchanged;
+            if (credencial.Veiculo != null) contexto.Entry(credencial.Veiculo).State = System.Data.Entity.EntityState.Unchanged;
             if (credencial.Area1 != null) contexto.Entry(credencial.Area1).State = System.Data.Entity.EntityState.Unchanged;
             if (credencial.Area2 != null) contexto.Entry(credencial.Area2).State = System.Data.Entity.EntityState.Unchanged;
-            if (credencial.Empresa != null) contexto.Entry(credencial.Empresa).State = System.Data.Entity.EntityState.Unchanged;
-            if (credencial.Veiculo != null) contexto.Entry(credencial.Veiculo).State = System.Data.Entity.EntityState.Unchanged;
+            if (credencial.PortaoAcesso != null) contexto.Entry(credencial.PortaoAcesso).State = System.Data.Entity.EntityState.Unchanged;
 
             this.contexto.Credenciais.Add(credencial);
         }
@@ -92,6 +94,20 @@ namespace Repository.Repository
         public void Salvar()
         {
             contexto.SaveChanges();
+        }
+
+        public Credencial ObterPorVeiculo(int veiculoId, bool isTemp)
+        {
+            return contexto.Credenciais
+                .Include(c => c.Veiculo)
+                .Include(c => c.Empresa)
+                .Include(c => c.Contrato)
+                .Include(c => c.Area1)
+                .Include(c => c.Area2)
+                .Include(c => c.PortaoAcesso)
+                .Where(c => c.Veiculo.IdVeiculo == veiculoId && c.FlgTemporario == isTemp && c.Ativo == true)
+                .OrderByDescending(c => c.Criacao)
+                .FirstOrDefault();
         }
     }
 }

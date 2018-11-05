@@ -16,5 +16,7 @@ namespace Service.Interface
 
         Solicitacao Obter(int id);
         List<Solicitacao> ObterPorVeiculo(int veiculoId);
+        void SalvarATIV(Solicitacao solicitacao);
+        void AprovarATIV(Solicitacao solicitacao);
     }
 }

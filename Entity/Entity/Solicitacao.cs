@@ -19,7 +19,8 @@ namespace Entity.Entities
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int IdSolicitacao { get; set; }
 
-        public DateTime DataAutorizacao { get; set; }
+        [Display(Name = "Data de Aprovação")]
+        public Nullable<DateTime> DataAutorizacao { get; set; }
 
         [Display(Name = "Documentação")]
         public string CaminhoArquivoDigitalizado { get; set; }
@@ -27,21 +28,24 @@ namespace Entity.Entities
         public TipoSolicitacao TipoSolicitacao { get; set; }
         [Display(Name = "Tipo de Emissão")]
         public TipoEmissao TipoEmissao { get; set; }
+                        
+        public Empresa Empresa { get; set; }
+        public Contrato Contrato { get; set; }
+
+        [Display(Name = "Veículo")]
+        public Veiculo Veiculo { get; set; }
         [Display(Name = "1ª Área")]
         public Area Area1 { get; set; }
         [Display(Name = "2ª Área")]
         public Area Area2 { get; set; }
         [Display(Name = "Portão de Acesso")]
         public PortaoAcesso PortaoAcesso { get; set; }
-                
-        public Empresa Empresa { get; set; }
-        public Contrato Contrato { get; set; }
 
-        public Veiculo Veiculo { get; set; }
         public Pessoa Pessoa { get; set; }
+        public Cargo Cargo { get; set; }
 
         public Schedule Schedule { get; set; }
-        public Cargo Cargo { get; set; }
+        
         public Credencial Credencial { get; set; }
     }
 }

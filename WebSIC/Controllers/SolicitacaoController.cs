@@ -253,7 +253,7 @@ namespace WebSIC.Controllers
 
             try
             {
-                SolicitacaoService.Salvar(solicitacao);
+                SolicitacaoService.SalvarATIV(solicitacao);
                 check = new ServiceReturn()
                 {
                     success = true,
@@ -269,6 +269,70 @@ namespace WebSIC.Controllers
                     success = false,
                     title = "Erro",
                     message = string.Format("Erro ao cadastrar a solicitação de ATIV! {0} - {1}", ex.GetType(), ex.Message),
+                    id = 0
+                };
+            }
+
+            return Json(check, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ApproveATIV(int id)
+        {
+            ServiceReturn check = null;
+            Solicitacao solicitacao = SolicitacaoService.Obter(id);
+            solicitacao.DataAutorizacao = DateTime.Now;
+
+            try
+            {
+                SolicitacaoService.AprovarATIV(solicitacao);
+                check = new ServiceReturn()
+                {
+                    success = true,
+                    title = "Sucesso",
+                    message = "Solicitação de ATIV aprovada com sucesso!",
+                    id = solicitacao.IdSolicitacao
+                };
+            }
+            catch (Exception ex)
+            {
+                check = new ServiceReturn()
+                {
+                    success = false,
+                    title = "Erro",
+                    message = string.Format("Erro ao aprovar a solicitação de ATIV! {0} - {1}", ex.GetType(), ex.Message),
+                    id = 0
+                };
+            }
+
+            return Json(check, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult CancelATIV(int id)
+        {
+            ServiceReturn check = null;
+            Solicitacao solicitacao = SolicitacaoService.Obter(id);
+            solicitacao.Ativo = false;
+
+            try
+            {
+                SolicitacaoService.Atualizar(solicitacao);
+                check = new ServiceReturn()
+                {
+                    success = true,
+                    title = "Sucesso",
+                    message = "Solicitação de ATIV cancelada com sucesso!",
+                    id = solicitacao.IdSolicitacao
+                };
+            }
+            catch (Exception ex)
+            {
+                check = new ServiceReturn()
+                {
+                    success = false,
+                    title = "Erro",
+                    message = string.Format("Erro ao cancelar a solicitação de ATIV! {0} - {1}", ex.GetType(), ex.Message),
                     id = 0
                 };
             }
