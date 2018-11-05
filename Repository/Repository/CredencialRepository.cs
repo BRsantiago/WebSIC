@@ -46,13 +46,6 @@ namespace Repository.Repository
                                 .SingleOrDefault();
         }
 
-
-
-        //public virtual void Incluir(TEntity obj)
-        //{
-        //    contexto.Set<TEntity>().Add(obj);
-        //}
-
         public Credencial ObterPorId(int id)
         {
             return contexto.Credenciais

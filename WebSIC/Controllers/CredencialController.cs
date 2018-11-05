@@ -76,7 +76,7 @@ namespace WebSIC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Credencial credencial = db.Credenciais.Find(id);
+            Credencial credencial = this.CredencialService.ObterPorId(Convert.ToInt32(id));
             if (credencial == null)
             {
                 return HttpNotFound();
