@@ -94,8 +94,8 @@
                                 </td>
                                 <td class="min">
                                     <button class="btn btn-warning details" data-id="@item.IdSolicitacao">Detalhar<i class="glyphicon glyphicon-file"></i></button>
-                                    <button class="btn btn-primary edit" data-id="@item.IdSolicitacao" disabled="@item.Ativo">Aprovar<i class="glyphicon glyphicon-edit"></i></button>
-                                    <button class="btn btn-danger delete" data-id="@item.IdSolicitacao" disabled="@item.Ativo">Cancelar<i class="glyphicon glyphicon-trash"></i></button>
+                                    <button class="btn btn-primary edit" data-id="@item.IdSolicitacao" @(!item.Ativo ? "disabled" : "")>Aprovar<i class="glyphicon glyphicon-edit"></i></button>
+                                    <button class="btn btn-danger delete" data-id="@item.IdSolicitacao" @(!item.Ativo ? "disabled" : "")>Cancelar<i class="glyphicon glyphicon-trash"></i></button>
                                 </td>
                             </tr>
                         }
