@@ -199,16 +199,17 @@ namespace WebSIC.Models
             pessoa.Atualizacao = DateTime.Now;
             pessoa.Atualizador = "";
             pessoa.Ativo = this.Ativo;
+            pessoa.ImageUrl = this.ImageUrl;
 
-            if (this.Foto != null && this.Foto.ContentLength > 0)
-            {
-                var uploadDir = "/Images/Logo";
-                var imagePath = HttpContext.Current.Server.MapPath(uploadDir) + "/" + this.Foto.FileName;//Path.Combine(Server.MapPath(uploadDir), model.Logotipo.FileName);
-                var imageUrl = Path.Combine(uploadDir, this.Foto.FileName);
-                this.Foto.SaveAs(imagePath);
+            //if (this.Foto != null && this.Foto.ContentLength > 0)
+            //{
+            //    var uploadDir = "/Images/Logo";
+            //    var imagePath = HttpContext.Current.Server.MapPath(uploadDir) + "/" + this.Foto.FileName;//Path.Combine(Server.MapPath(uploadDir), model.Logotipo.FileName);
+            //    var imageUrl = Path.Combine(uploadDir, this.Foto.FileName);
+            //    this.Foto.SaveAs(imagePath);
 
-                pessoa.ImageUrl = imageUrl;
-            }
+            //    pessoa.ImageUrl = imageUrl;
+            //}
 
             return pessoa;
         }
