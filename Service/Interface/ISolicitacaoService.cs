@@ -12,6 +12,7 @@ namespace Service.Interface
         List<Solicitacao> ObterTodos();
         void Salvar(Solicitacao solicitacao);
         void Atualizar(Solicitacao solicitacao);
+        Solicitacao ObterPorId(int? id);
 
         Solicitacao Obter(int id);
         List<Solicitacao> ObterPorVeiculo(int veiculoId);

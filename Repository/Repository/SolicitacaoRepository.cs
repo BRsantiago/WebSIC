@@ -29,9 +29,25 @@ namespace Repository.Interface
             if (solicitacao.Veiculo != null) contexto.Entry(solicitacao.Veiculo).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Credencial != null) contexto.Entry(solicitacao.Credencial).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.TipoSolicitacao != null) contexto.Entry(solicitacao.TipoSolicitacao).State = System.Data.Entity.EntityState.Unchanged;
+            if (solicitacao.Cargo != null) contexto.Entry(solicitacao.Cargo).State = System.Data.Entity.EntityState.Unchanged;
 
             contexto.Solicitacoes.Add(solicitacao);
         }
+
+        public Solicitacao ObterSolicitacaoPorId(int idSolicitacao)
+        {
+            return this.contexto.Solicitacoes
+                                .Include(s => s.Empresa)
+                                .Include(s => s.Pessoa)
+                                .Include(s => s.Contrato)
+                                .Include(s => s.TipoSolicitacao)
+                                //.Include(s => s.TipoEmissao)
+                                .Include(s => s.Cargo)
+                                .Include(s => s.Area1)
+                                .Include(s => s.Area2)
+                                .Where(s => s.IdSolicitacao == idSolicitacao).SingleOrDefault();
+        }
+
 
         public List<Solicitacao> ObterPorVeiculo(int veiculoId)
         {

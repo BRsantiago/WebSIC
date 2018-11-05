@@ -19,12 +19,9 @@ namespace Entity.Entities
         [Display(Name = "Matrícula")]
         public int IdCredencial { get; set; }
 
-        public DateTime DataDesativacao { get; set; }
-        
-        [Required]
-        public DateTime DataVencimento { get; set; }
-        [Required]
-        public DateTime DataExpedicao { get; set; }
+        public DateTime? DataDesativacao { get; set; }
+        public DateTime? DataVencimento { get; set; }
+        public DateTime? DataExpedicao { get; set; }
         public string NomeImpressaoFrenteCracha { get; set; }
         public string DescricaoFuncaoFrenteCracha { get; set; }
         public string CategoriaMotorista1 { get; set; }

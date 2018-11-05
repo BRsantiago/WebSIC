@@ -108,8 +108,8 @@ namespace WebSIC.Controllers
 
                 TempData["notification"] = msg;
 
-                //return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
-                return PartialView(model);
+                Pessoa pessoa = PessoaService.ObterPorId(model.IdPessoa.ToString());
+                return View(new PessoaViewModel(pessoa));
             }
         }
 

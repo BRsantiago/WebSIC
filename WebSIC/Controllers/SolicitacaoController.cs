@@ -117,10 +117,7 @@ namespace WebSIC.Controllers
         // GET: Solicitacao/Edit/5
         public ActionResult Edit(int? id)
         {
-            SolicitacaoViewModel model = new SolicitacaoViewModel();
-
-            model.IdPessoa = Convert.ToInt32(id);
-
+            SolicitacaoViewModel model = new SolicitacaoViewModel(this.SolicitacaoService.ObterPorId(id));
 
             model.Aeroportos = AeroportoService.ObterTodos();
             model.Empresas = EmpresaService.ObterTodos();

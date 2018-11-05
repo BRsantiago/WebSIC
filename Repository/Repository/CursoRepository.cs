@@ -38,5 +38,13 @@ namespace Repository.Repository
         {
             return contexto.Cursos.Include(c => c.Turmas).Where(c => c.Areas.Any(a => a.IdArea == idArea) && c.Ativo == true).ToList();
         }
+
+        public IList<Curso> ObterCursosRealizadosComValidadePorIdPessoa(int idPessoa)
+        {
+            return contexto.Cursos
+                           .Where(c => c.Turmas.Any(t => t.Pessoas.Any(p => p.IdPessoa == idPessoa) && t.DataValidade > DateTime.Now) ||
+                                       c.CursosSemTurma.Any(t => t.Pessoa.IdPessoa == idPessoa && t.DataValidade > DateTime.Now)) 
+                           .ToList();
+        }
     }
 }

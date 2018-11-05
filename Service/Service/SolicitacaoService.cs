@@ -82,6 +82,8 @@ namespace Services.Service
                 credencial.Cargo = solicitacao.Cargo;
 
                 this.CredencialRepository.IncluirNovaCredencial(credencial);
+
+                //solicitacao.Credencial = credencial;
             }
             else
             {
@@ -103,7 +105,7 @@ namespace Services.Service
                 this.CredencialRepository.AtualizarCredencial(credencial);
             }
 
-            solicitacao.Credencial = credencial;
+
         }
 
         public void SalvarATIV(Solicitacao solicitacao)
@@ -114,38 +116,54 @@ namespace Services.Service
 
         private void CarregarCursosExigidos(Solicitacao solicitacao)
         {
-            IList<Curso> CursosExigidos = CursoRepository.ObterPorArea(solicitacao.Area1.IdArea);
+            IList<Curso> CursosRealizadosComValidade = this.CursoRepository.ObterCursosRealizadosComValidadePorIdPessoa(solicitacao.Pessoa.IdPessoa);
 
-            foreach (Curso curso in CursosExigidos)
+            if (solicitacao.Area1 != null)
             {
-                CursoSemTurma cst = new CursoSemTurma()
-                {
-                    Curso = curso,
-                    Pessoa = solicitacao.Pessoa,
-                    DataValidade = DateTime.Now
-                };
+                IList<Curso> CursosExigidos = CursoRepository.ObterPorArea(solicitacao.Area1.IdArea);
 
-                CursoSemTurmaRepository.IncluirNovoCursoSemTurma(cst);
+                foreach (Curso curso in CursosExigidos.Where(c => CursosRealizadosComValidade.Any(crv => crv.IdCurso != c.IdCurso)))
+                {
+                    CursoSemTurma cst = new CursoSemTurma()
+                    {
+                        Curso = curso,
+                        Pessoa = solicitacao.Pessoa,
+                        DataValidade = DateTime.Now
+                    };
+
+                    CursoSemTurmaRepository.IncluirNovoCursoSemTurma(cst);
+
+                    solicitacao.Pessoa.Curso.Add(cst);
+                }
             }
-
-            CursosExigidos = CursoRepository.ObterPorArea(solicitacao.Area2.IdArea);
-
-            foreach (Curso curso in CursosExigidos)
+            if (solicitacao.Area2 != null)
             {
-                CursoSemTurma cst = new CursoSemTurma()
-                {
-                    Curso = curso,
-                    Pessoa = solicitacao.Pessoa,
-                    DataValidade = DateTime.Now
-                };
+                IList<Curso> CursosExigidos = CursoRepository.ObterPorArea(solicitacao.Area2.IdArea);
 
-                CursoSemTurmaRepository.IncluirNovoCursoSemTurma(cst);
+                foreach (Curso curso in CursosExigidos.Where(c => CursosRealizadosComValidade.Any(crv => crv.IdCurso != c.IdCurso)))
+                {
+                    CursoSemTurma cst = new CursoSemTurma()
+                    {
+                        Curso = curso,
+                        Pessoa = solicitacao.Pessoa,
+                        DataValidade = DateTime.Now
+                    };
+
+                    CursoSemTurmaRepository.IncluirNovoCursoSemTurma(cst);
+
+                    solicitacao.Pessoa.Curso.Add(cst);
+                }
             }
         }
 
         public void Atualizar(Solicitacao solicitacao)
         {
             throw new NotImplementedException();
+        }
+
+        public Solicitacao ObterPorId(int? id)
+        {
+            return this.SolicitacaoRepository.ObterSolicitacaoPorId(id.Value);
         }
 
         public List<Solicitacao> ObterPorVeiculo(int veiculoId)

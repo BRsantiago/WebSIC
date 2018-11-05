@@ -128,6 +128,22 @@
     <Compile Include="Migrations\201811012044324_AlterPessoaAddGenero.Designer.cs">
       <DependentUpon>201811012044324_AlterPessoaAddGenero.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811021713177_AlterCurso.cs" />
+    <Compile Include="Migrations\201811021713177_AlterCurso.Designer.cs">
+      <DependentUpon>201811021713177_AlterCurso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811021830545_AlterDatesToReceiveNull.cs" />
+    <Compile Include="Migrations\201811021830545_AlterDatesToReceiveNull.Designer.cs">
+      <DependentUpon>201811021830545_AlterDatesToReceiveNull.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811021847093_AlterDatesAreNotRequired.cs" />
+    <Compile Include="Migrations\201811021847093_AlterDatesAreNotRequired.Designer.cs">
+      <DependentUpon>201811021847093_AlterDatesAreNotRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811021946198_AlterCursoSemTurma.cs" />
+    <Compile Include="Migrations\201811021946198_AlterCursoSemTurma.Designer.cs">
+      <DependentUpon>201811021946198_AlterCursoSemTurma.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CursoSemTurmaRepository.cs" />
@@ -207,6 +223,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811012044324_AlterPessoaAddGenero.resx">
       <DependentUpon>201811012044324_AlterPessoaAddGenero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811021713177_AlterCurso.resx">
+      <DependentUpon>201811021713177_AlterCurso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811021830545_AlterDatesToReceiveNull.resx">
+      <DependentUpon>201811021830545_AlterDatesToReceiveNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811021847093_AlterDatesAreNotRequired.resx">
+      <DependentUpon>201811021847093_AlterDatesAreNotRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811021946198_AlterCursoSemTurma.resx">
+      <DependentUpon>201811021946198_AlterCursoSemTurma.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

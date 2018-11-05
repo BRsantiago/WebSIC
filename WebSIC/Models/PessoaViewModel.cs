@@ -182,7 +182,7 @@ namespace WebSIC.Models
             pessoa.RG = this.RG;
             pessoa.OrgaoExpeditor = this.OrgaoExpeditor;
             pessoa.UFOrgaoExpeditor = this.UFOrgaoExpeditor;
-            pessoa.Genero = (Genero)Enum.ToObject(typeof(Genero), IdGenero); ;
+            pessoa.Genero = this.Genero;
             pessoa.Observacao = this.Observacao;
             pessoa.FlgCVE = this.FlgCVE;
             pessoa.Email = this.Email;

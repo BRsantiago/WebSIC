@@ -9,5 +9,7 @@ namespace Service.Interface
 {
     public interface ICredencialService
     {
+        List<Credencial> ObterTodos();
+        Credencial ObterPorId(int v);
     }
 }

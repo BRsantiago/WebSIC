@@ -19,7 +19,7 @@
                     <div class="col-md-9">
                         <div class="checkbox">
                             @Html.DropDownListFor(d => d.IdAeroporto, new SelectList(Model.Aeroportos.OrderBy(o => o.IdAeroporto), "IdAeroporto", "Descricao"), "Selecione", new { @class = "form-control select2" })
-                            @Html.ValidationMessageFor(model => model.FlgMotorista, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.IdAeroporto, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>

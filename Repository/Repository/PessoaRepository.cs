@@ -40,22 +40,24 @@ namespace Repository.Repository
 
         public void IncluirNovoRepresentante(Pessoa representante)
         {
-            representante.Empresas.ToList().ForEach(empresa =>
-            {
-                contexto.Entry(empresa).State = System.Data.Entity.EntityState.Unchanged;
-            });
+            representante.Empresas.ToList().ForEach(empresa => contexto.Entry(empresa).State = System.Data.Entity.EntityState.Unchanged);
 
             contexto.Pessoas.Add(representante);
         }
 
         public void AtualizarRepresentante(Pessoa representante)
         {
-            //representante.Empresas.ToList().ForEach(empresa =>
-            //{
-            //    contexto.Entry(empresa).State = System.Data.Entity.EntityState.Unchanged;
-            //});
+           if(representante.Empresas != null) representante.Empresas.ToList().ForEach(empresa => contexto.Entry(empresa).State = System.Data.Entity.EntityState.Unchanged);
+           if(representante.Curso != null) representante.Curso.ToList().ForEach(curso => contexto.Entry(curso.Curso).State = System.Data.Entity.EntityState.Unchanged);
 
             contexto.Entry(representante).State = System.Data.Entity.EntityState.Modified;
+        }
+
+        public void IncluirNovaPessoa(Pessoa pessoa)
+        {
+            pessoa.Curso.ToList().ForEach(curso => contexto.Entry(curso.Curso).State = System.Data.Entity.EntityState.Detached);
+
+            contexto.Pessoas.Add(pessoa);
         }
     }
 }

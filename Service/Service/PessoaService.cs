@@ -13,12 +13,15 @@ namespace Services.Service
     {
         public IPessoaRepository PessoaRepository;
         public ICursoRepository CursoRepository;
+        public ICursoSemTurmaRepository CSTRepository;
 
         public PessoaService(IPessoaRepository _PessoaRepository,
-                                ICursoRepository _CursoRepository)
+                                ICursoRepository _CursoRepository,
+                                ICursoSemTurmaRepository _CSTRepository)
         {
             PessoaRepository = _PessoaRepository;
             CursoRepository = _CursoRepository;
+            CSTRepository = _CSTRepository;
         }
 
         public Pessoa ObterPorCPF(string cpf)
@@ -33,19 +36,8 @@ namespace Services.Service
 
         public void IncluirPessoa(Pessoa pessoa)
         {
-            PessoaRepository.Incluir(pessoa);
-
-            if (!String.IsNullOrEmpty(pessoa.CNH))
-            {
-                Curso DDA = CursoRepository.ObterTodos().Where(x => x.Titulo.Contains("DDA")).SingleOrDefault();
-                pessoa.Curso = new List<CursoSemTurma>();
-                pessoa.Curso.Add(new CursoSemTurma()
-                {
-                    Curso = DDA,
-                    DataValidade = DateTime.Now
-                });
-            }
-
+            this.IncluirCursoDDA(pessoa);
+            PessoaRepository.IncluirNovaPessoa(pessoa);
             PessoaRepository.Salvar();
         }
 
@@ -76,6 +68,7 @@ namespace Services.Service
 
         public void Atualizar(Pessoa representante)
         {
+            IncluirCursoDDA(representante);
             PessoaRepository.AtualizarRepresentante(representante);
             PessoaRepository.Salvar();
         }
@@ -91,5 +84,20 @@ namespace Services.Service
             PessoaRepository.Remover(pessoa);
             PessoaRepository.Salvar();
         }
+
+        private void IncluirCursoDDA(Pessoa pessoa)
+        {
+            if (pessoa.Curso == null || (pessoa.Curso != null && !pessoa.Curso.Any(c => c.Curso.PermiteDirigirEmAreasRestritas)) && !String.IsNullOrEmpty(pessoa.CNH))
+            {
+                Curso DDA = CursoRepository.ObterTodos().Where(x => x.PermiteDirigirEmAreasRestritas).SingleOrDefault();
+                pessoa.Curso = new List<CursoSemTurma>();
+                CursoSemTurma cst = new CursoSemTurma() { Curso = DDA, DataValidade = DateTime.Now, Pessoa = pessoa };
+
+
+                pessoa.Curso.Add(cst);
+
+            }
+        }
+
     }
 }
