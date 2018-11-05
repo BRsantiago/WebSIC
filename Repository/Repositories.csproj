@@ -148,6 +148,10 @@
     <Compile Include="Migrations\201811052030266_SolicitacaoDataAutorizacaoNullable.Designer.cs">
       <DependentUpon>201811052030266_SolicitacaoDataAutorizacaoNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811052221563_CredencialAddContratoPortaoAcesso.cs" />
+    <Compile Include="Migrations\201811052221563_CredencialAddContratoPortaoAcesso.Designer.cs">
+      <DependentUpon>201811052221563_CredencialAddContratoPortaoAcesso.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CursoSemTurmaRepository.cs" />
@@ -242,6 +246,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811052030266_SolicitacaoDataAutorizacaoNullable.resx">
       <DependentUpon>201811052030266_SolicitacaoDataAutorizacaoNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811052221563_CredencialAddContratoPortaoAcesso.resx">
+      <DependentUpon>201811052221563_CredencialAddContratoPortaoAcesso.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
