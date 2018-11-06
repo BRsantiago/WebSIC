@@ -24,5 +24,6 @@ namespace Entity.Entities
         public string Descricao { get; set; }
 
         public List<TipoEmpresa> TipoEmpresas { get; set; }
+        public string Arquivo { get; set; }
     }
 }
