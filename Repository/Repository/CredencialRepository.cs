@@ -11,13 +11,13 @@ using System.Data.Entity;
 
 namespace Repository.Repository
 {
-    public class CredencialRepository : ICredencialRepository
+    public class CredencialRepository : RepositoryBase<Credencial>, ICredencialRepository
     {
-        WebSICContext contexto;
+        //WebSICContext contexto;
 
         public CredencialRepository(WebSICContext _contexto)
+            : base(_contexto)
         {
-            contexto = _contexto;
         }
 
         public void AtualizarCredencial(Credencial credencial)
@@ -46,7 +46,7 @@ namespace Repository.Repository
                                 .SingleOrDefault();
         }
 
-        public Credencial ObterPorId(int id)
+        public override Credencial ObterPorId(int id)
         {
             return contexto.Credenciais
                            .Include(c => c.Pessoa)
@@ -60,7 +60,7 @@ namespace Repository.Repository
                            .SingleOrDefault();
         }
 
-        public List<Credencial> ObterTodos()
+        public override List<Credencial> ObterTodos()
         {
             return contexto.Credenciais
                            .Include(c => c.Pessoa)
@@ -72,38 +72,67 @@ namespace Repository.Repository
                            .ToList();
         }
 
-        public void Atualizar(Credencial obj)
+        public override void Atualizar(Credencial obj)
         {
-            contexto.Entry(obj).State = System.Data.Entity.EntityState.Modified;
+            if (obj.Contrato != null && obj.Contrato.IdContrato != 0 && contexto.Entry(obj.Contrato).State == EntityState.Added)
+            {
+                contexto.Entry(obj.Contrato).State = EntityState.Detached;
+                obj.Contrato = contexto.Contratos.Find(obj.ContratoId);
+            }
+            if (obj.Veiculo != null && obj.Veiculo.IdVeiculo != 0 && contexto.Entry(obj.Veiculo).State == EntityState.Added)
+            {
+                contexto.Entry(obj.Veiculo).State = EntityState.Detached;
+                obj.Veiculo = contexto.Veiculos.Find(obj.VeiculoId);
+            }
+            if (obj.Area1 != null && obj.Area1.IdArea != 0 && contexto.Entry(obj.Area1).State == EntityState.Added)
+            {
+                contexto.Entry(obj.Area1).State = EntityState.Detached;
+                obj.Area1 = contexto.Areas.Find(obj.Area1Id);
+            }
+            if (obj.Area2 != null && obj.Area2.IdArea != 0 && contexto.Entry(obj.Area2).State == EntityState.Added)
+            {
+                contexto.Entry(obj.Area2).State = EntityState.Detached;
+                obj.Area2 = contexto.Areas.Find(obj.Area2Id);
+            }
+            if (obj.PortaoAcesso != null && obj.PortaoAcesso.IdPortaoAcesso != 0 && contexto.Entry(obj.PortaoAcesso).State == EntityState.Added)
+            {
+                contexto.Entry(obj.PortaoAcesso).State = EntityState.Detached;
+                obj.PortaoAcesso = contexto.PortoesAcesso.Find(obj.PortaoAcessoId);
+            }            
+
+            base.Atualizar(obj);
         }
 
-        public void Remover(Credencial obj)
-        {
-            contexto.Credenciais.Remove(obj);
-        }
+        //public  void Remover(Credencial obj)
+        //{
+        //    contexto.Credenciais.Remove(obj);
+        //}
 
-        public void Dispose()
-        {
-            contexto.Dispose();
-        }
+        //public void Dispose()
+        //{
+        //    contexto.Dispose();
+        //}
 
-        public void Salvar()
-        {
-            contexto.SaveChanges();
-        }
+        //public void Salvar()
+        //{
+        //    contexto.SaveChanges();
+        //}
 
         public Credencial ObterPorVeiculo(int veiculoId, bool isTemp)
         {
-            return contexto.Credenciais
-                .Include(c => c.Veiculo)
-                .Include(c => c.Empresa)
-                .Include(c => c.Contrato)
-                .Include(c => c.Area1)
-                .Include(c => c.Area2)
-                .Include(c => c.PortaoAcesso)
-                .Where(c => c.Veiculo.IdVeiculo == veiculoId && c.FlgTemporario == isTemp && c.Ativo == true)
-                .OrderByDescending(c => c.Criacao)
-                .FirstOrDefault();
+            Credencial obj =
+                contexto.Credenciais
+                    .Include(c => c.Veiculo)
+                    .Include(c => c.Empresa)
+                    .Include(c => c.Contrato)
+                    .Include(c => c.Area1)
+                    .Include(c => c.Area2)
+                    .Include(c => c.PortaoAcesso)
+                    .Where(c => c.Veiculo.IdVeiculo == veiculoId && c.FlgTemporario == isTemp && c.Ativo == true)
+                    .OrderByDescending(c => c.Criacao)
+                    .FirstOrDefault();
+
+            return obj;
         }
     }
 }

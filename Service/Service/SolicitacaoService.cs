@@ -153,6 +153,7 @@ namespace Services.Service
         public void Atualizar(Solicitacao solicitacao)
         {
             SolicitacaoRepository.Atualizar(solicitacao);
+            SolicitacaoRepository.Salvar();
         }
 
         public Solicitacao ObterPorId(int? id)
@@ -185,13 +186,23 @@ namespace Services.Service
 
             if (credencial != null)
             {
+                credencial.Atualizador = solicitacao.Atualizador;
+                credencial.Atualizacao = DateTime.Now;
                 credencial.DataVencimento = solicitacao.Veiculo.Apolice.DataValidade;
+
+                credencial.Contrato = solicitacao.Contrato;
+                credencial.Area1 = solicitacao.Area1;
+                credencial.Area2 = solicitacao.Area2;
+                credencial.PortaoAcesso = solicitacao.PortaoAcesso;
+
                 CredencialRepository.Atualizar(credencial);
             }
             else
             {
                 Credencial newCredencial = new Credencial()
                 {
+                    Criador = solicitacao.Atualizador,
+                    Atualizador = solicitacao.Atualizador,
                     Empresa = solicitacao.Veiculo.Empresa,
                     Contrato = solicitacao.Contrato,
                     Veiculo = solicitacao.Veiculo,
@@ -201,10 +212,11 @@ namespace Services.Service
                     FlgTemporario = solicitacao.TipoEmissao == Entity.DTO.TipoEmissao.Temporaria,
                     DataVencimento = solicitacao.Veiculo.Apolice.DataValidade
                 };
-                CredencialRepository.IncluirNovaCredencial(credencial);
+
+                CredencialRepository.IncluirNovaCredencial(newCredencial);
             }
 
-            SolicitacaoRepository.Salvar();
+            CredencialRepository.Salvar();
         }
     }
 }
