@@ -53,6 +53,7 @@ namespace Repository.Interface
         {
             return contexto.Solicitacoes
                 .Include(s => s.Veiculo)
+                .Include(s => s.Veiculo.Apolice)
                 .Include(s => s.Empresa)
                 .Include(s => s.Contrato)
                 .Include(s => s.Area1)
@@ -66,6 +67,7 @@ namespace Repository.Interface
         {
             return contexto.Solicitacoes
                 .Include(s => s.Veiculo)
+                .Include(s => s.Veiculo.Apolice)
                 .Include(s => s.Empresa)
                 .Include(s => s.Contrato)
                 .Include(s => s.Area1)

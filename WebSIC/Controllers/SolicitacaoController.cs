@@ -280,8 +280,11 @@ namespace WebSIC.Controllers
         public ActionResult ApproveATIV(int id)
         {
             ServiceReturn check = null;
+
             Solicitacao solicitacao = SolicitacaoService.Obter(id);
             solicitacao.DataAutorizacao = DateTime.Now;
+            solicitacao.Atualizacao = DateTime.Now;
+            solicitacao.Atualizador = User.Identity.Name;
 
             try
             {
@@ -314,6 +317,8 @@ namespace WebSIC.Controllers
             ServiceReturn check = null;
             Solicitacao solicitacao = SolicitacaoService.Obter(id);
             solicitacao.Ativo = false;
+            solicitacao.Atualizacao = DateTime.Now;
+            solicitacao.Atualizador = User.Identity.Name;
 
             try
             {

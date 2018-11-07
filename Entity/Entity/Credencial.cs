@@ -34,14 +34,37 @@ namespace Entity.Entities
         public bool FlgCVE { get; set; }
 
         public Aeroporto Aeroporto { get; set; }
+
         public Empresa Empresa { get; set; }
+        [Column("Empresa_IdEmpresa")]
+        [ForeignKey("Empresa")]
+        public Nullable<int> EmpresaId { get; set; }
+
         public Contrato Contrato { get; set; }
+        [Column("Contrato_IdContrato")]
+        [ForeignKey("Contrato")]
+        public Nullable<int> ContratoId { get; set; }
 
         public Veiculo Veiculo { get; set; }
+        [Column("Veiculo_IdVeiculo")]
+        [ForeignKey("Veiculo")]
+        public Nullable<int> VeiculoId { get; set; }
+
         public Area Area1 { get; set; }
+        [Column("Area1_IdArea")]
+        [ForeignKey("Area1")]
+        public Nullable<int> Area1Id { get; set; }
+
         public Area Area2 { get; set; }
+        [Column("Area2_IdArea")]
+        [ForeignKey("Area2")]
+        public Nullable<int> Area2Id { get; set; }
+
         public PortaoAcesso PortaoAcesso { get; set; }
-        
+        [Column("PortaoAcesso_IdPortaoAcesso")]
+        [ForeignKey("PortaoAcesso")]
+        public Nullable<int> PortaoAcessoId { get; set; }
+
         public IList<Solicitacao> Solicitacoes { get; set; }
         public IList<Ocorrencia> Ocorrencias { get; set; }
 
