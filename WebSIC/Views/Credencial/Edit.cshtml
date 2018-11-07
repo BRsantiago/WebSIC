@@ -1,99 +1,122 @@
 ﻿@model Entity.Entities.Credencial
 
-@{
-    ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h2>Edit</h2>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Impressão de credencial</h1>
+    </div>
+</div>
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<div class="row">
+    <div class="col-sm-6">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Credencial</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdCredencial, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IdCredencial, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
 
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.FlgMotorista, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.FlgMotorista)
-                        @Html.ValidationMessageFor(model => model.FlgMotorista, "", new { @class = "text-danger" })
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IdCredencial, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.IdCredencial, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                 </div>
-            </div>*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FlgTemporario, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.FlgTemporario)
-                    @Html.ValidationMessageFor(model => model.FlgTemporario, "", new { @class = "text-danger" })
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.FlgMotorista, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.FlgMotorista)
+                                @Html.ValidationMessageFor(model => model.FlgMotorista, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FlgTemporario, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.FlgTemporario)
+                            @Html.ValidationMessageFor(model => model.FlgTemporario, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FlgCVE, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.FlgCVE)
+                            @Html.ValidationMessageFor(model => model.FlgCVE, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DataExpedicao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DataExpedicao, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DataExpedicao, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DataDesativacao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DataDesativacao, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DataDesativacao, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DataVencimento, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DataVencimento, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DataVencimento, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
                 </div>
             </div>
-        </div>
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FlgCVE, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.FlgCVE)
-                    @Html.ValidationMessageFor(model => model.FlgCVE, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DataExpedicao, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DataExpedicao, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DataExpedicao, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DataDesativacao, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DataDesativacao, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DataDesativacao, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DataVencimento, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DataVencimento, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DataVencimento, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group" id="divReport">
-
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
     </div>
-}
+    <div class="col-sm-6">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-4">
+                    <div class="form-group" id="divReportFront">
 
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group" id="divReportBack">
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="form-group">
+    <input type="button" value="Imprimir" class="btn btn-success" onclick="Imprimir(@Model.IdCredencial)"/>
+</div>
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
 
     <script>
 
@@ -102,16 +125,28 @@
             var idCredencial = $("#IdCredencial").val();
 
             var src = '../../Report.aspx?';
-            //We can add parameters here  
+            //We can add parameters here
             src = src + "idCredencial=" + idCredencial
 
-            //We can append more than one parameter like below  
-            //var companyId = 1  
-            //src = src + "compnayID=" + companyId  
+            $.ajax({
+                url: '@Url.Action("Preview","Credencial")',
+                data: { idCredencial: idCredencial },  // post
+                method: "GET",
+                success: function (result) {
+                    var iframeFront = '<iframe id="reportFrame" width="500px" height="360px" src="../../ReportFront.aspx" scrolling="no" frameborder="0"></iframe>';
+                    var iframeBack = '<iframe id="reportFrame" width="500px" height="360px" src="../../ReportBack.aspx" scrolling="no" frameborder="0"></iframe>';
+                    $("#divReportFront").html(iframeFront);
+                    $("#divReportBack").html(iframeBack);
+                    //var w = window.open(result);
+                    //w.document.write(result);
+                },
+                error: function () {
 
-            //Create a dynamic iframe here and append this to div tag  
-            var iframe = '<iframe id="reportFrame" width="100%" height="800px" scrolling="no" frameborder="0" src="' + src + '" allowfullscreen></iframe>';
-            $("#divReport").html(iframe);  
+                }
+            });
+
+
+
         });
 
     </script>

@@ -38,7 +38,8 @@ namespace WebSIC
                       "~/Content/vendor/datatables/js/jquery.dataTables.min.js",
                       "~/Content/vendor/datatables-plugins/dataTables.bootstrap.min.js",
                       "~/Content/vendor/datatables-responsive/dataTables.responsive.js",
-                      "~/Scripts/jquery.webcam.js"));
+                      "~/Scripts/jquery.webcam.js",
+                      "~/aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/crv.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/vendor/bootstrap/css/bootstrap.min.css",
@@ -48,7 +49,8 @@ namespace WebSIC
                       //"~/SweetAlert2/sweetalert2.scss",
                       "~/Content/vendor/font-awesome/css/font-awesome.min.css",
                       "~/Content/vendor/datatables-responsive/dataTables.responsive.css",
-                      "~/Content/vendor/datatables-plugins/dataTables.bootstrap.css"));
+                      "~/Content/vendor/datatables-plugins/dataTables.bootstrap.css",
+                      "~/aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/images/style.css"));
         }
     }
 }

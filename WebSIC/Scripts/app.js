@@ -460,11 +460,11 @@ function onShowModalToTakeAPicture(idPessoa) {
 
 
 
-function Imprimir() {
+function Imprimir(id) {
     $.ajax({
         type: 'POST',
-        url: '/Solicitacao/Imprimir/',
-        //data: { idSolicitacao: idPessoa },
+        url: '/Credencial/Imprimir/',
+        data: { idCredencial: id },
         cache: false,
         dataType: 'html',
         success: function (data) {

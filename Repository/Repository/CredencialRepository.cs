@@ -52,8 +52,10 @@ namespace Repository.Repository
                            .Include(c => c.Pessoa)
                            .Include(c => c.Area1)
                            .Include(c => c.Area2)
-                           .Include(c => c.Empresa)
+                           .Include(c => c.Empresa.TipoEmpresa.TipoCracha)
                            .Include(c => c.Veiculo)
+                           .Include(c => c.Cargo)
+                           .Include(c => c.Aeroporto)
                            .Where(c => c.IdCredencial == id)
                            .SingleOrDefault();
         }
@@ -66,6 +68,7 @@ namespace Repository.Repository
                            .Include(c => c.Area2)
                            .Include(c => c.Empresa)
                            .Include(c => c.Veiculo)
+                           .Include(c => c.Aeroporto)
                            .ToList();
         }
 
