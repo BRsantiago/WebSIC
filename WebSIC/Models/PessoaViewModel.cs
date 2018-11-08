@@ -87,6 +87,7 @@ namespace WebSIC.Models
         public HttpPostedFileBase Foto { get; set; }
 
         public string ImageUrl { get; set; }
+        public string DataValidadeFoto { get; set; }
 
         public Usuario Usuario { get; set; }
         public IList<Solicitacao> Solicitacaos { get; set; }
@@ -155,6 +156,7 @@ namespace WebSIC.Models
             this.Atualizacao = pessoa.Atualizacao;
             this.Atualizador = pessoa.Atualizador;
             this.Ativo = pessoa.Ativo;
+            this.DataValidadeFoto = pessoa.DataValidadeFoto.ToString();
         }
 
         public Pessoa MapearParaObjetoDominio()
@@ -179,17 +181,17 @@ namespace WebSIC.Models
             pessoa.TelefoneCelular = this.TelefoneCelular;
             pessoa.RNE = this.RNE;
             pessoa.CPF = this.CPF;
-            pessoa.RG =  this.RG;
+            pessoa.RG = this.RG;
             pessoa.OrgaoExpeditor = this.OrgaoExpeditor;
             pessoa.UFOrgaoExpeditor = this.UFOrgaoExpeditor;
             pessoa.Genero = this.Genero;
             pessoa.Observacao = this.Observacao;
             pessoa.FlgCVE = this.FlgCVE;
             pessoa.Email = this.Email;
-            pessoa.CNH =this.CNH;
-            pessoa.CategoriaUm = this.CategoriaUm;//(Categoria)Enum.ToObject(typeof(Categoria), IdCategoriaUm);
-            pessoa.CategoriaDois = this.CategoriaDois; //(Categoria)Enum.ToObject(typeof(Categoria), IdCategoriaDois);
-            pessoa.DataValidadeCNH = Convert.ToDateTime(this.DataValidadeCNH);
+            pessoa.CNH = this.CNH;
+            pessoa.CategoriaUm = this.CategoriaUm;
+            pessoa.CategoriaDois = this.CategoriaDois;
+            if (!String.IsNullOrEmpty(this.DataValidadeCNH)) pessoa.DataValidadeCNH = Convert.ToDateTime(this.DataValidadeCNH);
             pessoa.Usuario = this.Usuario;
             pessoa.Solicitacaos = this.Solicitacaos;
             pessoa.Turmas = this.Turmas;
@@ -200,16 +202,7 @@ namespace WebSIC.Models
             pessoa.Atualizador = "";
             pessoa.Ativo = this.Ativo;
             pessoa.ImageUrl = this.ImageUrl;
-
-            //if (this.Foto != null && this.Foto.ContentLength > 0)
-            //{
-            //    var uploadDir = "/Images/Logo";
-            //    var imagePath = HttpContext.Current.Server.MapPath(uploadDir) + "/" + this.Foto.FileName;//Path.Combine(Server.MapPath(uploadDir), model.Logotipo.FileName);
-            //    var imageUrl = Path.Combine(uploadDir, this.Foto.FileName);
-            //    this.Foto.SaveAs(imagePath);
-
-            //    pessoa.ImageUrl = imageUrl;
-            //}
+            if (!String.IsNullOrEmpty(this.DataValidadeFoto)) pessoa.DataValidadeFoto = Convert.ToDateTime(this.DataValidadeFoto);
 
             return pessoa;
         }

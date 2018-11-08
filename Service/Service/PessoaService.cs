@@ -66,10 +66,11 @@ namespace Services.Service
             return this.PessoaRepository.ObterTodos();
         }
 
-        public void Atualizar(Pessoa representante)
+        public void Atualizar(Pessoa pessoa)
         {
-            IncluirCursoDDA(representante);
-            PessoaRepository.AtualizarRepresentante(representante);
+            this.Validar(pessoa);
+            IncluirCursoDDA(pessoa);
+            PessoaRepository.AtualizarRepresentante(pessoa);
             PessoaRepository.Salvar();
         }
 
@@ -87,17 +88,23 @@ namespace Services.Service
 
         private void IncluirCursoDDA(Pessoa pessoa)
         {
-            if (pessoa.Curso == null || (pessoa.Curso != null && !pessoa.Curso.Any(c => c.Curso.PermiteDirigirEmAreasRestritas)) && !String.IsNullOrEmpty(pessoa.CNH.ToString()))
+            if (pessoa.Curso == null || (pessoa.Curso != null && !pessoa.Curso.Any(c => c.Curso.PermiteDirigirEmAreasRestritas)) && !String.IsNullOrEmpty(pessoa.CNH))
             {
                 Curso DDA = CursoRepository.ObterTodos().Where(x => x.PermiteDirigirEmAreasRestritas).SingleOrDefault();
                 pessoa.Curso = new List<CursoSemTurma>();
-                CursoSemTurma cst = new CursoSemTurma() { Curso = DDA, DataValidade = DateTime.Now, Pessoa = pessoa };
+                CursoSemTurma cst = new CursoSemTurma() { CursoId = DDA.IdCurso, DataValidade = DateTime.Now, PessoaId = pessoa.IdPessoa };
 
                 CursoSemTurmaRepository.Incluir(cst);
-
-                pessoa.Curso.Add(cst);
-
             }
+        }
+
+        private void Validar(Pessoa pessoa)
+        {
+            if (pessoa.DataValidadeFoto < DateTime.Now)
+                throw new Exception("A foto desta pessoa tem mais de dois anos, favor capturar uma nova foto.");
+
+            if(String.IsNullOrEmpty(pessoa.CPF) || String.IsNullOrWhiteSpace(pessoa.CPF))
+                throw new Exception("Favor informar o cpf.");
         }
 
     }

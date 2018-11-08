@@ -89,7 +89,7 @@ namespace Entity.Entities
         [DataType(DataType.ImageUrl)]
         public string ImageUrl { get; set; }
 
-        public DateTime DataValidadeFoto { get; set; }
+        public DateTime? DataValidadeFoto { get; set; }
 
         public Usuario Usuario { get; set; }
         public IList<Solicitacao> Solicitacaos { get; set; }

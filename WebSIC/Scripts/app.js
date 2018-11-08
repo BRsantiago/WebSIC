@@ -389,15 +389,26 @@ function UploadSubmit(idPessoa) {
                 base64Image: resp
             },
             success: function () {
-                swal({
-                    title: "Good job!",
-                    text: "Photo was upload successfully!",
-                    icon: "success",
-                    button: "OK!",
-                }).then((value) => {
-                    $('#modal').modal('hide');
-                    window.location = ("/Pessoa/Edit/" + idPessoa);
-                });
+                if (result.success) {
+                    swal({
+                        title: "Good job!",
+                        text: "Foto capturada com sucesso!",
+                        icon: "success",
+                        button: "OK!",
+                    }).then((value) => {
+                        $('#modal').modal('hide');
+                        window.location = ("/Pessoa/Edit/" + idPessoa);
+                    });
+                } else {
+                    swal({
+                        title: "Atenção!",
+                        text: result.message,
+                        icon: "warning",
+                        button: "OK!"
+                    })
+                }
+
+               
             }
         });
     });

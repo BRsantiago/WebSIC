@@ -57,6 +57,7 @@ namespace WebSIC.Controllers
                     pessoa = PessoaService.ObterPorId(idPessoa);
 
                     pessoa.ImageUrl = Path.Combine(uploadDir, fileName);
+                    pessoa.DataValidadeFoto = DateTime.Now.AddYears(2);
 
                     PessoaService.Atualizar(pessoa);
                 }
