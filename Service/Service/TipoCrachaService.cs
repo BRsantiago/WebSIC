@@ -93,5 +93,10 @@ namespace Service.Service
 
             return tipoCracha;
         }
+
+        public TipoCracha ObterTipoCrachaTemporario()
+        {
+           return this.tipoCrachaRepository.ObterTipoCrachaTemporario();
+        }
     }
 }

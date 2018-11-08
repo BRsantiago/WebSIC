@@ -15,13 +15,15 @@ namespace WebSIC.Controllers
 {
     public class CredencialController : Controller
     {
-        private WebSICContext db = new WebSICContext();
 
         public ICredencialService CredencialService;
+        public ITipoCrachaService TipoCrachaService;
 
-        public CredencialController(ICredencialService _CredencialService)
+        public CredencialController(ICredencialService _CredencialService,
+                                        ITipoCrachaService _TipoCrachaService)
         {
             CredencialService = _CredencialService;
+            TipoCrachaService = _TipoCrachaService;
         }
 
         // GET: Credencial
@@ -94,8 +96,8 @@ namespace WebSIC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(credencial).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(credencial).State = EntityState.Modified;
+                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(credencial);
@@ -108,7 +110,21 @@ namespace WebSIC.Controllers
 
             ReportDocument report = new ReportDocument();
 
-            Session["ArquivoCrachaFrotal"] = credencial.Empresa.TipoEmpresa.TipoCracha.Arquivo;
+            if (credencial.FlgTemporario)
+            {
+                TipoCracha temporario = this.TipoCrachaService.ObterTipoCrachaTemporario();
+
+                Session["ArquivoCrachaFrotal"] = temporario.Arquivo;
+                Session["ImgFundoCracha"] = temporario.ImgFundoCracha;
+                Session["TipoCracha"] = temporario.Descricao;
+            }
+            else
+            {
+                Session["ArquivoCrachaFrotal"] = credencial.Empresa.TipoEmpresa.TipoCracha.Arquivo;
+                Session["ImgFundoCracha"] = credencial.Empresa.TipoEmpresa.TipoCracha.ImgFundoCracha;
+                Session["TipoCracha"] = credencial.Empresa.TipoEmpresa.TipoCracha.Descricao;
+            }
+
             Session["SiglaAeroporto"] = credencial.Aeroporto.IATA;
             Session["NomeFrenteCracha"] = credencial.NomeImpressaoFrenteCracha.ToUpper();
             Session["DataValidade"] = String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento);
@@ -118,11 +134,7 @@ namespace WebSIC.Controllers
             Session["CategoriaMotoristaUm"] = (credencial.CategoriaMotorista1 == "A" || credencial.CategoriaMotorista2 == "A" ? "A" : "" + credencial.CategoriaMotorista1 == "B" || credencial.CategoriaMotorista2 == "B" ? "B" : "") == "" ? "N" : "N";
             Session["CategoriaMotoristaDois"] = credencial.CategoriaMotorista1 == "D" || credencial.CategoriaMotorista2 == "D" ? "D" : "N";
             Session["CategoriaMotoristaTres"] = credencial.CategoriaMotorista1 == "E" || credencial.CategoriaMotorista2 == "E" ? "E" : "N";
-
-
             Session["LogoEmpresa"] = Server.MapPath(credencial.Empresa.ImageUrl);
-
-
             Session["Nome"] = credencial.Pessoa.Nome.ToUpper();
             Session["RG"] = credencial.Pessoa.RG;
             Session["CPF"] = credencial.Pessoa.CPF;
@@ -130,7 +142,6 @@ namespace WebSIC.Controllers
             Session["Matricula"] = credencial.IdCredencial.ToString().PadLeft(8, '0');
             Session["Emergencia"] = credencial.Pessoa.TelefoneEmergencia;
             Session["DataExpediacao"] = String.Format("{0:dd/MM/yyyy}", credencial.DataExpedicao);
-
             Session["PathLogoBack"] = credencial.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png";
         }
 
@@ -142,6 +153,9 @@ namespace WebSIC.Controllers
             ReportDocument cryRpt = new ReportDocument();
             cryRpt.Load(Server.MapPath("/Credenciais/" + credencial.Empresa.TipoEmpresa.TipoCracha.Arquivo));
 
+            if (!String.IsNullOrEmpty(credencial.Empresa.TipoEmpresa.TipoCracha.ImgFundoCracha))
+                cryRpt.SetParameterValue("ImgFundoCracha", Server.MapPath(credencial.Empresa.TipoEmpresa.TipoCracha.ImgFundoCracha));
+
             cryRpt.SetParameterValue("Nombre", credencial.NomeImpressaoFrenteCracha.ToUpper());
             cryRpt.SetParameterValue("Fecha", String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento));
             cryRpt.SetParameterValue("Acceso", (credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : ""));
@@ -151,7 +165,6 @@ namespace WebSIC.Controllers
             cryRpt.SetParameterValue("Motorista2", credencial.CategoriaMotorista1 == "D" || credencial.CategoriaMotorista2 == "D" ? "D" : "N");
             cryRpt.SetParameterValue("Motorista3", credencial.CategoriaMotorista1 == "E" || credencial.CategoriaMotorista2 == "E" ? "E" : "N");
             cryRpt.SetParameterValue("EmpresaPath", Server.MapPath(credencial.Empresa.ImageUrl));
-
             cryRpt.SetParameterValue("Nombre", credencial.Pessoa.Nome.ToUpper(), "CardBack.rpt");
             cryRpt.SetParameterValue("RG", credencial.Pessoa.RG, "CardBack.rpt");
             cryRpt.SetParameterValue("CPF", credencial.Pessoa.CPF, "CardBack.rpt");
@@ -159,8 +172,7 @@ namespace WebSIC.Controllers
             cryRpt.SetParameterValue("Empresa", credencial.Empresa.NomeFantasia.ToUpper(), "CardBack.rpt");
             cryRpt.SetParameterValue("Emergencia", credencial.Pessoa.TelefoneEmergencia, "CardBack.rpt");
             cryRpt.SetParameterValue("Fecha", String.Format("{0:dd/MM/yyyy}", credencial.DataExpedicao), "CardBack.rpt");
-
-            cryRpt.SetParameterValue("PathLogoBack", credencial.Pessoa.FlgCVE ? "../Images/Logo/logo_vol_emergencia.png" : "../Images/Logo/logo_ssa_airport.png");
+            cryRpt.SetParameterValue("PathLogoBack", Server.MapPath("Images/Logo") + "/" + (credencial.Pessoa.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png"));
 
             cryRpt.ReportClientDocument.PrintOutputController.PrintReport();
             //cryRpt.PrintToPrinter(1, true, 1, 2);

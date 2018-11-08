@@ -18,6 +18,8 @@ namespace WebSIC
             {
                 ReportDocument report = new ReportDocument();
                 report.Load(Server.MapPath("Credenciais") + "/" + Session["ArquivoCrachaFrotal"].ToString());
+
+                report.SetParameterValue("ImgFundoPath", Server.MapPath("Images/FundoCracha") + "/" + Session["ImgFundoCracha"].ToString());
                 report.SetParameterValue("Aeroporto", Session["SiglaAeroporto"].ToString());
                 report.SetParameterValue("Nombre", Session["NomeFrenteCracha"].ToString());
                 report.SetParameterValue("Fecha", Session["DataValidade"].ToString());
@@ -28,7 +30,7 @@ namespace WebSIC
                 report.SetParameterValue("Motorista2", Session["CategoriaMotoristaDois"].ToString());
                 report.SetParameterValue("Motorista3", Session["CategoriaMotoristaTres"].ToString());
                 report.SetParameterValue("EmpresaPath", Session["LogoEmpresa"].ToString());
-
+                report.SetParameterValue("TipoCracha", Session["TipoCracha"].ToString());
                 report.SetParameterValue("Nombre", Session["Nome"].ToString(), "CardBack.rpt");
                 report.SetParameterValue("RG", Session["Nome"].ToString(), "CardBack.rpt");
                 report.SetParameterValue("CPF", Session["Nome"].ToString(), "CardBack.rpt");
@@ -36,7 +38,7 @@ namespace WebSIC
                 report.SetParameterValue("Matricula", Session["Nome"].ToString(), "CardBack.rpt");
                 report.SetParameterValue("Emergencia", Session["Nome"].ToString(), "CardBack.rpt");
                 report.SetParameterValue("Fecha", Session["Nome"].ToString(), "CardBack.rpt");
-                report.SetParameterValue("PathLogoBack", Session["PathLogoBack"].ToString(), "CardBack.rpt");
+                report.SetParameterValue("Logo", (Server.MapPath("Images/Logo") + "/" + Session["PathLogoBack"].ToString()), "CardBack.rpt");
 
                 CrystalReportViewer1.ReportSource = report;
             }

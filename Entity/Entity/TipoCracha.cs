@@ -25,5 +25,8 @@ namespace Entity.Entities
 
         public List<TipoEmpresa> TipoEmpresas { get; set; }
         public string Arquivo { get; set; }
+        public string ImgFundoCracha { get; set; }
+
+        public bool FlgCrachaTemporario { get; set; }
     }
 }

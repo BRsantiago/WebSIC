@@ -14,5 +14,6 @@ namespace Service.Interface
         TipoCracha Incluir(TipoCracha tipoCracha);
         TipoCracha Atualizar(TipoCracha tipoCracha);
         int Excluir(int id);
+        TipoCracha ObterTipoCrachaTemporario();
     }
 }

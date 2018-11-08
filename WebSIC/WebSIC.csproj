@@ -278,34 +278,28 @@
       <DependentUpon>ClientApp.Reports.CardBack.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Credenciais\ClientApp.Reports.CardBackEmergencia.cs">
+    <Compile Include="Credenciais\Vinci.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ClientApp.Reports.CardBackEmergencia.rpt</DependentUpon>
+      <DependentUpon>Vinci.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Credenciais\ClientApp.Reports.Employe.VinciFront1.cs">
+    <Compile Include="Credenciais\Generico.cs">
+      <DependentUpon>Generico.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Credenciais\OrgaoPublico.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ClientApp.Reports.Employe.VinciFront.rpt</DependentUpon>
+      <DependentUpon>OrgaoPublico.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Credenciais\ClientApp.Reports.Gobierno1.cs">
+    <Compile Include="Credenciais\ATIV.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ClientApp.Reports.Gobierno.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Credenciais\ClientApp.Reports.Marbete.MarbeteManeobraFront1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ClientApp.Reports.Marbete.MarbeteManeobraFront.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Credenciais\ClientApp.Reports.Marbete.MarbeteTransitoFront1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ClientApp.Reports.Marbete.MarbeteTransitoFront.rpt</DependentUpon>
+      <DependentUpon>ATIV.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CrystalImageHandler.aspx.cs">
@@ -1141,6 +1135,13 @@
     <Content Include="Content\vendor\metisMenu\metisMenu.min.js" />
     <Content Include="CrystalImageHandler.aspx" />
     <Content Include="Images\Foto\person.jpg" />
+    <Content Include="Images\FundoCracha\CiaAerea.png" />
+    <Content Include="Images\FundoCracha\Terceirizadas.png" />
+    <Content Include="Images\FundoCracha\Despachante.png" />
+    <Content Include="Images\FundoCracha\Concessionarios.png" />
+    <Content Include="Images\FundoCracha\Contratadas.png" />
+    <Content Include="Images\FundoCracha\Temporario.png" />
+    <Content Include="Images\FundoCracha\OrgaoPublico.png" />
     <Content Include="Images\Logo\logo_ssa_airport.png" />
     <Content Include="Images\Logo\logo_vol_emergencia.png" />
     <Content Include="Images\Logo\TOPLYNE.jpg" />
@@ -1681,25 +1682,21 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ClientApp.Reports.CardBack.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Credenciais\ClientApp.Reports.CardBackEmergencia.rpt">
+    <EmbeddedResource Include="Credenciais\Vinci.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ClientApp.Reports.CardBackEmergencia.cs</LastGenOutput>
+      <LastGenOutput>Vinci.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Credenciais\ClientApp.Reports.Employe.VinciFront.rpt">
+    <EmbeddedResource Include="Credenciais\Generico.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ClientApp.Reports.Employe.VinciFront1.cs</LastGenOutput>
+      <LastGenOutput>Generico.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Credenciais\ClientApp.Reports.Gobierno.rpt">
+    <EmbeddedResource Include="Credenciais\OrgaoPublico.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ClientApp.Reports.Gobierno1.cs</LastGenOutput>
+      <LastGenOutput>OrgaoPublico.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Credenciais\ClientApp.Reports.Marbete.MarbeteManeobraFront.rpt">
+    <EmbeddedResource Include="Credenciais\ATIV.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ClientApp.Reports.Marbete.MarbeteManeobraFront1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Credenciais\ClientApp.Reports.Marbete.MarbeteTransitoFront.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ClientApp.Reports.Marbete.MarbeteTransitoFront1.cs</LastGenOutput>
+      <LastGenOutput>ATIV.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportBack.aspx.resx">
       <DependentUpon>ReportBack.aspx.cs</DependentUpon>

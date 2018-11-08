@@ -9,5 +9,6 @@ namespace Repository.Interface
 {
     public interface ITipoCrachaRepository : IRepositoryBase<TipoCracha>
     {
+        TipoCracha ObterTipoCrachaTemporario();
     }
 }
