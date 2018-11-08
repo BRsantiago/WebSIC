@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace Repository.Interface
 {
@@ -13,7 +14,7 @@ namespace Repository.Interface
     {
         public TipoSolicitacaoRepository(WebSICContext _contexto)
             : base(_contexto)
-        {
-        }
+        { }
+       
     }
 }

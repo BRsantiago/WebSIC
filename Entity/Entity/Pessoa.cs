@@ -21,12 +21,12 @@ namespace Entity.Entities
         public int IdPessoa { get; set; }
 
         [Required]
+        public string NomeCompleto { get; set; }
+
         public string Nome { get; set; }
 
-        public string Apelido { get; set; }
-
         [Display(Name = "Data de Nasc.")]
-        public string DataNascimento { get; set; }
+        public DateTime DataNascimento { get; set; }
 
         [Display(Name = "Pai")]
         public string NomePai { get; set; }
@@ -38,7 +38,7 @@ namespace Entity.Entities
         public string Endereco { get; set; }
 
         [Display(Name = "Número")]
-        public string Numero { get; set; }
+        public int? Numero { get; set; }
 
         public string Complemento { get; set; }
         public string Bairro { get; set; }
@@ -46,7 +46,6 @@ namespace Entity.Entities
         public string UF { get; set; }
         public string CEP { get; set; }
 
-        [Required]
         [Display(Name = "Emergência")]
         public string TelefoneEmergencia { get; set; }
 
@@ -85,7 +84,7 @@ namespace Entity.Entities
         public Categoria CategoriaDois { get; set; }
 
         [Display(Name = "Validade")]
-        public string DataValidadeCNH { get; set; }
+        public DateTime? DataValidadeCNH { get; set; }
 
         [DataType(DataType.ImageUrl)]
         public string ImageUrl { get; set; }

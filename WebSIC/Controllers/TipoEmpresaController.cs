@@ -71,7 +71,7 @@ namespace WebSIC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tipoEmpresa);
+            return PartialView(tipoEmpresa);
         }
 
         // POST: TipoEmpresa/Edit/5

@@ -12,8 +12,8 @@ namespace WebSIC.Models
     {
         public string IdPessoa { get; set; }
         [Required]
+        public string NomeCompleto { get; set; }
         public string Nome { get; set; }
-        public string Apelido { get; set; }
         [Display(Name = "Data de Nascimento")]
         public string DataNascimento { get; set; }
         [Display(Name = "Pai")]
@@ -59,13 +59,13 @@ namespace WebSIC.Models
         public RepresentanteViewModel(Pessoa representante)
         {
             IdPessoa = representante.IdPessoa.ToString();
+            NomeCompleto = representante.NomeCompleto;
             Nome = representante.Nome;
-            Apelido = representante.Apelido;
-            DataNascimento = representante.DataNascimento;
+            DataNascimento = representante.DataNascimento.ToString();
             NomePai = representante.NomePai;
             NomeMae = representante.NomeMae;
             Endereco = representante.Endereco;
-            Numero = representante.Numero;
+            Numero = representante.Numero.ToString();
             Complemento = representante.Complemento;
             Bairro = representante.Bairro;
             Cidade = representante.Cidade;
@@ -74,16 +74,16 @@ namespace WebSIC.Models
             TelefoneEmergencia = representante.TelefoneEmergencia;
             TelefoneResidencial = representante.TelefoneResidencial;
             TelefoneCelular = representante.TelefoneCelular;
-            RNE = representante.RNE;
-            CPF = representante.CPF;
-            RG = representante.RG;
+            RNE = representante.RNE.ToString();
+            CPF = representante.CPF.ToString();
+            RG = representante.RG.ToString();
             OrgaoExpeditor = representante.OrgaoExpeditor;
             UFOrgaoExpeditor = representante.UFOrgaoExpeditor;
             Genero = representante.Genero;
             Observacao = representante.Observacao;
             Email = representante.Email;
-            CNH = representante.CNH;
-            DataValidadeCNH = representante.DataValidadeCNH;
+            CNH = representante.CNH.ToString();
+            DataValidadeCNH = representante.DataValidadeCNH.ToString();
         }
 
         public Pessoa MapearParaObjetoDominio()
@@ -91,13 +91,13 @@ namespace WebSIC.Models
             Pessoa pessoa = new Pessoa();
 
             pessoa.IdPessoa = Convert.ToInt32(this.IdPessoa);
+            pessoa.NomeCompleto = this.NomeCompleto;
             pessoa.Nome = this.Nome;
-            pessoa.Apelido = this.Apelido;
-            pessoa.DataNascimento = this.DataNascimento;
+            pessoa.DataNascimento = Convert.ToDateTime(this.DataNascimento);
             pessoa.NomePai = this.NomePai;
             pessoa.NomeMae = this.NomeMae;
             pessoa.Endereco = this.Endereco;
-            pessoa.Numero = this.Numero;
+            pessoa.Numero = Convert.ToInt32(this.Numero);
             pessoa.Complemento = this.Complemento;
             pessoa.Bairro = this.Bairro;
             pessoa.Cidade = this.Cidade;
@@ -108,14 +108,14 @@ namespace WebSIC.Models
             pessoa.TelefoneCelular = this.TelefoneCelular;
             pessoa.RNE = this.RNE;
             pessoa.CPF = this.CPF;
-            pessoa.RG = this.RG;
+            pessoa.RG =  this.RG;
             pessoa.OrgaoExpeditor = this.OrgaoExpeditor;
             pessoa.UFOrgaoExpeditor = this.UFOrgaoExpeditor;
             pessoa.Genero = this.Genero;
             pessoa.Observacao = this.Observacao;
             pessoa.Email = this.Email;
             pessoa.CNH = this.CNH;
-            pessoa.DataValidadeCNH = this.DataValidadeCNH;
+            pessoa.DataValidadeCNH = Convert.ToDateTime(this.DataValidadeCNH);
 
 
             pessoa.Empresas = new List<Empresa>();

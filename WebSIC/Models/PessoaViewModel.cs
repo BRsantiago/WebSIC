@@ -14,9 +14,9 @@ namespace WebSIC.Models
         public int IdPessoa { get; set; }
 
         [Required]
-        public string Nome { get; set; }
+        public string NomeCompleto { get; set; }
 
-        public string Apelido { get; set; }
+        public string Nome { get; set; }
 
         [Display(Name = "Data de Nasc.")]
         public string DataNascimento { get; set; }
@@ -115,13 +115,13 @@ namespace WebSIC.Models
         public PessoaViewModel(Pessoa pessoa)
         {
             this.IdPessoa = pessoa.IdPessoa;
+            this.NomeCompleto = pessoa.NomeCompleto;
             this.Nome = pessoa.Nome;
-            this.Apelido = pessoa.Apelido;
-            this.DataNascimento = pessoa.DataNascimento;
+            this.DataNascimento = pessoa.DataNascimento.ToString();
             this.NomePai = pessoa.NomePai;
             this.NomeMae = pessoa.NomeMae;
             this.Endereco = pessoa.Endereco;
-            this.Numero = pessoa.Numero;
+            this.Numero = pessoa.Numero.ToString();
             this.Complemento = pessoa.Complemento;
             this.Bairro = pessoa.Bairro;
             this.Cidade = pessoa.Cidade;
@@ -142,7 +142,7 @@ namespace WebSIC.Models
             this.CNH = pessoa.CNH;
             this.CategoriaUm = pessoa.CategoriaUm;
             this.CategoriaDois = pessoa.CategoriaDois;
-            this.DataValidadeCNH = pessoa.DataValidadeCNH;
+            this.DataValidadeCNH = pessoa.DataValidadeCNH.ToString();
             this.ImageUrl = pessoa.ImageUrl;
             this.Usuario = pessoa.Usuario;
             this.Solicitacaos = pessoa.Solicitacaos;
@@ -162,13 +162,13 @@ namespace WebSIC.Models
             Pessoa pessoa = new Pessoa();
 
             pessoa.IdPessoa = this.IdPessoa;
+            pessoa.NomeCompleto = this.NomeCompleto;
             pessoa.Nome = this.Nome;
-            pessoa.Apelido = this.Apelido;
-            pessoa.DataNascimento = this.DataNascimento;
+            pessoa.DataNascimento = Convert.ToDateTime(this.DataNascimento);
             pessoa.NomePai = this.NomePai;
             pessoa.NomeMae = this.NomeMae;
             pessoa.Endereco = this.Endereco;
-            pessoa.Numero = this.Numero;
+            pessoa.Numero = Convert.ToInt32(this.Numero);
             pessoa.Complemento = this.Complemento;
             pessoa.Bairro = this.Bairro;
             pessoa.Cidade = this.Cidade;
@@ -179,17 +179,17 @@ namespace WebSIC.Models
             pessoa.TelefoneCelular = this.TelefoneCelular;
             pessoa.RNE = this.RNE;
             pessoa.CPF = this.CPF;
-            pessoa.RG = this.RG;
+            pessoa.RG =  this.RG;
             pessoa.OrgaoExpeditor = this.OrgaoExpeditor;
             pessoa.UFOrgaoExpeditor = this.UFOrgaoExpeditor;
             pessoa.Genero = this.Genero;
             pessoa.Observacao = this.Observacao;
             pessoa.FlgCVE = this.FlgCVE;
             pessoa.Email = this.Email;
-            pessoa.CNH = this.CNH;
+            pessoa.CNH =this.CNH;
             pessoa.CategoriaUm = this.CategoriaUm;//(Categoria)Enum.ToObject(typeof(Categoria), IdCategoriaUm);
             pessoa.CategoriaDois = this.CategoriaDois; //(Categoria)Enum.ToObject(typeof(Categoria), IdCategoriaDois);
-            pessoa.DataValidadeCNH = this.DataValidadeCNH;
+            pessoa.DataValidadeCNH = Convert.ToDateTime(this.DataValidadeCNH);
             pessoa.Usuario = this.Usuario;
             pessoa.Solicitacaos = this.Solicitacaos;
             pessoa.Turmas = this.Turmas;

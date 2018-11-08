@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace Repository.Repository
 {
@@ -14,6 +15,21 @@ namespace Repository.Repository
         public TipoEmpresaRepository(WebSICContext _contexto)
             : base(_contexto)
         {
+        }
+
+        public override TipoEmpresa ObterPorId(int id)
+        {
+            return this.contexto.TipoEmpresas
+                                .Where(t => t.IdTipoEmpresa == id)
+                                .Include(t => t.TipoCracha)
+                                .SingleOrDefault();
+        }
+
+        public override List<TipoEmpresa> ObterTodos()
+        {
+            return this.contexto.TipoEmpresas
+                                .Include(t => t.TipoCracha)
+                                .ToList();
         }
     }
 }
