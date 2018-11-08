@@ -74,7 +74,7 @@
                                     <text>@Html.Encode(string.Format("{0} {1} {2}/{3}", item.Veiculo.Marca, item.Veiculo.Modelo, item.Veiculo.AnoFabricacao, item.Veiculo.AnoModelo))</text>
                                 </td>
                                 <td>
-                                    <text>@Html.Encode(string.Format("{0}<br/>{1}", item.Area1.Descricao, item.Area2.Descricao))</text>
+                                    <text>@Html.Raw(string.Format("{0}<br/>{1}", item.Area1.Descricao, item.Area2.Descricao))</text>
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.PortaoAcesso.Sigla)
@@ -98,7 +98,7 @@
                                     @Html.DisplayFor(modelItem => item.Ativo)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Imprimir", "Edit", new { id = item.IdCredencial }, new { @class = "btn btn-success" })
+                                    @Html.ActionLink("Imprimir", "Edit", new { id = item.IdCredencial }, (!item.DataDesativacao.HasValue && !item.DataExpedicao.HasValue) ? new { @class = "btn btn-success" } : new { @class = "btn btn-success disabled" })
                                 </td>
                             </tr>
                         }
