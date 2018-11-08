@@ -172,6 +172,10 @@
     <Compile Include="Migrations\201811082009285_AlterTypeOfPropertiesInPessoaEntity.Designer.cs">
       <DependentUpon>201811082009285_AlterTypeOfPropertiesInPessoaEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811082026553_AlterInsertExpiredDateInPersonPhoto.cs" />
+    <Compile Include="Migrations\201811082026553_AlterInsertExpiredDateInPersonPhoto.Designer.cs">
+      <DependentUpon>201811082026553_AlterInsertExpiredDateInPersonPhoto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CursoSemTurmaRepository.cs" />
@@ -284,6 +288,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811082009285_AlterTypeOfPropertiesInPessoaEntity.resx">
       <DependentUpon>201811082009285_AlterTypeOfPropertiesInPessoaEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811082026553_AlterInsertExpiredDateInPersonPhoto.resx">
+      <DependentUpon>201811082026553_AlterInsertExpiredDateInPersonPhoto.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
