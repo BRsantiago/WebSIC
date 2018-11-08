@@ -95,7 +95,7 @@ namespace WebSIC.Controllers
             {
                 PessoaService.Atualizar(model.MapearParaObjetoDominio());
                 //return RedirectToAction("Index");
-                var msg = "<script> swal({title: 'Good job!', text: 'Empresa atualizada com sucesso !', icon: 'success', button: 'OK!'}) </script>";
+                var msg = "<script> swal({title: 'Good job!', text: 'Alterações salvas com sucesso !', icon: 'success', button: 'OK!'}) </script>";
 
                 TempData["notification"] = msg;
 

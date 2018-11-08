@@ -39,6 +39,7 @@ namespace WebSIC
                       "~/Content/vendor/datatables-plugins/dataTables.bootstrap.min.js",
                       "~/Content/vendor/datatables-responsive/dataTables.responsive.js",
                       "~/Scripts/jquery.webcam.js",
+                      "~/Scripts/jquery.mask.js",
                       "~/aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/crv.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
