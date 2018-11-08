@@ -12,14 +12,12 @@ namespace Repository.Repository
 {
     public class CursoSemTurmaRepository : RepositoryBase<CursoSemTurma>, ICursoSemTurmaRepository
     {
-        //public WebSICContext contexto;
-
         public CursoSemTurmaRepository(WebSICContext _contexto)
             : base(_contexto)
         {
         }
 
-        public void IncluirNovoCursoSemTurma(CursoSemTurma cst)
+        public override void Incluir(CursoSemTurma cst)
         {
             contexto.Entry(cst.Curso).State = System.Data.Entity.EntityState.Unchanged;
             contexto.Entry(cst.Pessoa).State = System.Data.Entity.EntityState.Unchanged;
@@ -27,12 +25,22 @@ namespace Repository.Repository
             contexto.CursosSemTurma.Add(cst);
         }
 
-        public void AtualizarEntidade(CursoSemTurma cst)
+        public void AtualizarEntidade(CursoSemTurma obj)
         {
-            contexto.Entry(cst.Curso).State = System.Data.Entity.EntityState.Unchanged;
-            contexto.Entry(cst.Pessoa).State = System.Data.Entity.EntityState.Unchanged;
+            if (obj.Pessoa != null && obj.Pessoa.IdPessoa != 0 && contexto.Entry(obj.Pessoa).State == EntityState.Added)
+            {
+                contexto.Entry(obj.Pessoa).State = EntityState.Detached;
+                obj.Pessoa = contexto.Pessoas.Find(obj.PessoaId);
+            }
 
-            contexto.Entry(cst).State = System.Data.Entity.EntityState.Modified;
+
+            if (obj.Curso != null && obj.Curso.IdCurso != 0 && contexto.Entry(obj.Curso).State == EntityState.Added)
+            {
+                contexto.Entry(obj.Curso).State = EntityState.Detached;
+                obj.Curso = contexto.Cursos.Find(obj.CursoId);
+            }
+
+            base.Atualizar(obj);
         }
 
 

@@ -12,7 +12,6 @@ namespace Repository.Interface
     {
         Credencial ObterPorEmpresaPessoaTipoEmissao(int idEmpresa, int idPessoa, bool flgTemporario);
         void IncluirNovaCredencial(Credencial credencial);
-        void AtualizarCredencial(Credencial credencial);
         Credencial ObterPorId(int id);
         List<Credencial> ObterTodos();
         void Atualizar(Credencial obj);
@@ -21,5 +20,6 @@ namespace Repository.Interface
         void Salvar();
 
         Credencial ObterPorVeiculo(int veiculoId, bool isTemp);
+        List<Credencial> ObterTodasCredenciaisAtivasDeFuncionario();
     }
 }

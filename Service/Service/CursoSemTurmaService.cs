@@ -30,9 +30,9 @@ namespace Service.Service
             CursoSemTurmaRepository.Salvar();
         }
 
-        public void IncluirNovoCST(CursoSemTurma cst)
+        public void Incluir(CursoSemTurma cst)
         {
-            CursoSemTurmaRepository.IncluirNovoCursoSemTurma(cst);
+            CursoSemTurmaRepository.Incluir(cst);
             CursoSemTurmaRepository.Salvar();
         }
 

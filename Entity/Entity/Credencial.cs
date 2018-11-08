@@ -23,17 +23,27 @@ namespace Entity.Entities
         public DateTime? DataVencimento { get; set; }
         public DateTime? DataExpedicao { get; set; }
 
-        public bool FlgTemporario { get; set; }
-
-        public Pessoa Pessoa { get; set; }
-        public Cargo Cargo { get; set; }
         public string NomeImpressaoFrenteCracha { get; set; }
         public string DescricaoFuncaoFrenteCracha { get; set; }
         public string CategoriaMotorista1 { get; set; }
         public string CategoriaMotorista2 { get; set; }
         public bool FlgCVE { get; set; }
+        public bool FlgTemporario { get; set; }
+
+        public Pessoa Pessoa { get; set; }
+        [Column("Pessoa_IdPessoa")]
+        [ForeignKey("Pessoa")]
+        public Nullable<int> PessoaId { get; set; }
+
+        public Cargo Cargo { get; set; }
+        [Column("Cargo_IdCargo")]
+        [ForeignKey("Cargo")]
+        public Nullable<int> CargoId { get; set; }
 
         public Aeroporto Aeroporto { get; set; }
+        [Column("Aeroporto_IdAeroporto")]
+        [ForeignKey("Aeroporto")]
+        public Nullable<int> AeroportoId { get; set; }
 
         public Empresa Empresa { get; set; }
         [Column("Empresa_IdEmpresa")]

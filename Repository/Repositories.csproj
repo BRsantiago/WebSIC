@@ -164,6 +164,10 @@
     <Compile Include="Migrations\201811072338327_AlterTipoCrachaParaArmazenarTipoCrachaTemporario.Designer.cs">
       <DependentUpon>201811072338327_AlterTipoCrachaParaArmazenarTipoCrachaTemporario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811080116120_AlterDataBase.cs" />
+    <Compile Include="Migrations\201811080116120_AlterDataBase.Designer.cs">
+      <DependentUpon>201811080116120_AlterDataBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CursoSemTurmaRepository.cs" />
@@ -270,6 +274,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811072338327_AlterTipoCrachaParaArmazenarTipoCrachaTemporario.resx">
       <DependentUpon>201811072338327_AlterTipoCrachaParaArmazenarTipoCrachaTemporario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811080116120_AlterDataBase.resx">
+      <DependentUpon>201811080116120_AlterDataBase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

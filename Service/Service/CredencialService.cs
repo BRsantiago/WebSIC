@@ -27,5 +27,15 @@ namespace Services.Service
         {
             return this.CredencialRepository.ObterPorId(idCredencial);
         }
+
+        public List<Credencial> ObterTodasCredenciaisAtivasDeFuncionario()
+        {
+            return this.CredencialRepository.ObterTodasCredenciaisAtivasDeFuncionario();
+        }
+
+        public void Atualizar(Credencial credencial)
+        {
+            this.CredencialRepository.Atualizar(credencial);
+        }
     }
 }

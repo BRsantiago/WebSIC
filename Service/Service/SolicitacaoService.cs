@@ -59,17 +59,18 @@ namespace Services.Service
             GerarCredencial(solicitacao);
 
             SolicitacaoRepository.Salvar();
+            CursoSemTurmaRepository.Salvar();
         }
 
         private void GerarCredencial(Solicitacao solicitacao)
         {
-            Credencial credencial = this.CredencialRepository.ObterPorEmpresaPessoaTipoEmissao(solicitacao.Empresa.IdEmpresa, solicitacao.Pessoa.IdPessoa, solicitacao.TipoEmissao == 0);
+            Credencial credencial = this.CredencialRepository.ObterPorEmpresaPessoaTipoEmissao(solicitacao.Empresa.IdEmpresa, solicitacao.Pessoa.IdPessoa, solicitacao.TipoEmissao == Entity.DTO.TipoEmissao.Temporaria);
 
             if (credencial == null)
             {
                 credencial = new Credencial();
 
-                credencial.FlgTemporario = solicitacao.TipoEmissao == 0; //Temporário
+                credencial.FlgTemporario = solicitacao.TipoEmissao == Entity.DTO.TipoEmissao.Temporaria; 
                 credencial.FlgCVE = solicitacao.Pessoa.FlgCVE;
                 credencial.NomeImpressaoFrenteCracha = solicitacao.Pessoa.Nome;
                 credencial.DescricaoFuncaoFrenteCracha = solicitacao.Cargo.Descricao;
@@ -82,8 +83,6 @@ namespace Services.Service
                 credencial.Cargo = solicitacao.Cargo;
 
                 this.CredencialRepository.IncluirNovaCredencial(credencial);
-
-                //solicitacao.Credencial = credencial;
             }
             else
             {
@@ -91,21 +90,19 @@ namespace Services.Service
                 credencial.NomeImpressaoFrenteCracha = solicitacao.Pessoa.Nome;
                 credencial.DescricaoFuncaoFrenteCracha = solicitacao.Cargo.Descricao;
                 credencial.CategoriaMotorista1 = solicitacao.Pessoa.CategoriaUm.ToString();
-                credencial.CategoriaMotorista2 = solicitacao.Pessoa.CategoriaUm.ToString();
+                credencial.CategoriaMotorista2 = solicitacao.Pessoa.CategoriaDois.ToString();
 
                 credencial.Area1 = solicitacao.Area1;
                 credencial.Area2 = solicitacao.Area2;
                 credencial.Cargo = solicitacao.Cargo;
 
-                if (solicitacao.TipoSolicitacao.Descricao.Contains("BAIXA"))
+                if (solicitacao.TipoSolicitacao.FlgDesativaCredencial)
                 {
                     credencial.DataDesativacao = DateTime.Now;
                 }
 
-                this.CredencialRepository.AtualizarCredencial(credencial);
+                this.CredencialRepository.Atualizar(credencial);
             }
-
-
         }
 
         private void CarregarCursosExigidos(Solicitacao solicitacao)
@@ -125,7 +122,7 @@ namespace Services.Service
                         DataValidade = DateTime.Now
                     };
 
-                    CursoSemTurmaRepository.IncluirNovoCursoSemTurma(cst);
+                    CursoSemTurmaRepository.Incluir(cst);
 
                     solicitacao.Pessoa.Curso.Add(cst);
                 }
@@ -143,7 +140,7 @@ namespace Services.Service
                         DataValidade = DateTime.Now
                     };
 
-                    CursoSemTurmaRepository.IncluirNovoCursoSemTurma(cst);
+                    CursoSemTurmaRepository.Incluir(cst);
 
                     solicitacao.Pessoa.Curso.Add(cst);
                 }
@@ -158,7 +155,7 @@ namespace Services.Service
 
         public Solicitacao ObterPorId(int? id)
         {
-            return this.SolicitacaoRepository.ObterSolicitacaoPorId(id.Value);
+            return this.SolicitacaoRepository.ObterPorId(id.Value);
         }
 
         public Solicitacao Obter(int id)

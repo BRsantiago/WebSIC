@@ -110,6 +110,7 @@ namespace WebSIC.Controllers
 
                 Pessoa pessoa = PessoaService.ObterPorId(model.IdPessoa.ToString());
                 return View(new PessoaViewModel(pessoa));
+
             }
         }
 
@@ -182,7 +183,7 @@ namespace WebSIC.Controllers
         {
             try
             {
-                CursoSemTurmaService.IncluirNovoCST(cst);
+                CursoSemTurmaService.Incluir(cst);
                 return Json(new { success = true, title = "Sucesso", message = "Representante cadastrado com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

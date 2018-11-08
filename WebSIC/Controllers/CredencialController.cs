@@ -29,7 +29,7 @@ namespace WebSIC.Controllers
         // GET: Credencial
         public ActionResult Index()
         {
-            List<Credencial> lista = this.CredencialService.ObterTodos();
+            List<Credencial> lista = this.CredencialService.ObterTodasCredenciaisAtivasDeFuncionario();
 
             return View(lista);
         }
@@ -141,55 +141,54 @@ namespace WebSIC.Controllers
             Session["Empresa"] = credencial.Empresa.NomeFantasia.ToUpper();
             Session["Matricula"] = credencial.IdCredencial.ToString().PadLeft(8, '0');
             Session["Emergencia"] = credencial.Pessoa.TelefoneEmergencia;
-            Session["DataExpediacao"] = String.Format("{0:dd/MM/yyyy}", credencial.DataExpedicao);
+            Session["DataExpediacao"] = String.Format("{0:dd/MM/yyyy}", DateTime.Now);
             Session["PathLogoBack"] = credencial.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png";
         }
 
 
-        public void Imprimir(string idCredencial)
+        public JsonResult Imprimir(string idCredencial)
         {
-            Credencial credencial = this.CredencialService.ObterPorId(Convert.ToInt32(idCredencial));
+            try
+            {
+                Credencial credencial = this.CredencialService.ObterPorId(Convert.ToInt32(idCredencial));
 
-            ReportDocument cryRpt = new ReportDocument();
-            cryRpt.Load(Server.MapPath("/Credenciais/" + credencial.Empresa.TipoEmpresa.TipoCracha.Arquivo));
+                credencial.DataExpedicao = DateTime.Now;
 
-            if (!String.IsNullOrEmpty(credencial.Empresa.TipoEmpresa.TipoCracha.ImgFundoCracha))
-                cryRpt.SetParameterValue("ImgFundoCracha", Server.MapPath(credencial.Empresa.TipoEmpresa.TipoCracha.ImgFundoCracha));
+                ReportDocument cryRpt = new ReportDocument();
+                cryRpt.Load(Server.MapPath("/Credenciais/" + credencial.Empresa.TipoEmpresa.TipoCracha.Arquivo));
 
-            cryRpt.SetParameterValue("Nombre", credencial.NomeImpressaoFrenteCracha.ToUpper());
-            cryRpt.SetParameterValue("Fecha", String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento));
-            cryRpt.SetParameterValue("Acceso", (credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : ""));
-            cryRpt.SetParameterValue("Pocision", credencial.Cargo.Descricao.ToUpper());
-            cryRpt.SetParameterValue("FotoPath", Server.MapPath(credencial.Pessoa.ImageUrl));
-            cryRpt.SetParameterValue("Motorista1", (credencial.CategoriaMotorista1 == "A" || credencial.CategoriaMotorista2 == "A" ? "A" : "" + credencial.CategoriaMotorista1 == "B" || credencial.CategoriaMotorista2 == "B" ? "B" : "") == "" ? "N" : "N");
-            cryRpt.SetParameterValue("Motorista2", credencial.CategoriaMotorista1 == "D" || credencial.CategoriaMotorista2 == "D" ? "D" : "N");
-            cryRpt.SetParameterValue("Motorista3", credencial.CategoriaMotorista1 == "E" || credencial.CategoriaMotorista2 == "E" ? "E" : "N");
-            cryRpt.SetParameterValue("EmpresaPath", Server.MapPath(credencial.Empresa.ImageUrl));
-            cryRpt.SetParameterValue("Nombre", credencial.Pessoa.Nome.ToUpper(), "CardBack.rpt");
-            cryRpt.SetParameterValue("RG", credencial.Pessoa.RG, "CardBack.rpt");
-            cryRpt.SetParameterValue("CPF", credencial.Pessoa.CPF, "CardBack.rpt");
-            cryRpt.SetParameterValue("Matricula", credencial.IdCredencial.ToString().PadLeft(8, '0'), "CardBack.rpt");
-            cryRpt.SetParameterValue("Empresa", credencial.Empresa.NomeFantasia.ToUpper(), "CardBack.rpt");
-            cryRpt.SetParameterValue("Emergencia", credencial.Pessoa.TelefoneEmergencia, "CardBack.rpt");
-            cryRpt.SetParameterValue("Fecha", String.Format("{0:dd/MM/yyyy}", credencial.DataExpedicao), "CardBack.rpt");
-            cryRpt.SetParameterValue("PathLogoBack", Server.MapPath("Images/Logo") + "/" + (credencial.Pessoa.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png"));
+                if (!String.IsNullOrEmpty(credencial.Empresa.TipoEmpresa.TipoCracha.ImgFundoCracha))
+                    cryRpt.SetParameterValue("ImgFundoCracha", Server.MapPath(credencial.Empresa.TipoEmpresa.TipoCracha.ImgFundoCracha));
 
-            cryRpt.ReportClientDocument.PrintOutputController.PrintReport();
-            //cryRpt.PrintToPrinter(1, true, 1, 2);
+                cryRpt.SetParameterValue("Nombre", credencial.NomeImpressaoFrenteCracha.ToUpper());
+                cryRpt.SetParameterValue("Fecha", String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento));
+                cryRpt.SetParameterValue("Acceso", (credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : ""));
+                cryRpt.SetParameterValue("Pocision", credencial.Cargo.Descricao.ToUpper());
+                cryRpt.SetParameterValue("FotoPath", Server.MapPath(credencial.Pessoa.ImageUrl));
+                cryRpt.SetParameterValue("Motorista1", (credencial.CategoriaMotorista1 == "A" || credencial.CategoriaMotorista2 == "A" ? "A" : "" + credencial.CategoriaMotorista1 == "B" || credencial.CategoriaMotorista2 == "B" ? "B" : "") == "" ? "N" : "N");
+                cryRpt.SetParameterValue("Motorista2", credencial.CategoriaMotorista1 == "D" || credencial.CategoriaMotorista2 == "D" ? "D" : "N");
+                cryRpt.SetParameterValue("Motorista3", credencial.CategoriaMotorista1 == "E" || credencial.CategoriaMotorista2 == "E" ? "E" : "N");
+                cryRpt.SetParameterValue("EmpresaPath", Server.MapPath(credencial.Empresa.ImageUrl));
+                cryRpt.SetParameterValue("Nombre", credencial.Pessoa.Nome.ToUpper(), "CardBack.rpt");
+                cryRpt.SetParameterValue("RG", credencial.Pessoa.RG, "CardBack.rpt");
+                cryRpt.SetParameterValue("CPF", credencial.Pessoa.CPF, "CardBack.rpt");
+                cryRpt.SetParameterValue("Matricula", credencial.IdCredencial.ToString().PadLeft(8, '0'), "CardBack.rpt");
+                cryRpt.SetParameterValue("Empresa", credencial.Empresa.NomeFantasia.ToUpper(), "CardBack.rpt");
+                cryRpt.SetParameterValue("Emergencia", credencial.Pessoa.TelefoneEmergencia, "CardBack.rpt");
+                cryRpt.SetParameterValue("Fecha", String.Format("{0:dd/MM/yyyy}", credencial.DataExpedicao), "CardBack.rpt");
+                cryRpt.SetParameterValue("PathLogoBack", Server.MapPath("Images/Logo") + "/" + (credencial.Pessoa.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png"));
 
-            //DiskFileDestinationOptions CrDiskFileDestinationOptions = new DiskFileDestinationOptions();
-            //CrDiskFileDestinationOptions.DiskFileName = resultPath;
-            //PdfRtfWordFormatOptions CrFormatTypeOptions = new PdfRtfWordFormatOptions();
-            //ExportOptions CrExportOptions = cryRpt.ExportOptions; //cryRptFront.ExportOptions;
-            //{
-            //    CrExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
-            //    CrExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
-            //    CrExportOptions.DestinationOptions = CrDiskFileDestinationOptions;
-            //    CrExportOptions.FormatOptions = CrFormatTypeOptions;
-            //}
-            //#region
-            ////cryRptFront.Export();
-            //#endregion
+
+                this.CredencialService.Atualizar(credencial);
+
+                cryRpt.ReportClientDocument.PrintOutputController.PrintReport();
+
+                return Json(new { success = true, title = "Sucesso", message = "Registro Atualizado com sucesso !" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
 
         }
     }

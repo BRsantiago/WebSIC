@@ -28,24 +28,58 @@ namespace Entity.Entities
         public TipoSolicitacao TipoSolicitacao { get; set; }
         [Display(Name = "Tipo de Emissão")]
         public TipoEmissao TipoEmissao { get; set; }
-                        
-        public Empresa Empresa { get; set; }
-        public Contrato Contrato { get; set; }
-
-        [Display(Name = "Veículo")]
-        public Veiculo Veiculo { get; set; }
-        [Display(Name = "1ª Área")]
-        public Area Area1 { get; set; }
-        [Display(Name = "2ª Área")]
-        public Area Area2 { get; set; }
-        [Display(Name = "Portão de Acesso")]
-        public PortaoAcesso PortaoAcesso { get; set; }
-
-        public Pessoa Pessoa { get; set; }
-        public Cargo Cargo { get; set; }
 
         public Schedule Schedule { get; set; }
         
         public Credencial Credencial { get; set; }
+        [Column("Credencial_IdCredencial")]
+        [ForeignKey("Credencial")]
+        public Nullable<int> CredencialId { get; set; }
+
+        public Pessoa Pessoa { get; set; }
+        [Column("Pessoa_IdPessoa")]
+        [ForeignKey("Pessoa")]
+        public Nullable<int> PessoaId { get; set; }
+
+        public Cargo Cargo { get; set; }
+        [Column("Cargo_IdCargo")]
+        [ForeignKey("Cargo")]
+        public Nullable<int> CargoId { get; set; }
+
+      
+        public Empresa Empresa { get; set; }
+        [Column("Empresa_IdEmpresa")]
+        [ForeignKey("Empresa")]
+        public Nullable<int> EmpresaId { get; set; }
+
+        public Contrato Contrato { get; set; }
+        [Column("Contrato_IdContrato")]
+        [ForeignKey("Contrato")]
+        public Nullable<int> ContratoId { get; set; }
+
+        [Display(Name = "Veículo")]
+        public Veiculo Veiculo { get; set; }
+        [Column("Veiculo_IdVeiculo")]
+        [ForeignKey("Veiculo")]
+        public Nullable<int> VeiculoId { get; set; }
+
+        [Display(Name = "1ª Área")]
+        public Area Area1 { get; set; }
+        [Column("Area1_IdArea")]
+        [ForeignKey("Area1")]
+        public Nullable<int> Area1Id { get; set; }
+
+        [Display(Name = "2ª Área")]
+        public Area Area2 { get; set; }
+        [Column("Area2_IdArea")]
+        [ForeignKey("Area2")]
+        public Nullable<int> Area2Id { get; set; }
+
+        [Display(Name = "Portão de Acesso")]
+        public PortaoAcesso PortaoAcesso { get; set; }
+        [Column("PortaoAcesso_IdPortaoAcesso")]
+        [ForeignKey("PortaoAcesso")]
+        public Nullable<int> PortaoAcessoId { get; set; }
+
     }
 }

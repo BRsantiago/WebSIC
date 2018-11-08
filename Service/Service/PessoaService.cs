@@ -13,15 +13,15 @@ namespace Services.Service
     {
         public IPessoaRepository PessoaRepository;
         public ICursoRepository CursoRepository;
-        public ICursoSemTurmaRepository CSTRepository;
+        public ICursoSemTurmaRepository CursoSemTurmaRepository;
 
         public PessoaService(IPessoaRepository _PessoaRepository,
                                 ICursoRepository _CursoRepository,
-                                ICursoSemTurmaRepository _CSTRepository)
+                                ICursoSemTurmaRepository _CursoSemTurmaRepository)
         {
             PessoaRepository = _PessoaRepository;
             CursoRepository = _CursoRepository;
-            CSTRepository = _CSTRepository;
+            CursoSemTurmaRepository = _CursoSemTurmaRepository;
         }
 
         public Pessoa ObterPorCPF(string cpf)
@@ -93,6 +93,7 @@ namespace Services.Service
                 pessoa.Curso = new List<CursoSemTurma>();
                 CursoSemTurma cst = new CursoSemTurma() { Curso = DDA, DataValidade = DateTime.Now, Pessoa = pessoa };
 
+                CursoSemTurmaRepository.Incluir(cst);
 
                 pessoa.Curso.Add(cst);
 

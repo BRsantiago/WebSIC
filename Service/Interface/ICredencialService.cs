@@ -11,5 +11,7 @@ namespace Service.Interface
     {
         List<Credencial> ObterTodos();
         Credencial ObterPorId(int v);
+        List<Credencial> ObterTodasCredenciaisAtivasDeFuncionario();
+        void Atualizar(Credencial credencial);
     }
 }

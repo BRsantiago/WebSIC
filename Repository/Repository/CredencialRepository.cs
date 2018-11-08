@@ -20,11 +20,6 @@ namespace Repository.Repository
         {
         }
 
-        public void AtualizarCredencial(Credencial credencial)
-        {
-            contexto.Entry(credencial).State = System.Data.Entity.EntityState.Modified;
-        }
-
         public void IncluirNovaCredencial(Credencial credencial)
         {
 
@@ -98,7 +93,27 @@ namespace Repository.Repository
             {
                 contexto.Entry(obj.PortaoAcesso).State = EntityState.Detached;
                 obj.PortaoAcesso = contexto.PortoesAcesso.Find(obj.PortaoAcessoId);
-            }            
+            }
+            if (obj.Pessoa != null && obj.Pessoa.IdPessoa != 0 && contexto.Entry(obj.Pessoa).State == EntityState.Added)
+            {
+                contexto.Entry(obj.Pessoa).State = EntityState.Detached;
+                obj.Pessoa = contexto.Pessoas.Find(obj.PessoaId);
+            }
+            if (obj.Empresa != null && obj.Empresa.IdEmpresa != 0 && contexto.Entry(obj.Empresa).State == EntityState.Added)
+            {
+                contexto.Entry(obj.Empresa).State = EntityState.Detached;
+                obj.Empresa = contexto.Empresas.Find(obj.EmpresaId);
+            }
+            if (obj.Cargo != null && obj.Cargo.IdCargo != 0 && contexto.Entry(obj.Cargo).State == EntityState.Added)
+            {
+                contexto.Entry(obj.Cargo).State = EntityState.Detached;
+                obj.Cargo = contexto.Cargos.Find(obj.CargoId);
+            }
+            if (obj.Aeroporto != null && obj.Aeroporto.IdAeroporto != 0 && contexto.Entry(obj.Aeroporto).State == EntityState.Added)
+            {
+                contexto.Entry(obj.Aeroporto).State = EntityState.Detached;
+                obj.Aeroporto = contexto.Aeroportos.Find(obj.AeroportoId);
+            }
 
             base.Atualizar(obj);
         }
@@ -133,6 +148,19 @@ namespace Repository.Repository
                     .FirstOrDefault();
 
             return obj;
+        }
+
+        public List<Credencial> ObterTodasCredenciaisAtivasDeFuncionario()
+        {
+            return contexto.Credenciais
+                           .Include(c => c.Pessoa)
+                           .Include(c => c.Area1)
+                           .Include(c => c.Area2)
+                           .Include(c => c.Empresa)
+                           .Include(c => c.Veiculo)
+                           .Include(c => c.Aeroporto)
+                           .Where(c => c.DataDesativacao == null && c.Pessoa != null)
+                           .ToList();
         }
     }
 }

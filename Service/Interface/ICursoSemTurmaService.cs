@@ -12,6 +12,6 @@ namespace Service.Interface
         CursoSemTurma ObterPorId(int id);
         void Excluir(CursoSemTurma cst);
         void Atualizar(CursoSemTurma cst);
-        void IncluirNovoCST(CursoSemTurma cst);
+        void Incluir(CursoSemTurma cst);
     }
 }
