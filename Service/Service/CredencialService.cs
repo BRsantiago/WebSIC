@@ -37,5 +37,20 @@ namespace Services.Service
         {
             this.CredencialRepository.Atualizar(credencial);
         }
+
+        public List<Credencial> ObterATIVs()
+        {
+            List<Credencial> ativs = new List<Credencial>();
+
+            try
+            {
+                ativs = CredencialRepository.ObterATIVs();
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return ativs;
+        }
     }
 }

@@ -1590,6 +1590,7 @@
     <Content Include="Views\Photo\Changephoto.cshtml" />
     <Content Include="Views\Solicitacao\IndexATIV.cshtml" />
     <Content Include="Views\Solicitacao\DetailsATIV.cshtml" />
+    <Content Include="Views\Credencial\IndexATIV.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

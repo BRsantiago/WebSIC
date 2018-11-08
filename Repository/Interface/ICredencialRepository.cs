@@ -19,7 +19,9 @@ namespace Repository.Interface
         void Dispose();
         void Salvar();
 
-        Credencial ObterPorVeiculo(int veiculoId, bool isTemp);
         List<Credencial> ObterTodasCredenciaisAtivasDeFuncionario();
+
+        Credencial ObterPorVeiculo(int veiculoId, bool isTemp);
+        List<Credencial> ObterATIVs();
     }
 }
