@@ -12,6 +12,7 @@
         @Html.AntiForgeryToken()
         @Html.HiddenFor(model => model.IdPessoa)
         @Html.HiddenFor(model => model.ImageUrl)
+        @Html.HiddenFor(model => model.DataValidadeFoto)
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 

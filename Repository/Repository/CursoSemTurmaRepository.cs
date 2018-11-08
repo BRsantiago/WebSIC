@@ -19,8 +19,8 @@ namespace Repository.Repository
 
         public override void Incluir(CursoSemTurma cst)
         {
-            contexto.Entry(cst.Curso).State = System.Data.Entity.EntityState.Unchanged;
-            contexto.Entry(cst.Pessoa).State = System.Data.Entity.EntityState.Unchanged;
+        //    contexto.Entry(cst.Curso).State = System.Data.Entity.EntityState.Unchanged;
+        //    contexto.Entry(cst.Pessoa).State = System.Data.Entity.EntityState.Unchanged;
 
             contexto.CursosSemTurma.Add(cst);
         }
