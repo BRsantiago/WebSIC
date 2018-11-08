@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Entity.Entities.Credencial>
+
+@{
+    ViewBag.Title = "IndexATIV";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Credenciais de ATIV por Veículo</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="table" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Aeroporto)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Empresa)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Contrato)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Veiculo)
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.Area1.Sigla)*@ Áreas
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PortaoAcesso)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DataVencimento)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Criacao)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Criador)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Atualizacao)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Atualizador)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Ativo)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Aeroporto.Descricao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Empresa.RazaoSocial)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Contrato.Numero)
+                                </td>
+                                <td>
+                                    <text>@Html.Encode(string.Format("{0} {1} {2}/{3}", item.Veiculo.Marca, item.Veiculo.Modelo, item.Veiculo.AnoFabricacao, item.Veiculo.AnoModelo))</text>
+                                </td>
+                                <td>
+                                    <text>@Html.Raw(string.Format("{0}<br/>{1}", item.Area1.Descricao, item.Area2.Descricao))</text>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PortaoAcesso.Sigla)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DataVencimento)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Criacao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Criador)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Atualizacao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Atualizador)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Ativo)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Imprimir", "Edit", new { id = item.IdCredencial }, (!item.DataDesativacao.HasValue && !item.DataExpedicao.HasValue) ? new { @class = "btn btn-success" } : new { @class = "btn btn-success disabled" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Index.js"></script>

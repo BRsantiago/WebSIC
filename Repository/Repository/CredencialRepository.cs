@@ -118,21 +118,6 @@ namespace Repository.Repository
             base.Atualizar(obj);
         }
 
-        //public  void Remover(Credencial obj)
-        //{
-        //    contexto.Credenciais.Remove(obj);
-        //}
-
-        //public void Dispose()
-        //{
-        //    contexto.Dispose();
-        //}
-
-        //public void Salvar()
-        //{
-        //    contexto.SaveChanges();
-        //}
-
         public Credencial ObterPorVeiculo(int veiculoId, bool isTemp)
         {
             Credencial obj =
@@ -150,6 +135,22 @@ namespace Repository.Repository
             return obj;
         }
 
+        public List<Credencial> ObterATIVs()
+        {
+            return
+                contexto.Credenciais
+                    .Include(c => c.Veiculo)
+                    .Include(c => c.Veiculo.Apolice)
+                    .Include(c => c.Empresa)
+                    .Include(c => c.Contrato)
+                    .Include(c => c.Area1)
+                    .Include(c => c.Area2)
+                    .Include(c => c.PortaoAcesso)
+                    .Where(c => c.Veiculo != null && c.Ativo == true && !c.DataDesativacao.HasValue)
+                    .OrderByDescending(c => c.Criacao)
+                    .ToList();
+        }
+
         public List<Credencial> ObterTodasCredenciaisAtivasDeFuncionario()
         {
             return contexto.Credenciais
@@ -157,7 +158,6 @@ namespace Repository.Repository
                            .Include(c => c.Area1)
                            .Include(c => c.Area2)
                            .Include(c => c.Empresa)
-                           .Include(c => c.Veiculo)
                            .Include(c => c.Aeroporto)
                            .Where(c => c.DataDesativacao == null && c.Pessoa != null)
                            .ToList();

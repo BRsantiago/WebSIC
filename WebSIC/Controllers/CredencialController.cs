@@ -73,6 +73,7 @@ namespace WebSIC.Controllers
         //}
 
         // GET: Credencial/Edit/5
+
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -190,6 +191,11 @@ namespace WebSIC.Controllers
                 return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
 
+        }
+
+        public ActionResult IndexATIV()
+        {
+            return View(CredencialService.ObterATIVs());
         }
     }
 }

@@ -19,8 +19,11 @@ namespace Entity.Entities
         [Display(Name = "Matrícula")]
         public int IdCredencial { get; set; }
 
+        [Display(Name = "Data de Desativação")]
         public DateTime? DataDesativacao { get; set; }
+        [Display(Name = "Data de Vencimento")]
         public DateTime? DataVencimento { get; set; }
+        [Display(Name = "Data de Expedição")]
         public DateTime? DataExpedicao { get; set; }
 
         public string NomeImpressaoFrenteCracha { get; set; }
@@ -60,16 +63,19 @@ namespace Entity.Entities
         [ForeignKey("Veiculo")]
         public Nullable<int> VeiculoId { get; set; }
 
+        [Display(Name = "1ª Área")]
         public Area Area1 { get; set; }
         [Column("Area1_IdArea")]
         [ForeignKey("Area1")]
         public Nullable<int> Area1Id { get; set; }
 
+        [Display(Name = "2ª Área")]
         public Area Area2 { get; set; }
         [Column("Area2_IdArea")]
         [ForeignKey("Area2")]
         public Nullable<int> Area2Id { get; set; }
 
+        [Display(Name = "Portão de Acesso")]
         public PortaoAcesso PortaoAcesso { get; set; }
         [Column("PortaoAcesso_IdPortaoAcesso")]
         [ForeignKey("PortaoAcesso")]
