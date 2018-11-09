@@ -9,5 +9,6 @@ namespace Repository.Interface
 {
     public interface IEmpresaRepository : IRepositoryBase<Empresa>
     {
+        List<Empresa> ObterPorAeroporto(int aeroportoId);
     }
 }

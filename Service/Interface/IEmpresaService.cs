@@ -15,5 +15,7 @@ namespace Service.Interface
         void IncluirNovaEmpresa(Empresa empresa);
         void AtualizarNovaEmpresa(Empresa empresa);
         void ExcluirEmpresa(int id);
+
+        List<Empresa> ObterPorAeroporto(int idAeroporto);
     }
 }

@@ -76,13 +76,27 @@ namespace WebSIC.Controllers
 
 
             model.Aeroportos = AeroportoService.ObterTodos();
-            model.Empresas = EmpresaService.ObterTodos();
-            model.Contratos = ContratoService.ObterTodos();
+            model.Empresas = new List<Empresa>(); //EmpresaService.ObterTodos();
+            model.Contratos = new List<Contrato>(); //ContratoService.ObterTodos();
             model.TiposSolicitacao = TipoSolicitacaoService.ObterTodos();
             model.Areas = AreaService.Listar().ToList();
             model.Cargo = CargoService.Listar().ToList();
 
             return PartialView(model);
+        }
+
+        public ActionResult GetEmpresas(int idAeroporto)
+        {
+            var empresaItems = EmpresaService.ObterPorAeroporto(idAeroporto)
+                .Select(e => new SelectListItem() { Text = string.Format("{0}(1)", e.NomeFantasia, e.CGC), Value = e.IdEmpresa.ToString() });
+            return Json(empresaItems, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetContratos(int idEmpresa)
+        {
+            var contratoItems = ContratoService.ObterVigentes(idEmpresa)
+                .Select(c => new SelectListItem() { Text = c.Numero, Value = c.IdContrato.ToString() });
+            return Json(contratoItems, JsonRequestBehavior.AllowGet);
         }
 
         // POST: Solicitacao/Create

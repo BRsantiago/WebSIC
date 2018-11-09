@@ -74,5 +74,12 @@ namespace Repository.Repository
             contexto.SaveChanges();
         }
 
+        public List<Empresa> ObterPorAeroporto(int aeroportoId)
+        {
+            return contexto.Empresas
+                .AsNoTracking()
+                .Where(e => e.Aeroportos.Any(a => a.IdAeroporto == aeroportoId))
+                .ToList();
+        }
     }
 }

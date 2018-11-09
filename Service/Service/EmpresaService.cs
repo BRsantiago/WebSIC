@@ -47,6 +47,18 @@ namespace Service.Service
             EmpresaRepository.Salvar();
         }
 
+        public List<Empresa> ObterPorAeroporto(int idAeroporto)
+        {
+            List<Empresa> empresas = new List<Empresa>();
+            try
+            {
+                empresas = EmpresaRepository.ObterPorAeroporto(idAeroporto);
+            }
+            catch (Exception ex)
+            {
+            }
 
+            return empresas;
+        }
     }
 }

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="DTO\Categoria.cs" />
     <Compile Include="DTO\Genero.cs" />
+    <Compile Include="DTO\RamoAtividade.cs" />
     <Compile Include="DTO\ServiceReturn.cs" />
     <Compile Include="DTO\TipoCredencial.cs" />
     <Compile Include="DTO\TipoEmissao.cs" />

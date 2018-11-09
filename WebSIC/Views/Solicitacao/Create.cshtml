@@ -28,7 +28,7 @@
                     @Html.LabelFor(model => model.Empresas, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-9">
                         <div class="checkbox">
-                            @Html.DropDownListFor(d => d.IdEmpresa, new SelectList(Model.Empresas.OrderBy(o => o.IdEmpresa), "IdEmpresa", "NomeFantasia"), "Selecione", new { @class = "form-control select2" })
+                            @Html.DropDownListFor(d => d.IdEmpresa, new SelectList(Model.Empresas), "Selecione", new { @class = "form-control select2" })
                             @Html.ValidationMessageFor(model => model.IdEmpresa, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                     @Html.LabelFor(model => model.Contratos, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-4">
                         <div class="checkbox">
-                            @Html.DropDownListFor(d => d.IdContrato, new SelectList(Model.Contratos.OrderBy(o => o.IdContrato), "IdContrato", "Numero"), "Selecione", new { @class = "form-control select2" })
+                            @Html.DropDownListFor(d => d.IdContrato, new SelectList(Model.Contratos), "Selecione", new { @class = "form-control select2" })
                             @Html.ValidationMessageFor(model => model.IdContrato, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -109,3 +109,35 @@
 @section Scripts{
     <script src="~/Scripts/app.js"></script>
 }
+
+<script type="text/javascript">
+    $(function () {
+        $("#IdAeroporto").change(function () {
+            var val = $(this).val();
+            var options = "";
+            $.getJSON(
+                "@Url.Action("GetEmpresas", "Solicitacao")", { idAeroporto: val },
+                function (data) {
+                    $.each(data, function(index, item){
+                        options += "<option value='" + item.Value + "'>" + item.Text + "</option>";
+                    });
+                    $("#IdEmpresa").html(options);
+                    $('#IdEmpresa').trigger('change');
+                }
+            );
+        });
+        $("#IdEmpresa").change(function () {
+            var val = $(this).val();
+            var options = "";
+            $.getJSON(
+                "@Url.Action("GetContratos", "Solicitacao")", { idEmpresa: val },
+                function (data) {
+                    $.each(data, function(index, item){
+                        options += "<option value='" + item.Value + "'>" + item.Text + "</option>";
+                    });
+                    $("#IdContrato").html(options);
+                }
+            );
+        });
+    });
+</script>
