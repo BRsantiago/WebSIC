@@ -42,8 +42,10 @@ namespace Repository.Repository
         public IList<Curso> ObterCursosRealizadosComValidadePorIdPessoa(int idPessoa)
         {
             return contexto.Cursos
-                           .Where(c => c.Turmas.Any(t => t.Pessoas.Any(p => p.IdPessoa == idPessoa) && t.DataValidade > DateTime.Now) ||
-                                       c.CursosSemTurma.Any(t => t.Pessoa.IdPessoa == idPessoa && t.DataValidade > DateTime.Now)) 
+                           .Where(c => 
+                                c.Turmas.Any(t => t.Pessoas.Any(p => p.IdPessoa == idPessoa) && t.DataValidade > DateTime.Now) ||
+                                c.CursosSemTurma.Any(t => t.Pessoa.IdPessoa == idPessoa && t.DataValidade > DateTime.Now)
+                           ) 
                            .ToList();
         }
     }

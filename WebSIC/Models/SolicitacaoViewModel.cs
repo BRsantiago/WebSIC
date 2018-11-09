@@ -10,6 +10,10 @@ namespace WebSIC.Models
 {
     public class SolicitacaoViewModel
     {
+        public SolicitacaoViewModel()
+        {
+        }
+
         public int IdAeroporto { get; set; }
         [Display(Name = "Aeroporto")]
         public List<Aeroporto> Aeroportos { get; set; }
@@ -44,6 +48,9 @@ namespace WebSIC.Models
         public int IdPessoa { get; set; }
         public int IdSolicitacao { get; set; }
 
+        [Display(Name = "Ramo de Atividade")]
+        public RamoAtividade RamoAtividade { get; set; }
+
         public SolicitacaoViewModel(Solicitacao solicitacao)
         {
             this.IdSolicitacao = solicitacao.IdSolicitacao;
@@ -55,10 +62,8 @@ namespace WebSIC.Models
             this.IdArea2 = solicitacao.Area2 != null ? solicitacao.Area2.IdArea : 0;
             this.IdPessoa = solicitacao.Pessoa.IdPessoa;
             this.IdCargo = solicitacao.Cargo.IdCargo;
-
+            this.RamoAtividade = solicitacao.RamoAtividade;
         }
-
-        public SolicitacaoViewModel() { }
 
         public Solicitacao MapearParaObjetoDominio()
         {
@@ -75,6 +80,8 @@ namespace WebSIC.Models
             solicitacao.Cargo = new Cargo() { IdCargo = IdCargo };
 
             solicitacao.TipoEmissao = (TipoEmissao)Enum.ToObject(typeof(TipoEmissao), IdTipoEmissao); //(IdTipoEmissao == 0);
+
+            solicitacao.RamoAtividade = this.RamoAtividade;
 
             return solicitacao;
         }

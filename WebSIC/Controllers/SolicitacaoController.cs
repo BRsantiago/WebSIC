@@ -108,7 +108,12 @@ namespace WebSIC.Controllers
         {
             try
             {
-                SolicitacaoService.Salvar(model.MapearParaObjetoDominio());
+                var solicitacao = model.MapearParaObjetoDominio();
+                solicitacao.Criador =
+                    solicitacao.Atualizador = User.Identity.Name;
+
+                SolicitacaoService.Salvar(solicitacao);
+
                 return Json(new
                 {
                     success = true,
