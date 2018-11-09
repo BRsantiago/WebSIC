@@ -8,96 +8,26 @@
 </div>
 
 
-<div class="row">
-    <div class="col-sm-5">
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-
-            <div class="form-horizontal">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.IdCredencial, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.IdCredencial, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FlgTemporario, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <div class="checkbox">
-                            @Html.EditorFor(model => model.FlgTemporario)
-                            @Html.ValidationMessageFor(model => model.FlgTemporario, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FlgCVE, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <div class="checkbox">
-                            @Html.EditorFor(model => model.FlgCVE)
-                            @Html.ValidationMessageFor(model => model.FlgCVE, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DataExpedicao, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.DataExpedicao, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.DataExpedicao, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DataDesativacao, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.DataDesativacao, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.DataDesativacao, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DataVencimento, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.DataVencimento, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.DataVencimento, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Salvar" class="btn btn-primary" />
-                    </div>
-                </div>
-            </div>
-        }
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-2">
-                <input type="button" value="Imprimir" class="btn btn-success" onclick="Imprimir(@Model.IdCredencial)" />
-            </div>
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="control-label col-md-3">
+            <label>Impressora</label>
+        </div>
+        <div class="col-md-5">
+            @*@Html.EnumDropDownListFor(d => d.Impressora, "Selecione", new { @class = "form-control select2" })*@
+        </div>
+        <div class="col-md-2">
+            <input type="button" value="Imprimir" class="btn btn-success" onclick="Imprimir(@Model.IdCredencial)" />
         </div>
     </div>
-    <div class="col-sm-6">
-        <form class="form-horizontal">
-            <div class="form-group">
-                <div class="col-md-4">
-                    <div class="form-group" id="divReportFront">
+    <div class="form-group">
+        <div class="control-label col-md-2">
+        </div>
+        <div class="col-md-2">
+            <div id="divReportFront">
 
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group" id="divReportBack">
-
-                    </div>
-                </div>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 
@@ -113,11 +43,8 @@
 
         $(document).ready(function () {
 
-            var idCredencial = $("#IdCredencial").val();
-
-            var src = '../../Report.aspx?';
-            //We can add parameters here
-            src = src + "idCredencial=" + idCredencial
+            var idCredencial = @Model.IdCredencial;
+                //$("#IdCredencial").val();
 
             $.ajax({
                 url: '@Url.Action("PreviewATIV","Credencial")',

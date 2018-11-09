@@ -81,5 +81,11 @@ namespace Entity.Entities
         [ForeignKey("PortaoAcesso")]
         public Nullable<int> PortaoAcessoId { get; set; }
 
+        [Display(Name = "Aeroporto")]
+        public Aeroporto Aeroporto { get; set; }
+        [Column("Aeroporto_IdAeroporto")]
+        [ForeignKey("Aeroporto")]
+        public Nullable<int> AeroportoId { get; set; }
+
     }
 }

@@ -30,6 +30,7 @@ namespace Repository.Interface
             if (solicitacao.Credencial != null) contexto.Entry(solicitacao.Credencial).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.TipoSolicitacao != null) contexto.Entry(solicitacao.TipoSolicitacao).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Cargo != null) contexto.Entry(solicitacao.Cargo).State = System.Data.Entity.EntityState.Unchanged;
+            if (solicitacao.Aeroporto != null) contexto.Entry(solicitacao.Aeroporto).State = System.Data.Entity.EntityState.Unchanged;
 
             contexto.Solicitacoes.Add(solicitacao);
         }

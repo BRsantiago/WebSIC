@@ -20,6 +20,7 @@ namespace Services.Service
         public IEmpresaRepository EmpresaRepository;
         public ITipoSolicitacaoRepository TipoSolicitacaoRepository;
         public ICredencialRepository CredencialRepository;
+        public ICargoRepository CargoRepository;
 
 
         public SolicitacaoService(ISolicitacaoRepository _SolicitacaoRepository,
@@ -30,7 +31,8 @@ namespace Services.Service
                                                     IContratoRepository _ContratoRepository,
                                                         IEmpresaRepository _EmpresaRepository,
                                                             ITipoSolicitacaoRepository _TipoSolicitacaoRepository,
-                                                                ICredencialRepository _CredencialRepository)
+                                                                ICredencialRepository _CredencialRepository,
+                                                                    ICargoRepository _CargoRepository)
         {
             SolicitacaoRepository = _SolicitacaoRepository;
             CursoRepository = _CursoRepository;
@@ -41,6 +43,7 @@ namespace Services.Service
             EmpresaRepository = _EmpresaRepository;
             TipoSolicitacaoRepository = _TipoSolicitacaoRepository;
             CredencialRepository = _CredencialRepository;
+            CargoRepository = _CargoRepository;
         }
 
         public List<Solicitacao> ObterTodos()
@@ -65,16 +68,19 @@ namespace Services.Service
         private void GerarCredencial(Solicitacao solicitacao)
         {
             Credencial credencial = this.CredencialRepository.ObterPorEmpresaPessoaTipoEmissao(solicitacao.Empresa.IdEmpresa, solicitacao.Pessoa.IdPessoa, solicitacao.TipoEmissao == Entity.DTO.TipoEmissao.Temporaria);
+            Pessoa pessoa = this.PessoaRepository.ObterPorId(solicitacao.Pessoa.IdPessoa);
+            Cargo cargo = this.CargoRepository.ObterPorId(solicitacao.Cargo.IdCargo);
 
             if (credencial == null)
             {
                 credencial = new Credencial();
 
-                credencial.FlgTemporario = solicitacao.TipoEmissao == Entity.DTO.TipoEmissao.Temporaria; 
+                credencial.FlgTemporario = solicitacao.TipoEmissao == Entity.DTO.TipoEmissao.Temporaria;
                 credencial.FlgCVE = solicitacao.Pessoa.FlgCVE;
-                credencial.NomeImpressaoFrenteCracha = solicitacao.Pessoa.Nome;
-                credencial.DescricaoFuncaoFrenteCracha = solicitacao.Cargo.Descricao;
+                credencial.NomeImpressaoFrenteCracha = pessoa.Nome;
+                credencial.DescricaoFuncaoFrenteCracha = cargo.Descricao;
 
+                credencial.Aeroporto = solicitacao.Aeroporto;
                 credencial.Empresa = solicitacao.Empresa;
                 credencial.Pessoa = solicitacao.Pessoa;
                 credencial.Veiculo = solicitacao.Veiculo;
@@ -87,8 +93,8 @@ namespace Services.Service
             else
             {
                 credencial.FlgCVE = solicitacao.Pessoa.FlgCVE;
-                credencial.NomeImpressaoFrenteCracha = solicitacao.Pessoa.Nome;
-                credencial.DescricaoFuncaoFrenteCracha = solicitacao.Cargo.Descricao;
+                credencial.NomeImpressaoFrenteCracha = pessoa.Nome;
+                credencial.DescricaoFuncaoFrenteCracha = cargo.Descricao;
                 credencial.CategoriaMotorista1 = solicitacao.Pessoa.CategoriaUm.ToString();
                 credencial.CategoriaMotorista2 = solicitacao.Pessoa.CategoriaDois.ToString();
 

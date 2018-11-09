@@ -65,6 +65,7 @@ namespace WebSIC.Models
             Solicitacao solicitacao = new Solicitacao();
 
             solicitacao.IdSolicitacao = this.IdSolicitacao;
+            solicitacao.Aeroporto = new Aeroporto() { IdAeroporto = IdAeroporto };
             solicitacao.Empresa = new Empresa() { IdEmpresa = IdEmpresa };
             solicitacao.Contrato = new Contrato() { IdContrato = IdContrato };
             solicitacao.TipoSolicitacao = new TipoSolicitacao() { IdTipoSolicitacao = IdTipoSolicitacao };

@@ -213,6 +213,7 @@ namespace WebSIC.Controllers
             Session["Categoria"] = credencial.Veiculo.Categoria;
             Session["DataValidade"] = String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento);
             Session["Placa"] = credencial.Veiculo.Placa;
+            Session["AcessoAreaManobra"] = credencial.Veiculo.AcessoManobra;
 
             Session["DataExpediacao"] = String.Format("{0:dd/MM/yyyy}", DateTime.Now);
             Session["Empresa"] = credencial.Empresa.NomeFantasia.ToUpper();
