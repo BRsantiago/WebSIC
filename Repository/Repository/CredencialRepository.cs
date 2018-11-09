@@ -50,6 +50,7 @@ namespace Repository.Repository
                            .Include(c => c.Empresa.TipoEmpresa.TipoCracha)
                            .Include(c => c.Veiculo)
                            .Include(c => c.Cargo)
+                           .Include(c => c.PortaoAcesso)
                            .Include(c => c.Aeroporto)
                            .Where(c => c.IdCredencial == id)
                            .SingleOrDefault();

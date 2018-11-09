@@ -117,7 +117,7 @@
             src = src + "idCredencial=" + idCredencial
 
             $.ajax({
-                url: '@Url.Action("Preview","Credencial")',
+                url: '@Url.Action("PreviewCredencial", "Credencial")',
                 data: { idCredencial: idCredencial },  // post
                 method: "GET",
                 success: function (result) {

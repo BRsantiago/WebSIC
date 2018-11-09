@@ -105,7 +105,7 @@ namespace WebSIC.Controllers
         }
 
 
-        public void Preview(string idCredencial)
+        public void PreviewCredencial(string idCredencial)
         {
             Credencial credencial = this.CredencialService.ObterPorId(Convert.ToInt32(idCredencial));
 
@@ -144,8 +144,8 @@ namespace WebSIC.Controllers
             Session["Emergencia"] = credencial.Pessoa.TelefoneEmergencia;
             Session["DataExpediacao"] = String.Format("{0:dd/MM/yyyy}", DateTime.Now);
             Session["PathLogoBack"] = credencial.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png";
+            Session["TipoCredencial"] = "Credencial";
         }
-
 
         public JsonResult Imprimir(string idCredencial)
         {
@@ -197,5 +197,62 @@ namespace WebSIC.Controllers
         {
             return View(CredencialService.ObterATIVs());
         }
+
+        public void PreviewATIV(string idCredencial)
+        {
+            Credencial credencial = this.CredencialService.ObterPorId(Convert.ToInt32(idCredencial));
+
+            ReportDocument report = new ReportDocument();
+
+            Session["Arquivo"] = "ATIV.rpt";
+            Session["TipoCredencial"] = "ATIV";
+            Session["TipoEmissao"] = credencial.FlgTemporario ? "Temporário" : "";
+            Session["SiglaAeroporto"] = credencial.Aeroporto.IATA;
+            Session["AreaDeAcesso"] = (credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : "");
+            Session["PortaoDeAcesso"] = credencial.PortaoAcesso.Sigla;
+            Session["Categoria"] = credencial.Veiculo.Categoria;
+            Session["DataValidade"] = String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento);
+            Session["Placa"] = credencial.Veiculo.Placa;
+
+            Session["DataExpediacao"] = String.Format("{0:dd/MM/yyyy}", DateTime.Now);
+            Session["Empresa"] = credencial.Empresa.NomeFantasia.ToUpper();
+            Session["MarcaModelo"] = credencial.Veiculo.Marca;
+            Session["Cor"] = credencial.Veiculo.Cor;
+            Session["NoRegistro"] = credencial.IdCredencial.ToString().PadLeft(8, '0');
+            Session["Chassi"] = credencial.Veiculo.Chassi;
+            Session["TipoServico"] = credencial.Veiculo.TipoServico;
+        }
+
+
+        public ActionResult EditATIV(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Credencial credencial = this.CredencialService.ObterPorId(Convert.ToInt32(id));
+            if (credencial == null)
+            {
+                return HttpNotFound();
+            }
+            return View(credencial);
+        }
+
+        // POST: Credencial/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditATIV([Bind(Include = "IdCredencial,Matricula,FlgMotorista,FlgTemporario,FlgCVE,DataExpedicao,DataDesativacao,DataVencimento,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Credencial credencial)
+        {
+            if (ModelState.IsValid)
+            {
+                //db.Entry(credencial).State = EntityState.Modified;
+                //db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(credencial);
+        }
     }
 }
+

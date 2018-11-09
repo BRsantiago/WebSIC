@@ -98,7 +98,7 @@
                                     @Html.DisplayFor(modelItem => item.Ativo)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Imprimir", "Edit", new { id = item.IdCredencial }, (!item.DataDesativacao.HasValue && !item.DataExpedicao.HasValue) ? new { @class = "btn btn-success" } : new { @class = "btn btn-success disabled" })
+                                    @Html.ActionLink("Imprimir", "EditATIV", new { id = item.IdCredencial }, (!item.DataDesativacao.HasValue && !item.DataExpedicao.HasValue) ? new { @class = "btn btn-success" } : new { @class = "btn btn-success disabled" })
                                 </td>
                             </tr>
                         }
