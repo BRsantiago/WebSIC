@@ -100,53 +100,64 @@ namespace WebSIC.Controllers
 
         }
 
-        public void PreviewCredencial(string idCredencial)
-        {
-            Credencial credencial = this.CredencialService.ObterPorId(Convert.ToInt32(idCredencial));
-
-            ReportDocument report = new ReportDocument();
-
-            if (credencial.FlgTemporario)
-            {
-                TipoCracha temporario = this.TipoCrachaService.ObterTipoCrachaTemporario();
-
-                Session["ArquivoCrachaFrotal"] = temporario.Arquivo;
-                Session["ImgFundoCracha"] = temporario.ImgFundoCracha;
-                Session["TipoCracha"] = temporario.Descricao;
-            }
-            else
-            {
-                Session["ArquivoCrachaFrotal"] = credencial.Empresa.TipoEmpresa.TipoCracha.Arquivo;
-                Session["ImgFundoCracha"] = credencial.Empresa.TipoEmpresa.TipoCracha.ImgFundoCracha;
-                Session["TipoCracha"] = credencial.Empresa.TipoEmpresa.TipoCracha.Descricao;
-            }
-
-            Session["SiglaAeroporto"] = credencial.Aeroporto.IATA;
-            Session["NomeFrenteCracha"] = credencial.NomeImpressaoFrenteCracha.ToUpper();
-            Session["DataValidade"] = String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento.HasValue ? credencial.DataVencimento.Value : this.GerarDataVencimentoCredencial(credencial));
-            Session["AreaDeAcesso"] = (credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : "");
-            Session["Funcao"] = credencial.DescricaoFuncaoFrenteCracha.ToUpper();
-            Session["Foto"] = Server.MapPath(credencial.Pessoa.ImageUrl.Replace("../..", ""));
-            Session["CategoriaMotoristaUm"] = (credencial.CategoriaMotorista1 == "A" || credencial.CategoriaMotorista2 == "A" ? "A" : "" + credencial.CategoriaMotorista1 == "B" || credencial.CategoriaMotorista2 == "B" ? "B" : "") == "" ? "N" : "N";
-            Session["CategoriaMotoristaDois"] = credencial.CategoriaMotorista1 == "D" || credencial.CategoriaMotorista2 == "D" ? "D" : "N";
-            Session["CategoriaMotoristaTres"] = credencial.CategoriaMotorista1 == "E" || credencial.CategoriaMotorista2 == "E" ? "E" : "N";
-            Session["LogoEmpresa"] = Server.MapPath(credencial.Empresa.ImageUrl);
-            Session["Nome"] = credencial.Pessoa.Nome.ToUpper();
-            Session["RG"] = credencial.Pessoa.RG;
-            Session["CPF"] = credencial.Pessoa.CPF;
-            Session["Empresa"] = credencial.Empresa.NomeFantasia.ToUpper();
-            Session["Matricula"] = credencial.IdCredencial.ToString().PadLeft(8, '0');
-            Session["Emergencia"] = credencial.Pessoa.TelefoneEmergencia;
-            Session["DataExpediacao"] = String.Format("{0:dd/MM/yy}", DateTime.Now);
-            Session["PathLogoBack"] = credencial.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png";
-            Session["TipoCredencial"] = "Credencial";
-        }
-
-        public JsonResult Imprimir(string idCredencial, string printerName)
+        public ActionResult PreviewCredencial(string idCredencial)
         {
             try
             {
                 Credencial credencial = this.CredencialService.ObterPorId(Convert.ToInt32(idCredencial));
+
+                ReportDocument report = new ReportDocument();
+
+                if (credencial.FlgTemporario)
+                {
+                    TipoCracha temporario = this.TipoCrachaService.ObterTipoCrachaTemporario();
+
+                    Session["ArquivoCrachaFrotal"] = temporario.Arquivo;
+                    Session["ImgFundoCracha"] = temporario.ImgFundoCracha;
+                    Session["TipoCracha"] = temporario.Descricao;
+                }
+                else
+                {
+                    Session["ArquivoCrachaFrotal"] = credencial.Empresa.TipoEmpresa.TipoCracha.Arquivo;
+                    Session["ImgFundoCracha"] = credencial.Empresa.TipoEmpresa.TipoCracha.ImgFundoCracha;
+                    Session["TipoCracha"] = credencial.Empresa.TipoEmpresa.TipoCracha.Descricao;
+                }
+
+                Session["SiglaAeroporto"] = credencial.Aeroporto.IATA;
+                Session["NomeFrenteCracha"] = credencial.NomeImpressaoFrenteCracha.ToUpper();
+                Session["DataValidade"] = String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento.HasValue ? credencial.DataVencimento.Value : this.GerarDataVencimentoCredencial(credencial));
+                Session["AreaDeAcesso"] = (credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : "");
+                Session["Funcao"] = credencial.DescricaoFuncaoFrenteCracha.ToUpper();
+                Session["Foto"] = Server.MapPath(credencial.Pessoa.ImageUrl.Replace("../..", ""));
+                Session["CategoriaMotoristaUm"] = (credencial.CategoriaMotorista1 == "A" || credencial.CategoriaMotorista2 == "A" ? "A" : "" + credencial.CategoriaMotorista1 == "B" || credencial.CategoriaMotorista2 == "B" ? "B" : "") == "" ? "N" : "N";
+                Session["CategoriaMotoristaDois"] = credencial.CategoriaMotorista1 == "D" || credencial.CategoriaMotorista2 == "D" ? "D" : "N";
+                Session["CategoriaMotoristaTres"] = credencial.CategoriaMotorista1 == "E" || credencial.CategoriaMotorista2 == "E" ? "E" : "N";
+                Session["LogoEmpresa"] = Server.MapPath(credencial.Empresa.ImageUrl);
+                Session["Nome"] = credencial.Pessoa.Nome.ToUpper();
+                Session["RG"] = credencial.Pessoa.RG;
+                Session["CPF"] = credencial.Pessoa.CPF;
+                Session["Empresa"] = credencial.Empresa.NomeFantasia.ToUpper();
+                Session["Matricula"] = credencial.IdCredencial.ToString().PadLeft(8, '0');
+                Session["Emergencia"] = credencial.Pessoa.TelefoneEmergencia;
+                Session["DataExpediacao"] = String.Format("{0:dd/MM/yy}", DateTime.Now);
+                Session["PathLogoBack"] = credencial.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png";
+                Session["TipoCredencial"] = "Credencial";
+
+                return Json(new { success = true, title = "Sucesso", message = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult Imprimir(string idCredencial, string printerName)
+        {
+            try
+            {
+                Credencial credencial = this.CredencialService.ObterPorId(Convert.ToInt32(idCredencial));
+
+                this.ValidarParaImpressão(credencial);
 
                 credencial.DataExpedicao = DateTime.Now;
                 credencial.DataVencimento = credencial.DataVencimento.HasValue ? credencial.DataVencimento.Value : this.GerarDataVencimentoCredencial(credencial);
@@ -199,8 +210,29 @@ namespace WebSIC.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json( new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
+
+        }
+
+        private void ValidarParaImpressão(Credencial credencial)
+        {
+            if ((credencial.Area1 != null || credencial.Area2 != null) && (credencial.Pessoa.Curso == null && credencial.Pessoa.Turmas == null))
+                throw new Exception("Favor verificar o cadastro desssa pessoa, ela possui acesso a àreas restritas mas não há curso válido para ela.");
+
+            if (!String.IsNullOrEmpty(credencial.Pessoa.CNH) && (!credencial.Pessoa.Curso.Any(c => c.Curso.PermiteDirigirEmAreasRestritas) || credencial.Pessoa.Curso.Any(c => c.Curso.PermiteDirigirEmAreasRestritas && c.DataValidade < DateTime.Now)))
+                throw new Exception("Favor verificar se o curso DDA foi informado no cadastro desta pessoa.");
+
+            if (credencial.Pessoa.Curso.Any(c => c.DataValidade <= DateTime.Now))
+                throw new Exception("Favor verificar o cadastro dessa pessoa, existem cursos vencidos.");
+
+            // if(credencial.Solicitacoes.Any(s => s.RamoAtividade != Entity.Enum.RamoAtividade.RamoAtividade0))
+
+            if (credencial.DataDesativacao.HasValue)
+                throw new Exception("Esta credencial está desativada.");
+
+            if (credencial.DataExpedicao.HasValue)
+                throw new Exception("Esta credencial já foi impressa! Caso seja necessário uma reimpressão, realizar a solicitação no cadastro da pessoa.");
 
         }
 

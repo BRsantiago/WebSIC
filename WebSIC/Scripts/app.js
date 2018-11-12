@@ -486,7 +486,7 @@ function Imprimir(id, printerName, isATIV) {
         url: url,
         data: { idCredencial: id, printerName: printerName },
         cache: false,
-        dataType: 'html',
+        //dataType: 'html',
         success: function (result) {
             if (result.success) {
                 swal({
@@ -498,7 +498,7 @@ function Imprimir(id, printerName, isATIV) {
                 window.location = baseURL;
             } else {
                 swal({
-                    title: "Atenção!",
+                    title: "Esta credencial não pode ser impressa!",
                     text: result.message,
                     icon: "warning",
                     button: "OK!"
