@@ -1,4 +1,4 @@
-﻿using Entity.DTO;
+﻿using Entity.Enum;
 using Entity.Entities;
 using System;
 using System.Collections.Generic;
@@ -48,9 +48,6 @@ namespace WebSIC.Models
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
         public string Email { get; set; }
-        public string CNH { get; set; }
-        public string CategoriaCNH { get; set; }
-        public string DataValidadeCNH { get; set; }
 
         public string IdEmpresa { get; set; }
 
@@ -65,7 +62,7 @@ namespace WebSIC.Models
             NomePai = representante.NomePai;
             NomeMae = representante.NomeMae;
             Endereco = representante.Endereco;
-            Numero = representante.Numero.ToString();
+            if (representante.Numero.HasValue) { Numero = representante.Numero.Value.ToString(); };
             Complemento = representante.Complemento;
             Bairro = representante.Bairro;
             Cidade = representante.Cidade;
@@ -74,16 +71,14 @@ namespace WebSIC.Models
             TelefoneEmergencia = representante.TelefoneEmergencia;
             TelefoneResidencial = representante.TelefoneResidencial;
             TelefoneCelular = representante.TelefoneCelular;
-            RNE = representante.RNE.ToString();
-            CPF = representante.CPF.ToString();
-            RG = representante.RG.ToString();
+            RNE = representante.RNE != null ? representante.RNE.ToString() : null;
+            CPF = representante.CPF != null ? representante.CPF.ToString() : null;
+            RG = representante.RG != null ? representante.RG.ToString() : null;
             OrgaoExpeditor = representante.OrgaoExpeditor;
             UFOrgaoExpeditor = representante.UFOrgaoExpeditor;
             Genero = representante.Genero;
             Observacao = representante.Observacao;
             Email = representante.Email;
-            CNH = representante.CNH.ToString();
-            DataValidadeCNH = representante.DataValidadeCNH.ToString();
         }
 
         public Pessoa MapearParaObjetoDominio()
@@ -108,14 +103,12 @@ namespace WebSIC.Models
             pessoa.TelefoneCelular = this.TelefoneCelular;
             pessoa.RNE = this.RNE;
             pessoa.CPF = this.CPF;
-            pessoa.RG =  this.RG;
+            pessoa.RG = this.RG;
             pessoa.OrgaoExpeditor = this.OrgaoExpeditor;
             pessoa.UFOrgaoExpeditor = this.UFOrgaoExpeditor;
             pessoa.Genero = this.Genero;
             pessoa.Observacao = this.Observacao;
             pessoa.Email = this.Email;
-            pessoa.CNH = this.CNH;
-            pessoa.DataValidadeCNH = Convert.ToDateTime(this.DataValidadeCNH);
 
 
             pessoa.Empresas = new List<Empresa>();

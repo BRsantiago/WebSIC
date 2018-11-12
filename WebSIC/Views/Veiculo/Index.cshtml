@@ -39,12 +39,6 @@
                             <th>
                                 Ano (Fab/Mod)
                             </th>
-                            @*<th>
-                                    @Html.DisplayNameFor(model => model.AnoFabricacao)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.AnoModelo)
-                                </th>*@
                             <th>
                                 @Html.DisplayNameFor(model => model.Cor)
                             </th>
@@ -54,24 +48,6 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Chassi)
                             </th>
-                            @*<th>
-                                    @Html.DisplayNameFor(model => model.Observacao)
-                                </th>*@
-                            @*<th>
-                                    @Html.DisplayNameFor(model => model.Criacao)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Criador)
-                                </th>*@
-                            @*<th>
-                                @Html.DisplayNameFor(model => model.Atualizacao)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Atualizador)
-                            </th>*@
-                            @*<th>
-                                    @Html.DisplayNameFor(model => model.Ativo)
-                                </th>*@
                             <th>
                                 Última Solicitação em
                             </th>
@@ -122,7 +98,6 @@
                                     <text> @Html.Encode(item.Solicitacoes != null ? item.Solicitacoes.Count : 0) solicitação(ões)</text> <a href="@Url.Action("IndexATIV", "Solicitacao", new { veiculoId = item.IdVeiculo })" title="Visualizar requisições de ATIV"> <i class="glyphicon glyphicon-tasks"></i> </a>
                                 </td>
                                 <td class="min">
-                                    <button class="btn btn-warning details" data-id="@item.IdVeiculo">Detalhar<i class="glyphicon glyphicon-file"></i></button>
                                     <button class="btn btn-primary edit" data-id="@item.IdVeiculo">Editar<i class="glyphicon glyphicon-edit"></i></button>
                                     <button class="btn btn-danger delete" data-id="@item.IdVeiculo">Deletar<i class="glyphicon glyphicon-trash"></i></button>
                                 </td>

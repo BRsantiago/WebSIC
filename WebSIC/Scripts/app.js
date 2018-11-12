@@ -408,7 +408,7 @@ function UploadSubmit(idPessoa) {
                     })
                 }
 
-               
+
             }
         });
     });
@@ -471,20 +471,39 @@ function onShowModalToTakeAPicture(idPessoa) {
 
 
 
-function Imprimir(id) {
+function Imprimir(id, printerName, isATIV) {
+
+    baseURL = window.location;
+
+    var url = '/Credencial/Imprimir/';
+
+    if (isATIV) {
+        url = '/Credencial/ImprimirATIV/'
+    }
+
     $.ajax({
         type: 'POST',
-        url: '/Credencial/Imprimir/',
-        data: { idCredencial: id },
+        url: url,
+        data: { idCredencial: id, printerName: printerName },
         cache: false,
         dataType: 'html',
-        success: function (data) {
-            swal({
-                title: "Good job!",
-                text: "Photo was upload successfully!",
-                icon: "success",
-                button: "OK!",
-            })
+        success: function (result) {
+            if (result.success) {
+                swal({
+                    title: "Good job!",
+                    text: result.message,
+                    icon: "success",
+                    button: "OK!"
+                })
+                window.location = baseURL;
+            } else {
+                swal({
+                    title: "Atenção!",
+                    text: result.message,
+                    icon: "warning",
+                    button: "OK!"
+                })
+            }
         },
         error: function (xhr, ajaxOptions, thrownError) {
             swal({

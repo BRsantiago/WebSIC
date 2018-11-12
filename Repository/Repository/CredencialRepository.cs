@@ -44,10 +44,11 @@ namespace Repository.Repository
         public override Credencial ObterPorId(int id)
         {
             return contexto.Credenciais
-                           .Include(c => c.Pessoa)
+                           .Include(c => c.Pessoa.Curso)
                            .Include(c => c.Area1)
                            .Include(c => c.Area2)
                            .Include(c => c.Empresa.TipoEmpresa.TipoCracha)
+                           .Include(c => c.Empresa.Contratos)
                            .Include(c => c.Veiculo)
                            .Include(c => c.Cargo)
                            .Include(c => c.PortaoAcesso)
@@ -65,6 +66,19 @@ namespace Repository.Repository
                            .Include(c => c.Empresa)
                            .Include(c => c.Veiculo)
                            .Include(c => c.Aeroporto)
+                           .ToList();
+        }
+
+        public List<Credencial> ObterTodosParaImpressao()
+        {
+            return contexto.Credenciais
+                           .Include(c => c.Pessoa)
+                           .Include(c => c.Area1)
+                           .Include(c => c.Area2)
+                           .Include(c => c.Empresa)
+                           .Include(c => c.Veiculo)
+                           .Include(c => c.Aeroporto)
+                           .Where(c => c.DataDesativacao == null && c.DataExpedicao == null)
                            .ToList();
         }
 
@@ -147,7 +161,7 @@ namespace Repository.Repository
                     .Include(c => c.Area1)
                     .Include(c => c.Area2)
                     .Include(c => c.PortaoAcesso)
-                    .Where(c => c.Veiculo != null && c.Ativo == true && !c.DataDesativacao.HasValue)
+                    .Where(c => c.Veiculo != null && c.Ativo == true && !c.DataDesativacao.HasValue && !c.DataExpedicao.HasValue)
                     .OrderByDescending(c => c.Criacao)
                     .ToList();
         }
@@ -160,7 +174,7 @@ namespace Repository.Repository
                            .Include(c => c.Area2)
                            .Include(c => c.Empresa)
                            .Include(c => c.Aeroporto)
-                           .Where(c => c.DataDesativacao == null && c.Pessoa != null)
+                           .Where(c => !c.DataDesativacao.HasValue && c.Pessoa != null && !c.DataExpedicao.HasValue)
                            .ToList();
         }
     }

@@ -23,6 +23,12 @@ namespace Services.Service
             return this.CredencialRepository.ObterTodos();
         }
 
+        public List<Credencial> ObterTodosParaImpressao()
+        {
+            return this.CredencialRepository.ObterTodosParaImpressao();
+        }
+
+
         public Credencial ObterPorId(int idCredencial)
         {
             return this.CredencialRepository.ObterPorId(idCredencial);
@@ -36,6 +42,7 @@ namespace Services.Service
         public void Atualizar(Credencial credencial)
         {
             this.CredencialRepository.Atualizar(credencial);
+            this.CredencialRepository.Salvar();
         }
 
         public List<Credencial> ObterATIVs()

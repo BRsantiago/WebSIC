@@ -23,26 +23,32 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Pessoa.CPF)
                             </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DataVencimento)
+                            </th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Empresa.NomeFantasia)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Pessoa.Nome)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Pessoa.CPF)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Imprimir", "Edit", new { id = item.IdCredencial }, new { @class = "btn btn-success" })
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Empresa.NomeFantasia)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Pessoa.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Pessoa.CPF)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DataVencimento)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Imprimir", "Edit", new { id = item.IdCredencial }, new { @class = "btn btn-success" })
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>

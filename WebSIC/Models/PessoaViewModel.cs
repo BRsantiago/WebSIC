@@ -1,4 +1,4 @@
-﻿using Entity.DTO;
+﻿using Entity.Enum;
 using Entity.Entities;
 using System;
 using System.Collections.Generic;

@@ -51,9 +51,10 @@ namespace Services.Service
                 return representante;
             }
             catch (Exception ex)
-            { }
+            {
+                throw new Exception(ex.Message);
+            }
 
-            return null;
         }
 
         public Pessoa ObterPorId(string id)

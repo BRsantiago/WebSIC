@@ -54,12 +54,12 @@ namespace Services.Service
 
         public void Salvar(Solicitacao solicitacao)
         {
-            //solicitacao.DataAutorizacao = DateTime.Now; //Isto precisar mudar quando pessoas de fora fizerem o cadastro da solicitacao.
+            solicitacao.DataAutorizacao = DateTime.Now; //Isto precisar mudar quando pessoas de fora fizerem o cadastro da solicitacao.
 
             SolicitacaoRepository.IncluirNovaSolicitacao(solicitacao);
 
             CarregarCursosExigidos(solicitacao);
-            //GerarCredencial(solicitacao);
+            GerarCredencial(solicitacao);
 
             SolicitacaoRepository.Salvar();
             //CursoSemTurmaRepository.Salvar();
@@ -67,7 +67,7 @@ namespace Services.Service
 
         private void GerarCredencial(Solicitacao solicitacao)
         {
-            Credencial credencial = this.CredencialRepository.ObterPorEmpresaPessoaTipoEmissao(solicitacao.Empresa.IdEmpresa, solicitacao.Pessoa.IdPessoa, solicitacao.TipoEmissao == Entity.DTO.TipoEmissao.Temporaria);
+            Credencial credencial = this.CredencialRepository.ObterPorEmpresaPessoaTipoEmissao(solicitacao.Empresa.IdEmpresa, solicitacao.Pessoa.IdPessoa, solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);
             Pessoa pessoa = this.PessoaRepository.ObterPorId(solicitacao.Pessoa.IdPessoa);
             Cargo cargo = this.CargoRepository.ObterPorId(solicitacao.Cargo.IdCargo);
 
@@ -75,7 +75,7 @@ namespace Services.Service
             {
                 credencial = new Credencial();
 
-                credencial.FlgTemporario = solicitacao.TipoEmissao == Entity.DTO.TipoEmissao.Temporaria;
+                credencial.FlgTemporario = solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria;
                 credencial.FlgCVE = solicitacao.Pessoa.FlgCVE;
                 credencial.NomeImpressaoFrenteCracha = pessoa.Nome;
                 credencial.DescricaoFuncaoFrenteCracha = cargo.Descricao;
@@ -101,6 +101,9 @@ namespace Services.Service
                 credencial.Area1 = solicitacao.Area1;
                 credencial.Area2 = solicitacao.Area2;
                 credencial.Cargo = solicitacao.Cargo;
+
+                credencial.DataExpedicao = null;
+                credencial.Solicitacoes.Add(solicitacao);
 
                 if (solicitacao.TipoSolicitacao.FlgDesativaCredencial)
                 {
@@ -207,7 +210,7 @@ namespace Services.Service
             Atualizar(solicitacao);
 
             Credencial credencial = CredencialRepository
-                .ObterPorVeiculo(solicitacao.Veiculo.IdVeiculo, solicitacao.TipoEmissao == Entity.DTO.TipoEmissao.Temporaria);
+                .ObterPorVeiculo(solicitacao.Veiculo.IdVeiculo, solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);
 
             if (credencial != null)
             {
@@ -234,7 +237,7 @@ namespace Services.Service
                     Area1 = solicitacao.Area1,
                     Area2 = solicitacao.Area2,
                     PortaoAcesso = solicitacao.PortaoAcesso,
-                    FlgTemporario = solicitacao.TipoEmissao == Entity.DTO.TipoEmissao.Temporaria,
+                    FlgTemporario = solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria,
                     DataVencimento = solicitacao.Veiculo.Apolice.DataValidade
                 };
 
