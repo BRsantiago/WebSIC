@@ -17,7 +17,7 @@ namespace Repository.Repository
         {
         }
 
-        public Pessoa ObterPorIdPessoa(int idPessoa)
+        public override Pessoa ObterPorId(int idPessoa)
         {
             return contexto.Pessoas
                            .Include(p => p.Empresas)
@@ -25,6 +25,7 @@ namespace Repository.Repository
                            .Include(p => p.Solicitacaos.Select(s => s.Area1))
                            .Include(p => p.Solicitacaos.Select(s => s.Area2))
                            .Include(p => p.Curso.Select(c => c.Curso))
+                           .Include(p => p.Turmas.Select(c => c.Curso))
                            .Where(p => p.IdPessoa == idPessoa).SingleOrDefault();
         }
 

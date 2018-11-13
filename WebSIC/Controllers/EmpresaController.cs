@@ -73,8 +73,8 @@ namespace WebSIC.Controllers
             {
                 TipoEmpresa tipoEmpresa = TipoEmpresaService.ObterPorId(model.IdTipoEmpresa);
                 Aeroporto aeroporto = AeroportoService.ObterPorId(model.IdAeroporto);
-                List<Aeroporto> aeroportos = new List<Aeroporto>();
-                aeroportos.Add(aeroporto);
+                //List<Aeroporto> aeroportos = new List<Aeroporto>();
+                //aeroportos.Add(aeroporto);
 
                 novaEmpresa.RazaoSocial = model.RazaoSocial;
                 novaEmpresa.NomeFantasia = model.NomeFantasia;
@@ -91,7 +91,7 @@ namespace WebSIC.Controllers
                 novaEmpresa.CEP = model.CEP;
                 novaEmpresa.Email = model.Email;
                 novaEmpresa.TipoEmpresa = tipoEmpresa;
-                novaEmpresa.Aeroportos = aeroportos;
+                novaEmpresa.Aeroporto = aeroporto;
 
 
                 if (model.Logotipo != null && model.Logotipo.ContentLength > 0)
@@ -128,7 +128,7 @@ namespace WebSIC.Controllers
             model.CEP = novaEmpresa.CEP;
             model.Email = novaEmpresa.Email;
             model.IdTipoEmpresa = novaEmpresa.TipoEmpresa.IdTipoEmpresa;
-            model.IdAeroporto = novaEmpresa.Aeroportos.FirstOrDefault().IdAeroporto;
+            model.IdAeroporto = novaEmpresa.AeroportoId.Value;
 
             return PartialView(novaEmpresa);
         }
@@ -161,7 +161,7 @@ namespace WebSIC.Controllers
             model.CEP = empresa.CEP;
             model.Email = empresa.Email;
             model.IdTipoEmpresa = empresa.TipoEmpresa.IdTipoEmpresa;
-            model.IdAeroporto = empresa.Aeroportos.FirstOrDefault().IdAeroporto;
+            model.IdAeroporto = empresa.AeroportoId.Value;
 
             model.ImageUrl = empresa.ImageUrl;
 
@@ -196,7 +196,7 @@ namespace WebSIC.Controllers
                 empresa.Observacao = model.Observacao;
                 empresa.CEP = model.CEP;
                 empresa.Email = model.Email;
-                //empresa.TipoEmpresa = tipoEmpresa;
+                empresa.TipoEmpresaId = model.IdTipoEmpresa;
 
                 if (model.Logotipo != null && model.Logotipo.ContentLength > 0)
                 {
@@ -224,6 +224,12 @@ namespace WebSIC.Controllers
                 TempData["notification"] = msg;
 
                 //return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+
+                model.Aeroportos = AeroportoService.ObterTodos();
+                model.TiposEmpresa = TipoEmpresaService.ObterTodos();
+                model.Representantes = PessoaService.ObterPorEmpresa(model.IdEmpresa);
+                model.Contratos = ContratoService.ObterPorEmpresa(model.IdEmpresa).ToList();
+
                 return PartialView(model);
             }
         }

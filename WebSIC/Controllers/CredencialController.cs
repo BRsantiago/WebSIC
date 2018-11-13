@@ -34,21 +34,6 @@ namespace WebSIC.Controllers
             return View(lista);
         }
 
-        // GET: Credencial/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Credencial credencial = this.CredencialService.ObterPorId(Convert.ToInt32(id));
-            if (credencial == null)
-            {
-                return HttpNotFound();
-            }
-            return View(credencial);
-        }
-
         public ActionResult Edit(string id)
         {
             Credencial credencial = this.CredencialService.ObterPorId(Convert.ToInt32(id));
@@ -60,28 +45,6 @@ namespace WebSIC.Controllers
             return View(credencial);
         }
 
-        private DateTime GerarDataVencimentoCredencial(Credencial credencial)
-        {
-            List<DateTime> datas = new List<DateTime>();
-
-            credencial.Pessoa.Curso
-                             .ToList()
-                             .ForEach(c => datas.Add(c.DataValidade));
-
-            credencial.Empresa.Contratos
-                              .Where(c => c.FimVigencia > DateTime.Now)
-                              .ToList()
-                              .ForEach(c => datas.Add(c.FimVigencia));
-
-            if (credencial.Pessoa.DataValidadeCNH.HasValue)
-                datas.Add(credencial.Pessoa.DataValidadeCNH.Value);
-
-            return datas.OrderByDescending(x => x.Date).FirstOrDefault();
-        }
-
-        // POST: Credencial/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Credencial credencial)
@@ -210,29 +173,8 @@ namespace WebSIC.Controllers
             }
             catch (Exception ex)
             {
-                return Json( new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-
-        }
-
-        private void ValidarParaImpressão(Credencial credencial)
-        {
-            if ((credencial.Area1 != null || credencial.Area2 != null) && (credencial.Pessoa.Curso == null && credencial.Pessoa.Turmas == null))
-                throw new Exception("Favor verificar o cadastro desssa pessoa, ela possui acesso a àreas restritas mas não há curso válido para ela.");
-
-            if (!String.IsNullOrEmpty(credencial.Pessoa.CNH) && (!credencial.Pessoa.Curso.Any(c => c.Curso.PermiteDirigirEmAreasRestritas) || credencial.Pessoa.Curso.Any(c => c.Curso.PermiteDirigirEmAreasRestritas && c.DataValidade < DateTime.Now)))
-                throw new Exception("Favor verificar se o curso DDA foi informado no cadastro desta pessoa.");
-
-            if (credencial.Pessoa.Curso.Any(c => c.DataValidade <= DateTime.Now))
-                throw new Exception("Favor verificar o cadastro dessa pessoa, existem cursos vencidos.");
-
-            // if(credencial.Solicitacoes.Any(s => s.RamoAtividade != Entity.Enum.RamoAtividade.RamoAtividade0))
-
-            if (credencial.DataDesativacao.HasValue)
-                throw new Exception("Esta credencial está desativada.");
-
-            if (credencial.DataExpedicao.HasValue)
-                throw new Exception("Esta credencial já foi impressa! Caso seja necessário uma reimpressão, realizar a solicitação no cadastro da pessoa.");
 
         }
 
@@ -321,24 +263,6 @@ namespace WebSIC.Controllers
             return View(credencial);
         }
 
-        // POST: Credencial/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditATIV([Bind(Include = "IdCredencial,Matricula,FlgMotorista,FlgTemporario,FlgCVE,DataExpedicao,DataDesativacao,DataVencimento,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Credencial credencial)
-        {
-            ViewBag.Printers = GetPrinters();
-
-            if (ModelState.IsValid)
-            {
-                //db.Entry(credencial).State = EntityState.Modified;
-                //db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(credencial);
-        }
-
         private List<SelectListItem> GetPrinters()
         {
             System.Drawing.Printing.PrinterSettings.StringCollection printersList = System.Drawing.Printing.PrinterSettings.InstalledPrinters;
@@ -351,6 +275,46 @@ namespace WebSIC.Controllers
             }
 
             return list;
+        }
+
+        private DateTime GerarDataVencimentoCredencial(Credencial credencial)
+        {
+            List<DateTime> datas = new List<DateTime>();
+
+            credencial.Pessoa.Curso
+                             .ToList()
+                             .ForEach(c => datas.Add(c.DataValidade));
+
+            credencial.Empresa.Contratos
+                              .Where(c => c.FimVigencia > DateTime.Now)
+                              .ToList()
+                              .ForEach(c => datas.Add(c.FimVigencia));
+
+            if (credencial.Pessoa.DataValidadeCNH.HasValue)
+                datas.Add(credencial.Pessoa.DataValidadeCNH.Value);
+
+            return credencial.DataVencimento.HasValue ? credencial.DataVencimento.Value : datas.OrderByDescending(x => x.Date).FirstOrDefault();
+        }
+
+        private void ValidarParaImpressão(Credencial credencial)
+        {
+            if ((credencial.Area1 != null || credencial.Area2 != null) && (credencial.Pessoa.Curso == null && credencial.Pessoa.Turmas == null))
+                throw new Exception("Favor verificar o cadastro desssa pessoa, ela possui acesso a àreas restritas mas não há curso válido para ela.");
+
+            if (!String.IsNullOrEmpty(credencial.Pessoa.CNH) && (!credencial.Pessoa.Curso.Any(c => c.Curso.PermiteDirigirEmAreasRestritas) || credencial.Pessoa.Curso.Any(c => c.Curso.PermiteDirigirEmAreasRestritas && c.DataValidade < DateTime.Now)))
+                throw new Exception("Favor verificar se o curso DDA foi informado no cadastro desta pessoa.");
+
+            if (credencial.Pessoa.Curso.Any(c => c.DataValidade <= DateTime.Now))
+                throw new Exception("Favor verificar o cadastro dessa pessoa, existem cursos vencidos.");
+
+            // if(credencial.Solicitacoes.Any(s => s.RamoAtividade != Entity.Enum.RamoAtividade.RamoAtividade0))
+
+            if (credencial.DataDesativacao.HasValue)
+                throw new Exception("Esta credencial está desativada.");
+
+            if (credencial.DataExpedicao.HasValue)
+                throw new Exception("Esta credencial já foi impressa! Caso seja necessário uma reimpressão, realizar a solicitação no cadastro da pessoa.");
+
         }
     }
 }

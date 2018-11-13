@@ -34,6 +34,6 @@ namespace Entity.Entities
         [Display(Name = "Observações Gerais")]
         public string Observacao { get; set; }
 
-        public IList<Pessoa> Pessoas { get; set; }
+        public List<Pessoa> Pessoas { get; set; }
     }
 }

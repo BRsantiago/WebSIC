@@ -42,14 +42,15 @@ namespace WebSIC.Models
 
         [Display(Name = "Área")]
         public List<Area> Areas { get; set; }
-        public int IdArea1 { get; set; }
-        public int IdArea2 { get; set; }
+        public int? IdArea1 { get; set; }
+        public int? IdArea2 { get; set; }
 
         public int IdPessoa { get; set; }
         public int IdSolicitacao { get; set; }
 
         [Display(Name = "Ramo de Atividade")]
-        public RamoAtividade RamoAtividade { get; set; }
+        public List<RamoAtividade> RamoAtividade { get; set; }
+        public int IdRamoAtividade { get; set; }
 
         public SolicitacaoViewModel(Solicitacao solicitacao)
         {
@@ -62,7 +63,7 @@ namespace WebSIC.Models
             this.IdArea2 = solicitacao.Area2 != null ? solicitacao.Area2.IdArea : 0;
             this.IdPessoa = solicitacao.Pessoa.IdPessoa;
             this.IdCargo = solicitacao.Cargo.IdCargo;
-            this.RamoAtividade = solicitacao.RamoAtividade;
+            this.IdRamoAtividade = solicitacao.RamoAtividadeId.Value;
         }
 
         public Solicitacao MapearParaObjetoDominio()
@@ -70,18 +71,16 @@ namespace WebSIC.Models
             Solicitacao solicitacao = new Solicitacao();
 
             solicitacao.IdSolicitacao = this.IdSolicitacao;
-            solicitacao.Aeroporto = new Aeroporto() { IdAeroporto = IdAeroporto };
-            solicitacao.Empresa = new Empresa() { IdEmpresa = IdEmpresa };
-            solicitacao.Contrato = new Contrato() { IdContrato = IdContrato };
-            solicitacao.TipoSolicitacao = new TipoSolicitacao() { IdTipoSolicitacao = IdTipoSolicitacao };
-            solicitacao.Area1 = this.IdArea1 != 0 ? new Area() { IdArea = IdArea1 } : null;
-            solicitacao.Area2 = this.IdArea2 != 0 ? new Area() { IdArea = IdArea2 } : null;
-            solicitacao.Pessoa = new Pessoa() { IdPessoa = IdPessoa };
-            solicitacao.Cargo = new Cargo() { IdCargo = IdCargo };
-
+            solicitacao.AeroportoId = this.IdAeroporto;
+            solicitacao.EmpresaId = this.IdEmpresa;
+            solicitacao.ContratoId = this.IdContrato;
+            solicitacao.TipoSolicitacaoId = this.IdTipoSolicitacao;
+            solicitacao.Area1Id = this.IdArea1;
+            solicitacao.Area2Id = this.IdArea2;
+            solicitacao.PessoaId = this.IdPessoa;
+            solicitacao.CargoId = this.IdCargo;
+            solicitacao.RamoAtividadeId = this.IdRamoAtividade;
             solicitacao.TipoEmissao = (TipoEmissao)Enum.ToObject(typeof(TipoEmissao), IdTipoEmissao); //(IdTipoEmissao == 0);
-
-            solicitacao.RamoAtividade = this.RamoAtividade;
 
             return solicitacao;
         }

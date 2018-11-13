@@ -64,6 +64,9 @@ namespace Entity.Entities
 
         [Display(Name = "Área de Atuação")]
         public TipoEmpresa TipoEmpresa { get; set; }
+        [Column("TipoEmpresa_IdTipoEmpresa")]
+        [ForeignKey("TipoEmpresa")]
+        public Nullable<int> TipoEmpresaId { get; set; }
 
         public List<Pessoa> Pessoas { get; set; }
         public List<Veiculo> Veiculos { get; set; }
@@ -71,7 +74,10 @@ namespace Entity.Entities
         public List<Credencial> Credenciais { get; set; }
         public List<Contrato> Contratos { get; set; }
         public List<Apolice> Apolices { get; set; }
-        public List<Aeroporto> Aeroportos { get; set; }
+        public Aeroporto Aeroporto { get; set; }
+        [Column("Aeroporto_IdAeroporto")]
+        [ForeignKey("Aeroporto")]
+        public Nullable<int> AeroportoId { get; set; }
 
 
     }

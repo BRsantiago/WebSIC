@@ -29,6 +29,7 @@ namespace WebSIC.Controllers
         public IVeiculoService VeiculoService;
         public IPortaoAcessoService PortaoService;
         public ICargoService CargoService;
+        public IRamoAtividadeService RamoAtividadeService;
 
         public SolicitacaoController(IAeroportoService _AeroportoService,
                                      IEmpresaService _EmpresaService,
@@ -39,7 +40,8 @@ namespace WebSIC.Controllers
                                      IAreaService _AreaService,
                                      IVeiculoService _VeiculoService,
                                      IPortaoAcessoService _PortaoService,
-                                     ICargoService _CargoService)
+                                     ICargoService _CargoService,
+                                     IRamoAtividadeService _RamoAtividadeService)
         {
             AeroportoService = _AeroportoService;
             EmpresaService = _EmpresaService;
@@ -51,6 +53,7 @@ namespace WebSIC.Controllers
             VeiculoService = _VeiculoService;
             PortaoService = _PortaoService;
             CargoService = _CargoService;
+            RamoAtividadeService = _RamoAtividadeService;
         }
 
 
@@ -81,6 +84,7 @@ namespace WebSIC.Controllers
             model.TiposSolicitacao = TipoSolicitacaoService.ObterTodos();
             model.Areas = AreaService.Listar().ToList();
             model.Cargo = CargoService.Listar().ToList();
+            model.RamoAtividade = RamoAtividadeService.ObterTodos().ToList();
 
             return PartialView(model);
         }

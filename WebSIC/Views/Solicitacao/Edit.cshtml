@@ -65,6 +65,16 @@
                 </div>
 
                 <div class="form-group">
+                    @Html.LabelFor(model => model.RamoAtividade, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-9>
+                        <div class="checkbox">
+                            @Html.DropDownListFor(d => d.IdRamoAtividade, new SelectList(Model.RamoAtividade.OrderBy(o => o.IdRamoAtividade), "IdRamoAtividade", "Descricao"), "Selecione", new { @class = "form-control select2" })
+                            @Html.ValidationMessageFor(model => model.RamoAtividade, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     @Html.LabelFor(model => model.Areas, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-4">
                         <div class="checkbox">

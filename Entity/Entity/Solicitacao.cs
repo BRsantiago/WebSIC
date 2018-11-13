@@ -27,6 +27,9 @@ namespace Entity.Entities
 
         [Display(Name = "Tipo de Solicitação")]
         public TipoSolicitacao TipoSolicitacao { get; set; }
+        [Column("TipoSolicitacao_IdTipoSolicitacao")]
+        [ForeignKey("TipoSolicitacao")]
+        public Nullable<int> TipoSolicitacaoId { get; set; }
 
         [Display(Name = "Tipo de Emissão")]
         public TipoEmissao TipoEmissao { get; set; }
@@ -99,5 +102,9 @@ namespace Entity.Entities
 
         [Display(Name = "Ramo de Atividade")]
         public RamoAtividade RamoAtividade { get; set; }
+
+        [Column("RamoAtividade_IdRamoAtividade")]
+        [ForeignKey("RamoAtividade")]
+        public Nullable<int> RamoAtividadeId { get; set; }
     }
 }

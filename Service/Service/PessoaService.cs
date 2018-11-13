@@ -59,7 +59,7 @@ namespace Services.Service
 
         public Pessoa ObterPorId(string id)
         {
-            return this.PessoaRepository.ObterPorIdPessoa(Convert.ToInt32(id));
+            return this.PessoaRepository.ObterPorId(Convert.ToInt32(id));
         }
 
         public List<Pessoa> ObterTodos()

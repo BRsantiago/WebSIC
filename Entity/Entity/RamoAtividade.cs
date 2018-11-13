@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,20 +9,20 @@ using System.Threading.Tasks;
 
 namespace Entity.Entities
 {
-    public class TipoSolicitacao : Base
+    public class RamoAtividade : Base
     {
-        public TipoSolicitacao() : base()
+        public RamoAtividade() : base()
         {
         }
 
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int IdTipoSolicitacao { get; set; }
+        public int IdRamoAtividade { get; set; }
 
         [Required]
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
-        public bool FlgDesativaCredencial { get; set; }
-        public bool FlgGeraNovaCredencial { get; set; }
+
+        public List<Curso> Cursos { get; set; }
     }
 }

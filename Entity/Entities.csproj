@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entity\RamoAtividade.cs" />
     <Compile Include="Enum\Categoria.cs" />
     <Compile Include="Enum\Genero.cs" />
     <Compile Include="Enum\RamoAtividade.cs" />

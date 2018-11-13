@@ -34,18 +34,32 @@ namespace Repository.Repository
             base.Incluir(obj);
         }
 
-        public IList<Curso> ObterPorArea(int idArea)
-        {
-            return contexto.Cursos.Include(c => c.Turmas).Where(c => c.Areas.Any(a => a.IdArea == idArea) && c.Ativo == true).ToList();
-        }
-
-        public IList<Curso> ObterCursosRealizadosComValidadePorIdPessoa(int idPessoa)
+        public List<Curso> ObterPorArea(int idArea)
         {
             return contexto.Cursos
-                           .Where(c => 
+                           .Include(c => c.Turmas)
+                           .Include(c => c.CursosSemTurma)
+                           .Include(c => c.RamosDeAtividade)
+                           .Where(c => c.Areas.Any(a => a.IdArea == idArea) && c.Ativo == true)
+                           .ToList();
+        }
+
+        public List<Curso> ObterCursosRealizadosComValidadePorIdPessoa(int idPessoa)
+        {
+            return contexto.Cursos
+                           .Where(c =>
                                 c.Turmas.Any(t => t.Pessoas.Any(p => p.IdPessoa == idPessoa) && t.DataValidade > DateTime.Now) ||
-                                c.CursosSemTurma.Any(t => t.Pessoa.IdPessoa == idPessoa && t.DataValidade > DateTime.Now)
-                           ) 
+                                c.CursosSemTurma.Any(t => t.Pessoa.IdPessoa == idPessoa && t.DataValidade > DateTime.Now))
+                           .ToList();
+        }
+
+        public List<Curso> ObterPorRamoAtividade(int idRamoAtividade)
+        {
+            return contexto.Cursos
+                           .Include(c => c.Turmas)
+                           .Include(c => c.CursosSemTurma)
+                           .Include(c => c.RamosDeAtividade)
+                           .Where(c => c.RamosDeAtividade.Any(a => a.IdRamoAtividade == idRamoAtividade) && c.Ativo == true)
                            .ToList();
         }
     }
