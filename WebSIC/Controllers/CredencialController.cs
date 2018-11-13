@@ -123,7 +123,7 @@ namespace WebSIC.Controllers
                     Session["TipoCracha"] = credencial.Empresa.TipoEmpresa.TipoCracha.Descricao;
                 }
 
-                Session["SiglaAeroporto"] = credencial.Aeroporto.IATA;
+                Session["SiglaAeroporto"] = credencial.Aeroporto.Sigla;
                 Session["NomeFrenteCracha"] = credencial.NomeImpressaoFrenteCracha.ToUpper();
                 Session["DataValidade"] = String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento.HasValue ? credencial.DataVencimento.Value : this.GerarDataVencimentoCredencial(credencial));
                 Session["AreaDeAcesso"] = (credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : "");
@@ -180,7 +180,7 @@ namespace WebSIC.Controllers
 
                 }
 
-                cryRpt.SetParameterValue("Aeroporto", credencial.Aeroporto.IATA.ToUpper());
+                cryRpt.SetParameterValue("Aeroporto", credencial.Aeroporto.Sigla.ToUpper());
                 cryRpt.SetParameterValue("Nombre", credencial.NomeImpressaoFrenteCracha.ToUpper());
                 cryRpt.SetParameterValue("Fecha", String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento.Value));
                 cryRpt.SetParameterValue("Acceso", (credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : ""));
@@ -250,7 +250,7 @@ namespace WebSIC.Controllers
             Session["Arquivo"] = "ATIV.rpt";
             Session["TipoCredencial"] = "ATIV";
             Session["TipoEmissao"] = credencial.FlgTemporario ? "TEMPORÁRIO" : "";
-            Session["SiglaAeroporto"] = credencial.Aeroporto.IATA;
+            Session["SiglaAeroporto"] = credencial.Aeroporto.Sigla;
             Session["AreaDeAcesso"] = (credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : "");
             Session["PortaoDeAcesso"] = credencial.PortaoAcesso.Sigla;
             Session["Categoria"] = credencial.Veiculo.Categoria;
@@ -283,7 +283,7 @@ namespace WebSIC.Controllers
                 cryRpt.SetParameterValue("TipoEmissao", credencial.FlgTemporario ? "TEMPORÁRIO" : "");
                 cryRpt.SetParameterValue("DataValidade", String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento));
                 cryRpt.SetParameterValue("NivelAcesso", (credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : ""));
-                cryRpt.SetParameterValue("Aeroporto", credencial.Aeroporto.IATA);
+                cryRpt.SetParameterValue("Aeroporto", credencial.Aeroporto.Sigla);
                 cryRpt.SetParameterValue("Portao", credencial.PortaoAcesso.Sigla);
                 cryRpt.SetParameterValue("Categoria", credencial.Veiculo.Categoria);
                 cryRpt.SetParameterValue("Placa", credencial.Veiculo.Placa);

@@ -8,6 +8,9 @@
     <meta name="author" content="">
     <title>WebSIC</title>
 
+
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/css")
@@ -21,7 +24,7 @@
 
 
     @*<script lang="javaScript" type="text/javascript" src="~/aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/crv.js"></script>
-    <link rel="stylesheet" href="~/aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/images/style.css" />*@
+        <link rel="stylesheet" href="~/aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/images/style.css" />*@
 
     <style type="text/css">
         td.min {
@@ -122,9 +125,9 @@
                                 <li>
                                     @Html.ActionLink("Turma", "Index", "Turma")
                                 </li>
-                                <li>
+                                @*<li>
                                     @Html.ActionLink("Usuario", "Index", "Usuario")
-                                </li>
+                                </li>*@
                             </ul>
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>

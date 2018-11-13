@@ -83,8 +83,19 @@ namespace Services.Service
 
         public void ExcluirPessoa(Pessoa pessoa)
         {
+            this.ValidarParaExcluir(pessoa);
+
             PessoaRepository.Remover(pessoa);
             PessoaRepository.Salvar();
+        }
+
+        private void ValidarParaExcluir(Pessoa pessoa)
+        {
+            if (pessoa.Credenciais != null && pessoa.Credenciais.Any(c => c.DataExpedicao.HasValue))
+                throw new Exception("Essa pessoa não pode ser excluída pois já existe credencial emitida.");
+
+            if (pessoa.Solicitacaos != null && pessoa.Solicitacaos.Any())
+                throw new Exception("Essa pessoa não pode ser excluída pois já existe solicitação de credencial.");
         }
 
         private void IncluirCursoDDA(Pessoa pessoa)
@@ -104,7 +115,7 @@ namespace Services.Service
             if (pessoa.DataValidadeFoto < DateTime.Now)
                 throw new Exception("A foto desta pessoa tem mais de dois anos, favor capturar uma nova foto.");
 
-            if(String.IsNullOrEmpty(pessoa.CPF) || String.IsNullOrWhiteSpace(pessoa.CPF))
+            if (String.IsNullOrEmpty(pessoa.CPF) || String.IsNullOrWhiteSpace(pessoa.CPF))
                 throw new Exception("Favor informar o cpf.");
         }
 

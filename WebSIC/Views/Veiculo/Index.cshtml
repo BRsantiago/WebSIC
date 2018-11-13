@@ -49,9 +49,6 @@
                                 @Html.DisplayNameFor(model => model.Chassi)
                             </th>
                             <th>
-                                Última Solicitação em
-                            </th>
-                            <th>
                                 Total de Solicitações
                             </th>
                             <th></th>
@@ -91,15 +88,15 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Chassi)
                                 </td>
-                                <td>
+                                @*<td>
                                     @Html.Encode(item.Solicitacoes != null && item.Solicitacoes.Count > 0 ? item.Solicitacoes.Last().Criacao.ToString("dd/MM/yyyy HH:mm") : "")
-                                </td>
+                                </td>*@
                                 <td>
                                     <text> @Html.Encode(item.Solicitacoes != null ? item.Solicitacoes.Count : 0) solicitação(ões)</text> <a href="@Url.Action("IndexATIV", "Solicitacao", new { veiculoId = item.IdVeiculo })" title="Visualizar requisições de ATIV"> <i class="glyphicon glyphicon-tasks"></i> </a>
                                 </td>
                                 <td class="min">
-                                    <button class="btn btn-primary edit" data-id="@item.IdVeiculo">Editar<i class="glyphicon glyphicon-edit"></i></button>
-                                    <button class="btn btn-danger delete" data-id="@item.IdVeiculo">Deletar<i class="glyphicon glyphicon-trash"></i></button>
+                                    <button class="btn btn-primary edit" data-id="@item.IdVeiculo">Editar</button> |
+                                    <button class="btn btn-danger delete" data-id="@item.IdVeiculo">Excluir</button>
                                 </td>
                             </tr>
                         }
@@ -113,8 +110,8 @@
 <div class="form-group">
     <div class="row">
         <div class="col-md-4">
-            <button class="btn btn-success create">Criar Novo Veículo <i class="glyphicon glyphicon-open"></i></button>
-            <button class="btn btn-default request">Criar Nova Solicitação <i class="glyphicon glyphicon-open"></i></button>
+            <button class="btn btn-primary create">Novo Veículo</button> |
+            <button class="btn btn-success request">Nova Solicitação</button>
         </div>
     </div>
 </div>

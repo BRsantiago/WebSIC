@@ -1134,6 +1134,7 @@
     <Content Include="Content\vendor\metisMenu\metisMenu.min.css" />
     <Content Include="Content\vendor\metisMenu\metisMenu.min.js" />
     <Content Include="CrystalImageHandler.aspx" />
+    <Content Include="favicon.ico" />
     <Content Include="Images\Foto\person.jpg" />
     <Content Include="Images\FundoCracha\CiaAerea.png" />
     <Content Include="Images\FundoCracha\Terceirizadas.png" />

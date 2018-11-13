@@ -188,6 +188,10 @@
     <Compile Include="Migrations\201811092103061_SolicitacaoRamoAtividade.Designer.cs">
       <DependentUpon>201811092103061_SolicitacaoRamoAtividade.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811130025101_AddSiglaToAeroportoEntity.cs" />
+    <Compile Include="Migrations\201811130025101_AddSiglaToAeroportoEntity.Designer.cs">
+      <DependentUpon>201811130025101_AddSiglaToAeroportoEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CursoSemTurmaRepository.cs" />
@@ -312,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811092103061_SolicitacaoRamoAtividade.resx">
       <DependentUpon>201811092103061_SolicitacaoRamoAtividade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811130025101_AddSiglaToAeroportoEntity.resx">
+      <DependentUpon>201811130025101_AddSiglaToAeroportoEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

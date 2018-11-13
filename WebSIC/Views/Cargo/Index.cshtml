@@ -21,21 +21,6 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Descricao)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Criacao)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Criador)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Atualizacao)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Atualizador)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Ativo)
-                            </th>
                             <th></th>
                         </tr>
                     </thead>
@@ -46,31 +31,10 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Descricao)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Criacao)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Criador)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Atualizacao)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Atualizador)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Ativo)
-                                </td>
                                 <td class="min">
-                                    @*@Html.ActionLink("Edit", "Edit", new { id = item.IdCargo }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.IdCargo }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.IdCargo })*@
-                                    @*<a class="btn btn-primary" onclick="onShowModal('Edit', @item.IdCargo)">Editar</a> |
-                                        <a class="btn btn-warning" onclick="onShowModal('Details', @item.IdCargo)">Detalhar</a> |
-                                        <a class="btn btn-danger" onclick="onShowModal('Delete', @item.IdCargo)">Excluir</a>*@
-                                    <button class="btn btn-warning details" data-id="@item.IdCargo">Detalhar<i class="glyphicon glyphicon-file"></i></button>
-                                    <button class="btn btn-primary edit" data-id="@item.IdCargo">Editar<i class="glyphicon glyphicon-edit"></i></button>
-                                    <button class="btn btn-danger delete" data-id="@item.IdCargo">Deletar<i class="glyphicon glyphicon-trash"></i></button>
+                                    @*<button class="btn btn-warning details" data-id="@item.IdCargo">Detalhar<i class="glyphicon glyphicon-file"></i></button>*@
+                                    <button class="btn btn-primary edit" data-id="@item.IdCargo">Editar</button> |
+                                    <button class="btn btn-danger delete" data-id="@item.IdCargo">Excluir</button>
                                 </td>
                             </tr>
                         }
@@ -84,7 +48,7 @@
 <div class="form-group">
     <div class="row">
         <div class="col-md-4">
-            <button class="btn btn-success create">Criar Novo Cargo <i class="glyphicon glyphicon-open"></i></button>
+            <button class="btn btn-primary create">Novo</button>
         </div>
     </div>
 </div>

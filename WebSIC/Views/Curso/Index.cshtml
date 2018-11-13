@@ -22,12 +22,6 @@
                                 @Html.DisplayNameFor(model => model.Titulo)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CargaHoraria)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Objetivos)
-                            </th>
-                            <th>
                                 @Html.DisplayNameFor(model => model.Validade)
                             </th>
                             <th>
@@ -35,21 +29,6 @@
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Obrigatorio)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Criacao)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Criador)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Atualizacao)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Atualizador)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Ativo)
                             </th>
                             <th></th>
                         </tr>
@@ -62,12 +41,6 @@
                                     @Html.DisplayFor(modelItem => item.Titulo)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CargaHoraria)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Objetivos)
-                                </td>
-                                <td>
                                     @Html.DisplayFor(modelItem => item.Validade)
                                 </td>
                                 <td>
@@ -77,30 +50,9 @@
                                     @Html.DisplayFor(modelItem => item.Obrigatorio)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Criacao)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Criador)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Atualizacao)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Atualizador)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Ativo)
-                                </td>
-                                <td>
-                                    @*@Html.ActionLink("Edit", "Edit", new { id = item.IdCurso }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.IdCurso }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.IdCurso })*@
-                                    @*<a class="btn btn-primary" onclick="onShowModal('Edit', @item.IdCurso)">Editar</a> |
-                                        <a class="btn btn-warning" onclick="onShowModal('Details', @item.IdCurso)">Detalhar</a> |
-                                        <a class="btn btn-danger" onclick="onShowModal('Delete', @item.IdCurso)">Excluir</a>*@
-                                    <button class="btn btn-warning details" data-id="@item.IdCurso">Detalhar<i class="glyphicon glyphicon-file"></i></button>
-                                    <button class="btn btn-primary edit" data-id="@item.IdCurso">Editar<i class="glyphicon glyphicon-edit"></i></button>
-                                    <button class="btn btn-danger delete" data-id="@item.IdCurso">Deletar<i class="glyphicon glyphicon-trash"></i></button>
+                                    @*<button class="btn btn-warning details" data-id="@item.IdCurso">Detalhar<i class="glyphicon glyphicon-file"></i></button>*@
+                                    <button class="btn btn-primary edit" data-id="@item.IdCurso">Editar</button> |
+                                    <button class="btn btn-danger delete" data-id="@item.IdCurso">Excluir</button>
                                 </td>
                             </tr>
                         }
@@ -114,7 +66,7 @@
 <div class="form-group">
     <div class="row">
         <div class="col-md-4">
-            <button class="btn btn-success create">Criar Novo Curso <i class="glyphicon glyphicon-open"></i></button>
+            <button class="btn btn-primary">Novo</button>
         </div>
     </div>
 </div>
