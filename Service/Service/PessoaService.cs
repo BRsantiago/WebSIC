@@ -36,6 +36,7 @@ namespace Services.Service
 
         public void IncluirPessoa(Pessoa pessoa)
         {
+            this.Validar(pessoa);
             this.IncluirCursoDDA(pessoa);
             PessoaRepository.IncluirNovaPessoa(pessoa);
             PessoaRepository.Salvar();
@@ -100,23 +101,38 @@ namespace Services.Service
 
         private void IncluirCursoDDA(Pessoa pessoa)
         {
-            if (pessoa.Curso == null || (pessoa.Curso != null && !pessoa.Curso.Any(c => c.Curso.PermiteDirigirEmAreasRestritas)) && !String.IsNullOrEmpty(pessoa.CNH))
-            {
-                Curso DDA = CursoRepository.ObterTodos().Where(x => x.PermiteDirigirEmAreasRestritas).SingleOrDefault();
-                pessoa.Curso = new List<CursoSemTurma>();
-                CursoSemTurma cst = new CursoSemTurma() { CursoId = DDA.IdCurso, DataValidade = DateTime.Now, PessoaId = pessoa.IdPessoa };
+            List<Curso> cursosRealizados = this.CursoRepository.ObterCursosRealizadosComValidadePorIdPessoa(pessoa.IdPessoa);
 
-                CursoSemTurmaRepository.Incluir(cst);
+            if (cursosRealizados == null || (cursosRealizados != null && !cursosRealizados.Any(c => c.PermiteDirigirEmAreasRestritas)) && !String.IsNullOrEmpty(pessoa.CNH))
+            {
+                if (cursosRealizados == null)
+                    pessoa.Curso = new List<CursoSemTurma>();
+
+                Curso DDA = CursoRepository.ObterTodos().Where(x => x.PermiteDirigirEmAreasRestritas).SingleOrDefault();
+
+                pessoa.Curso.Add(new CursoSemTurma()
+                {
+                    Curso = DDA,
+                    CursoId = DDA.IdCurso,
+                    DataValidade = DateTime.Now.AddDays(DDA.Validade),
+                    PessoaId = pessoa.IdPessoa,
+                    Criacao = DateTime.Now,
+                    Atualizacao = DateTime.Now,
+                });
             }
         }
 
         private void Validar(Pessoa pessoa)
         {
-            if (pessoa.DataValidadeFoto < DateTime.Now)
+            if (pessoa.DataValidadeFoto.HasValue && pessoa.DataValidadeFoto.Value < DateTime.Now)
                 throw new Exception("A foto desta pessoa tem mais de dois anos, favor capturar uma nova foto.");
 
             if (String.IsNullOrEmpty(pessoa.CPF) || String.IsNullOrWhiteSpace(pessoa.CPF))
                 throw new Exception("Favor informar o cpf.");
+
+            Pessoa pessoaBase = this.PessoaRepository.ObterPorCPF(pessoa.CPF);
+            if (pessoa.CPF == pessoaBase.CPF && pessoa.IdPessoa != pessoaBase.IdPessoa)
+                throw new Exception("Já existe uma pessoa cadastrada com este CPF.");
         }
 
     }

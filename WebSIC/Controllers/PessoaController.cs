@@ -16,6 +16,7 @@ using WebSIC.Models;
 
 namespace WebSIC.Controllers
 {
+    [AllowAnonymous]
     public class PessoaController : Controller
     {
         public IPessoaService PessoaService;
@@ -94,7 +95,7 @@ namespace WebSIC.Controllers
             try
             {
                 PessoaService.Atualizar(model.MapearParaObjetoDominio());
-                //return RedirectToAction("Index");
+
                 var msg = "<script> swal({title: 'Good job!', text: 'Alterações salvas com sucesso !', icon: 'success', button: 'OK!'}) </script>";
 
                 TempData["notification"] = msg;

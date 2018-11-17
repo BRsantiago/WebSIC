@@ -55,10 +55,11 @@ namespace WebSIC.Models
         public SolicitacaoViewModel(Solicitacao solicitacao)
         {
             this.IdSolicitacao = solicitacao.IdSolicitacao;
+            this.IdAeroporto = solicitacao.AeroportoId.Value;
             this.IdEmpresa = solicitacao.Empresa.IdEmpresa;
             this.IdContrato = solicitacao.Contrato.IdContrato;
             this.IdTipoSolicitacao = solicitacao.TipoSolicitacao.IdTipoSolicitacao;
-            this.TiposEmissao = solicitacao.TipoEmissao;
+            //this.IdTipoEmissao = solicitacao.TipoEmissao;
             this.IdArea1 = solicitacao.Area1 != null ? solicitacao.Area1.IdArea : 0;
             this.IdArea2 = solicitacao.Area2 != null ? solicitacao.Area2.IdArea : 0;
             this.IdPessoa = solicitacao.Pessoa.IdPessoa;

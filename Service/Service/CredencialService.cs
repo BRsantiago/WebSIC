@@ -28,7 +28,6 @@ namespace Services.Service
             return this.CredencialRepository.ObterTodosParaImpressao();
         }
 
-
         public Credencial ObterPorId(int idCredencial)
         {
             return this.CredencialRepository.ObterPorId(idCredencial);
@@ -41,8 +40,15 @@ namespace Services.Service
 
         public void Atualizar(Credencial credencial)
         {
+            this.ValidarParaSalvar(credencial);
             this.CredencialRepository.Atualizar(credencial);
             this.CredencialRepository.Salvar();
+        }
+
+        private void ValidarParaSalvar(Credencial credencial)
+        {
+            if (credencial.DataVencimento.HasValue && credencial.DataVencimento < DateTime.Now)
+                throw new Exception("Nao é possível emitir uma credencial com data menor que hoje.");
         }
 
         public List<Credencial> ObterATIVs()

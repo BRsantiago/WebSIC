@@ -16,7 +16,8 @@ using WebSIC.Models;
 
 namespace WebSIC.Controllers
 {
-    public class SolicitacaoController : Controller
+    [AllowAnonymous]
+        public class SolicitacaoController : Controller
     {
 
         public IAeroportoService AeroportoService;
@@ -92,7 +93,7 @@ namespace WebSIC.Controllers
         public ActionResult GetEmpresas(int idAeroporto)
         {
             var empresaItems = EmpresaService.ObterPorAeroporto(idAeroporto)
-                .Select(e => new SelectListItem() { Text = string.Format("{0}(1)", e.NomeFantasia, e.CGC), Value = e.IdEmpresa.ToString() });
+                .Select(e => new SelectListItem() { Text = string.Format("{0} - {1}", e.NomeFantasia, e.CGC), Value = e.IdEmpresa.ToString() });
             return Json(empresaItems, JsonRequestBehavior.AllowGet);
         }
 
@@ -148,6 +149,7 @@ namespace WebSIC.Controllers
             model.TiposSolicitacao = TipoSolicitacaoService.ObterTodos();
             model.Areas = AreaService.Listar().ToList();
             model.Cargo = CargoService.Listar().ToList();
+            model.RamoAtividade = RamoAtividadeService.ObterTodos().ToList();
 
             return PartialView(model);
         }

@@ -73,7 +73,7 @@ namespace Services.Service
             Credencial credencial = this.CredencialRepository.ObterPorEmpresaPessoaTipoEmissao(novaSolicitacao.EmpresaId.Value, novaSolicitacao.PessoaId.Value, novaSolicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);
             Cargo cargo = this.CargoRepository.ObterPorId(novaSolicitacao.CargoId.Value);
 
-            this.ValidarNovaSolicitacao(credencial, novaSolicitacao);
+            this.Validar(credencial, novaSolicitacao);
 
             if (credencial == null)
             {
@@ -118,14 +118,17 @@ namespace Services.Service
             }
         }
 
-        private void ValidarNovaSolicitacao(Credencial credencial, Solicitacao novaSolicitacao)
+        private void Validar(Credencial credencial, Solicitacao solicitacao)
         {
-            if (credencial != null && credencial.Solicitacoes.Any(s => s.TipoSolicitacao.FlgGeraNovaCredencial && s.TipoSolicitacao.IdTipoSolicitacao == novaSolicitacao.TipoSolicitacaoId))
+            if (credencial != null && credencial.Solicitacoes.Any(s => s.TipoSolicitacao.FlgGeraNovaCredencial && s.TipoSolicitacao.IdTipoSolicitacao == solicitacao.TipoSolicitacaoId && s.IdSolicitacao != solicitacao.IdSolicitacao))
                 throw new Exception("Esta solicitação não pode ser concluída pois esta já foi realizada.");
 
-            Contrato contrato = this.ContratoRepository.ObterPorId(novaSolicitacao.ContratoId.Value);
+            Contrato contrato = this.ContratoRepository.ObterPorId(solicitacao.ContratoId.Value);
             if (contrato.FimVigencia < DateTime.Now)
                 throw new Exception("Esta solicitação não pode ser realizada pois o contrato selecionado não está mais vigente.");
+
+            if (solicitacao.IdSolicitacao != 0 && credencial != null && credencial.DataExpedicao.HasValue)
+                throw new Exception("Esta solicitação não pode ser alterada pois a credencial já foi emitida.");
         }
 
         private void CarregarCursosExigidos(Solicitacao solicitacao)
@@ -140,7 +143,7 @@ namespace Services.Service
             if (solicitacao.Area2Id.HasValue)
                 cursosExigidos.AddRange(CursoRepository.ObterPorArea(solicitacao.Area2Id.Value));
 
-            if(solicitacao.RamoAtividadeId.HasValue)
+            if (solicitacao.RamoAtividadeId.HasValue)
                 cursosExigidos.AddRange(CursoRepository.ObterPorRamoAtividade(solicitacao.RamoAtividadeId.Value));
 
             //var cursosId = ConfigurationManager.AppSettings[solicitacao.RamoAtividade.ToString()];
@@ -158,7 +161,7 @@ namespace Services.Service
             {
                 solicitacao.Pessoa.Curso.Add(new CursoSemTurma()
                 {
-                    
+
                     Curso = curso2Add,
                     CursoId = curso2Add.IdCurso,
                     DataValidade = DateTime.Now.AddDays(curso2Add.Validade),
@@ -173,6 +176,11 @@ namespace Services.Service
 
         public void Atualizar(Solicitacao solicitacao)
         {
+            solicitacao.Pessoa = this.PessoaRepository.ObterPorId(solicitacao.PessoaId.Value);
+
+            CarregarCursosExigidos(solicitacao);
+            GerarCredencial(solicitacao);
+
             SolicitacaoRepository.Atualizar(solicitacao);
             SolicitacaoRepository.Salvar();
         }

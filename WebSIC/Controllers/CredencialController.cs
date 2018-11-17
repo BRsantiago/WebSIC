@@ -13,6 +13,7 @@ using Service.Interface;
 
 namespace WebSIC.Controllers
 {
+    [AllowAnonymous]
     public class CredencialController : Controller
     {
 
@@ -315,6 +316,7 @@ namespace WebSIC.Controllers
             if (credencial.DataExpedicao.HasValue)
                 throw new Exception("Esta credencial já foi impressa! Caso seja necessário uma reimpressão, realizar a solicitação no cadastro da pessoa.");
 
+           
         }
     }
 }
