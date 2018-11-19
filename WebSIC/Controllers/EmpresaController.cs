@@ -14,6 +14,7 @@ using WebSIC.Models;
 
 namespace WebSIC.Controllers
 {
+    [AllowAnonymous]
     public class EmpresaController : Controller
     {
         public IEmpresaService EmpresaService;
@@ -201,8 +202,9 @@ namespace WebSIC.Controllers
                 if (model.Logotipo != null && model.Logotipo.ContentLength > 0)
                 {
                     var uploadDir = "/Images/Logo";
-                    var imagePath = Server.MapPath(uploadDir) + "/" + model.Logotipo.FileName;//Path.Combine(Server.MapPath(uploadDir), model.Logotipo.FileName);
-                    var imageUrl = Path.Combine(uploadDir, model.Logotipo.FileName);
+                    var fileName = model.Logotipo.FileName.Split('\\').Last();
+                    var imagePath = Server.MapPath(uploadDir) + "/" + fileName; // model.Logotipo.FileName;Path.Combine(Server.MapPath(uploadDir), model.Logotipo.FileName);
+                    var imageUrl = Path.Combine(uploadDir, fileName);
                     model.Logotipo.SaveAs(imagePath);
                     empresa.ImageUrl = imageUrl;
                 }
@@ -218,19 +220,13 @@ namespace WebSIC.Controllers
             }
             catch (Exception ex)
             {
-
-                var msg = "<script> swal({title: 'Atenção!', text: '" + ex.Message + "', icon: 'warning', button: 'OK!'}) </script>";
+                var msg = "<script> swal({title: 'Atenção!', text: 'Erro ao tentar atualizar a empresa, procure o TI.', icon: 'warning', button: 'OK!'}) </script>";
 
                 TempData["notification"] = msg;
 
                 //return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
 
-                model.Aeroportos = AeroportoService.ObterTodos();
-                model.TiposEmpresa = TipoEmpresaService.ObterTodos();
-                model.Representantes = PessoaService.ObterPorEmpresa(model.IdEmpresa);
-                model.Contratos = ContratoService.ObterPorEmpresa(model.IdEmpresa).ToList();
-
-                return PartialView(model);
+                return RedirectToAction("Edit", new { id = model.IdEmpresa.ToString() });
             }
         }
 
@@ -244,10 +240,17 @@ namespace WebSIC.Controllers
         // POST: Empresa/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int? id)
+        public ActionResult DeleteConfirmed(int? IdEmpresa)
         {
-            EmpresaService.ExcluirEmpresa(id.Value);
-            return RedirectToAction("Index");
+            try
+            {
+                EmpresaService.ExcluirEmpresa(IdEmpresa.Value);
+                return Json(new { success = true, title = "Sucesso", message = "Empresa excluída com sucesso !" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

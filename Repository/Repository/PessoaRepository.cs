@@ -22,10 +22,13 @@ namespace Repository.Repository
             return contexto.Pessoas
                            .Include(p => p.Empresas)
                            .Include(p => p.Solicitacaos.Select(s => s.TipoSolicitacao))
+                           .Include(p => p.Solicitacaos.Select(s => s.Empresa))
+                           .Include(p => p.Solicitacaos.Select(s => s.Contrato))
                            .Include(p => p.Solicitacaos.Select(s => s.Area1))
                            .Include(p => p.Solicitacaos.Select(s => s.Area2))
                            .Include(p => p.Curso.Select(c => c.Curso))
                            .Include(p => p.Turmas.Select(c => c.Curso))
+                           .Include(p => p.Credenciais)
                            .Where(p => p.IdPessoa == idPessoa).SingleOrDefault();
         }
 

@@ -21,12 +21,15 @@ namespace WebSIC.Controllers
     {
         public IPessoaService PessoaService;
         public ICursoSemTurmaService CursoSemTurmaService;
+        public ICursoService CursoService;
 
         public PessoaController(IPessoaService _PessoaService,
-                                    ICursoSemTurmaService _CursoSemTurmaService)
+                                    ICursoSemTurmaService _CursoSemTurmaService,
+                                         ICursoService _CursoService)
         {
             PessoaService = _PessoaService;
             CursoSemTurmaService = _CursoSemTurmaService;
+            CursoService = _CursoService;
         }
 
         // GET: Pessoa
@@ -170,9 +173,10 @@ namespace WebSIC.Controllers
 
         public ActionResult CriarNovoCST(string id)
         {
-            CursoSemTurma cst = new CursoSemTurma();
-            cst.Pessoa = new Pessoa() { IdPessoa = Convert.ToInt32(id) };
-            return View("../CursoSemTurma/Create", cst);
+            CursoSemTurmaViewModel cst = new CursoSemTurmaViewModel();
+            cst.PessoaId = Convert.ToInt32(id);
+            cst.Cursos = this.CursoService.Listar().ToList();
+            return PartialView("../CursoSemTurma/Create", cst);
         }
 
         // POST: Pessoa/Create
@@ -180,11 +184,11 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CriarNovoCST(CursoSemTurma cst)
+        public ActionResult CriarNovoCST(CursoSemTurmaViewModel cst)
         {
             try
             {
-                CursoSemTurmaService.Incluir(cst);
+                CursoSemTurmaService.Incluir(cst.MapearParaObjetoDeDominio());
                 return Json(new { success = true, title = "Sucesso", message = "Curso cadastrado com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -227,17 +231,19 @@ namespace WebSIC.Controllers
 
         public ActionResult EditarCursoSemTurma(string id)
         {
-            CursoSemTurma cst = CursoSemTurmaService.ObterPorId(Convert.ToInt32(id));
-            return PartialView("../CursoSemTurma/Edit", cst);
+            CursoSemTurma cst = this.CursoSemTurmaService.ObterPorId(Convert.ToInt32(id));
+            CursoSemTurmaViewModel model = new CursoSemTurmaViewModel(cst);
+            model.Cursos = this.CursoService.Listar().ToList();
+            return PartialView("../CursoSemTurma/Edit", model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditarCursoSemTurma(CursoSemTurma cst)
+        public ActionResult EditarCursoSemTurma(CursoSemTurmaViewModel cst)
         {
             try
             {
-                CursoSemTurmaService.Atualizar(cst);
+                CursoSemTurmaService.Atualizar(cst.MapearParaObjetoDeDominio());
                 return Json(new { success = true, title = "Sucesso", message = "Registro Atualizado com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

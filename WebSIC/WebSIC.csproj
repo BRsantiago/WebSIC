@@ -313,6 +313,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ContratoViewModel.cs" />
+    <Compile Include="Models\CursoSemTurmaViewModel.cs" />
     <Compile Include="Models\EmpresaViewModel.cs" />
     <Compile Include="Models\PessoaViewModel.cs" />
     <Compile Include="Models\RepresentanteViewModel.cs" />

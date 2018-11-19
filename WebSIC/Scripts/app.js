@@ -388,7 +388,7 @@ function UploadSubmit(idPessoa) {
             data: {
                 base64Image: resp
             },
-            success: function () {
+            success: function (result) {
                 if (result.success) {
                     swal({
                         title: "Good job!",

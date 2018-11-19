@@ -90,8 +90,15 @@ namespace WebSIC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            AeroportoService.Excluir(id);
-            return RedirectToAction("Index");
+            try
+            {
+                AeroportoService.Excluir(id);
+                return Json(new { success = true, title = "Sucesso", message = "Aeroporto excluído com sucesso !" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
