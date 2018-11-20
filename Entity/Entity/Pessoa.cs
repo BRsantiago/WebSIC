@@ -13,7 +13,7 @@ namespace Entity.Entities
     {
         public Pessoa() : base()
         {
-
+            Curso = new List<CursoSemTurma>();
         }
 
         [Key]

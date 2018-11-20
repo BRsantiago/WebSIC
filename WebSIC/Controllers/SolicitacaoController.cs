@@ -355,7 +355,7 @@ namespace WebSIC.Controllers
 
             try
             {
-                SolicitacaoService.Atualizar(solicitacao);
+                SolicitacaoService.AtualizarATIV(solicitacao);
                 check = new ServiceReturn()
                 {
                     success = true,

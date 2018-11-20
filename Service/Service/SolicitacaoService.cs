@@ -213,9 +213,15 @@ namespace Services.Service
             SolicitacaoRepository.Salvar();
         }
 
+        public void AtualizarATIV(Solicitacao solicitacao)
+        {
+            SolicitacaoRepository.Atualizar(solicitacao);
+            SolicitacaoRepository.Salvar();
+        }
+
         public void AprovarATIV(Solicitacao solicitacao)
         {
-            Atualizar(solicitacao);
+            AtualizarATIV(solicitacao);
 
             Credencial credencial = CredencialRepository
                 .ObterPorVeiculo(solicitacao.Veiculo.IdVeiculo, solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);
