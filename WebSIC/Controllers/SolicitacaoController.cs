@@ -123,7 +123,7 @@ namespace WebSIC.Controllers
                 {
                     success = true,
                     title = "Sucesso",
-                    message = "Representante cadastrado com sucesso !"
+                    message = "Solicitação cadastrada com sucesso !"
                 }, JsonRequestBehavior.AllowGet);
 
             }

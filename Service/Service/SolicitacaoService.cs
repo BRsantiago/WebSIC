@@ -61,9 +61,10 @@ namespace Services.Service
             solicitacao.Pessoa = this.PessoaRepository.ObterPorId(solicitacao.PessoaId.Value);
 
             CarregarCursosExigidos(solicitacao);
-            GerarCredencial(solicitacao);
 
             SolicitacaoRepository.IncluirNovaSolicitacao(solicitacao);
+
+            GerarCredencial(solicitacao);
 
             SolicitacaoRepository.Salvar();
         }
@@ -91,6 +92,8 @@ namespace Services.Service
                 credencial.Area1Id = novaSolicitacao.Area1Id;
                 credencial.Area2Id = novaSolicitacao.Area2Id;
                 credencial.CargoId = novaSolicitacao.CargoId;
+                credencial.Solicitacoes = new List<Solicitacao>();
+                credencial.Solicitacoes.Add(novaSolicitacao);
 
                 this.CredencialRepository.IncluirNovaCredencial(credencial);
             }
@@ -116,6 +119,8 @@ namespace Services.Service
 
                 this.CredencialRepository.Atualizar(credencial);
             }
+
+            //novaSolicitacao.Credencial = credencial;
         }
 
         private void Validar(Credencial credencial, Solicitacao solicitacao)
@@ -179,9 +184,10 @@ namespace Services.Service
             solicitacao.Pessoa = this.PessoaRepository.ObterPorId(solicitacao.PessoaId.Value);
 
             CarregarCursosExigidos(solicitacao);
-            GerarCredencial(solicitacao);
 
             SolicitacaoRepository.Atualizar(solicitacao);
+
+            GerarCredencial(solicitacao);
 
             SolicitacaoRepository.Salvar();
         }
@@ -254,8 +260,8 @@ namespace Services.Service
             if (solicitacao.IdSolicitacao != 0 && solicitacao.Credencial != null && solicitacao.Credencial.DataExpedicao.HasValue)
                 throw new Exception("Esta solicitação não pode ser excluída pois a credencial já foi emitida.");
 
-            if(solicitacao.Credencial.Solicitacoes.Count() == 1)
-                this.CredencialRepository.Remover(solicitacao.Credencial);
+            //if(solicitacao.Credencial.Solicitacoes.Count() == 1)
+            //    this.CredencialRepository.Remover(solicitacao.Credencial);
 
 
             this.SolicitacaoRepository.Remover(solicitacao);

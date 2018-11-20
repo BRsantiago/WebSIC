@@ -13,7 +13,7 @@ namespace WebSIC.Models
     {
         public int IdPessoa { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Favor informar o nome completo.")]
         public string NomeCompleto { get; set; }
 
         public string Nome { get; set; }
@@ -39,7 +39,7 @@ namespace WebSIC.Models
         public string UF { get; set; }
         public string CEP { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Favor informar o tel. de emergência.")]
         [Display(Name = "Emergência")]
         public string TelefoneEmergencia { get; set; }
 
