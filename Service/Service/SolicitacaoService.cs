@@ -252,7 +252,7 @@ namespace Services.Service
         public void ExcluirSolicitacao(Solicitacao solicitacao)
         {
             if (solicitacao.IdSolicitacao != 0 && solicitacao.Credencial != null && solicitacao.Credencial.DataExpedicao.HasValue)
-                throw new Exception("Esta solicitação não pode ser alterada pois a credencial já foi emitida.");
+                throw new Exception("Esta solicitação não pode ser excluída pois a credencial já foi emitida.");
 
             this.SolicitacaoRepository.Remover(solicitacao);
             this.SolicitacaoRepository.Salvar();

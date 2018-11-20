@@ -14,4 +14,6 @@ namespace Entity.Enum
         [Display(Name = "Definitiva")]
         Definitiva = 2,
     }
+   
+
 }

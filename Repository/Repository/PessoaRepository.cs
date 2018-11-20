@@ -21,6 +21,7 @@ namespace Repository.Repository
         {
             return contexto.Pessoas
                            .Include(p => p.Empresas)
+                           .Include(p => p.Solicitacaos.Select(s => s.Aeroporto))
                            .Include(p => p.Solicitacaos.Select(s => s.TipoSolicitacao))
                            .Include(p => p.Solicitacaos.Select(s => s.Empresa))
                            .Include(p => p.Solicitacaos.Select(s => s.Contrato))
