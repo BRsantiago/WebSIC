@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace Entity.Enum
 {
-    public enum Impressora
+    public enum TipoEmissao
     {
-        [Display(Name = "Smart 50")]
-        Smart50 = 1,
-
-        [Display(Name = "Smart 51")]
-        Smart51 = 2
+        [Display(Name = "Temporária")]
+        Temporaria = 1,
+        [Display(Name = "Definitiva")]
+        Definitiva = 2,
     }
+   
+
 }

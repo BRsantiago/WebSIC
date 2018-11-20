@@ -18,6 +18,7 @@ namespace Entity.Entities
         [Required]
         public string Descricao { get; set; }
         public string IATA { get; set; }
+        public string Sigla { get; set; }
 
         public IList<Empresa> Empresas { get; set; }
         public IList<Area> Areas { get; set; }

@@ -86,6 +86,7 @@ namespace WebSIC.App_Start
             kernel.Bind<IUsuarioService>().To<UsuarioService>();
             kernel.Bind<IVeiculoService>().To<VeiculoService>();
             kernel.Bind<ICursoSemTurmaService>().To<CursoSemTurmaService>();
+            kernel.Bind<IRamoAtividadeService>().To<RamoAtividadeService>();
 
             kernel.Bind<IAeroportoRepository>().To<AeroportoRepository>();
             kernel.Bind<IApoliceRepository>().To<ApoliceRepository>();
@@ -107,6 +108,7 @@ namespace WebSIC.App_Start
             kernel.Bind<IUsuarioRepository>().To<UsuarioRepository>();
             kernel.Bind<IVeiculoRepository>().To<VeiculoRepository>();
             kernel.Bind<ITipoCrachaRepository>().To<TipoCrachaRepository>();
+            kernel.Bind<IRamoAtividadeRepository>().To<RamoAtividadeRepository>();
         }
     }
 }

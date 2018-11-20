@@ -13,6 +13,7 @@ using Service.Interface;
 
 namespace WebSIC.Controllers
 {
+    [AllowAnonymous]
     public class PortaoAcessoController : Controller
     {
         private IPortaoAcessoService Service;

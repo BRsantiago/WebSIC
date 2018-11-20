@@ -14,10 +14,11 @@
             <label>Impressora</label>
         </div>
         <div class="col-md-5">
-            @*@Html.EnumDropDownListFor(d => d.Impressora, "Selecione", new { @class = "form-control select2" })*@
+            @Html.DropDownList("Printers", ViewBag.Printers as SelectList, "Selecione", new { @class = "form-control select2", @id = "Printer" })
+
         </div>
-        <div class="col-md-2">
-            <input type="button" value="Imprimir" class="btn btn-success" onclick="Imprimir(@Model.IdCredencial)" />
+        <div class="form-group">
+            <input type="button" value="Imprimir" class="btn btn-success" onclick="ImprimirCredencial()" />
         </div>
     </div>
     <div class="form-group">
@@ -40,6 +41,13 @@
 
 
     <script>
+
+        function ImprimirCredencial() {
+            var printer = $("#Printer option:selected").text();
+            var isATIV = true;
+
+            Imprimir(@Model.IdCredencial, printer, isATIV);
+        }
 
         $(document).ready(function () {
 

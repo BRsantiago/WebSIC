@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Cursos</h1>
+        <h1 class="page-header">Turmas</h1>
     </div>
 </div>
 
@@ -34,21 +34,6 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Observacao)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Criacao)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Criador)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Atualizacao)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Atualizador)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Ativo)
-                            </th>
                             <th></th>
                         </tr>
                     </thead>
@@ -71,31 +56,10 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Observacao)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Criacao)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Criador)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Atualizacao)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Atualizador)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Ativo)
-                                </td>
                                 <td class="min">
-                                    @*@Html.ActionLink("Edit", "Edit", new { id = item.IdTurma }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.IdTurma }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.IdTurma })*@
-                                    @*<a class="btn btn-primary" onclick="onShowModal('Edit', @item.IdTurma)">Editar</a> |
-                                        <a class="btn btn-warning" onclick="onShowModal('Details', @item.IdTurma)">Detalhar</a> |
-                                        <a class="btn btn-danger" onclick="onShowModal('Delete', @item.IdTurma)">Excluir</a>*@
-                                    <button class="btn btn-warning details" data-id="@item.IdTurma">Detalhar<i class="glyphicon glyphicon-file"></i></button>
-                                    <button class="btn btn-primary edit" data-id="@item.IdTurma">Editar<i class="glyphicon glyphicon-edit"></i></button>
-                                    <button class="btn btn-danger delete" data-id="@item.IdTurma">Deletar<i class="glyphicon glyphicon-trash"></i></button>
+                                  @*  <button class="btn btn-warning details" data-id="@item.IdTurma">Detalhar<i class="glyphicon glyphicon-file"></i></button>*@
+                                    <button class="btn btn-primary edit" data-id="@item.IdTurma">Editar</button> |
+                                    <button class="btn btn-danger delete" data-id="@item.IdTurma">Excluir</button>
                                 </td>
                             </tr>
                         }
@@ -109,7 +73,7 @@
 <div class="form-group">
     <div class="row">
         <div class="col-md-4">
-            <button class="btn btn-success create">Criar Nova Turma <i class="glyphicon glyphicon-open"></i></button>
+            <button class="btn btn-primary create">Novo</button>
         </div>
     </div>
 </div>

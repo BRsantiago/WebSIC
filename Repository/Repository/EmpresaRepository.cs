@@ -23,11 +23,7 @@ namespace Repository.Repository
         public void Incluir(Empresa empresa)
         {
             contexto.Entry(empresa.TipoEmpresa).State = System.Data.Entity.EntityState.Unchanged;
-
-            foreach (var aeroporto in empresa.Aeroportos)
-            {
-                contexto.Entry(aeroporto).State = System.Data.Entity.EntityState.Unchanged;
-            }
+            contexto.Entry(empresa.Aeroporto).State = System.Data.Entity.EntityState.Unchanged;
 
             contexto.Empresas.Add(empresa);
         }
@@ -36,8 +32,11 @@ namespace Repository.Repository
         {
             return contexto.Empresas
                            .Include(e => e.TipoEmpresa)
-                           .Include(e => e.Aeroportos)
+                           .Include(e => e.Aeroporto)
                            .Include(e => e.Apolices)
+                           .Include(e => e.Credenciais)
+                           .Include(e => e.Solicitacoes)
+                           .Include(e => e.Veiculos)
                            .Where(e => e.IdEmpresa == id)
                            .SingleOrDefault();
         }
@@ -49,7 +48,7 @@ namespace Repository.Repository
 
         public virtual void Atualizar(Empresa empresa)
         {
-            //contexto.Entry(empresa.TipoEmpresa).State = System.Data.Entity.EntityState.Modified;
+            contexto.Entry(empresa.TipoEmpresa).State = System.Data.Entity.EntityState.Detached;
 
             //foreach (var aeroporto in empresa.Aeroportos)
             //{
@@ -77,9 +76,9 @@ namespace Repository.Repository
         public List<Empresa> ObterPorAeroporto(int aeroportoId)
         {
             return contexto.Empresas
-                .AsNoTracking()
-                .Where(e => e.Aeroportos.Any(a => a.IdAeroporto == aeroportoId))
-                .ToList();
+                           .AsNoTracking()
+                           .Where(e => e.Aeroporto.IdAeroporto == aeroportoId)
+                           .ToList();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Service.Interface
         Credencial ObterPorId(int v);
         List<Credencial> ObterTodasCredenciaisAtivasDeFuncionario();
         void Atualizar(Credencial credencial);
-
+        List<Credencial> ObterTodosParaImpressao();
         List<Credencial> ObterATIVs();
     }
 }

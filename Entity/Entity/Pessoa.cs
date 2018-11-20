@@ -1,4 +1,4 @@
-﻿using Entity.DTO;
+﻿using Entity.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,6 +21,7 @@ namespace Entity.Entities
         public int IdPessoa { get; set; }
 
         [Required]
+        [Display(Name = "Nome Completo")]
         public string NomeCompleto { get; set; }
 
         public string Nome { get; set; }

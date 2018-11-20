@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Interface\IAeroportoService.cs" />
     <Compile Include="Interface\IApoliceService.cs" />
+    <Compile Include="Interface\IRamoAtividadeService.cs" />
     <Compile Include="Interface\IAreaService.cs" />
     <Compile Include="Interface\ICargoService.cs" />
     <Compile Include="Interface\IContratoService.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Interface\IUsuarioService.cs" />
     <Compile Include="Interface\IVeiculoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\RamoAtividadeService.cs" />
     <Compile Include="Service\CursoSemTurmaService.cs" />
     <Compile Include="Service\TipoCrachaService.cs" />
     <Compile Include="Service\TipoEmpresaService.cs" />

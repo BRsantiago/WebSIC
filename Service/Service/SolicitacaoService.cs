@@ -22,6 +22,7 @@ namespace Services.Service
         public ITipoSolicitacaoRepository TipoSolicitacaoRepository;
         public ICredencialRepository CredencialRepository;
         public ICargoRepository CargoRepository;
+        public IRamoAtividadeRepository RamoAtividadeRepository;
 
 
         public SolicitacaoService(ISolicitacaoRepository _SolicitacaoRepository,
@@ -33,7 +34,8 @@ namespace Services.Service
                                                         IEmpresaRepository _EmpresaRepository,
                                                             ITipoSolicitacaoRepository _TipoSolicitacaoRepository,
                                                                 ICredencialRepository _CredencialRepository,
-                                                                    ICargoRepository _CargoRepository)
+                                                                    ICargoRepository _CargoRepository,
+                                                                        IRamoAtividadeRepository _RamoAtividadeRepository)
         {
             SolicitacaoRepository = _SolicitacaoRepository;
             CursoRepository = _CursoRepository;
@@ -45,6 +47,7 @@ namespace Services.Service
             TipoSolicitacaoRepository = _TipoSolicitacaoRepository;
             CredencialRepository = _CredencialRepository;
             CargoRepository = _CargoRepository;
+            RamoAtividadeRepository = _RamoAtividadeRepository;
         }
 
         public List<Solicitacao> ObterTodos()
@@ -54,55 +57,59 @@ namespace Services.Service
 
         public void Salvar(Solicitacao solicitacao)
         {
-            //solicitacao.DataAutorizacao = DateTime.Now; //Isto precisar mudar quando pessoas de fora fizerem o cadastro da solicitacao.
+            solicitacao.DataAutorizacao = DateTime.Now; //Isto precisar mudar quando pessoas de fora fizerem o cadastro da solicitacao.
+            solicitacao.Pessoa = this.PessoaRepository.ObterPorId(solicitacao.PessoaId.Value);
+
+            CarregarCursosExigidos(solicitacao);
+            GerarCredencial(solicitacao);
 
             SolicitacaoRepository.IncluirNovaSolicitacao(solicitacao);
 
-            CarregarCursosExigidos(solicitacao);
-            //GerarCredencial(solicitacao);
-
             SolicitacaoRepository.Salvar();
-            //CursoSemTurmaRepository.Salvar();
         }
 
-        private void GerarCredencial(Solicitacao solicitacao)
+        private void GerarCredencial(Solicitacao novaSolicitacao)
         {
-            Credencial credencial = this.CredencialRepository.ObterPorEmpresaPessoaTipoEmissao(solicitacao.Empresa.IdEmpresa, solicitacao.Pessoa.IdPessoa, solicitacao.TipoEmissao == Entity.DTO.TipoEmissao.Temporaria);
-            Pessoa pessoa = this.PessoaRepository.ObterPorId(solicitacao.Pessoa.IdPessoa);
-            Cargo cargo = this.CargoRepository.ObterPorId(solicitacao.Cargo.IdCargo);
+            Credencial credencial = this.CredencialRepository.ObterPorEmpresaPessoaTipoEmissao(novaSolicitacao.EmpresaId.Value, novaSolicitacao.PessoaId.Value, novaSolicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);
+            Cargo cargo = this.CargoRepository.ObterPorId(novaSolicitacao.CargoId.Value);
+
+            this.Validar(credencial, novaSolicitacao);
 
             if (credencial == null)
             {
                 credencial = new Credencial();
 
-                credencial.FlgTemporario = solicitacao.TipoEmissao == Entity.DTO.TipoEmissao.Temporaria;
-                credencial.FlgCVE = solicitacao.Pessoa.FlgCVE;
-                credencial.NomeImpressaoFrenteCracha = pessoa.Nome;
+                credencial.FlgTemporario = novaSolicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria;
+                credencial.FlgCVE = novaSolicitacao.Pessoa.FlgCVE;
+                credencial.NomeImpressaoFrenteCracha = novaSolicitacao.Pessoa.Nome;
                 credencial.DescricaoFuncaoFrenteCracha = cargo.Descricao;
 
-                credencial.Aeroporto = solicitacao.Aeroporto;
-                credencial.Empresa = solicitacao.Empresa;
-                credencial.Pessoa = solicitacao.Pessoa;
-                credencial.Veiculo = solicitacao.Veiculo;
-                credencial.Area1 = solicitacao.Area1;
-                credencial.Area2 = solicitacao.Area2;
-                credencial.Cargo = solicitacao.Cargo;
+                credencial.AeroportoId = novaSolicitacao.AeroportoId;
+                credencial.EmpresaId = novaSolicitacao.EmpresaId;
+                credencial.PessoaId = novaSolicitacao.PessoaId;
+                credencial.VeiculoId = novaSolicitacao.VeiculoId;
+                credencial.Area1Id = novaSolicitacao.Area1Id;
+                credencial.Area2Id = novaSolicitacao.Area2Id;
+                credencial.CargoId = novaSolicitacao.CargoId;
 
                 this.CredencialRepository.IncluirNovaCredencial(credencial);
             }
             else
             {
-                credencial.FlgCVE = solicitacao.Pessoa.FlgCVE;
-                credencial.NomeImpressaoFrenteCracha = pessoa.Nome;
+                credencial.FlgCVE = novaSolicitacao.Pessoa.FlgCVE;
+                credencial.NomeImpressaoFrenteCracha = novaSolicitacao.Pessoa.Nome;
                 credencial.DescricaoFuncaoFrenteCracha = cargo.Descricao;
-                credencial.CategoriaMotorista1 = solicitacao.Pessoa.CategoriaUm.ToString();
-                credencial.CategoriaMotorista2 = solicitacao.Pessoa.CategoriaDois.ToString();
+                credencial.CategoriaMotorista1 = novaSolicitacao.Pessoa.CategoriaUm.ToString();
+                credencial.CategoriaMotorista2 = novaSolicitacao.Pessoa.CategoriaDois.ToString();
 
-                credencial.Area1 = solicitacao.Area1;
-                credencial.Area2 = solicitacao.Area2;
-                credencial.Cargo = solicitacao.Cargo;
+                credencial.Area1Id = novaSolicitacao.Area1Id;
+                credencial.Area2Id = novaSolicitacao.Area2Id;
+                credencial.CargoId = novaSolicitacao.CargoId;
 
-                if (solicitacao.TipoSolicitacao.FlgDesativaCredencial)
+                credencial.DataExpedicao = null;
+                credencial.Solicitacoes.Add(novaSolicitacao);
+
+                if (novaSolicitacao.TipoSolicitacao.FlgDesativaCredencial)
                 {
                     credencial.DataDesativacao = DateTime.Now;
                 }
@@ -111,61 +118,71 @@ namespace Services.Service
             }
         }
 
+        private void Validar(Credencial credencial, Solicitacao solicitacao)
+        {
+            if (solicitacao.IdSolicitacao != 0 && credencial != null && credencial.DataExpedicao.HasValue)
+                throw new Exception("Esta solicitação não pode ser alterada pois a credencial já foi emitida.");
+
+            if (credencial != null && credencial.Solicitacoes.Any(s => s.TipoSolicitacao.FlgGeraNovaCredencial && s.TipoSolicitacao.IdTipoSolicitacao == solicitacao.TipoSolicitacaoId && s.IdSolicitacao != solicitacao.IdSolicitacao))
+                throw new Exception("Esta solicitação não pode ser concluída pois esta já foi realizada.");
+
+            Contrato contrato = this.ContratoRepository.ObterPorId(solicitacao.ContratoId.Value);
+            if (contrato.FimVigencia < DateTime.Now)
+                throw new Exception("Esta solicitação não pode ser realizada pois o contrato selecionado não está mais vigente.");
+        }
+
         private void CarregarCursosExigidos(Solicitacao solicitacao)
         {
-            IList<Curso> cursosRealizadosComValidade = this.CursoRepository.ObterCursosRealizadosComValidadePorIdPessoa(solicitacao.Pessoa.IdPessoa);
+            IList<Curso> cursosRealizadosComValidade = this.CursoRepository.ObterCursosRealizadosComValidadePorIdPessoa(solicitacao.PessoaId.Value);
 
             List<Curso> cursosExigidos = new List<Curso>();
-            List<CursoSemTurma> cursos = new List<CursoSemTurma>();
 
-            if (solicitacao.Area1 != null)
-                cursosExigidos.AddRange(CursoRepository.ObterPorArea(solicitacao.Area1.IdArea));
-                #region
-                //foreach (Curso curso in CursosExigidos.Where(c => CursosRealizadosComValidade.Any(crv => crv.IdCurso != c.IdCurso)))
-                //{
-                //    CursoSemTurma cst = new CursoSemTurma()
-                //    {
-                //        Curso = curso,
-                //        Pessoa = solicitacao.Pessoa,
-                //        DataValidade = DateTime.Now
-                //    };
+            if (solicitacao.Area1Id.HasValue)
+                cursosExigidos.AddRange(CursoRepository.ObterPorArea(solicitacao.Area1Id.Value));
 
-                //    CursoSemTurmaRepository.Incluir(cst);
+            if (solicitacao.Area2Id.HasValue)
+                cursosExigidos.AddRange(CursoRepository.ObterPorArea(solicitacao.Area2Id.Value));
 
-                //    solicitacao.Pessoa.Curso.Add(cst);
-                //}
-                #endregion
-            
-            if (solicitacao.Area2 != null)
-                cursosExigidos.AddRange(CursoRepository.ObterPorArea(solicitacao.Area2.IdArea));
-                #region
-                //foreach (Curso curso in CursosExigidos.Where(c => CursosRealizadosComValidade.Any(crv => crv.IdCurso != c.IdCurso)))
-                //{
-                //    CursoSemTurma cst = new CursoSemTurma()
-                //    {
-                //        Curso = curso,
-                //        Pessoa = solicitacao.Pessoa,
-                //        DataValidade = DateTime.Now
-                //    };
+            if (solicitacao.RamoAtividadeId.HasValue)
+                cursosExigidos.AddRange(CursoRepository.ObterPorRamoAtividade(solicitacao.RamoAtividadeId.Value));
 
-                //    CursoSemTurmaRepository.Incluir(cst);
-
-                //    solicitacao.Pessoa.Curso.Add(cst);
-                //}
-                #endregion
-            
-            var cursosId = ConfigurationManager.AppSettings[solicitacao.RamoAtividade.ToString()];
-            if (!string.IsNullOrEmpty(cursosId))
-                foreach (var cursoId in cursosId.Split(','))
-                    cursosExigidos.Add(CursoRepository.ObterPorId(int.Parse(cursoId)));
+            //var cursosId = ConfigurationManager.AppSettings[solicitacao.RamoAtividade.ToString()];
+            //if (!string.IsNullOrEmpty(cursosId))
+            //{
+            //    foreach (var cursoId in cursosId.Split(','))
+            //    {
+            //        cursosExigidos.Add(CursoRepository.ObterPorId(int.Parse(cursoId)));
+            //    }
+            //}
 
             var cursos2Add = cursosExigidos.Distinct().Except(cursosRealizadosComValidade).ToList();
-            CursoRepository.AtualizarListaPorPessoa(solicitacao.Pessoa.IdPessoa, cursos2Add, solicitacao.Criador);
+
+            foreach (var curso2Add in cursos2Add)
+            {
+                solicitacao.Pessoa.Curso.Add(new CursoSemTurma()
+                {
+
+                    Curso = curso2Add,
+                    CursoId = curso2Add.IdCurso,
+                    DataValidade = DateTime.Now.AddDays(curso2Add.Validade),
+                    PessoaId = solicitacao.PessoaId,
+                    Criacao = DateTime.Now,
+                    Criador = solicitacao.Criador,
+                    Atualizacao = DateTime.Now,
+                    Atualizador = solicitacao.Atualizador
+                });
+            }
         }
 
         public void Atualizar(Solicitacao solicitacao)
         {
+            solicitacao.Pessoa = this.PessoaRepository.ObterPorId(solicitacao.PessoaId.Value);
+
+            CarregarCursosExigidos(solicitacao);
+            GerarCredencial(solicitacao);
+
             SolicitacaoRepository.Atualizar(solicitacao);
+
             SolicitacaoRepository.Salvar();
         }
 
@@ -195,7 +212,7 @@ namespace Services.Service
             Atualizar(solicitacao);
 
             Credencial credencial = CredencialRepository
-                .ObterPorVeiculo(solicitacao.Veiculo.IdVeiculo, solicitacao.TipoEmissao == Entity.DTO.TipoEmissao.Temporaria);
+                .ObterPorVeiculo(solicitacao.Veiculo.IdVeiculo, solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);
 
             if (credencial != null)
             {
@@ -222,7 +239,7 @@ namespace Services.Service
                     Area1 = solicitacao.Area1,
                     Area2 = solicitacao.Area2,
                     PortaoAcesso = solicitacao.PortaoAcesso,
-                    FlgTemporario = solicitacao.TipoEmissao == Entity.DTO.TipoEmissao.Temporaria,
+                    FlgTemporario = solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria,
                     DataVencimento = solicitacao.Veiculo.Apolice.DataValidade
                 };
 
@@ -231,5 +248,20 @@ namespace Services.Service
 
             CredencialRepository.Salvar();
         }
+
+        public void ExcluirSolicitacao(Solicitacao solicitacao)
+        {
+            if (solicitacao.IdSolicitacao != 0 && solicitacao.Credencial != null && solicitacao.Credencial.DataExpedicao.HasValue)
+                throw new Exception("Esta solicitação não pode ser excluída pois a credencial já foi emitida.");
+
+            if(solicitacao.Credencial.Solicitacoes.Count() == 1)
+                this.CredencialRepository.Remover(solicitacao.Credencial);
+
+
+            this.SolicitacaoRepository.Remover(solicitacao);
+            this.SolicitacaoRepository.Salvar();
+        }
+
+
     }
 }

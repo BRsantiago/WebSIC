@@ -26,7 +26,9 @@ namespace Entity.Entities
         [Display(Name = "Data de Expedição")]
         public DateTime? DataExpedicao { get; set; }
 
+        [Display(Name = "Nome")]
         public string NomeImpressaoFrenteCracha { get; set; }
+        [Display(Name = "Função")]
         public string DescricaoFuncaoFrenteCracha { get; set; }
         public string CategoriaMotorista1 { get; set; }
         public string CategoriaMotorista2 { get; set; }

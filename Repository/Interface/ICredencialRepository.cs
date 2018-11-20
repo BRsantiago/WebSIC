@@ -23,5 +23,7 @@ namespace Repository.Interface
 
         Credencial ObterPorVeiculo(int veiculoId, bool isTemp);
         List<Credencial> ObterATIVs();
+
+        List<Credencial> ObterTodosParaImpressao();
     }
 }

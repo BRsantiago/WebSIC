@@ -42,9 +42,24 @@ namespace Service.Service
 
         public void ExcluirEmpresa(int id)
         {
-            Empresa empresa = this.ObterPorId(id);
+            Empresa empresa = this.EmpresaRepository.ObterPorId(id);
+
+            this.ValidarParaExcluir(empresa);
+
             EmpresaRepository.Remover(empresa);
             EmpresaRepository.Salvar();
+        }
+
+        private void ValidarParaExcluir(Empresa empresa)
+        {
+            if (empresa.Credenciais != null && empresa.Credenciais.Any(c => c.DataExpedicao.HasValue))
+                throw new Exception("Esta empresa não pode ser excluída pois já existe credencial emitida.");
+
+            if (empresa.Solicitacoes != null && empresa.Solicitacoes.Any())
+                throw new Exception("Esta empresa não pode ser excluída pois já existe solicitação de credencial.");
+
+            if (empresa.Veiculos != null && empresa.Veiculos.Any())
+                throw new Exception("Esta empresa não pode ser excluída pois existem veículos cadastrados em seu nome.");
         }
 
         public List<Empresa> ObterPorAeroporto(int idAeroporto)

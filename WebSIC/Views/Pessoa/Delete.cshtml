@@ -51,14 +51,14 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-1" })
+                    @Html.LabelFor(model => model.NomeCompleto, htmlAttributes: new { @class = "control-label col-md-1" })
                     <div class="col-md-6">
-                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.NomeCompleto, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
 
-                    @Html.LabelFor(model => model.Apelido, htmlAttributes: new { @class = "control-label col-md-1" })
+                    @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-1" })
                     <div class="col-md-3">
-                        @Html.EditorFor(model => model.Apelido, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                 </div>
 
@@ -211,12 +211,20 @@
                         </div>
                     </div>
 
-                    @Html.LabelFor(model => model.CategoriaCNH, htmlAttributes: new { @class = "control-label col-md-1" })
+                    @*@Html.LabelFor(model => model.CategoriaUm, htmlAttributes: new { @class = "control-label col-md-1" })*@
                     <div class="col-md-1">
                         <div class="checkbox">
-                            @Html.EditorFor(model => model.CategoriaCNH, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.CategoriaUm, new { htmlAttributes = new { @class = "form-control" } })
                         </div>
                     </div>
+
+                    @*@Html.LabelFor(model => model.CategoriaDois, htmlAttributes: new { @class = "control-label col-md-1" })*@
+                    <div class="col-md-1">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.CategoriaDois, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
 
                 </div>
 

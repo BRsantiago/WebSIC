@@ -16,6 +16,7 @@ using WebSIC.Models;
 
 namespace WebSIC.Controllers
 {
+    [AllowAnonymous]
     public class SolicitacaoController : Controller
     {
 
@@ -29,6 +30,7 @@ namespace WebSIC.Controllers
         public IVeiculoService VeiculoService;
         public IPortaoAcessoService PortaoService;
         public ICargoService CargoService;
+        public IRamoAtividadeService RamoAtividadeService;
 
         public SolicitacaoController(IAeroportoService _AeroportoService,
                                      IEmpresaService _EmpresaService,
@@ -39,7 +41,8 @@ namespace WebSIC.Controllers
                                      IAreaService _AreaService,
                                      IVeiculoService _VeiculoService,
                                      IPortaoAcessoService _PortaoService,
-                                     ICargoService _CargoService)
+                                     ICargoService _CargoService,
+                                     IRamoAtividadeService _RamoAtividadeService)
         {
             AeroportoService = _AeroportoService;
             EmpresaService = _EmpresaService;
@@ -51,6 +54,7 @@ namespace WebSIC.Controllers
             VeiculoService = _VeiculoService;
             PortaoService = _PortaoService;
             CargoService = _CargoService;
+            RamoAtividadeService = _RamoAtividadeService;
         }
 
 
@@ -81,6 +85,7 @@ namespace WebSIC.Controllers
             model.TiposSolicitacao = TipoSolicitacaoService.ObterTodos();
             model.Areas = AreaService.Listar().ToList();
             model.Cargo = CargoService.Listar().ToList();
+            model.RamoAtividade = RamoAtividadeService.ObterTodos().ToList();
 
             return PartialView(model);
         }
@@ -88,7 +93,7 @@ namespace WebSIC.Controllers
         public ActionResult GetEmpresas(int idAeroporto)
         {
             var empresaItems = EmpresaService.ObterPorAeroporto(idAeroporto)
-                .Select(e => new SelectListItem() { Text = string.Format("{0}(1)", e.NomeFantasia, e.CGC), Value = e.IdEmpresa.ToString() });
+                .Select(e => new SelectListItem() { Text = string.Format("{0} - {1}", e.NomeFantasia, e.CGC), Value = e.IdEmpresa.ToString() });
             return Json(empresaItems, JsonRequestBehavior.AllowGet);
         }
 
@@ -144,6 +149,7 @@ namespace WebSIC.Controllers
             model.TiposSolicitacao = TipoSolicitacaoService.ObterTodos();
             model.Areas = AreaService.Listar().ToList();
             model.Cargo = CargoService.Listar().ToList();
+            model.RamoAtividade = RamoAtividadeService.ObterTodos().ToList();
 
             return PartialView(model);
         }
@@ -180,27 +186,35 @@ namespace WebSIC.Controllers
         // GET: Solicitacao/Delete/5
         public ActionResult Delete(int? id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //Solicitacao solicitacao = db.Solicitacoes.Find(id);
-            //if (solicitacao == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            return View(new Solicitacao());
+            SolicitacaoViewModel model = new SolicitacaoViewModel(this.SolicitacaoService.ObterPorId(id));
+
+            model.Aeroportos = AeroportoService.ObterTodos();
+            model.Empresas = EmpresaService.ObterTodos();
+            model.Contratos = ContratoService.ObterTodos();
+            model.TiposSolicitacao = TipoSolicitacaoService.ObterTodos();
+            model.Areas = AreaService.Listar().ToList();
+            model.Cargo = CargoService.Listar().ToList();
+            model.RamoAtividade = RamoAtividadeService.ObterTodos().ToList();
+
+            return PartialView(model);
         }
 
         // POST: Solicitacao/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int IdSolicitacao)
         {
-            //Solicitacao solicitacao = db.Solicitacoes.Find(id);
-            //db.Solicitacoes.Remove(solicitacao);
-            //db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Solicitacao solicitacao = SolicitacaoService.ObterPorId(IdSolicitacao);
+                SolicitacaoService.ExcluirSolicitacao(solicitacao);
+
+                return Json(new { success = true, title = "Sucesso", message = "Solicitação excluída com sucesso !" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public ActionResult IndexATIV(int? veiculoId)
@@ -259,7 +273,7 @@ namespace WebSIC.Controllers
         {
             solicitacao.Criador =
                 solicitacao.Atualizador = User.Identity.Name;
-            
+
             solicitacao.Veiculo = new Veiculo() { IdVeiculo = (int.Parse(form["VeiculoId"])) };
             solicitacao.Empresa = new Empresa() { IdEmpresa = (int.Parse(form["EmpresaId"])) };
             solicitacao.Contrato = new Contrato() { IdContrato = int.Parse(form["Contrato.IdContrato"]) };

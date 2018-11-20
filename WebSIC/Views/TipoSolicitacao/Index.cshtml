@@ -21,21 +21,6 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Descricao)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Criacao)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Criador)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Atualizacao)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Atualizador)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Ativo)
-                            </th>
                             <th></th>
                         </tr>
                     </thead>
@@ -46,31 +31,10 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Descricao)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Criacao)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Criador)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Atualizacao)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Atualizador)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Ativo)
-                                </td>
                                 <td class="min">
-                                    @*@Html.ActionLink("Edit", "Edit", new { id = item.IdTipoSolicitacao }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.IdTipoSolicitacao }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.IdTipoSolicitacao })*@
-                                    @*<a class="btn btn-primary" onclick="onShowModal('Edit', @item.IdTipoSolicitacao)">Editar</a> |
-                                        <a class="btn btn-warning" onclick="onShowModal('Details', @item.IdTipoSolicitacao)">Detalhar</a> |
-                                        <a class="btn btn-danger" onclick="onShowModal('Delete', @item.IdTipoSolicitacao)">Excluir</a>*@
-                                    <button class="btn btn-warning details" data-id="@item.IdTipoSolicitacao">Detalhar<i class="glyphicon glyphicon-file"></i></button>
-                                    <button class="btn btn-primary edit" data-id="@item.IdTipoSolicitacao">Editar<i class="glyphicon glyphicon-edit"></i></button>
-                                    <button class="btn btn-danger delete" data-id="@item.IdTipoSolicitacao">Deletar<i class="glyphicon glyphicon-trash"></i></button>
+                                    @*<button class="btn btn-warning details" data-id="@item.IdTipoSolicitacao">Detalhar<i class="glyphicon glyphicon-file"></i></button>*@
+                                    <button class="btn btn-primary edit" data-id="@item.IdTipoSolicitacao">Editar</button> |
+                                    <button class="btn btn-danger delete" data-id="@item.IdTipoSolicitacao">Excluir</button>
                                 </td>
                             </tr>
                         }
@@ -84,8 +48,7 @@
 <div class="form-group">
     <div class="row">
         <div class="col-md-4">
-            @*<a class="btn btn-primary" onclick="onShowModal('Create')">Novo</a>*@
-            <button class="btn btn-success create">Criar Novo Tipo de Solicitação <i class="glyphicon glyphicon-open"></i></button>
+            <button class="btn btn-primary create">Novo</button>
         </div>
     </div>
 </div>

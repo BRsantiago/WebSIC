@@ -115,14 +115,22 @@
             </div>
         </div>
         <div class="modal-footer">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("Delete", "Empresa", FormMethod.Post, new { id = "form-empresa" }))
             {
                 @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.IdEmpresa)
 
-                <div class="form-actions no-color">
-                    <input type="submit" value="Excluir" class="btn btn-danger" />
-                </div>
+                @*<div class="form-actions no-color">
+                        <input type="submit" value="Excluir" class="btn btn-danger" />
+                    </div>*@
             }
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button id="btnSave" class="btn btn-danger" onclick="Salvar('#form-empresa')">Excluir</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

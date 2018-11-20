@@ -17,14 +17,19 @@ namespace Repository.Repository
         {
         }
 
-        public Pessoa ObterPorIdPessoa(int idPessoa)
+        public override Pessoa ObterPorId(int idPessoa)
         {
             return contexto.Pessoas
                            .Include(p => p.Empresas)
+                           .Include(p => p.Solicitacaos.Select(s => s.Aeroporto))
                            .Include(p => p.Solicitacaos.Select(s => s.TipoSolicitacao))
+                           .Include(p => p.Solicitacaos.Select(s => s.Empresa))
+                           .Include(p => p.Solicitacaos.Select(s => s.Contrato))
                            .Include(p => p.Solicitacaos.Select(s => s.Area1))
                            .Include(p => p.Solicitacaos.Select(s => s.Area2))
-                           .Include(p => p.Cursos.Select(c => c.Curso))
+                           .Include(p => p.Curso.Select(c => c.Curso))
+                           .Include(p => p.Turmas.Select(c => c.Curso))
+                           .Include(p => p.Credenciais)
                            .Where(p => p.IdPessoa == idPessoa).SingleOrDefault();
         }
 
@@ -45,20 +50,76 @@ namespace Repository.Repository
             contexto.Pessoas.Add(representante);
         }
 
-        public void AtualizarRepresentante(Pessoa representante)
+        public void AtualizarRepresentante(Pessoa pessoa)
         {
-           if(representante.Empresas != null) representante.Empresas.ToList().ForEach(empresa => contexto.Entry(empresa).State = System.Data.Entity.EntityState.Unchanged);
-           if(representante.Cursos != null) representante.Cursos.ToList().ForEach(curso => contexto.Entry(curso.Curso).State = System.Data.Entity.EntityState.Unchanged);
+            if (pessoa.Empresas != null) pessoa.Empresas.ToList().ForEach(empresa => contexto.Entry(empresa).State = System.Data.Entity.EntityState.Unchanged);
 
-            contexto.Entry(representante).State = System.Data.Entity.EntityState.Modified;
+            if (pessoa.Turmas != null)
+            {
+                pessoa.Turmas.ToList()
+                        .ForEach(t =>
+                        {
+                            if (t.IdTurma == 0)
+                                contexto.Turmas.Add(t);
+                            else
+                                contexto.Entry(t).State = System.Data.Entity.EntityState.Modified;
+                        });
+            }
+
+            if (pessoa.Curso != null)
+            {
+                pessoa.Curso.ToList()
+                        .ForEach(c =>
+                        {
+                            if (c.IdCursoSemTurma == 0)
+                            {
+                                contexto.Entry(c.Curso).State = System.Data.Entity.EntityState.Unchanged;
+                                contexto.CursosSemTurma.Add(c);
+                            }
+                            else
+                            {
+                                contexto.Entry(c.Curso).State = System.Data.Entity.EntityState.Unchanged;
+                                contexto.Entry(c).State = System.Data.Entity.EntityState.Modified;
+                            }
+                        });
+            }
+
+            contexto.Entry(pessoa).State = System.Data.Entity.EntityState.Modified;
         }
 
         public void IncluirNovaPessoa(Pessoa pessoa)
         {
-            pessoa.Cursos.ToList().ForEach(curso => contexto.Entry(curso.Curso).State = System.Data.Entity.EntityState.Detached);
+            if (pessoa.Turmas != null)
+            {
+                pessoa.Turmas.ToList()
+                        .ForEach(t =>
+                        {
+                            if (t.IdTurma == 0)
+                                contexto.Turmas.Add(t);
+                            else
+                                contexto.Entry(t).State = System.Data.Entity.EntityState.Modified;
+                        });
+            }
+
+            if (pessoa.Curso != null)
+            {
+                pessoa.Curso.ToList()
+                        .ForEach(c =>
+                        {
+                            if (c.IdCursoSemTurma == 0)
+                            {
+                                contexto.Entry(c.Curso).State = System.Data.Entity.EntityState.Unchanged;
+                                contexto.CursosSemTurma.Add(c);
+                            }
+                            else
+                            {
+                                contexto.Entry(c.Curso).State = System.Data.Entity.EntityState.Unchanged;
+                                contexto.Entry(c).State = System.Data.Entity.EntityState.Modified;
+                            }
+                        });
+            }
 
             contexto.Pessoas.Add(pessoa);
         }
-
     }
 }

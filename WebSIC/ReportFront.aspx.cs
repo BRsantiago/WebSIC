@@ -63,22 +63,25 @@ namespace WebSIC
             ReportDocument report = new ReportDocument();
             report.Load(Server.MapPath("Credenciais") + "/" + Session["Arquivo"].ToString());
 
-            report.SetParameterValue("Aeropuerto", Session["SiglaAeroporto"].ToString());
+            report.SetParameterValue("Aeroporto", Session["SiglaAeroporto"].ToString());
             report.SetParameterValue("TipoEmissao", Session["TipoEmissao"].ToString());
-            report.SetParameterValue("NivelesAcceso", Session["AreaDeAcesso"].ToString());
-            report.SetParameterValue("Fecha", Session["DataValidade"].ToString());
+            report.SetParameterValue("NivelAcesso", Session["AreaDeAcesso"].ToString());
+            report.SetParameterValue("DataValidade", Session["DataValidade"].ToString());
             
-            report.SetParameterValue("Puerta1", Session["PortaoDeAcesso"].ToString());
-            report.SetParameterValue("CategoriaAcceso", Session["Categoria"].ToString());
-            report.SetParameterValue("NoSerieVehiculo", Session["Placa"].ToString());
+            report.SetParameterValue("Portao", Session["PortaoDeAcesso"].ToString());
+            report.SetParameterValue("Categoria", Session["Categoria"].ToString());
+            report.SetParameterValue("Placa", Session["Placa"].ToString());
+            report.SetParameterValue("Chassi", Session["Chassi"].ToString());
 
             report.SetParameterValue("Empresa", Session["Empresa"].ToString());
             report.SetParameterValue("MarcaModelo", Session["MarcaModelo"].ToString());
-            report.SetParameterValue("Color", Session["Cor"].ToString());
-            report.SetParameterValue("NoRegistro", Session["NoRegistro"].ToString());
-            report.SetParameterValue("NoSerieVehiculo", Session["Chassi"].ToString());
-            report.SetParameterValue("TipoServicio", Session["TipoServico"].ToString());
-            //report.SetParameterValue("DataExpediacao", Session["DataExpediacao"].ToString());
+            report.SetParameterValue("Cor", Session["Cor"].ToString());
+            report.SetParameterValue("Matricula", Session["Matricula"].ToString());
+            report.SetParameterValue("Chassi", Session["Chassi"].ToString());
+            report.SetParameterValue("TipoServico", Session["TipoServico"].ToString());
+            report.SetParameterValue("DataExpedicao", Session["DataExpedicao"].ToString());
+            report.SetParameterValue("AreaManobra", Session["AreaManobra"].ToString());
+            report.SetParameterValue("Logo", Session["Logo"].ToString());
 
             return report;
         }

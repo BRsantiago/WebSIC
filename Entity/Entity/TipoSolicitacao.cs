@@ -22,5 +22,6 @@ namespace Entity.Entities
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
         public bool FlgDesativaCredencial { get; set; }
+        public bool FlgGeraNovaCredencial { get; set; }
     }
 }

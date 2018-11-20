@@ -35,7 +35,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -313,6 +314,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ContratoViewModel.cs" />
+    <Compile Include="Models\CursoSemTurmaViewModel.cs" />
     <Compile Include="Models\EmpresaViewModel.cs" />
     <Compile Include="Models\PessoaViewModel.cs" />
     <Compile Include="Models\RepresentanteViewModel.cs" />
@@ -1134,6 +1136,7 @@
     <Content Include="Content\vendor\metisMenu\metisMenu.min.css" />
     <Content Include="Content\vendor\metisMenu\metisMenu.min.js" />
     <Content Include="CrystalImageHandler.aspx" />
+    <Content Include="favicon.ico" />
     <Content Include="Images\Foto\person.jpg" />
     <Content Include="Images\FundoCracha\CiaAerea.png" />
     <Content Include="Images\FundoCracha\Terceirizadas.png" />
@@ -1455,9 +1458,9 @@
     <Content Include="Content\vendor\font-awesome\scss\_spinning.scss" />
     <Content Include="Content\vendor\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\vendor\font-awesome\scss\_variables.scss" />
-    <Content Include="WebImages\20181025150939test.jpg" />
     <Content Include="WebImages\person.jpg" />
     <Content Include="Credenciais\VinciCardFrontBack.rpt" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

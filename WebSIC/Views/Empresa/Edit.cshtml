@@ -12,6 +12,7 @@
 }
 
 
+
 <div class="form-horizontal">
 
     @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -284,8 +285,6 @@
 <div class="modal" id="modal" role="dialog" data-backdrop="static" data-keyboard="false"></div>
 
 
-
-
 @section Scripts{
     <script src="~/Scripts/index.js"></script>
 
@@ -293,6 +292,30 @@
         $(document).ready(function () {
             Datatables("table-representante");
             Datatables("table-contrato");
+        });
+
+        $('#CGC').mask('00.000.000/0000-00');
+        $('#CEP').mask('00000-000');
+        $('#Telefone').mask('(00) 00000-0000');
+
+
+        $('#modal').on('shown.bs.modal', function (e) {
+            $('#CPF').mask('000.000.000-00');
+            $('#RG').mask('00000000-00');
+            $('#CEP').mask('00000-000');
+            $('#TelefoneResidencial').mask('(00) 00000-0000');
+            $('#TelefoneCelular').mask('(00) 00000-0000');
+            $('#TelefoneEmergencia').mask('(00) 00000-0000');
+            $('#DataNascimento').mask('00/00/0000');
+
+            $("#DataNascimento").datepicker({
+                showOn: "button",
+                format: 'dd/mm/yyyy',
+                todayBtn: "linked",
+                clearBtn: true,
+                autoclose: true,
+                todayHighlight: true
+            });
         });
     </script>
 }

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace WebSIC.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         public IEmpresaService EmpresaService { get; set; }

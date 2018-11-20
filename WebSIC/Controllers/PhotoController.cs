@@ -10,6 +10,7 @@ using WebSIC.Models;
 
 namespace WebSIC.Controllers
 {
+    [AllowAnonymous]
     public class PhotoController : Controller
     {
         IPessoaService PessoaService;

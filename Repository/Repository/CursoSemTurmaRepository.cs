@@ -17,32 +17,20 @@ namespace Repository.Repository
         {
         }
 
-        public override void Incluir(CursoSemTurma obj)
+        public override void Incluir(CursoSemTurma cst)
         {
-            if (!obj.CursoId.HasValue && obj.Curso != null)
-                obj.CursoId = obj.Curso.IdCurso;
-            if (!obj.PessoaId.HasValue && obj.Pessoa != null)
-                obj.PessoaId = obj.Pessoa.IdPessoa;
+            contexto.Entry(cst.Curso).State = System.Data.Entity.EntityState.Unchanged;
+            contexto.Entry(cst.Pessoa).State = System.Data.Entity.EntityState.Unchanged;
 
-            base.Incluir(obj);
+            contexto.CursosSemTurma.Add(cst);
         }
 
-        public void AtualizarEntidade(CursoSemTurma obj)
+        public override void Atualizar(CursoSemTurma cst)
         {
-            if (obj.Pessoa != null && obj.Pessoa.IdPessoa != 0 && contexto.Entry(obj.Pessoa).State == EntityState.Added)
-            {
-                contexto.Entry(obj.Pessoa).State = EntityState.Detached;
-                obj.Pessoa = contexto.Pessoas.Find(obj.PessoaId);
-            }
+            contexto.Entry(cst.Curso).State = System.Data.Entity.EntityState.Detached;
+            contexto.Entry(cst.Pessoa).State = System.Data.Entity.EntityState.Detached;
 
-
-            if (obj.Curso != null && obj.Curso.IdCurso != 0 && contexto.Entry(obj.Curso).State == EntityState.Added)
-            {
-                contexto.Entry(obj.Curso).State = EntityState.Detached;
-                obj.Curso = contexto.Cursos.Find(obj.CursoId);
-            }
-
-            base.Atualizar(obj);
+            base.Atualizar(cst);
         }
 
 

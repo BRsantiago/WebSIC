@@ -54,6 +54,7 @@
     <Compile Include="Interface\IAeroportoRepository.cs" />
     <Compile Include="Interface\IApoliceRepository.cs" />
     <Compile Include="Interface\IAreaRepository.cs" />
+    <Compile Include="Interface\IRamoAtividadeRepository.cs" />
     <Compile Include="Interface\ICargoRepository.cs" />
     <Compile Include="Interface\IContratoRepository.cs" />
     <Compile Include="Interface\ICredencialRepository.cs" />
@@ -188,8 +189,25 @@
     <Compile Include="Migrations\201811092103061_SolicitacaoRamoAtividade.Designer.cs">
       <DependentUpon>201811092103061_SolicitacaoRamoAtividade.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811130025101_AddSiglaToAeroportoEntity.cs" />
+    <Compile Include="Migrations\201811130025101_AddSiglaToAeroportoEntity.Designer.cs">
+      <DependentUpon>201811130025101_AddSiglaToAeroportoEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811131718315_ChangeDataBase.cs" />
+    <Compile Include="Migrations\201811131718315_ChangeDataBase.Designer.cs">
+      <DependentUpon>201811131718315_ChangeDataBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811131746501_ChangeEmpresaEntityTohaveOneAirport.cs" />
+    <Compile Include="Migrations\201811131746501_ChangeEmpresaEntityTohaveOneAirport.Designer.cs">
+      <DependentUpon>201811131746501_ChangeEmpresaEntityTohaveOneAirport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811131832268_ChangeSolicitacaoToCreateLinkToRamoAtividade.cs" />
+    <Compile Include="Migrations\201811131832268_ChangeSolicitacaoToCreateLinkToRamoAtividade.Designer.cs">
+      <DependentUpon>201811131832268_ChangeSolicitacaoToCreateLinkToRamoAtividade.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\RamoAtividadeRepository.cs" />
     <Compile Include="Repository\CursoSemTurmaRepository.cs" />
     <Compile Include="Repository\TipoCrachaRepository.cs" />
     <Compile Include="Repository\TipoEmpresaRepository.cs" />
@@ -312,6 +330,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811092103061_SolicitacaoRamoAtividade.resx">
       <DependentUpon>201811092103061_SolicitacaoRamoAtividade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811130025101_AddSiglaToAeroportoEntity.resx">
+      <DependentUpon>201811130025101_AddSiglaToAeroportoEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811131718315_ChangeDataBase.resx">
+      <DependentUpon>201811131718315_ChangeDataBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811131746501_ChangeEmpresaEntityTohaveOneAirport.resx">
+      <DependentUpon>201811131746501_ChangeEmpresaEntityTohaveOneAirport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811131832268_ChangeSolicitacaoToCreateLinkToRamoAtividade.resx">
+      <DependentUpon>201811131832268_ChangeSolicitacaoToCreateLinkToRamoAtividade.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -14,6 +14,7 @@ using WebSIC.Models;
 
 namespace WebSIC.Controllers
 {
+    [AllowAnonymous]
     public class RepresentanteController : Controller
     {
         public IPessoaService PessoaService;

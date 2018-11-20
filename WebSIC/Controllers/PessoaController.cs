@@ -16,16 +16,20 @@ using WebSIC.Models;
 
 namespace WebSIC.Controllers
 {
+    [AllowAnonymous]
     public class PessoaController : Controller
     {
         public IPessoaService PessoaService;
         public ICursoSemTurmaService CursoSemTurmaService;
+        public ICursoService CursoService;
 
         public PessoaController(IPessoaService _PessoaService,
-                                    ICursoSemTurmaService _CursoSemTurmaService)
+                                    ICursoSemTurmaService _CursoSemTurmaService,
+                                         ICursoService _CursoService)
         {
             PessoaService = _PessoaService;
             CursoSemTurmaService = _CursoSemTurmaService;
+            CursoService = _CursoService;
         }
 
         // GET: Pessoa
@@ -93,8 +97,51 @@ namespace WebSIC.Controllers
         {
             try
             {
-                PessoaService.Atualizar(model.MapearParaObjetoDominio());
-                //return RedirectToAction("Index");
+                Pessoa pessoa = PessoaService.ObterPorId(model.IdPessoa.ToString());
+
+                pessoa.IdPessoa = model.IdPessoa;
+                pessoa.NomeCompleto = model.NomeCompleto;
+                pessoa.Nome = model.Nome;
+                pessoa.DataNascimento = Convert.ToDateTime(model.DataNascimento);
+                pessoa.NomePai = model.NomePai;
+                pessoa.NomeMae = model.NomeMae;
+                pessoa.Endereco = model.Endereco;
+                pessoa.Numero = Convert.ToInt32(model.Numero);
+                pessoa.Complemento = model.Complemento;
+                pessoa.Bairro = model.Bairro;
+                pessoa.Cidade = model.Cidade;
+                pessoa.UF = model.UF;
+                pessoa.CEP = model.CEP;
+                pessoa.TelefoneEmergencia = model.TelefoneEmergencia;
+                pessoa.TelefoneResidencial = model.TelefoneResidencial;
+                pessoa.TelefoneCelular = model.TelefoneCelular;
+                pessoa.RNE = model.RNE;
+                pessoa.CPF = model.CPF;
+                pessoa.RG = model.RG;
+                pessoa.OrgaoExpeditor = model.OrgaoExpeditor;
+                pessoa.UFOrgaoExpeditor = model.UFOrgaoExpeditor;
+                pessoa.Genero = model.Genero;
+                pessoa.Observacao = model.Observacao;
+                pessoa.FlgCVE = model.FlgCVE;
+                pessoa.Email = model.Email;
+                pessoa.CNH = model.CNH;
+                pessoa.CategoriaUm = model.CategoriaUm;
+                pessoa.CategoriaDois = model.CategoriaDois;
+                if (!String.IsNullOrEmpty(model.DataValidadeCNH)) pessoa.DataValidadeCNH = Convert.ToDateTime(model.DataValidadeCNH);
+                pessoa.Usuario = model.Usuario;
+                pessoa.Solicitacaos = model.Solicitacaos;
+                pessoa.Turmas = model.Turmas;
+                pessoa.Credenciais = model.Credenciais;
+                pessoa.Empresas = model.Empresas;
+                pessoa.Curso = model.Curso;
+                pessoa.Atualizacao = DateTime.Now;
+                pessoa.Atualizador = "";
+                pessoa.Ativo = model.Ativo;
+                pessoa.ImageUrl = model.ImageUrl;
+                if (!String.IsNullOrEmpty(model.DataValidadeFoto)) pessoa.DataValidadeFoto = Convert.ToDateTime(model.DataValidadeFoto);
+
+                PessoaService.Atualizar(pessoa);
+
                 var msg = "<script> swal({title: 'Good job!', text: 'Alterações salvas com sucesso !', icon: 'success', button: 'OK!'}) </script>";
 
                 TempData["notification"] = msg;
@@ -104,7 +151,7 @@ namespace WebSIC.Controllers
             catch (Exception ex)
             {
 
-                var msg = "<script> swal({title: 'Atenção!', text: '" + ex.Message + "', icon: 'warning', button: 'OK!'}) </script>";
+                var msg = "<script> swal({title: 'Atenção!', text: '"+ ex.Message.Replace('\'',' ') +"', icon: 'warning', button: 'OK!'}) </script>";
 
                 TempData["notification"] = msg;
 
@@ -169,9 +216,10 @@ namespace WebSIC.Controllers
 
         public ActionResult CriarNovoCST(string id)
         {
-            CursoSemTurma cst = new CursoSemTurma();
-            cst.Pessoa = new Pessoa() { IdPessoa = Convert.ToInt32(id) };
-            return View("../CursoSemTurma/Create", cst);
+            CursoSemTurmaViewModel cst = new CursoSemTurmaViewModel();
+            cst.PessoaId = Convert.ToInt32(id);
+            cst.Cursos = this.CursoService.Listar().ToList();
+            return PartialView("../CursoSemTurma/Create", cst);
         }
 
         // POST: Pessoa/Create
@@ -179,12 +227,12 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CriarNovoCST(CursoSemTurma cst)
+        public ActionResult CriarNovoCST(CursoSemTurmaViewModel cst)
         {
             try
             {
-                CursoSemTurmaService.Incluir(cst);
-                return Json(new { success = true, title = "Sucesso", message = "Representante cadastrado com sucesso !" }, JsonRequestBehavior.AllowGet);
+                CursoSemTurmaService.Incluir(cst.MapearParaObjetoDeDominio());
+                return Json(new { success = true, title = "Sucesso", message = "Curso cadastrado com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -226,17 +274,19 @@ namespace WebSIC.Controllers
 
         public ActionResult EditarCursoSemTurma(string id)
         {
-            CursoSemTurma cst = CursoSemTurmaService.ObterPorId(Convert.ToInt32(id));
-            return PartialView("../CursoSemTurma/Edit", cst);
+            CursoSemTurma cst = this.CursoSemTurmaService.ObterPorId(Convert.ToInt32(id));
+            CursoSemTurmaViewModel model = new CursoSemTurmaViewModel(cst);
+            model.Cursos = this.CursoService.Listar().ToList();
+            return PartialView("../CursoSemTurma/Edit", model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditarCursoSemTurma(CursoSemTurma cst)
+        public ActionResult EditarCursoSemTurma(CursoSemTurmaViewModel cst)
         {
             try
             {
-                CursoSemTurmaService.Atualizar(cst);
+                CursoSemTurmaService.Atualizar(cst.MapearParaObjetoDeDominio());
                 return Json(new { success = true, title = "Sucesso", message = "Registro Atualizado com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

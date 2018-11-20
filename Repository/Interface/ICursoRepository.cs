@@ -9,9 +9,8 @@ namespace Repository.Interface
 {
     public interface ICursoRepository : IRepositoryBase<Curso>
     {
-        IList<Curso> ObterPorArea(int idArea);
-        IList<Curso> ObterCursosRealizadosComValidadePorIdPessoa(int idPessoa);
-
-        void AtualizarListaPorPessoa(int pessoaId, List<Curso> cursos, string username);
+        List<Curso> ObterPorArea(int idArea);
+        List<Curso> ObterCursosRealizadosComValidadePorIdPessoa(int idPessoa);
+        List<Curso> ObterPorRamoAtividade(int value);
     }
 }
