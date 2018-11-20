@@ -18,5 +18,6 @@ namespace Service.Interface
         List<Solicitacao> ObterPorVeiculo(int veiculoId);
         void SalvarATIV(Solicitacao solicitacao);
         void AprovarATIV(Solicitacao solicitacao);
+        void ExcluirSolicitacao(Solicitacao solicitacao);
     }
 }

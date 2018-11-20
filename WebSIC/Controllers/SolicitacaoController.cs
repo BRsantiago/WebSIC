@@ -186,27 +186,35 @@ namespace WebSIC.Controllers
         // GET: Solicitacao/Delete/5
         public ActionResult Delete(int? id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //Solicitacao solicitacao = db.Solicitacoes.Find(id);
-            //if (solicitacao == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            return View(new Solicitacao());
+            SolicitacaoViewModel model = new SolicitacaoViewModel(this.SolicitacaoService.ObterPorId(id));
+
+            model.Aeroportos = AeroportoService.ObterTodos();
+            model.Empresas = EmpresaService.ObterTodos();
+            model.Contratos = ContratoService.ObterTodos();
+            model.TiposSolicitacao = TipoSolicitacaoService.ObterTodos();
+            model.Areas = AreaService.Listar().ToList();
+            model.Cargo = CargoService.Listar().ToList();
+            model.RamoAtividade = RamoAtividadeService.ObterTodos().ToList();
+
+            return PartialView(model);
         }
 
         // POST: Solicitacao/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int IdSolicitacao)
         {
-            //Solicitacao solicitacao = db.Solicitacoes.Find(id);
-            //db.Solicitacoes.Remove(solicitacao);
-            //db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Solicitacao solicitacao = SolicitacaoService.ObterPorId(IdSolicitacao);
+                SolicitacaoService.ExcluirSolicitacao(solicitacao);
+
+                return Json(new { success = true, title = "Sucesso", message = "Solicitação excluída com sucesso !" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public ActionResult IndexATIV(int? veiculoId)

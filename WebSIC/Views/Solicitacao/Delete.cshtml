@@ -1,81 +1,117 @@
-﻿@model Entity.Entities.Solicitacao
+﻿@model WebSIC.Models.SolicitacaoViewModel
 
-@{
-    ViewBag.Title = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Solicitacao</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Schedule.Descricao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Schedule.Descricao)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DataAutorizacao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataAutorizacao)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Criacao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Criacao)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Criador)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Criador)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Atualizacao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Atualizacao)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Atualizador)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Atualizador)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Ativo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Ativo)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+<div class="modal-dialog" style="margin-left: 490px !important;">
+    <div class="modal-content" style="width: 782px !important;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Você deseja realmente excluir esta solicitação ?</h4>
         </div>
-    }
-</div>
+        <div class="modal-body">
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Aeroportos, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-9">
+                        <div class="checkbox">
+                            @Html.DropDownListFor(d => d.IdAeroporto, new SelectList(Model.Aeroportos.OrderBy(o => o.IdAeroporto), "IdAeroporto", "Descricao"), "Selecione", new { @class = "form-control select2" })
+                            @Html.ValidationMessageFor(model => model.IdAeroporto, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Empresas, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-9">
+                        <div class="checkbox">
+                            @Html.DropDownListFor(d => d.IdEmpresa, new SelectList(Model.Empresas.OrderBy(o => o.IdEmpresa), "IdEmpresa", "NomeFantasia"), "Selecione", new { @class = "form-control select2" })
+                            @Html.ValidationMessageFor(model => model.IdEmpresa, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Contratos, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <div class="checkbox">
+                            @Html.DropDownListFor(d => d.IdContrato, new SelectList(Model.Contratos.OrderBy(o => o.IdContrato), "IdContrato", "Numero"), "Selecione", new { @class = "form-control select2" })
+                            @Html.ValidationMessageFor(model => model.IdContrato, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IdTipoEmissao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <div class="checkbox">
+                            @Html.EnumDropDownListFor(d => d.TiposEmissao, "Selecione", new { @class = "form-control select2" })
+                            @Html.ValidationMessageFor(model => model.IdTipoEmissao, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TiposSolicitacao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <div class="checkbox">
+                            @Html.DropDownListFor(d => d.IdTipoSolicitacao, new SelectList(Model.TiposSolicitacao.OrderBy(o => o.IdTipoSolicitacao), "IdTipoSolicitacao", "Descricao"), "Selecione", new { @class = "form-control select2" })
+                            @Html.ValidationMessageFor(model => model.IdTipoSolicitacao, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RamoAtividade, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-9">
+                        <div class="checkbox">
+                            @Html.DropDownListFor(d => d.IdRamoAtividade, new SelectList(Model.RamoAtividade.OrderBy(o => o.IdRamoAtividade), "IdRamoAtividade", "Descricao"), "Selecione", new { @class = "form-control select2" })
+                            @Html.ValidationMessageFor(model => model.RamoAtividade, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Areas, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <div class="checkbox">
+                            @Html.DropDownListFor(d => d.IdArea1, new SelectList(Model.Areas.OrderBy(o => o.IdArea), "IdArea", "Sigla"), "Selecione", new { @class = "form-control select2" })
+                            @Html.ValidationMessageFor(model => model.IdArea1, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @Html.LabelFor(model => model.Areas, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-4">
+                        <div class="checkbox">
+                            @Html.DropDownListFor(d => d.IdArea2, new SelectList(Model.Areas.OrderBy(o => o.IdArea), "IdArea", "Sigla"), "Selecione", new { @class = "form-control select2" })
+                            @Html.ValidationMessageFor(model => model.IdArea2, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Cargo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <div class="checkbox">
+                            @Html.DropDownListFor(d => d.IdCargo, new SelectList(Model.Cargo.OrderBy(o => o.IdCargo), "IdCargo", "Descricao"), "Selecione", new { @class = "form-control select2" })
+                            @Html.ValidationMessageFor(model => model.IdCargo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                @using (Html.BeginForm("Delete", "Solicitacao", FormMethod.Post, new { id = "form-solicitacao" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.IdSolicitacao)
+                }
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button id="btnSave" class="btn btn-danger" onclick="Salvar('#form-solicitacao')">Excluir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

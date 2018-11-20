@@ -120,15 +120,15 @@ namespace Services.Service
 
         private void Validar(Credencial credencial, Solicitacao solicitacao)
         {
+            if (solicitacao.IdSolicitacao != 0 && credencial != null && credencial.DataExpedicao.HasValue)
+                throw new Exception("Esta solicitação não pode ser alterada pois a credencial já foi emitida.");
+
             if (credencial != null && credencial.Solicitacoes.Any(s => s.TipoSolicitacao.FlgGeraNovaCredencial && s.TipoSolicitacao.IdTipoSolicitacao == solicitacao.TipoSolicitacaoId && s.IdSolicitacao != solicitacao.IdSolicitacao))
                 throw new Exception("Esta solicitação não pode ser concluída pois esta já foi realizada.");
 
             Contrato contrato = this.ContratoRepository.ObterPorId(solicitacao.ContratoId.Value);
             if (contrato.FimVigencia < DateTime.Now)
                 throw new Exception("Esta solicitação não pode ser realizada pois o contrato selecionado não está mais vigente.");
-
-            if (solicitacao.IdSolicitacao != 0 && credencial != null && credencial.DataExpedicao.HasValue)
-                throw new Exception("Esta solicitação não pode ser alterada pois a credencial já foi emitida.");
         }
 
         private void CarregarCursosExigidos(Solicitacao solicitacao)
@@ -182,6 +182,7 @@ namespace Services.Service
             GerarCredencial(solicitacao);
 
             SolicitacaoRepository.Atualizar(solicitacao);
+
             SolicitacaoRepository.Salvar();
         }
 
@@ -247,5 +248,16 @@ namespace Services.Service
 
             CredencialRepository.Salvar();
         }
+
+        public void ExcluirSolicitacao(Solicitacao solicitacao)
+        {
+            if (solicitacao.IdSolicitacao != 0 && solicitacao.Credencial != null && solicitacao.Credencial.DataExpedicao.HasValue)
+                throw new Exception("Esta solicitação não pode ser alterada pois a credencial já foi emitida.");
+
+            this.SolicitacaoRepository.Remover(solicitacao);
+            this.SolicitacaoRepository.Salvar();
+        }
+
+
     }
 }

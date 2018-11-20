@@ -66,6 +66,8 @@ namespace Repository.Interface
 
         public override void Atualizar(Solicitacao solicitacao)
         {
+            contexto.Entry(solicitacao).State = System.Data.Entity.EntityState.Modified;
+
             if (solicitacao.Pessoa != null)
             {
                 solicitacao.Pessoa.Turmas.ToList()
@@ -92,7 +94,7 @@ namespace Repository.Interface
                                             }
                                         });
 
-                contexto.Entry(solicitacao.Pessoa).State = System.Data.Entity.EntityState.Modified;
+                contexto.Entry(solicitacao.Pessoa).State = System.Data.Entity.EntityState.Unchanged;
             }
             if (solicitacao.Area1 != null) contexto.Entry(solicitacao.Area1).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Area2 != null) contexto.Entry(solicitacao.Area2).State = System.Data.Entity.EntityState.Unchanged;
@@ -106,7 +108,7 @@ namespace Repository.Interface
             if (solicitacao.Cargo != null) contexto.Entry(solicitacao.Cargo).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Aeroporto != null) contexto.Entry(solicitacao.Aeroporto).State = System.Data.Entity.EntityState.Unchanged;
 
-            contexto.Entry(solicitacao).State = System.Data.Entity.EntityState.Modified;
+
         }
 
         public List<Solicitacao> ObterPorVeiculo(int veiculoId)
@@ -136,6 +138,7 @@ namespace Repository.Interface
                 .Include(s => s.TipoSolicitacao)
                 .Include(s => s.Cargo)
                 .Include(s => s.Pessoa)
+                .Include(s => s.Credencial)
                 .SingleOrDefault(s => s.IdSolicitacao == id);
         }
     }
