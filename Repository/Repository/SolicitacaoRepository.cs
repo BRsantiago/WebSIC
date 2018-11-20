@@ -138,7 +138,7 @@ namespace Repository.Interface
                 .Include(s => s.TipoSolicitacao)
                 .Include(s => s.Cargo)
                 .Include(s => s.Pessoa)
-                .Include(s => s.Credencial)
+                .Include(s => s.Credencial.Solicitacoes)
                 .SingleOrDefault(s => s.IdSolicitacao == id);
         }
     }

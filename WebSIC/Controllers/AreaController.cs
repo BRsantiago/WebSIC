@@ -13,6 +13,7 @@ using Service.Interface;
 
 namespace WebSIC.Controllers
 {
+    [AllowAnonymous]
     public class AreaController : Controller
     {
         private IAreaService Service;

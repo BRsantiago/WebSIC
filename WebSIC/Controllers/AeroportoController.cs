@@ -12,6 +12,7 @@ using Service.Interface;
 
 namespace WebSIC.Controllers
 {
+    [AllowAnonymous]
     public class AeroportoController : Controller
     {
         private IAeroportoService AeroportoService;

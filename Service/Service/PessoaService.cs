@@ -71,7 +71,7 @@ namespace Services.Service
         public void Atualizar(Pessoa pessoa)
         {
             this.Validar(pessoa);
-            IncluirCursoDDA(pessoa);
+            //IncluirCursoDDA(pessoa);
             PessoaRepository.AtualizarRepresentante(pessoa);
             PessoaRepository.Salvar();
         }
@@ -131,7 +131,7 @@ namespace Services.Service
                 throw new Exception("Favor informar o cpf.");
 
             Pessoa pessoaBase = this.PessoaRepository.ObterPorCPF(pessoa.CPF);
-            if (pessoa.CPF == pessoaBase.CPF && pessoa.IdPessoa != pessoaBase.IdPessoa)
+            if (pessoaBase != null && pessoa.CPF == pessoaBase.CPF && pessoa.IdPessoa != pessoaBase.IdPessoa)
                 throw new Exception("Já existe uma pessoa cadastrada com este CPF.");
         }
 

@@ -97,7 +97,50 @@ namespace WebSIC.Controllers
         {
             try
             {
-                PessoaService.Atualizar(model.MapearParaObjetoDominio());
+                Pessoa pessoa = PessoaService.ObterPorId(model.IdPessoa.ToString());
+
+                pessoa.IdPessoa = model.IdPessoa;
+                pessoa.NomeCompleto = model.NomeCompleto;
+                pessoa.Nome = model.Nome;
+                pessoa.DataNascimento = Convert.ToDateTime(model.DataNascimento);
+                pessoa.NomePai = model.NomePai;
+                pessoa.NomeMae = model.NomeMae;
+                pessoa.Endereco = model.Endereco;
+                pessoa.Numero = Convert.ToInt32(model.Numero);
+                pessoa.Complemento = model.Complemento;
+                pessoa.Bairro = model.Bairro;
+                pessoa.Cidade = model.Cidade;
+                pessoa.UF = model.UF;
+                pessoa.CEP = model.CEP;
+                pessoa.TelefoneEmergencia = model.TelefoneEmergencia;
+                pessoa.TelefoneResidencial = model.TelefoneResidencial;
+                pessoa.TelefoneCelular = model.TelefoneCelular;
+                pessoa.RNE = model.RNE;
+                pessoa.CPF = model.CPF;
+                pessoa.RG = model.RG;
+                pessoa.OrgaoExpeditor = model.OrgaoExpeditor;
+                pessoa.UFOrgaoExpeditor = model.UFOrgaoExpeditor;
+                pessoa.Genero = model.Genero;
+                pessoa.Observacao = model.Observacao;
+                pessoa.FlgCVE = model.FlgCVE;
+                pessoa.Email = model.Email;
+                pessoa.CNH = model.CNH;
+                pessoa.CategoriaUm = model.CategoriaUm;
+                pessoa.CategoriaDois = model.CategoriaDois;
+                if (!String.IsNullOrEmpty(model.DataValidadeCNH)) pessoa.DataValidadeCNH = Convert.ToDateTime(model.DataValidadeCNH);
+                pessoa.Usuario = model.Usuario;
+                pessoa.Solicitacaos = model.Solicitacaos;
+                pessoa.Turmas = model.Turmas;
+                pessoa.Credenciais = model.Credenciais;
+                pessoa.Empresas = model.Empresas;
+                pessoa.Curso = model.Curso;
+                pessoa.Atualizacao = DateTime.Now;
+                pessoa.Atualizador = "";
+                pessoa.Ativo = model.Ativo;
+                pessoa.ImageUrl = model.ImageUrl;
+                if (!String.IsNullOrEmpty(model.DataValidadeFoto)) pessoa.DataValidadeFoto = Convert.ToDateTime(model.DataValidadeFoto);
+
+                PessoaService.Atualizar(pessoa);
 
                 var msg = "<script> swal({title: 'Good job!', text: 'Alterações salvas com sucesso !', icon: 'success', button: 'OK!'}) </script>";
 
@@ -108,7 +151,7 @@ namespace WebSIC.Controllers
             catch (Exception ex)
             {
 
-                var msg = "<script> swal({title: 'Atenção!', text: '" + ex.Message + "', icon: 'warning', button: 'OK!'}) </script>";
+                var msg = "<script> swal({title: 'Atenção!', text: '"+ ex.Message.Replace('\'',' ') +"', icon: 'warning', button: 'OK!'}) </script>";
 
                 TempData["notification"] = msg;
 

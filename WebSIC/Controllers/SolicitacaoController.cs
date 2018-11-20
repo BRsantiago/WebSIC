@@ -17,7 +17,7 @@ using WebSIC.Models;
 namespace WebSIC.Controllers
 {
     [AllowAnonymous]
-        public class SolicitacaoController : Controller
+    public class SolicitacaoController : Controller
     {
 
         public IAeroportoService AeroportoService;
@@ -273,7 +273,7 @@ namespace WebSIC.Controllers
         {
             solicitacao.Criador =
                 solicitacao.Atualizador = User.Identity.Name;
-            
+
             solicitacao.Veiculo = new Veiculo() { IdVeiculo = (int.Parse(form["VeiculoId"])) };
             solicitacao.Empresa = new Empresa() { IdEmpresa = (int.Parse(form["EmpresaId"])) };
             solicitacao.Contrato = new Contrato() { IdContrato = int.Parse(form["Contrato.IdContrato"]) };

@@ -13,6 +13,7 @@ using WebSIC.Models;
 
 namespace WebSIC.Controllers
 {
+    [AllowAnonymous]
     public class ContratoController : Controller
     {
         private IContratoService Service;
