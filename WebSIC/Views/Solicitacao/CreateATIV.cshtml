@@ -4,6 +4,21 @@
     Layout = null;
 }
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7/dist/sweetalert2.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@7/dist/sweetalert2.css">
+
+<style type="text/css">
+    .swal2-popup {
+        font-size: 1.6rem !important;
+    }
+
+    .swal2-icon {
+        width: 5em !important;
+        height: 5em !important;
+        border-width: .25em !important;
+    }
+</style>
+
 <div class="modal-dialog" style="margin-left: 490px !important;">
     <div class="modal-content" style="width: 782px !important;">
         <div class="modal-header">
@@ -16,76 +31,76 @@
                 @Html.AntiForgeryToken()
                 @Html.Hidden("VeiculoId", (object)ViewBag.VeiculoId)
 
-            <div class="form-horizontal">
-                <h4>@ViewBag.Veiculo</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-horizontal">
+                    <h4>@ViewBag.Veiculo</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Empresa, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.Empresa.IdEmpresa, ViewBag.Empresas as SelectList, "--Selecione a empresa--", new { @class = "form-control", @readonly = "true", @disabled = "disabled" })
-                        @Html.Hidden("EmpresaId")
-                        @Html.ValidationMessageFor(model => model.Empresa, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Empresa, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.Empresa.IdEmpresa, ViewBag.Empresas as SelectList, "--Selecione a empresa--", new { @class = "form-control", @readonly = "true", @disabled = "disabled" })
+                            @Html.Hidden("EmpresaId")
+                            @Html.ValidationMessageFor(model => model.Empresa, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.Contrato.IdContrato, ViewBag.Contratos as SelectList, "--Selecione o contrato--", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Contrato, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.Contrato.IdContrato, ViewBag.Contratos as SelectList, "--Selecione o contrato--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Contrato, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.TipoSolicitacao, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.TipoSolicitacao.IdTipoSolicitacao, ViewBag.TiposSolicitacao as SelectList, "--Selecione o tipo de solicitação--", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.TipoSolicitacao, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TipoSolicitacao, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.TipoSolicitacao.IdTipoSolicitacao, ViewBag.TiposSolicitacao as SelectList, "--Selecione o tipo de solicitação--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.TipoSolicitacao, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.TipoEmissao, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EnumDropDownListFor(model => model.TipoEmissao, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.TipoEmissao, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TipoEmissao, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EnumDropDownListFor(model => model.TipoEmissao, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.TipoEmissao, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Area1, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.Area1.IdArea, ViewBag.Areas as SelectList, "--Selecione a 1ª área--", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Area1, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Area1, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.Area1.IdArea, ViewBag.Areas as SelectList, "--Selecione a 1ª área--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Area1, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Area2, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.Area2.IdArea, ViewBag.Areas as SelectList, "--Selecione a 2ª área--", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Area2, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Area2, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.Area2.IdArea, ViewBag.Areas as SelectList, "--Selecione a 2ª área--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Area2, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.PortaoAcesso, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.PortaoAcesso.IdPortaoAcesso, ViewBag.Portoes as SelectList, "--Selecione o portão de acesso--", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.PortaoAcesso, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PortaoAcesso, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.PortaoAcesso.IdPortaoAcesso, ViewBag.Portoes as SelectList, "--Selecione o portão de acesso--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.PortaoAcesso, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
 
-            </div>
+                </div>
             }
         </div>
         <div class="modal-footer">
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <button id="btnSave" class="btn btn-primary" onclick="SubmitForm()">Salvar</button>
+                    <button id="btnSave" class="btn btn-primary" onclick="SubmitFormATIV()">Salvar</button>
                     @*@Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })*@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 </div>
@@ -101,23 +116,62 @@
                 $("#EmpresaId").val($("#Empresa_IdEmpresa").val());
             });
 
-            function SubmitForm() {
+            function SubmitFormATIV() {
                 var form = $("form");
                 $.ajax({
                     url: form.attr("action"),
                     method: form.attr("method"),  // post
                     data: form.serialize(),
-                    success: function (result) {
-                        if (result.success) {
+                    success: function (serviceReturn) {
+                        if (serviceReturn.success) {
                             swal({
                                 title: "Good job!",
-                                text: result.message,
-                                icon: "success",
-                                button: "OK!"
+                                text: serviceReturn.message,
+                                type: "success",
+                                showConfirmButton: true,
+                                confirmButtonText: 'Aprovar ATIV!',
+                                showCancelButton: true,
+                                cancelButtonText: 'Agora não!'
                             })
-                                .then((value) => {
-                                    $('#modal').modal('hide');
-                                    window.location = baseURL;
+                                .then((result) => {
+                                    if (result.value) {
+                                        $.ajax({
+                                            url: "Solicitacao/ApproveATIV",
+                                            method: "POST",  // post
+                                            data: { id: serviceReturn.id },
+                                            success: function (resultApprove) {
+                                                if (resultApprove.success) {
+                                                    swal({
+                                                        title: "Good job!",
+                                                        text: resultApprove.message,
+                                                        icon: "success",
+                                                        button: "OK!"
+                                                    })
+                                                        .then((value) => {
+                                                            window.location.reload(true);
+                                                        });
+                                                } else {
+                                                    swal({
+                                                        title: "Atenção!",
+                                                        text: resultApprove.message,
+                                                        icon: "warning",
+                                                        button: "OK!"
+                                                    })
+                                                }
+                                            },
+                                            error: function () {
+                                                swal({
+                                                    title: "Erro de sistema!",
+                                                    text: "Por favor entre em contato com o setor de TI!",
+                                                    icon: "error"
+                                                });
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        $('#modal').modal('hide');
+                                        window.location = baseURL;
+                                    }
                                 });
                         } else {
                             swal({

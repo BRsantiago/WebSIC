@@ -5,23 +5,42 @@ $(function () {
 
     baseURL = window.location;
 
-    $(".details").click(function () {
+    //$(".details").click(function () {
+    //    var id = $(this).attr("data-id");
+    //    //alert(id);
+    //    $("#modal").load(baseURL + "/Details?id=" + id, function () {
+    //        $("#modal").modal();
+    //    })
+    //});
+    //$(".edit").click(function () {
+    //    var id = $(this).attr("data-id");
+    //    //alert(id);
+    //    $("#modal").load(baseURL + "/Edit?id=" + id, function () {
+    //        $("#modal").modal();
+    //    })
+    //});
+    //$(".delete").click(function () {
+    //    var id = $(this).attr("data-id");
+    //    //alert(id);
+    //    $("#modal").load(baseURL + "/Delete?id=" + id, function () {
+    //        $("#modal").modal();
+    //    })
+    //});
+
+    $('#table').on('click', '.details', function () {
         var id = $(this).attr("data-id");
-        //alert(id);
         $("#modal").load(baseURL + "/Details?id=" + id, function () {
             $("#modal").modal();
         })
     });
-    $(".edit").click(function () {
+    $('#table').on('click', '.edit', function () {
         var id = $(this).attr("data-id");
-        //alert(id);
         $("#modal").load(baseURL + "/Edit?id=" + id, function () {
             $("#modal").modal();
         })
     });
-    $(".delete").click(function () {
+    $('#table').on('click', '.delete', function () {
         var id = $(this).attr("data-id");
-        //alert(id);
         $("#modal").load(baseURL + "/Delete?id=" + id, function () {
             $("#modal").modal();
         })
