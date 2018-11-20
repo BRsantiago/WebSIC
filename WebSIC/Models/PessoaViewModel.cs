@@ -150,7 +150,7 @@ namespace WebSIC.Models
             this.Turmas = pessoa.Turmas;
             this.Credenciais = pessoa.Credenciais;
             this.Empresas = pessoa.Empresas;
-            this.Curso = pessoa.Curso;
+            this.Curso = pessoa.Cursos;
             this.Criacao = pessoa.Criacao;
             this.Criador = pessoa.Criador;
             this.Atualizacao = pessoa.Atualizacao;
@@ -197,7 +197,7 @@ namespace WebSIC.Models
             pessoa.Turmas = this.Turmas;
             pessoa.Credenciais = this.Credenciais;
             pessoa.Empresas = this.Empresas;
-            pessoa.Curso = this.Curso;
+            pessoa.Cursos = this.Curso;
             pessoa.Atualizacao = DateTime.Now;
             pessoa.Atualizador = "";
             pessoa.Ativo = this.Ativo;

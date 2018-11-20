@@ -10,7 +10,10 @@ namespace Entity.Entities
 {
     public class Curso : Base
     {
-        public Curso() : base() { }
+        public Curso() : base()
+        {
+            CursosSemTurma = new List<CursoSemTurma>();
+        }
 
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]

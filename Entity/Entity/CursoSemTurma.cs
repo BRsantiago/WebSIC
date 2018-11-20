@@ -24,12 +24,14 @@ namespace Entity.Entities
 
         [Required]
         public Curso Curso { get; set; }
+
         [Column("Curso_IdCurso")]
         [ForeignKey("Curso")]
         public Nullable<int> CursoId { get; set; }
 
         [Required]
         public Pessoa Pessoa { get; set; }
+
         [Column("Pessoa_IdPessoa")]
         [ForeignKey("Pessoa")]
         public Nullable<int> PessoaId { get; set; }

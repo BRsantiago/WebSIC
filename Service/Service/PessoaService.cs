@@ -88,10 +88,10 @@ namespace Services.Service
 
         private void IncluirCursoDDA(Pessoa pessoa)
         {
-            if (pessoa.Curso == null || (pessoa.Curso != null && !pessoa.Curso.Any(c => c.Curso.PermiteDirigirEmAreasRestritas)) && !String.IsNullOrEmpty(pessoa.CNH))
+            if (pessoa.Cursos == null || (pessoa.Cursos != null && !pessoa.Cursos.Any(c => c.Curso.PermiteDirigirEmAreasRestritas)) && !String.IsNullOrEmpty(pessoa.CNH))
             {
                 Curso DDA = CursoRepository.ObterTodos().Where(x => x.PermiteDirigirEmAreasRestritas).SingleOrDefault();
-                pessoa.Curso = new List<CursoSemTurma>();
+                pessoa.Cursos = new List<CursoSemTurma>();
                 CursoSemTurma cst = new CursoSemTurma() { CursoId = DDA.IdCurso, DataValidade = DateTime.Now, PessoaId = pessoa.IdPessoa };
 
                 CursoSemTurmaRepository.Incluir(cst);

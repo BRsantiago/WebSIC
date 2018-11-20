@@ -159,20 +159,8 @@ namespace Services.Service
                 foreach (var cursoId in cursosId.Split(','))
                     cursosExigidos.Add(CursoRepository.ObterPorId(int.Parse(cursoId)));
 
-            var cursos2Add = cursosExigidos.Distinct().Except(cursosRealizadosComValidade);
-            foreach (var curso2Add in cursos2Add)
-                cursos.Add(new CursoSemTurma()
-                {
-                    Curso = curso2Add,
-                    Pessoa = solicitacao.Pessoa,
-                    Criacao = DateTime.Now,
-                    Criador = solicitacao.Criador,
-                    Atualizacao = DateTime.Now,
-                    Atualizador = solicitacao.Atualizador,
-                    DataValidade = DateTime.Now.AddDays(curso2Add.Validade)
-                });
-
-            cursos.ForEach(c => CursoSemTurmaRepository.Incluir(c));
+            var cursos2Add = cursosExigidos.Distinct().Except(cursosRealizadosComValidade).ToList();
+            CursoRepository.AtualizarListaPorPessoa(solicitacao.Pessoa.IdPessoa, cursos2Add, solicitacao.Criador);
         }
 
         public void Atualizar(Solicitacao solicitacao)

@@ -17,12 +17,14 @@ namespace Repository.Repository
         {
         }
 
-        public override void Incluir(CursoSemTurma cst)
+        public override void Incluir(CursoSemTurma obj)
         {
-        //    contexto.Entry(cst.Curso).State = System.Data.Entity.EntityState.Unchanged;
-        //    contexto.Entry(cst.Pessoa).State = System.Data.Entity.EntityState.Unchanged;
+            if (!obj.CursoId.HasValue && obj.Curso != null)
+                obj.CursoId = obj.Curso.IdCurso;
+            if (!obj.PessoaId.HasValue && obj.Pessoa != null)
+                obj.PessoaId = obj.Pessoa.IdPessoa;
 
-            contexto.CursosSemTurma.Add(cst);
+            base.Incluir(obj);
         }
 
         public void AtualizarEntidade(CursoSemTurma obj)

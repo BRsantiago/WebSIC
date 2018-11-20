@@ -11,5 +11,7 @@ namespace Repository.Interface
     {
         IList<Curso> ObterPorArea(int idArea);
         IList<Curso> ObterCursosRealizadosComValidadePorIdPessoa(int idPessoa);
+
+        void AtualizarListaPorPessoa(int pessoaId, List<Curso> cursos, string username);
     }
 }

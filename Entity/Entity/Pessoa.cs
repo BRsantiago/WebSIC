@@ -13,7 +13,7 @@ namespace Entity.Entities
     {
         public Pessoa() : base()
         {
-
+            Cursos = new List<CursoSemTurma>();
         }
 
         [Key]
@@ -96,6 +96,6 @@ namespace Entity.Entities
         public IList<Turma> Turmas { get; set; }
         public IList<Credencial> Credenciais { get; set; }
         public IList<Empresa> Empresas { get; set; }
-        public IList<CursoSemTurma> Curso { get; set; }
+        public IList<CursoSemTurma> Cursos { get; set; }
     }
 }

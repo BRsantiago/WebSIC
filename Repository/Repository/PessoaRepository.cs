@@ -24,7 +24,7 @@ namespace Repository.Repository
                            .Include(p => p.Solicitacaos.Select(s => s.TipoSolicitacao))
                            .Include(p => p.Solicitacaos.Select(s => s.Area1))
                            .Include(p => p.Solicitacaos.Select(s => s.Area2))
-                           .Include(p => p.Curso.Select(c => c.Curso))
+                           .Include(p => p.Cursos.Select(c => c.Curso))
                            .Where(p => p.IdPessoa == idPessoa).SingleOrDefault();
         }
 
@@ -48,16 +48,17 @@ namespace Repository.Repository
         public void AtualizarRepresentante(Pessoa representante)
         {
            if(representante.Empresas != null) representante.Empresas.ToList().ForEach(empresa => contexto.Entry(empresa).State = System.Data.Entity.EntityState.Unchanged);
-           if(representante.Curso != null) representante.Curso.ToList().ForEach(curso => contexto.Entry(curso.Curso).State = System.Data.Entity.EntityState.Unchanged);
+           if(representante.Cursos != null) representante.Cursos.ToList().ForEach(curso => contexto.Entry(curso.Curso).State = System.Data.Entity.EntityState.Unchanged);
 
             contexto.Entry(representante).State = System.Data.Entity.EntityState.Modified;
         }
 
         public void IncluirNovaPessoa(Pessoa pessoa)
         {
-            pessoa.Curso.ToList().ForEach(curso => contexto.Entry(curso.Curso).State = System.Data.Entity.EntityState.Detached);
+            pessoa.Cursos.ToList().ForEach(curso => contexto.Entry(curso.Curso).State = System.Data.Entity.EntityState.Detached);
 
             contexto.Pessoas.Add(pessoa);
         }
+
     }
 }
