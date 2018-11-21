@@ -253,6 +253,8 @@ namespace WebSIC.Controllers
                 veiculo.IdVeiculo;
             ViewBag.Veiculo =
                 string.Format("{0} {1} {2}/{3} {4} {5} {6}", veiculo.Marca, veiculo.Modelo, veiculo.AnoFabricacao, veiculo.AnoModelo, veiculo.Cor, veiculo.Placa, veiculo.Chassi);
+            ViewBag.Aeroportos =
+                new SelectList(AeroportoService.ObterTodos(), "IdAeroporto", "Descricao", (veiculo.Empresa != null && veiculo.Empresa.Aeroporto != null) ? veiculo.Empresa.Aeroporto.IdAeroporto : 0);
             ViewBag.Empresas =
                 new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", veiculo.Empresa.IdEmpresa);
             ViewBag.Contratos =
@@ -276,11 +278,11 @@ namespace WebSIC.Controllers
 
             solicitacao.Veiculo = new Veiculo() { IdVeiculo = (int.Parse(form["VeiculoId"])) };
             solicitacao.Empresa = new Empresa() { IdEmpresa = (int.Parse(form["EmpresaId"])) };
-            solicitacao.Contrato = new Contrato() { IdContrato = int.Parse(form["Contrato.IdContrato"]) };
-            solicitacao.TipoSolicitacao = new TipoSolicitacao() { IdTipoSolicitacao = int.Parse(form["TipoSolicitacao.IdTipoSolicitacao"]) };
-            solicitacao.Area1 = new Entity.Entities.Area() { IdArea = int.Parse(form["Area1.IdArea"]) };
-            solicitacao.Area2 = new Entity.Entities.Area() { IdArea = int.Parse(form["Area2.IdArea"]) };
-            solicitacao.PortaoAcesso = new PortaoAcesso() { IdPortaoAcesso = int.Parse(form["PortaoAcesso.IdPortaoAcesso"]) };
+            solicitacao.Contrato = new Contrato() { IdContrato = int.Parse(form["ContratoId"]) };
+            solicitacao.TipoSolicitacao = new TipoSolicitacao() { IdTipoSolicitacao = int.Parse(form["TipoSolicitacaoId"]) };
+            solicitacao.Area1 = new Entity.Entities.Area() { IdArea = int.Parse(form["Area1Id"]) };
+            solicitacao.Area2 = !string.IsNullOrEmpty(form["Area2Id"]) ? new Entity.Entities.Area() { IdArea = int.Parse(form["Area2Id"]) } : null;
+            solicitacao.PortaoAcesso = new PortaoAcesso() { IdPortaoAcesso = int.Parse(form["PortaoAcessoId"]) };
 
             ServiceReturn check = null;
 

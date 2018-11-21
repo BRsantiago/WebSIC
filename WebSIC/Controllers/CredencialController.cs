@@ -181,7 +181,8 @@ namespace WebSIC.Controllers
 
         public ActionResult IndexATIV()
         {
-            return View(CredencialService.ObterATIVs());
+            var credenciais = CredencialService.ObterATIVs();
+            return View(credenciais);
         }
 
         public void PreviewATIV(string idCredencial)
