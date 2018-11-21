@@ -69,14 +69,30 @@ namespace WebSIC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(PessoaViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
+                //if (ModelState.IsValid)
+                //{
                 Pessoa pessoa = model.MapearParaObjetoDominio();
                 pessoa.ImageUrl = "../../WebImages/person.jpg";
                 PessoaService.IncluirPessoa(pessoa);
                 return RedirectToAction("Edit", new { id = pessoa.IdPessoa });
+                //}
+                //return View(model);
+                //var msg = "<script> swal({title: 'Good job!', text: 'Alterações salvas com sucesso !', icon: 'success', button: 'OK!'}) </script>";
+
+                //TempData["notification"] = msg;
+
+                //return RedirectToAction("Index");
             }
-            return View(model);
+            catch (Exception ex)
+            {
+                var msg = "<script> swal({title: 'Atenção!', text: '" + ex.Message.Replace('\'', ' ') + "', icon: 'warning', button: 'OK!'}) </script>";
+
+                TempData["notification"] = msg;
+
+                return View(model);
+            }
         }
 
         // GET: Pessoa/Edit/5
@@ -151,7 +167,7 @@ namespace WebSIC.Controllers
             catch (Exception ex)
             {
 
-                var msg = "<script> swal({title: 'Atenção!', text: '"+ ex.Message.Replace('\'',' ') +"', icon: 'warning', button: 'OK!'}) </script>";
+                var msg = "<script> swal({title: 'Atenção!', text: '" + ex.Message.Replace('\'', ' ') + "', icon: 'warning', button: 'OK!'}) </script>";
 
                 TempData["notification"] = msg;
 

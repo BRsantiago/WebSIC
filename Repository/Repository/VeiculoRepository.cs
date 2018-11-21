@@ -24,7 +24,11 @@ namespace Repository.Interface
 
         public override Veiculo ObterPorId(int id)
         {
-            return contexto.Veiculos.Include(v => v.Empresa).Include(v => v.Apolice).Include(v => v.Solicitacoes).FirstOrDefault(v => v.IdVeiculo == id);
+            return contexto.Veiculos
+                           .Include(v => v.Empresa.Aeroporto)
+                           .Include(v => v.Apolice)
+                           .Include(v => v.Solicitacoes)
+                           .FirstOrDefault(v => v.IdVeiculo == id);
         }
 
         public override void Incluir(Veiculo obj)
