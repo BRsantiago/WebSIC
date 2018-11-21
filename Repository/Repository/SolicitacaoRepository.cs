@@ -127,18 +127,19 @@ namespace Repository.Interface
         public override Solicitacao ObterPorId(int id)
         {
             return contexto.Solicitacoes
-                .Include(s => s.Veiculo)
-                .Include(s => s.Veiculo.Apolice)
-                .Include(s => s.Empresa)
-                .Include(s => s.Contrato)
-                .Include(s => s.Area1)
-                .Include(s => s.Area2)
-                .Include(s => s.PortaoAcesso)
-                .Include(s => s.TipoSolicitacao)
-                .Include(s => s.Cargo)
-                .Include(s => s.Pessoa)
-                .Include(s => s.Credencial.Solicitacoes)
-                .SingleOrDefault(s => s.IdSolicitacao == id);
+                           .Include(s => s.Aeroporto)
+                           .Include(s => s.Veiculo)
+                           .Include(s => s.Veiculo.Apolice)
+                           .Include(s => s.Empresa)
+                           .Include(s => s.Contrato)
+                           .Include(s => s.Area1)
+                           .Include(s => s.Area2)
+                           .Include(s => s.PortaoAcesso)
+                           .Include(s => s.TipoSolicitacao)
+                           .Include(s => s.Cargo)
+                           .Include(s => s.Pessoa)
+                           .Include(s => s.Credencial.Solicitacoes)
+                           .SingleOrDefault(s => s.IdSolicitacao == id);
         }
     }
 }

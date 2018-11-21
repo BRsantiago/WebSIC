@@ -79,13 +79,13 @@ namespace WebSIC.Controllers
             model.IdPessoa = Convert.ToInt32(id);
 
 
-            model.Aeroportos = AeroportoService.ObterTodos();
+            model.Aeroportos = AeroportoService.ObterTodos().OrderBy(a => a.Descricao).ToList();
             model.Empresas = new List<Empresa>(); //EmpresaService.ObterTodos();
             model.Contratos = new List<Contrato>(); //ContratoService.ObterTodos();
-            model.TiposSolicitacao = TipoSolicitacaoService.ObterTodos();
-            model.Areas = AreaService.Listar().ToList();
-            model.Cargo = CargoService.Listar().ToList();
-            model.RamoAtividade = RamoAtividadeService.ObterTodos().ToList();
+            model.TiposSolicitacao = TipoSolicitacaoService.ObterTodos().OrderBy(a => a.Descricao).ToList();
+            model.Areas = AreaService.Listar().ToList().OrderBy(a => a.Sigla).ToList();
+            model.Cargo = CargoService.Listar().OrderBy(a => a.Descricao).ToList();
+            model.RamoAtividade = RamoAtividadeService.ObterTodos().OrderBy(a => a.Descricao).ToList();
 
             return PartialView(model);
         }
@@ -93,14 +93,16 @@ namespace WebSIC.Controllers
         public ActionResult GetEmpresas(int idAeroporto)
         {
             var empresaItems = EmpresaService.ObterPorAeroporto(idAeroporto)
-                .Select(e => new SelectListItem() { Text = string.Format("{0} - {1}", e.NomeFantasia, e.CGC), Value = e.IdEmpresa.ToString() });
+                                             .Select(e => new SelectListItem() { Text = string.Format("{0} - {1}", e.NomeFantasia, e.CGC), Value = e.IdEmpresa.ToString() })
+                                             .OrderBy(x => x.Text);
             return Json(empresaItems, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetContratos(int idEmpresa)
         {
             var contratoItems = ContratoService.ObterVigentes(idEmpresa)
-                .Select(c => new SelectListItem() { Text = c.Numero, Value = c.IdContrato.ToString() });
+                                               .Select(c => new SelectListItem() { Text = c.Numero, Value = c.IdContrato.ToString() })
+                                               .OrderBy(x => x.Text);
             return Json(contratoItems, JsonRequestBehavior.AllowGet);
         }
 
@@ -253,16 +255,18 @@ namespace WebSIC.Controllers
                 veiculo.IdVeiculo;
             ViewBag.Veiculo =
                 string.Format("{0} {1} {2}/{3} {4} {5} {6}", veiculo.Marca, veiculo.Modelo, veiculo.AnoFabricacao, veiculo.AnoModelo, veiculo.Cor, veiculo.Placa, veiculo.Chassi);
+            ViewBag.Aeroportos =
+                new SelectList(AeroportoService.ObterTodos().OrderBy(a => a.Descricao).ToList(), "IdAeroporto", "Descricao", veiculo.Empresa.AeroportoId);
             ViewBag.Empresas =
-                new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", veiculo.Empresa.IdEmpresa);
+                new SelectList(EmpresaService.ObterTodos().OrderBy(a => a.NomeFantasia).ToList(), "IdEmpresa", "NomeFantasia", veiculo.Empresa.IdEmpresa);
             ViewBag.Contratos =
-                new SelectList(ContratoService.ObterVigentes(veiculo.EmpresaId.Value), "IdContrato", "Numero");
+                new SelectList(ContratoService.ObterVigentes(veiculo.EmpresaId.Value).OrderBy(a => a.Numero).ToList(), "IdContrato", "Numero");
             ViewBag.TiposSolicitacao =
-                new SelectList(TipoSolicitacaoService.Listar(), "IdTipoSolicitacao", "Descricao");
+                new SelectList(TipoSolicitacaoService.Listar().OrderBy(a => a.Descricao).ToList(), "IdTipoSolicitacao", "Descricao");
             ViewBag.Areas =
-                new SelectList(AreaService.Listar(), "IdArea", "Descricao");
+                new SelectList(AreaService.Listar().OrderBy(a => a.Descricao).ToList(), "IdArea", "Descricao");
             ViewBag.Portoes =
-                new SelectList(PortaoService.Listar(), "IdPortaoAcesso", "Descricao");
+                new SelectList(PortaoService.Listar().OrderBy(a => a.Descricao).ToList(), "IdPortaoAcesso", "Descricao");
 
             return View();
         }
@@ -271,21 +275,23 @@ namespace WebSIC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateATIV([Bind(Include = "IdSolicitacao,Criacao,Criador,Atualizacao,Atualizador,Ativo,TipoEmissao")] Solicitacao solicitacao, FormCollection form)
         {
-            solicitacao.Criador =
-                solicitacao.Atualizador = User.Identity.Name;
-
-            solicitacao.Veiculo = new Veiculo() { IdVeiculo = (int.Parse(form["VeiculoId"])) };
-            solicitacao.Empresa = new Empresa() { IdEmpresa = (int.Parse(form["EmpresaId"])) };
-            solicitacao.Contrato = new Contrato() { IdContrato = int.Parse(form["Contrato.IdContrato"]) };
-            solicitacao.TipoSolicitacao = new TipoSolicitacao() { IdTipoSolicitacao = int.Parse(form["TipoSolicitacao.IdTipoSolicitacao"]) };
-            solicitacao.Area1 = new Entity.Entities.Area() { IdArea = int.Parse(form["Area1.IdArea"]) };
-            solicitacao.Area2 = new Entity.Entities.Area() { IdArea = int.Parse(form["Area2.IdArea"]) };
-            solicitacao.PortaoAcesso = new PortaoAcesso() { IdPortaoAcesso = int.Parse(form["PortaoAcesso.IdPortaoAcesso"]) };
-
             ServiceReturn check = null;
 
             try
             {
+                solicitacao.Criador =
+                solicitacao.Atualizador = User.Identity.Name;
+
+                solicitacao.Aeroporto = new Aeroporto() { IdAeroporto = (int.Parse(form["AeroportoId"])) };
+                solicitacao.Veiculo = new Veiculo() { IdVeiculo = (int.Parse(form["VeiculoId"])) };
+                solicitacao.Empresa = new Empresa() { IdEmpresa = (int.Parse(form["EmpresaId"])) };
+                solicitacao.Contrato = new Contrato() { IdContrato = int.Parse(form["Contrato.IdContrato"]) };
+                solicitacao.TipoSolicitacao = new TipoSolicitacao() { IdTipoSolicitacao = int.Parse(form["TipoSolicitacao.IdTipoSolicitacao"]) };
+                if (form["Area1.IdArea"] != null && !String.IsNullOrEmpty(form["Area1.IdArea"])) solicitacao.Area1 = new Entity.Entities.Area() { IdArea = int.Parse(form["Area1.IdArea"]) };
+                if (form["Area2.IdArea"] != null && !String.IsNullOrEmpty(form["Area2.IdArea"])) solicitacao.Area2 = new Entity.Entities.Area() { IdArea = int.Parse(form["Area2.IdArea"]) };
+                if (form["PortaoAcesso.IdPortaoAcesso"] != null) solicitacao.PortaoAcesso = new PortaoAcesso() { IdPortaoAcesso = int.Parse(form["PortaoAcesso.IdPortaoAcesso"]) };
+
+
                 SolicitacaoService.SalvarATIV(solicitacao);
                 check = new ServiceReturn()
                 {

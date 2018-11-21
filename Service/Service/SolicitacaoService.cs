@@ -245,6 +245,7 @@ namespace Services.Service
                 {
                     Criador = solicitacao.Atualizador,
                     Atualizador = solicitacao.Atualizador,
+                    Aeroporto = solicitacao.Aeroporto,
                     Empresa = solicitacao.Veiculo.Empresa,
                     Contrato = solicitacao.Contrato,
                     Veiculo = solicitacao.Veiculo,
@@ -274,6 +275,25 @@ namespace Services.Service
             this.SolicitacaoRepository.Salvar();
         }
 
+        private void ValidarATIV(Solicitacao solicitacao)
+        {
+            if (solicitacao.Area1.IdArea == solicitacao.Area2.IdArea)
+                throw new Exception("Favor selecionar áreas diferentes.");
+
+            if (solicitacao.Area1.IdArea == 0 && solicitacao.Area2.IdArea == 0)
+                throw new Exception("Pelo menos uma área deve ser selecionada.");
+
+            if (solicitacao.PortaoAcesso.IdPortaoAcesso == 0)
+                throw new Exception("Favor informar o portão de acesso.");
+
+            Credencial credencial = this.CredencialRepository.ObterPorVeiculo(solicitacao.Veiculo.IdVeiculo, solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);
+            if (credencial != null && credencial.Solicitacoes.Any(s => s.TipoSolicitacao.FlgGeraNovaCredencial && s.TipoSolicitacao.IdTipoSolicitacao == solicitacao.TipoSolicitacaoId && s.IdSolicitacao != solicitacao.IdSolicitacao))
+                throw new Exception("Esta solicitação não pode ser concluída pois esta já foi realizada.");
+
+            Contrato contrato = this.ContratoRepository.ObterPorId(solicitacao.ContratoId.Value);
+            if (contrato.FimVigencia < DateTime.Now)
+                throw new Exception("Esta solicitação não pode ser realizada pois o contrato selecionado não está mais vigente.");
+        }
 
     }
 }
