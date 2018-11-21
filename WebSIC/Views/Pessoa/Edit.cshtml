@@ -453,5 +453,11 @@
             autoclose: true,
             todayHighlight: true
         });
+
+
+        var date = new Date();
+        var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        $('#DataNascimento').datepicker('setDate', today);
+
     </script>
 }

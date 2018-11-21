@@ -44,7 +44,8 @@ namespace Repository.Repository
         public override Credencial ObterPorId(int id)
         {
             return contexto.Credenciais
-                           .Include(c => c.Pessoa.Curso)
+                           .Include(c => c.Pessoa.Curso.Select(cst => cst.Curso))
+                           .Include(c => c.Pessoa.Turmas.Select(cst => cst.Curso))
                            .Include(c => c.Area1)
                            .Include(c => c.Area2)
                            .Include(c => c.Empresa.TipoEmpresa.TipoCracha)

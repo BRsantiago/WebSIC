@@ -45,9 +45,24 @@
                 </div>
             </div>
         </div>
-
         @section Scripts {
             @Scripts.Render("~/bundles/jqueryval")
+            <script>
+                $("#DataValidade").datepicker({
+                    showOn: "button",
+                    format: 'dd/mm/yyyy',
+                    todayBtn: "linked",
+                    clearBtn: true,
+                    autoclose: true,
+                    todayHighlight: true
+                });
+
+
+                var date = new Date();
+                var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+                $('#DataValidade').datepicker('setDate', today);
+
+            </script>
         }
     </div>
 </div>
