@@ -256,13 +256,13 @@ namespace WebSIC.Controllers
             ViewBag.Empresas =
                 new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", veiculo.Empresa.IdEmpresa);
             ViewBag.Contratos =
-                new SelectList(ContratoService.ObterVigentes(veiculo.EmpresaId.Value), "IdContrato", "Numero");
+                new SelectList(ContratoService.ObterVigentes(veiculo.EmpresaId.Value).OrderBy(c => c.InicioVigencia), "IdContrato", "Numero");
             ViewBag.TiposSolicitacao =
-                new SelectList(TipoSolicitacaoService.Listar(), "IdTipoSolicitacao", "Descricao");
+                new SelectList(TipoSolicitacaoService.Listar().OrderBy(ts => ts.Descricao), "IdTipoSolicitacao", "Descricao");
             ViewBag.Areas =
-                new SelectList(AreaService.Listar(), "IdArea", "Descricao");
+                new SelectList(AreaService.Listar().OrderBy(a => a.Descricao), "IdArea", "Descricao");
             ViewBag.Portoes =
-                new SelectList(PortaoService.Listar(), "IdPortaoAcesso", "Descricao");
+                new SelectList(PortaoService.Listar().OrderBy(p => p.Descricao), "IdPortaoAcesso", "Descricao");
 
             return View();
         }
