@@ -14,6 +14,7 @@ namespace WebSIC.Models
         public int IdPessoa { get; set; }
 
         [Required(ErrorMessage = "Favor informar o nome completo.")]
+        [Display(Name = "Nome Completo")]
         public string NomeCompleto { get; set; }
 
         public string Nome { get; set; }

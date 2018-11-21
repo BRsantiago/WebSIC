@@ -104,7 +104,7 @@ namespace WebSIC.Controllers
                 Session["Matricula"] = credencial.IdCredencial.ToString().PadLeft(8, '0');
                 Session["Emergencia"] = credencial.Pessoa.TelefoneEmergencia;
                 Session["DataExpediacao"] = String.Format("{0:dd/MM/yy}", DateTime.Now);
-                Session["PathLogoBack"] = credencial.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png";
+                Session["PathLogoBack"] = credencial.Pessoa.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png";
                 Session["TipoCredencial"] = "Credencial";
 
                 return Json(new { success = true, title = "Sucesso", message = "" }, JsonRequestBehavior.AllowGet);
@@ -161,7 +161,7 @@ namespace WebSIC.Controllers
                 cryRpt.SetParameterValue("Empresa", credencial.Empresa.NomeFantasia.ToUpper(), "CardBack.rpt");
                 cryRpt.SetParameterValue("Emergencia", credencial.Pessoa.TelefoneEmergencia, "CardBack.rpt");
                 cryRpt.SetParameterValue("Fecha", String.Format("{0:dd/MM/yy}", credencial.DataExpedicao), "CardBack.rpt");
-                cryRpt.SetParameterValue("Logo", Server.MapPath("Images/Logo") + "/" + (credencial.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png"));
+                cryRpt.SetParameterValue("Logo", Server.MapPath("Images/Logo") + "/" + (credencial.Pessoa.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png"));
 
 
                 cryRpt.PrintOptions.PrinterName = printerName;
@@ -309,15 +309,23 @@ namespace WebSIC.Controllers
             if (credencial.Pessoa.Curso.Any(c => c.DataValidade <= DateTime.Now))
                 throw new Exception("Favor verificar o cadastro dessa pessoa, existem cursos vencidos.");
 
-            // if(credencial.Solicitacoes.Any(s => s.RamoAtividade != Entity.Enum.RamoAtividade.RamoAtividade0))
-
             if (credencial.DataDesativacao.HasValue)
                 throw new Exception("Esta credencial está desativada.");
 
             if (credencial.DataExpedicao.HasValue)
                 throw new Exception("Esta credencial já foi impressa! Caso seja necessário uma reimpressão, realizar a solicitação no cadastro da pessoa.");
 
-           
+            if (credencial.DataVencimento > credencial.Contrato.FimVigencia)
+                throw new Exception("Esta credencial não pode ser impressa pois a data de vencimento informada é maior que a vigência do contrato selecionado.");
+
+            credencial.Pessoa.Curso.ToList().ForEach(c =>
+            {
+                if (credencial.DataVencimento > c.DataValidade)
+                    throw new Exception("Esta credencial não pode ser impressa pois a data de vencimento informada é maior que a validade do " + c.Curso.Titulo);
+            });
+
+
+
         }
     }
 }

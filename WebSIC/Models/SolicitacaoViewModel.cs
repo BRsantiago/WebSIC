@@ -81,7 +81,7 @@ namespace WebSIC.Models
             solicitacao.PessoaId = this.IdPessoa;
             solicitacao.CargoId = this.IdCargo;
             solicitacao.RamoAtividadeId = this.IdRamoAtividade;
-            solicitacao.TipoEmissao = (TipoEmissao)Enum.ToObject(typeof(TipoEmissao), IdTipoEmissao); //(IdTipoEmissao == 0);
+            solicitacao.TipoEmissao = this.TiposEmissao;
 
             return solicitacao;
         }
