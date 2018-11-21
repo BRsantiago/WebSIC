@@ -71,7 +71,7 @@ namespace Services.Service
         public void Atualizar(Pessoa pessoa)
         {
             this.Validar(pessoa);
-            //IncluirCursoDDA(pessoa);
+            IncluirCursoDDA(pessoa);
             PessoaRepository.AtualizarRepresentante(pessoa);
             PessoaRepository.Salvar();
         }

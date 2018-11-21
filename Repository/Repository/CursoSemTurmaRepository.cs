@@ -27,8 +27,8 @@ namespace Repository.Repository
 
         public override void Atualizar(CursoSemTurma cst)
         {
-            contexto.Entry(cst.Curso).State = System.Data.Entity.EntityState.Detached;
-            contexto.Entry(cst.Pessoa).State = System.Data.Entity.EntityState.Detached;
+            contexto.Entry(cst.Curso).State = System.Data.Entity.EntityState.Unchanged;
+            contexto.Entry(cst.Pessoa).State = System.Data.Entity.EntityState.Unchanged;
 
             base.Atualizar(cst);
         }

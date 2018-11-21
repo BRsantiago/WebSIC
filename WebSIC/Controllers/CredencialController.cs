@@ -104,7 +104,7 @@ namespace WebSIC.Controllers
                 Session["Matricula"] = credencial.IdCredencial.ToString().PadLeft(8, '0');
                 Session["Emergencia"] = credencial.Pessoa.TelefoneEmergencia;
                 Session["DataExpediacao"] = String.Format("{0:dd/MM/yy}", DateTime.Now);
-                Session["PathLogoBack"] = credencial.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png";
+                Session["PathLogoBack"] = credencial.Pessoa.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png";
                 Session["TipoCredencial"] = "Credencial";
 
                 return Json(new { success = true, title = "Sucesso", message = "" }, JsonRequestBehavior.AllowGet);
@@ -161,7 +161,7 @@ namespace WebSIC.Controllers
                 cryRpt.SetParameterValue("Empresa", credencial.Empresa.NomeFantasia.ToUpper(), "CardBack.rpt");
                 cryRpt.SetParameterValue("Emergencia", credencial.Pessoa.TelefoneEmergencia, "CardBack.rpt");
                 cryRpt.SetParameterValue("Fecha", String.Format("{0:dd/MM/yy}", credencial.DataExpedicao), "CardBack.rpt");
-                cryRpt.SetParameterValue("Logo", Server.MapPath("Images/Logo") + "/" + (credencial.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png"));
+                cryRpt.SetParameterValue("Logo", Server.MapPath("Images/Logo") + "/" + (credencial.Pessoa.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png"));
 
 
                 cryRpt.PrintOptions.PrinterName = printerName;
