@@ -151,6 +151,7 @@ namespace Services.Service
             if (solicitacao.RamoAtividadeId.HasValue)
                 cursosExigidos.AddRange(CursoRepository.ObterPorRamoAtividade(solicitacao.RamoAtividadeId.Value));
 
+            #region
             //var cursosId = ConfigurationManager.AppSettings[solicitacao.RamoAtividade.ToString()];
             //if (!string.IsNullOrEmpty(cursosId))
             //{
@@ -159,6 +160,7 @@ namespace Services.Service
             //        cursosExigidos.Add(CursoRepository.ObterPorId(int.Parse(cursoId)));
             //    }
             //}
+            #endregion
 
             var cursos2Add = cursosExigidos.Distinct().Except(cursosRealizadosComValidade).ToList();
 
@@ -221,7 +223,7 @@ namespace Services.Service
 
         public void AprovarATIV(Solicitacao solicitacao)
         {
-            AtualizarATIV(solicitacao);
+            SolicitacaoRepository.Atualizar(solicitacao);
 
             Credencial credencial = CredencialRepository
                 .ObterPorVeiculo(solicitacao.Veiculo.IdVeiculo, solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);
@@ -232,10 +234,34 @@ namespace Services.Service
                 credencial.Atualizacao = DateTime.Now;
                 credencial.DataVencimento = solicitacao.Veiculo.Apolice.DataValidade;
 
-                credencial.Contrato = solicitacao.Contrato;
-                credencial.Area1 = solicitacao.Area1;
-                credencial.Area2 = solicitacao.Area2;
-                credencial.PortaoAcesso = solicitacao.PortaoAcesso;
+                #region
+                credencial.AeroportoId = solicitacao.AeroportoId;
+                credencial.EmpresaId = solicitacao.EmpresaId;
+                credencial.ContratoId = solicitacao.ContratoId;
+                credencial.VeiculoId = solicitacao.VeiculoId;
+                credencial.Area1Id = solicitacao.Area1Id;
+                credencial.Area2Id = solicitacao.Area2Id;
+                credencial.PortaoAcessoId = solicitacao.PortaoAcessoId;
+                #endregion
+
+                #region
+                //credencial.Aeroporto = solicitacao.Aeroporto;
+                //credencial.Empresa = solicitacao.Empresa;
+                //credencial.Contrato = solicitacao.Contrato;
+                //credencial.Veiculo = solicitacao.Veiculo;
+                //credencial.Area1 = solicitacao.Area1;
+                //credencial.Area2 = solicitacao.Area2;
+                //credencial.PortaoAcesso = solicitacao.PortaoAcesso;
+                #endregion
+
+                if (solicitacao.TipoSolicitacao.FlgDesativaCredencial)
+                    credencial.DataDesativacao = DateTime.Now;
+
+                #region
+                //if (credencial.Solicitacoes == null)
+                //    credencial.Solicitacoes = new List<Solicitacao>();
+                //credencial.Solicitacoes.Add(solicitacao);
+                #endregion
 
                 CredencialRepository.Atualizar(credencial);
             }
@@ -256,10 +282,15 @@ namespace Services.Service
                     DataVencimento = solicitacao.Veiculo.Apolice.DataValidade
                 };
 
+                #region
+                //newCredencial.Solicitacoes = new List<Solicitacao>();
+                //newCredencial.Solicitacoes.Add(solicitacao);
+                #endregion
+
                 CredencialRepository.IncluirNovaCredencial(newCredencial);
             }
 
-            CredencialRepository.Salvar();
+            SolicitacaoRepository.Salvar();
         }
 
         public void ExcluirSolicitacao(Solicitacao solicitacao)
