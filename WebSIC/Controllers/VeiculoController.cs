@@ -76,16 +76,20 @@ namespace WebSIC.Controllers
                 veiculo.Criador =
                     veiculo.Atualizador = User.Identity.Name;
 
-                veiculo.Empresa = EmpresaService.ObterPorId(veiculo.EmpresaId.Value);
-                veiculo.Apolice = (veiculo.Empresa.Apolices != null && veiculo.Empresa.Apolices.Any(a => a.IdApolice == veiculo.ApoliceId.Value))
-                    ? veiculo.Empresa.Apolices.FirstOrDefault(ap => ap.IdApolice == veiculo.ApoliceId.Value)
-                    : ApoliceService.Obter(veiculo.ApoliceId.Value);
+                #region
+                //veiculo.Empresa = EmpresaService.ObterPorId(veiculo.EmpresaId.Value);
+                //veiculo.Apolice = (veiculo.Empresa.Apolices != null && veiculo.Empresa.Apolices.Any(a => a.IdApolice == veiculo.ApoliceId.Value))
+                //    ? veiculo.Empresa.Apolices.FirstOrDefault(ap => ap.IdApolice == veiculo.ApoliceId.Value)
+                //    : ApoliceService.Obter(veiculo.ApoliceId.Value);
+                #endregion
 
                 var check = Service.Incluir(veiculo);
-
                 return Json(check, JsonRequestBehavior.AllowGet);
+
+                #region
                 //if (check.success)
                 //    return RedirectToAction("Edit", new { id = veiculo.IdVeiculo });
+                #endregion
             }
 
             return PartialView(veiculo);
@@ -95,18 +99,17 @@ namespace WebSIC.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             Veiculo veiculo = Service.Obter(id.Value);
             ViewBag.Empresas = new SelectList(
-                EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", veiculo.Empresa.IdEmpresa);
+                EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", veiculo.Empresa?.IdEmpresa);
             ViewBag.Apolices = new SelectList(
-                ApoliceService.ObterValidas(veiculo.Empresa.IdEmpresa, false), "IdApolice", "Numero", veiculo.Apolice.IdApolice);
+                ApoliceService.ObterValidas(veiculo.Empresa.IdEmpresa, false), "IdApolice", "Numero", veiculo.Apolice?.IdApolice);
+
             if (veiculo == null)
-            {
                 return HttpNotFound();
-            }
+
             return PartialView(veiculo);
         }
 
@@ -122,13 +125,14 @@ namespace WebSIC.Controllers
                 veiculo.Atualizacao = DateTime.Now;
                 veiculo.Atualizador = User.Identity.Name;
 
-                veiculo.Empresa = EmpresaService.ObterPorId(veiculo.EmpresaId.Value);
-                veiculo.Apolice = (veiculo.Empresa.Apolices != null && veiculo.Empresa.Apolices.Any(a => a.IdApolice == veiculo.ApoliceId.Value))
-                    ? veiculo.Empresa.Apolices.FirstOrDefault(ap => ap.IdApolice == veiculo.ApoliceId.Value)
-                    : ApoliceService.Obter(veiculo.ApoliceId.Value);
+                #region
+                //veiculo.Empresa = EmpresaService.ObterPorId(veiculo.EmpresaId.Value);
+                //veiculo.Apolice = (veiculo.Empresa.Apolices != null && veiculo.Empresa.Apolices.Any(a => a.IdApolice == veiculo.ApoliceId.Value))
+                //    ? veiculo.Empresa.Apolices.FirstOrDefault(ap => ap.IdApolice == veiculo.ApoliceId.Value)
+                //    : ApoliceService.Obter(veiculo.ApoliceId.Value);
+                #endregion
 
                 var check = Service.Atualizar(veiculo);
-
                 return Json(check, JsonRequestBehavior.AllowGet);
             }
             return PartialView(veiculo);

@@ -76,7 +76,7 @@
                         @Html.LabelFor(model => model.TipoEmissao, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @*@Html.EnumDropDownListFor(model => model.TipoEmissao, "--Selecione o tipo de emissão--", htmlAttributes: new { @class = "form-control" })*@
-                            @Html.DropDownListFor(model => model.TipoEmissao, EnumHelper.GetSelectList(typeof(Entity.Enum.TipoEmissao)), "--Selecione o tipo de emissão--", htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.TipoEmissao, ViewBag.TiposEmissao as IList<SelectListItem>, "--Selecione o tipo de emissão--", htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.TipoEmissao, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -89,13 +89,13 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    @*<div class="form-group">
                         @Html.LabelFor(model => model.Area2, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.DropDownListFor(model => model.Area2Id, ViewBag.Areas as SelectList, "--Selecione a 2ª área--", new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Area2, "", new { @class = "text-danger" })
                         </div>
-                    </div>
+                    </div>*@
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.PortaoAcesso, htmlAttributes: new { @class = "control-label col-md-2" })

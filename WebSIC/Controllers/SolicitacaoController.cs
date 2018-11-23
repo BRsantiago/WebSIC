@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using System.Web.Script.Serialization;
 using CrystalDecisions.CrystalReports.Engine;
 using Entity.DTO;
@@ -248,65 +249,75 @@ namespace WebSIC.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             Veiculo veiculo = VeiculoService.Obter(veiculoId.Value);
+            var solicitacoes = SolicitacaoService.ObterPorVeiculo(veiculoId.Value);
+            var solicitacao = solicitacoes.LastOrDefault(s => s.DataAutorizacao.HasValue || s.Ativo);
 
             ViewBag.VeiculoId =
                 veiculo.IdVeiculo;
+            ViewBag.TiposEmissao = solicitacao != null 
+                ? EnumHelper.GetSelectList(typeof(Entity.Enum.TipoEmissao), solicitacao.TipoEmissao)
+                : EnumHelper.GetSelectList(typeof(Entity.Enum.TipoEmissao));
+
             ViewBag.Veiculo =
                 string.Format("{0} {1} {2}/{3} {4} {5} {6}", veiculo.Marca, veiculo.Modelo, veiculo.AnoFabricacao, veiculo.AnoModelo, veiculo.Cor, veiculo.Placa, veiculo.Chassi);
             ViewBag.Aeroportos =
-                new SelectList(AeroportoService.ObterTodos(), "IdAeroporto", "Descricao", (veiculo.Empresa != null && veiculo.Empresa.Aeroporto != null) ? veiculo.Empresa.Aeroporto.IdAeroporto : 0);
+                new SelectList(AeroportoService.ObterTodos(), "IdAeroporto", "Descricao", solicitacao?.AeroportoId ?? veiculo.Empresa?.AeroportoId); //(veiculo.Empresa != null && veiculo.Empresa.Aeroporto != null) ? veiculo.Empresa.Aeroporto.IdAeroporto : 0
             ViewBag.Empresas =
-                new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", veiculo.Empresa.IdEmpresa);
+                new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", solicitacao?.EmpresaId ?? veiculo.EmpresaId); //veiculo.Empresa.IdEmpresa
             ViewBag.Contratos =
-                new SelectList(ContratoService.ObterVigentes(veiculo.EmpresaId.Value).OrderBy(c => c.InicioVigencia), "IdContrato", "Numero");
+                new SelectList(ContratoService.ObterVigentes(veiculo.EmpresaId.Value).OrderBy(c => c.InicioVigencia), "IdContrato", "Numero", solicitacao?.ContratoId);
             ViewBag.TiposSolicitacao =
                 new SelectList(TipoSolicitacaoService.Listar().OrderBy(ts => ts.Descricao), "IdTipoSolicitacao", "Descricao");
             ViewBag.Areas =
-                new SelectList(AreaService.Listar().OrderBy(a => a.Descricao), "IdArea", "Descricao");
+                new SelectList(AreaService.Listar().OrderBy(a => a.Descricao), "IdArea", "Descricao", solicitacao?.Area1Id);
             ViewBag.Portoes =
-                new SelectList(PortaoService.Listar().OrderBy(p => p.Descricao), "IdPortaoAcesso", "Descricao");
+                new SelectList(PortaoService.Listar().OrderBy(p => p.Descricao), "IdPortaoAcesso", "Descricao", solicitacao?.PortaoAcessoId);
 
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateATIV([Bind(Include = "IdSolicitacao,Criacao,Criador,Atualizacao,Atualizador,Ativo,TipoEmissao")] Solicitacao solicitacao, FormCollection form)
+        public ActionResult CreateATIV([Bind(Include = "IdSolicitacao,Criacao,Criador,Atualizacao,Atualizador,Ativo,TipoEmissao,VeiculoId,EmpresaId,ContratoId,TipoSolicitacaoId,Area1Id,Area2Id,PortaoAcessoId")] Solicitacao solicitacao, FormCollection form)
         {
             solicitacao.Criador =
                 solicitacao.Atualizador = User.Identity.Name;
 
-            solicitacao.Veiculo = new Veiculo() { IdVeiculo = (int.Parse(form["VeiculoId"])) };
-            solicitacao.Empresa = new Empresa() { IdEmpresa = (int.Parse(form["EmpresaId"])) };
-            solicitacao.Contrato = new Contrato() { IdContrato = int.Parse(form["ContratoId"]) };
-            solicitacao.TipoSolicitacao = new TipoSolicitacao() { IdTipoSolicitacao = int.Parse(form["TipoSolicitacaoId"]) };
-            solicitacao.Area1 = new Entity.Entities.Area() { IdArea = int.Parse(form["Area1Id"]) };
-            solicitacao.Area2 = !string.IsNullOrEmpty(form["Area2Id"]) ? new Entity.Entities.Area() { IdArea = int.Parse(form["Area2Id"]) } : null;
-            solicitacao.PortaoAcesso = new PortaoAcesso() { IdPortaoAcesso = int.Parse(form["PortaoAcessoId"]) };
+            #region
+            //solicitacao.Veiculo = new Veiculo() { IdVeiculo = (int.Parse(form["VeiculoId"])) };
+            //solicitacao.Empresa = new Empresa() { IdEmpresa = (int.Parse(form["EmpresaId"])) };
+            //solicitacao.Contrato = new Contrato() { IdContrato = int.Parse(form["ContratoId"]) };
+            //solicitacao.TipoSolicitacao = new TipoSolicitacao() { IdTipoSolicitacao = int.Parse(form["TipoSolicitacaoId"]) };
+            //solicitacao.Area1 = new Entity.Entities.Area() { IdArea = int.Parse(form["Area1Id"]) };
+            //solicitacao.Area2 = !string.IsNullOrEmpty(form["Area2Id"]) ? new Entity.Entities.Area() { IdArea = int.Parse(form["Area2Id"]) } : null;
+            //solicitacao.PortaoAcesso = new PortaoAcesso() { IdPortaoAcesso = int.Parse(form["PortaoAcessoId"]) };
+            #endregion
 
-            ServiceReturn check = null;
-
-            try
-            {
-                SolicitacaoService.SalvarATIV(solicitacao);
-                check = new ServiceReturn()
-                {
-                    success = true,
-                    title = "Sucesso",
-                    message = "Solicitação de ATIV cadastrada com sucesso!",
-                    id = solicitacao.IdSolicitacao
-                };
-            }
-            catch (Exception ex)
-            {
-                check = new ServiceReturn()
-                {
-                    success = false,
-                    title = "Erro",
-                    message = string.Format("Erro ao cadastrar a solicitação de ATIV! {0} - {1}", ex.GetType(), ex.Message),
-                    id = 0
-                };
-            }
+            ServiceReturn check = SolicitacaoService.SalvarATIV(solicitacao);
+            
+            #region
+            //try
+            //{
+            //    SolicitacaoService.SalvarATIV(solicitacao);
+            //    check = new ServiceReturn()
+            //    {
+            //        success = true,
+            //        title = "Sucesso",
+            //        message = "Solicitação de ATIV cadastrada com sucesso!",
+            //        id = solicitacao.IdSolicitacao
+            //    };
+            //}
+            //catch (Exception ex)
+            //{
+            //    check = new ServiceReturn()
+            //    {
+            //        success = false,
+            //        title = "Erro",
+            //        message = string.Format("Erro ao cadastrar a solicitação de ATIV! {0} - {1}", ex.GetType(), ex.Message),
+            //        id = 0
+            //    };
+            //}
+            #endregion
 
             return Json(check, JsonRequestBehavior.AllowGet);
         }

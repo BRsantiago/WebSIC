@@ -29,23 +29,27 @@ $(function () {
 
     $('#table').on('click', '.details', function () {
         var id = $(this).attr("data-id");
+        $("#modal").empty();
         $("#modal").load(baseURL + "/Details?id=" + id, function () {
             $("#modal").modal();
         })
     });
     $('#table').on('click', '.edit', function () {
         var id = $(this).attr("data-id");
+        $("#modal").empty();
         $("#modal").load(baseURL + "/Edit?id=" + id, function () {
             $("#modal").modal();
         })
     });
     $('#table').on('click', '.delete', function () {
         var id = $(this).attr("data-id");
+        $("#modal").empty();
         $("#modal").load(baseURL + "/Delete?id=" + id, function () {
             $("#modal").modal();
         })
     });
     $(".create").click(function () {
+        $("#modal").empty();
         $("#modal").load(baseURL + "/Create", function () {
             $("#modal").modal();
         })

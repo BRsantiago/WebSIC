@@ -38,29 +38,39 @@ namespace Repository.Interface
 
         public override void Incluir(Veiculo obj)
         {
-            if (contexto.Entry(obj.Empresa).State == EntityState.Detached)
-                contexto.Empresas.Attach(obj.Empresa);
-            contexto.Entry(obj.Empresa).State = EntityState.Modified;
+            #region
+            //if (contexto.Entry(obj.Empresa).State == EntityState.Detached)
+            //    contexto.Empresas.Attach(obj.Empresa);
+            //contexto.Entry(obj.Empresa).State = EntityState.Modified;
 
-            if (contexto.Entry(obj.Apolice).State == EntityState.Detached)
-                contexto.Apolices.Attach(obj.Apolice);
-            contexto.Entry(obj.Apolice).State = EntityState.Modified;
-            
+            //if (contexto.Entry(obj.Apolice).State == EntityState.Detached)
+            //    contexto.Apolices.Attach(obj.Apolice);
+            //contexto.Entry(obj.Apolice).State = EntityState.Modified;
+            #endregion
+
             contexto.Entry(obj).State = EntityState.Added;
             base.Incluir(obj);
         }
 
         public override void Atualizar(Veiculo obj)
         {
-            if (contexto.Entry(obj.Empresa).State == EntityState.Detached)
-                contexto.Empresas.Attach(obj.Empresa);
-            contexto.Entry(obj.Empresa).State = EntityState.Modified;
+            #region
+            //if (contexto.Entry(obj.Empresa).State == EntityState.Detached)
+            //    contexto.Empresas.Attach(obj.Empresa);
+            //contexto.Entry(obj.Empresa).State = EntityState.Modified;
 
-            if (contexto.Entry(obj.Apolice).State == EntityState.Detached)
-                contexto.Apolices.Attach(obj.Apolice);
-            contexto.Entry(obj.Apolice).State = EntityState.Modified;
+            //if (contexto.Entry(obj.Apolice).State == EntityState.Detached)
+            //    contexto.Apolices.Attach(obj.Apolice);
+            //contexto.Entry(obj.Apolice).State = EntityState.Modified;
 
-            base.Atualizar(obj);
+            //base.Atualizar(obj);
+            #endregion
+
+            if (contexto.Entry(obj).State == EntityState.Detached)
+            {
+                var existingtObj = contexto.Veiculos.FirstOrDefault(a => a.IdVeiculo == obj.IdVeiculo);
+                contexto.Entry(existingtObj).CurrentValues.SetValues(obj);
+            }
         }
 
         public IList<Veiculo> ObterPorAno(string ano)

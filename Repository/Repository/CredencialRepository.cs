@@ -159,14 +159,10 @@ namespace Repository.Repository
             //foreach (var solicitacao in obj.Solicitacoes)
             //    contexto.Entry(solicitacao).State = EntityState.Unchanged;
             #endregion
-            #region
-            //foreach (var solicitacao in obj.Solicitacoes)
-            //    contexto.Entry(solicitacao).State = EntityState.Modified;
-            #endregion
 
             if (contexto.Entry(obj).State == EntityState.Detached)
             {
-                var existingtObj = contexto.Credenciais.FirstOrDefault(a => a.IdCredencial == obj.IdCredencial);
+                var existingtObj = contexto.Credenciais.Find(obj.IdCredencial);
                 contexto.Entry(existingtObj).CurrentValues.SetValues(obj);
             }
 
