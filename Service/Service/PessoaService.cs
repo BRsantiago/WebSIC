@@ -127,11 +127,11 @@ namespace Services.Service
             if (pessoa.DataValidadeFoto.HasValue && pessoa.DataValidadeFoto.Value < DateTime.Now)
                 throw new Exception("A foto desta pessoa tem mais de dois anos, favor capturar uma nova foto.");
 
-            if (String.IsNullOrEmpty(pessoa.CPF) || String.IsNullOrWhiteSpace(pessoa.CPF))
-                throw new Exception("Favor informar o cpf.");
+            if ((String.IsNullOrEmpty(pessoa.CPF) || String.IsNullOrWhiteSpace(pessoa.CPF)) && (String.IsNullOrEmpty(pessoa.RNE) || String.IsNullOrWhiteSpace(pessoa.RNE)))
+                throw new Exception("Favor informar o CPF ou RNE.");
 
-            Pessoa pessoaBase = this.PessoaRepository.ObterPorCPF(pessoa.CPF);
-            if (pessoaBase != null && pessoa.CPF == pessoaBase.CPF && pessoa.IdPessoa != pessoaBase.IdPessoa)
+            
+            if (this.PessoaRepository.VerificarSeExistePessoaComMesmoCPF(pessoa.CPF, pessoa.IdPessoa))
                 throw new Exception("Já existe uma pessoa cadastrada com este CPF.");
         }
 

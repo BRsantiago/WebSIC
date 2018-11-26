@@ -27,14 +27,13 @@ namespace Repository.Repository
 
         public override void Atualizar(CursoSemTurma cst)
         {
-            contexto.Entry(cst.Curso).State = System.Data.Entity.EntityState.Unchanged;
-            contexto.Entry(cst.Pessoa).State = System.Data.Entity.EntityState.Unchanged;
+            //contexto.Entry(cst.Curso).State = System.Data.Entity.EntityState.Detached;
+            //contexto.Entry(cst.Pessoa).State = System.Data.Entity.EntityState.Detached;
 
-            base.Atualizar(cst);
+            contexto.Entry(cst).State = EntityState.Modified;
         }
-
-
-        public CursoSemTurma ObterAgregacaoPorId(int id)
+        
+        public override CursoSemTurma ObterPorId(int id)
         {
             return this.contexto.CursosSemTurma
                                 .Include(cst => cst.Curso)

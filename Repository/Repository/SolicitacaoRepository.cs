@@ -40,8 +40,7 @@ namespace Repository.Interface
                                             }
                                             else
                                             {
-                                                contexto.Entry(c.Curso).State = System.Data.Entity.EntityState.Unchanged;
-                                                contexto.Entry(c).State = System.Data.Entity.EntityState.Modified;
+                                                contexto.Entry(c).State = System.Data.Entity.EntityState.Unchanged;
                                             }
                                         });
 
@@ -61,6 +60,7 @@ namespace Repository.Interface
             if (solicitacao.TipoSolicitacao != null) contexto.Entry(solicitacao.TipoSolicitacao).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Cargo != null) contexto.Entry(solicitacao.Cargo).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Aeroporto != null) contexto.Entry(solicitacao.Aeroporto).State = System.Data.Entity.EntityState.Unchanged;
+            if (solicitacao.RamoAtividade != null) contexto.Entry(solicitacao.RamoAtividade).State = System.Data.Entity.EntityState.Unchanged;
 
             contexto.Solicitacoes.Add(solicitacao);
         }

@@ -9,6 +9,5 @@ namespace Repository.Interface
 {
     public interface ICursoSemTurmaRepository : IRepositoryBase<CursoSemTurma>
     {
-        CursoSemTurma ObterAgregacaoPorId(int id);
     }
 }

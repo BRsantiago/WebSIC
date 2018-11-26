@@ -116,17 +116,17 @@ namespace WebSIC.Controllers
                 Pessoa pessoa = PessoaService.ObterPorId(model.IdPessoa.ToString());
 
                 pessoa.IdPessoa = model.IdPessoa;
-                pessoa.NomeCompleto = model.NomeCompleto;
-                pessoa.Nome = model.Nome;
+                pessoa.NomeCompleto = model.NomeCompleto.ToUpper();
+                pessoa.Nome = String.IsNullOrEmpty(model.Nome) ? model.Nome : model.Nome.ToUpper();
                 pessoa.DataNascimento = Convert.ToDateTime(model.DataNascimento);
-                pessoa.NomePai = model.NomePai;
-                pessoa.NomeMae = model.NomeMae;
+                pessoa.NomePai = String.IsNullOrEmpty(model.NomePai) ? model.NomePai : model.NomePai.ToUpper();
+                pessoa.NomeMae = String.IsNullOrEmpty(model.NomeMae) ? model.NomeMae : model.NomeMae.ToUpper();
                 pessoa.Endereco = model.Endereco;
                 pessoa.Numero = Convert.ToInt32(model.Numero);
-                pessoa.Complemento = model.Complemento;
-                pessoa.Bairro = model.Bairro;
-                pessoa.Cidade = model.Cidade;
-                pessoa.UF = model.UF;
+                pessoa.Complemento = String.IsNullOrEmpty(model.Complemento) ? model.Complemento : model.Complemento.ToUpper();
+                pessoa.Bairro = String.IsNullOrEmpty(model.Bairro) ? model.Bairro : model.Bairro.ToUpper();
+                pessoa.Cidade = String.IsNullOrEmpty(model.Cidade) ? model.Cidade : model.Cidade.ToUpper();
+                pessoa.UF = String.IsNullOrEmpty(model.UF) ? model.UF : model.UF.ToUpper();
                 pessoa.CEP = model.CEP;
                 pessoa.TelefoneEmergencia = model.TelefoneEmergencia;
                 pessoa.TelefoneResidencial = model.TelefoneResidencial;
@@ -134,8 +134,8 @@ namespace WebSIC.Controllers
                 pessoa.RNE = model.RNE;
                 pessoa.CPF = model.CPF;
                 pessoa.RG = model.RG;
-                pessoa.OrgaoExpeditor = model.OrgaoExpeditor;
-                pessoa.UFOrgaoExpeditor = model.UFOrgaoExpeditor;
+                pessoa.OrgaoExpeditor = String.IsNullOrEmpty(model.OrgaoExpeditor) ? model.OrgaoExpeditor : model.OrgaoExpeditor.ToUpper();
+                pessoa.UFOrgaoExpeditor = String.IsNullOrEmpty(model.UFOrgaoExpeditor) ? model.UFOrgaoExpeditor : model.UFOrgaoExpeditor.ToUpper();
                 pessoa.Genero = model.Genero;
                 pessoa.Observacao = model.Observacao;
                 pessoa.FlgCVE = model.FlgCVE;

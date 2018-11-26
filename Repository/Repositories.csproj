@@ -205,6 +205,18 @@
     <Compile Include="Migrations\201811131832268_ChangeSolicitacaoToCreateLinkToRamoAtividade.Designer.cs">
       <DependentUpon>201811131832268_ChangeSolicitacaoToCreateLinkToRamoAtividade.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811261448140_AddFlgResidenciaNoExterior.cs" />
+    <Compile Include="Migrations\201811261448140_AddFlgResidenciaNoExterior.Designer.cs">
+      <DependentUpon>201811261448140_AddFlgResidenciaNoExterior.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811261458196_AlterFlgResidenciaNoExterior.cs" />
+    <Compile Include="Migrations\201811261458196_AlterFlgResidenciaNoExterior.Designer.cs">
+      <DependentUpon>201811261458196_AlterFlgResidenciaNoExterior.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811261701132_AlterCredentialAndSolicitacaoEntity.cs" />
+    <Compile Include="Migrations\201811261701132_AlterCredentialAndSolicitacaoEntity.Designer.cs">
+      <DependentUpon>201811261701132_AlterCredentialAndSolicitacaoEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201811261716340_SolicitacaoCredencialPortoesdeAcesso.cs" />
     <Compile Include="Migrations\201811261716340_SolicitacaoCredencialPortoesdeAcesso.Designer.cs">
       <DependentUpon>201811261716340_SolicitacaoCredencialPortoesdeAcesso.cs</DependentUpon>
@@ -346,6 +358,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811131832268_ChangeSolicitacaoToCreateLinkToRamoAtividade.resx">
       <DependentUpon>201811131832268_ChangeSolicitacaoToCreateLinkToRamoAtividade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811261448140_AddFlgResidenciaNoExterior.resx">
+      <DependentUpon>201811261448140_AddFlgResidenciaNoExterior.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811261458196_AlterFlgResidenciaNoExterior.resx">
+      <DependentUpon>201811261458196_AlterFlgResidenciaNoExterior.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811261701132_AlterCredentialAndSolicitacaoEntity.resx">
+      <DependentUpon>201811261701132_AlterCredentialAndSolicitacaoEntity.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811261716340_SolicitacaoCredencialPortoesdeAcesso.resx">
       <DependentUpon>201811261716340_SolicitacaoCredencialPortoesdeAcesso.cs</DependentUpon>

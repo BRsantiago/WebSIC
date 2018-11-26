@@ -53,6 +53,7 @@ namespace WebSIC
             report.SetParameterValue("Matricula", Session["Nome"].ToString(), "CardBack.rpt");
             report.SetParameterValue("Emergencia", Session["Nome"].ToString(), "CardBack.rpt");
             report.SetParameterValue("Fecha", Session["Nome"].ToString(), "CardBack.rpt");
+            report.SetParameterValue("SegundaVia", Session["Nome"].ToString(), "CardBack.rpt");
             report.SetParameterValue("Logo", (Server.MapPath("Images/Logo") + "/" + Session["PathLogoBack"].ToString()), "CardBack.rpt");
 
             return report;

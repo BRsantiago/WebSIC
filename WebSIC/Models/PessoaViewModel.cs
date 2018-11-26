@@ -111,6 +111,12 @@ namespace WebSIC.Models
 
         [Display(Name = "Ativo/Inativo")]
         public bool Ativo { get; set; }
+        
+        [Display(Name = "Residência fora do país nos ultimos 10 anos")]
+        public bool FlgResidenciaForaDoPaisNosUltimos10Anos { get; set; }
+
+        [Display(Name = "Observação")]
+        public string ObservacaoResidenciaForaDoPaisNosUltimos10Anos { get; set; }
 
         public PessoaViewModel() { }
 
@@ -158,6 +164,8 @@ namespace WebSIC.Models
             this.Atualizador = pessoa.Atualizador;
             this.Ativo = pessoa.Ativo;
             this.DataValidadeFoto = pessoa.DataValidadeFoto.ToString();
+            this.FlgResidenciaForaDoPaisNosUltimos10Anos = pessoa.FlgResidenciaForaDoPaisNosUltimos10Anos;
+            this.ObservacaoResidenciaForaDoPaisNosUltimos10Anos = pessoa.ObservacaoResidenciaForaDoPaisNosUltimos10Anos;
         }
 
         public Pessoa MapearParaObjetoDominio()
@@ -204,6 +212,8 @@ namespace WebSIC.Models
             pessoa.Ativo = this.Ativo;
             pessoa.ImageUrl = this.ImageUrl;
             if (!String.IsNullOrEmpty(this.DataValidadeFoto)) pessoa.DataValidadeFoto = Convert.ToDateTime(this.DataValidadeFoto);
+            pessoa.FlgResidenciaForaDoPaisNosUltimos10Anos = this.FlgResidenciaForaDoPaisNosUltimos10Anos;
+            pessoa.ObservacaoResidenciaForaDoPaisNosUltimos10Anos = this.ObservacaoResidenciaForaDoPaisNosUltimos10Anos;
 
             return pessoa;
         }

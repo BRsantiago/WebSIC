@@ -1,5 +1,12 @@
 ﻿@model WebSIC.Models.PessoaViewModel
 
+@if (TempData["notification"] != null)
+{
+    @Html.Raw(TempData["notification"])
+    TempData["notification"] = null;
+}
+
+
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Pessoa</h1>
@@ -200,7 +207,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.CNH, htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-2">
                 <div class="checkbox">
@@ -227,13 +234,27 @@
                     @Html.EnumDropDownListFor(d => d.CategoriaDois, "Selecione", new { @class = "form-control select1" })
                 </div>
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.FlgCVE, htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-1">
+            <div class="col-sm-1">
                 <div class="checkbox">
                     @Html.CheckBoxFor(model => model.FlgCVE, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+             @Html.LabelFor(model => model.FlgResidenciaForaDoPaisNosUltimos10Anos, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-sm-1">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.FlgCVE, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            @Html.LabelFor(model => model.ObservacaoResidenciaForaDoPaisNosUltimos10Anos, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-5">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.ObservacaoResidenciaForaDoPaisNosUltimos10Anos, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
         </div>

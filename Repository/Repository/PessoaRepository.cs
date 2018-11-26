@@ -122,5 +122,10 @@ namespace Repository.Repository
 
             contexto.Pessoas.Add(pessoa);
         }
+
+        public bool VerificarSeExistePessoaComMesmoCPF(string CPF, int idPessoa)
+        {
+            return this.contexto.Pessoas.Any(p => p.CPF == CPF && p.IdPessoa != idPessoa);
+        }
     }
 }

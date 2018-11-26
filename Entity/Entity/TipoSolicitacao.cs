@@ -23,5 +23,6 @@ namespace Entity.Entities
         public string Descricao { get; set; }
         public bool FlgDesativaCredencial { get; set; }
         public bool FlgGeraNovaCredencial { get; set; }
+        public bool FlgGeraSegundaVia { get; set; }
     }
 }

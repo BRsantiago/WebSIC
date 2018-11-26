@@ -34,6 +34,7 @@ namespace Entity.Entities
         public string CategoriaMotorista2 { get; set; }
         public bool FlgCVE { get; set; }
         public bool FlgTemporario { get; set; }
+        public bool FlgSegundaVia { get; set; }
 
         public Pessoa Pessoa { get; set; }
         [Column("Pessoa_IdPessoa")]
