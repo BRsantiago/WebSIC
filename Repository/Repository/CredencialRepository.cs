@@ -29,7 +29,12 @@ namespace Repository.Repository
             if (credencial.Veiculo != null) contexto.Entry(credencial.Veiculo).State = System.Data.Entity.EntityState.Unchanged;
             if (credencial.Area1 != null) contexto.Entry(credencial.Area1).State = System.Data.Entity.EntityState.Unchanged;
             if (credencial.Area2 != null) contexto.Entry(credencial.Area2).State = System.Data.Entity.EntityState.Unchanged;
-            if (credencial.PortaoAcesso != null) contexto.Entry(credencial.PortaoAcesso).State = System.Data.Entity.EntityState.Unchanged;
+            if (credencial.PortaoAcesso1 != null) contexto.Entry(credencial.PortaoAcesso1).State = System.Data.Entity.EntityState.Unchanged;
+            if (credencial.PortaoAcesso2 != null) contexto.Entry(credencial.PortaoAcesso2).State = System.Data.Entity.EntityState.Unchanged;
+            if (credencial.PortaoAcesso3 != null) contexto.Entry(credencial.PortaoAcesso3).State = System.Data.Entity.EntityState.Unchanged;
+
+            foreach(Solicitacao solicitacao in credencial.Solicitacoes)
+                contexto.Entry(credencial.PortaoAcesso3).State = System.Data.Entity.EntityState.Unchanged;
 
             this.contexto.Credenciais.Add(credencial);
         }
@@ -52,7 +57,9 @@ namespace Repository.Repository
                            .Include(c => c.Empresa.Contratos)
                            .Include(c => c.Veiculo)
                            .Include(c => c.Cargo)
-                           .Include(c => c.PortaoAcesso)
+                           .Include(c => c.PortaoAcesso1)
+                           .Include(c => c.PortaoAcesso2)
+                           .Include(c => c.PortaoAcesso3)
                            .Include(c => c.Aeroporto)
                            .Where(c => c.IdCredencial == id)
                            .SingleOrDefault();
@@ -166,6 +173,7 @@ namespace Repository.Repository
                 contexto.Entry(existingtObj).CurrentValues.SetValues(obj);
             }
 
+
             //base.Atualizar(obj);
         }
 
@@ -198,7 +206,9 @@ namespace Repository.Repository
                     .Include(c => c.Contrato)
                     .Include(c => c.Area1)
                     .Include(c => c.Area2)
-                    .Include(c => c.PortaoAcesso)
+                    .Include(c => c.PortaoAcesso1)
+                    .Include(c => c.PortaoAcesso2)
+                    .Include(c => c.PortaoAcesso3)
                     .Where(c => c.Veiculo != null && c.Ativo == true && !c.DataDesativacao.HasValue && !c.DataExpedicao.HasValue)
                     .OrderByDescending(c => c.Criacao)
                     .ToList();

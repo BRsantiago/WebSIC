@@ -90,18 +90,34 @@
                     </div>
 
                     @*<div class="form-group">
-                        @Html.LabelFor(model => model.Area2, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.Area2Id, ViewBag.Areas as SelectList, "--Selecione a 2ª área--", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Area2, "", new { @class = "text-danger" })
-                        </div>
-                    </div>*@
+                            @Html.LabelFor(model => model.Area2, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.Area2Id, ViewBag.Areas as SelectList, "--Selecione a 2ª área--", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Area2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.PortaoAcesso, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.PortaoAcesso1, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.PortaoAcessoId, ViewBag.Portoes as SelectList, "--Selecione o portão de acesso--", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.PortaoAcesso, "", new { @class = "text-danger" })
+                            @Html.DropDownListFor(model => model.PortaoAcesso1Id, ViewBag.Portoes as SelectList, "--Selecione o 1º portão de acesso--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.PortaoAcesso1, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PortaoAcesso2, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.PortaoAcesso2Id, ViewBag.Portoes as SelectList, "--Selecione o 2º portão de acesso--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.PortaoAcesso2, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PortaoAcesso3, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.PortaoAcesso3Id, ViewBag.Portoes as SelectList, "--Selecione o 3º portão de acesso--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.PortaoAcesso3, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -142,14 +158,14 @@
                     rules: {
                         'ContratoId': { required: true },
                         'Area1Id': { required: true },
-                        'PortaoAcessoId': { required: true },
+                        'PortaoAcesso1Id': { required: true },
                         'TipoSolicitacaoId': { required: true },
                         'TipoEmissao': { required: true }
                     },
                     messages: {
                         'ContratoId': { required: "O campo Contrato é de preenchimento obrigatório!" },
                         'Area1Id': { required: "O campo 1ª Área é de preenchimento obrigatório!" },
-                        'PortaoAcessoId': { required: "O campo Portão de Acesso é de preenchimento obrigatório!" },
+                        'PortaoAcesso1Id': { required: "O campo Portão de Acesso é de preenchimento obrigatório!" },
                         'TipoSolicitacaoId': { required: "O campo Tipo de Solicitação é de preenchimento obrigatório!" },
                         'TipoEmissao': { required: "O campo Tipo de Emissão é de preenchimento obrigatório!" }
                     }
@@ -161,7 +177,7 @@
 
                 if (!form.valid())
                     return;
-                
+
                 $.ajax({
                     url: form.attr("action"),
                     method: form.attr("method"),  // post

@@ -52,7 +52,9 @@ namespace Repository.Interface
             if (solicitacao.Area2 != null) contexto.Entry(solicitacao.Area2).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Contrato != null) contexto.Entry(solicitacao.Contrato).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Empresa != null) contexto.Entry(solicitacao.Empresa).State = System.Data.Entity.EntityState.Unchanged;
-            if (solicitacao.PortaoAcesso != null) contexto.Entry(solicitacao.PortaoAcesso).State = System.Data.Entity.EntityState.Unchanged;
+            if (solicitacao.PortaoAcesso1 != null) contexto.Entry(solicitacao.PortaoAcesso1).State = System.Data.Entity.EntityState.Unchanged;
+            if (solicitacao.PortaoAcesso2 != null) contexto.Entry(solicitacao.PortaoAcesso2).State = System.Data.Entity.EntityState.Unchanged;
+            if (solicitacao.PortaoAcesso3 != null) contexto.Entry(solicitacao.PortaoAcesso3).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Schedule != null) contexto.Entry(solicitacao.Schedule).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Veiculo != null) contexto.Entry(solicitacao.Veiculo).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Credencial != null /*&& contexto.Entry(solicitacao.Credencial).State != System.Data.Entity.EntityState.Added*/) contexto.Entry(solicitacao.Credencial).State = System.Data.Entity.EntityState.Unchanged;
@@ -99,7 +101,9 @@ namespace Repository.Interface
             if (solicitacao.Area2 != null) contexto.Entry(solicitacao.Area2).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Contrato != null) contexto.Entry(solicitacao.Contrato).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Empresa != null) contexto.Entry(solicitacao.Empresa).State = System.Data.Entity.EntityState.Unchanged;
-            if (solicitacao.PortaoAcesso != null) contexto.Entry(solicitacao.PortaoAcesso).State = System.Data.Entity.EntityState.Unchanged;
+            if (solicitacao.PortaoAcesso1 != null) contexto.Entry(solicitacao.PortaoAcesso1).State = System.Data.Entity.EntityState.Unchanged;
+            if (solicitacao.PortaoAcesso2 != null) contexto.Entry(solicitacao.PortaoAcesso2).State = System.Data.Entity.EntityState.Unchanged;
+            if (solicitacao.PortaoAcesso3 != null) contexto.Entry(solicitacao.PortaoAcesso3).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Schedule != null) contexto.Entry(solicitacao.Schedule).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Veiculo != null) contexto.Entry(solicitacao.Veiculo).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Credencial != null) contexto.Entry(solicitacao.Credencial).State = System.Data.Entity.EntityState.Unchanged;
@@ -119,7 +123,9 @@ namespace Repository.Interface
                 .Include(s => s.Contrato)
                 .Include(s => s.Area1)
                 .Include(s => s.Area2)
-                .Include(s => s.PortaoAcesso)
+                .Include(s => s.PortaoAcesso1)
+                .Include(s => s.PortaoAcesso2)
+                .Include(s => s.PortaoAcesso3)
                 .Include(s => s.TipoSolicitacao)
                 .Where(s => s.Veiculo.IdVeiculo == veiculoId)
                 .ToList();
@@ -135,7 +141,9 @@ namespace Repository.Interface
                            .Include(s => s.Contrato)
                            .Include(s => s.Area1)
                            .Include(s => s.Area2)
-                           .Include(s => s.PortaoAcesso)
+                           .Include(s => s.PortaoAcesso1)
+                           .Include(s => s.PortaoAcesso2)
+                           .Include(s => s.PortaoAcesso3)
                            .Include(s => s.TipoSolicitacao)
                            .Include(s => s.Cargo)
                            .Include(s => s.Pessoa)

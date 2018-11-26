@@ -28,7 +28,8 @@
                                 @Html.DisplayNameFor(model => model.Area2)
                             </th>*@
                             <th>
-                                @Html.DisplayNameFor(model => model.PortaoAcesso)
+                                @*@Html.DisplayNameFor(model => model.PortaoAcesso)*@
+                                Portões de Acesso
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.TipoEmissao)
@@ -71,7 +72,9 @@
                                     @Html.DisplayFor(modelItem => item.Area2.Descricao)
                                 </td>*@
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.PortaoAcesso.Descricao)
+                                    @Html.DisplayFor(modelItem => item.PortaoAcesso1.Descricao) <br />
+                                    @Html.DisplayFor(modelItem => item.PortaoAcesso2.Descricao) <br />
+                                    @Html.DisplayFor(modelItem => item.PortaoAcesso3.Descricao)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.TipoEmissao)

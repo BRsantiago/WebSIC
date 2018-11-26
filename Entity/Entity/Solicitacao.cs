@@ -86,12 +86,26 @@ namespace Entity.Entities
         [ForeignKey("Area2")]
         public Nullable<int> Area2Id { get; set; }
 
-        [Display(Name = "Portão de Acesso")]
-        public PortaoAcesso PortaoAcesso { get; set; }
+        [Display(Name = "1º  Portão de Acesso")]
+        public PortaoAcesso PortaoAcesso1 { get; set; }
 
-        [Column("PortaoAcesso_IdPortaoAcesso")]
-        [ForeignKey("PortaoAcesso")]
-        public Nullable<int> PortaoAcessoId { get; set; }
+        [Column("PortaoAcesso1_IdPortaoAcesso")]
+        [ForeignKey("PortaoAcesso1")]
+        public Nullable<int> PortaoAcesso1Id { get; set; }
+
+        [Display(Name = "2º  Portão de Acesso")]
+        public PortaoAcesso PortaoAcesso2 { get; set; }
+
+        [Column("PortaoAcesso2_IdPortaoAcesso")]
+        [ForeignKey("PortaoAcesso2")]
+        public Nullable<int> PortaoAcesso2Id { get; set; }
+
+        [Display(Name = "3º  Portão de Acesso")]
+        public PortaoAcesso PortaoAcesso3 { get; set; }
+
+        [Column("PortaoAcesso3_IdPortaoAcesso")]
+        [ForeignKey("PortaoAcesso3")]
+        public Nullable<int> PortaoAcesso3Id { get; set; }
 
         [Display(Name = "Aeroporto")]
         public Aeroporto Aeroporto { get; set; }

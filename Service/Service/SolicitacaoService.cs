@@ -218,7 +218,7 @@ namespace Services.Service
 
                 Credencial credencial = CredencialRepository
                     .ObterPorVeiculo(solicitacao.VeiculoId.Value, solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);
-                solicitacao.CredencialId = credencial.IdCredencial;
+                solicitacao.CredencialId = credencial?.IdCredencial;
 
                 if (solicitacao.TipoSolicitacaoId == 3)
                     if (solicitacoesPorVeiculo.Any(s => s.Ativo && s.TipoEmissao == solicitacao.TipoEmissao && s.TipoSolicitacaoId == solicitacao.TipoSolicitacaoId && s.DataAutorizacao.HasValue))
@@ -261,7 +261,9 @@ namespace Services.Service
                 credencial.VeiculoId = solicitacao.VeiculoId;
                 credencial.Area1Id = solicitacao.Area1Id;
                 credencial.Area2Id = solicitacao.Area2Id;
-                credencial.PortaoAcessoId = solicitacao.PortaoAcessoId;
+                credencial.PortaoAcesso1Id = solicitacao.PortaoAcesso1Id;
+                credencial.PortaoAcesso2Id = solicitacao.PortaoAcesso2Id;
+                credencial.PortaoAcesso3Id = solicitacao.PortaoAcesso3Id;
                 #endregion
 
                 #region
@@ -291,7 +293,9 @@ namespace Services.Service
                     VeiculoId = solicitacao.VeiculoId,
                     Area1Id = solicitacao.Area1Id,
                     Area2Id = solicitacao.Area2Id,
-                    PortaoAcessoId = solicitacao.PortaoAcessoId,
+                    PortaoAcesso1Id = solicitacao.PortaoAcesso1Id,
+                    PortaoAcesso2Id = solicitacao.PortaoAcesso2Id,
+                    PortaoAcesso3Id = solicitacao.PortaoAcesso3Id,
                     FlgTemporario = solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria,
                     DataVencimento = solicitacao.Veiculo.Apolice.DataValidade
                 };
@@ -305,6 +309,7 @@ namespace Services.Service
             }
 
             SolicitacaoRepository.Salvar();
+            CredencialRepository.Salvar();
         }
 
         public void ExcluirSolicitacao(Solicitacao solicitacao)
@@ -328,7 +333,7 @@ namespace Services.Service
             if (solicitacao.Area1.IdArea == 0 && solicitacao.Area2.IdArea == 0)
                 throw new Exception("Pelo menos uma área deve ser selecionada.");
 
-            if (solicitacao.PortaoAcesso.IdPortaoAcesso == 0)
+            if (solicitacao.PortaoAcesso1.IdPortaoAcesso == 0 && solicitacao.PortaoAcesso2.IdPortaoAcesso == 0 && solicitacao.PortaoAcesso3.IdPortaoAcesso == 0)
                 throw new Exception("Favor informar o portão de acesso.");
 
             Credencial credencial = this.CredencialRepository.ObterPorVeiculo(solicitacao.Veiculo.IdVeiculo, solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);

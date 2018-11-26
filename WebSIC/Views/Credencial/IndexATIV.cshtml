@@ -34,7 +34,7 @@
                                 @*@Html.DisplayNameFor(model => model.Area1.Sigla)*@ Áreas
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.PortaoAcesso)
+                                @*@Html.DisplayNameFor(model => model.PortaoAcesso)*@ Portões de Acesso
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.DataVencimento)
@@ -62,7 +62,8 @@
                                     <text>@Html.Raw(string.Format("{0}<br/>{1}", item.Area1 != null ? item.Area1.Descricao : "-", item.Area2 != null ? item.Area2.Descricao : ""))</text>
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.PortaoAcesso.Sigla)
+                                    @*@Html.DisplayFor(modelItem => item.PortaoAcesso.Sigla)*@
+                                    <text>@Html.Raw(string.Format("{0}<br/>{1}<br/>{2}", item.PortaoAcesso1?.Descricao, item.PortaoAcesso2?.Descricao, item.PortaoAcesso3?.Descricao))</text>
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.DataVencimento)

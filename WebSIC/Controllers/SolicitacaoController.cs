@@ -271,14 +271,14 @@ namespace WebSIC.Controllers
             ViewBag.Areas =
                 new SelectList(AreaService.Listar().OrderBy(a => a.Descricao), "IdArea", "Descricao", solicitacao?.Area1Id);
             ViewBag.Portoes =
-                new SelectList(PortaoService.Listar().OrderBy(p => p.Descricao), "IdPortaoAcesso", "Descricao", solicitacao?.PortaoAcessoId);
+                new SelectList(PortaoService.Listar().OrderBy(p => p.Descricao), "IdPortaoAcesso", "Descricao", solicitacao?.PortaoAcesso1Id);
 
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateATIV([Bind(Include = "IdSolicitacao,Criacao,Criador,Atualizacao,Atualizador,Ativo,TipoEmissao,VeiculoId,EmpresaId,ContratoId,TipoSolicitacaoId,Area1Id,Area2Id,PortaoAcessoId")] Solicitacao solicitacao, FormCollection form)
+        public ActionResult CreateATIV([Bind(Include = "IdSolicitacao,Criacao,Criador,Atualizacao,Atualizador,Ativo,TipoEmissao,VeiculoId,EmpresaId,ContratoId,TipoSolicitacaoId,Area1Id,Area2Id,PortaoAcesso1Id,PortaoAcesso2Id,PortaoAcesso3Id")] Solicitacao solicitacao, FormCollection form)
         {
             solicitacao.Criador =
                 solicitacao.Atualizador = User.Identity.Name;
