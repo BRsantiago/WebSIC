@@ -1,4 +1,5 @@
-﻿using Entity.Entities;
+﻿using Entity.DTO;
+using Entity.Entities;
 using Repository.Interface;
 using Service.Interface;
 using System;
@@ -162,6 +163,7 @@ namespace Services.Service
             if (solicitacao.RamoAtividadeId.HasValue)
                 cursosExigidos.AddRange(CursoRepository.ObterPorRamoAtividade(solicitacao.RamoAtividadeId.Value));
 
+            #region
             //var cursosId = ConfigurationManager.AppSettings[solicitacao.RamoAtividade.ToString()];
             //if (!string.IsNullOrEmpty(cursosId))
             //{
@@ -170,6 +172,7 @@ namespace Services.Service
             //        cursosExigidos.Add(CursoRepository.ObterPorId(int.Parse(cursoId)));
             //    }
             //}
+            #endregion
 
             var cursos2Add = cursosExigidos.Distinct().Except(cursosRealizadosComValidade).ToList();
 
@@ -218,10 +221,29 @@ namespace Services.Service
             return SolicitacaoRepository.ObterPorVeiculo(veiculoId);
         }
 
-        public void SalvarATIV(Solicitacao solicitacao)
+        public ServiceReturn SalvarATIV(Solicitacao solicitacao)
         {
-            SolicitacaoRepository.IncluirNovaSolicitacao(solicitacao);
-            SolicitacaoRepository.Salvar();
+            try
+            {
+                var solicitacoesPorVeiculo = ObterPorVeiculo(solicitacao.VeiculoId.Value);
+
+                Credencial credencial = CredencialRepository
+                    .ObterPorVeiculo(solicitacao.VeiculoId.Value, solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);
+                solicitacao.CredencialId = credencial.IdCredencial;
+
+                if (solicitacao.TipoSolicitacaoId == 3)
+                    if (solicitacoesPorVeiculo.Any(s => s.Ativo && s.TipoEmissao == solicitacao.TipoEmissao && s.TipoSolicitacaoId == solicitacao.TipoSolicitacaoId && s.DataAutorizacao.HasValue))
+                        return new ServiceReturn() { success = false, title = "Erro", message = "Já existe uma solicitação com tipo igual a 'EMISSÃO' aprovada para este veículo!" };
+
+                SolicitacaoRepository.Incluir(solicitacao);
+                SolicitacaoRepository.Salvar();
+
+                return new ServiceReturn() { success = true, title = "Sucesso", message = "Solicitação de ATIV cadastrada com sucesso!", id = solicitacao.IdSolicitacao };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceReturn() { success = false, title = "Erro", message = string.Format("Um erro do tipo {0} foi disparado ao cadastrar a solicitação! Mensagem: {1}", ex.GetType(), ex.Message) };
+            }
         }
 
         public void AtualizarATIV(Solicitacao solicitacao)
@@ -232,7 +254,7 @@ namespace Services.Service
 
         public void AprovarATIV(Solicitacao solicitacao)
         {
-            AtualizarATIV(solicitacao);
+            SolicitacaoRepository.Atualizar(solicitacao);
 
             Credencial credencial = CredencialRepository
                 .ObterPorVeiculo(solicitacao.Veiculo.IdVeiculo, solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);
@@ -243,10 +265,28 @@ namespace Services.Service
                 credencial.Atualizacao = DateTime.Now;
                 credencial.DataVencimento = solicitacao.Veiculo.Apolice.DataValidade;
 
-                credencial.Contrato = solicitacao.Contrato;
-                credencial.Area1 = solicitacao.Area1;
-                credencial.Area2 = solicitacao.Area2;
-                credencial.PortaoAcesso = solicitacao.PortaoAcesso;
+                #region
+                credencial.AeroportoId = solicitacao.AeroportoId;
+                credencial.EmpresaId = solicitacao.EmpresaId;
+                credencial.ContratoId = solicitacao.ContratoId;
+                credencial.VeiculoId = solicitacao.VeiculoId;
+                credencial.Area1Id = solicitacao.Area1Id;
+                credencial.Area2Id = solicitacao.Area2Id;
+                credencial.PortaoAcessoId = solicitacao.PortaoAcessoId;
+                #endregion
+
+                #region
+                //credencial.Aeroporto = solicitacao.Aeroporto;
+                //credencial.Empresa = solicitacao.Empresa;
+                //credencial.Contrato = solicitacao.Contrato;
+                //credencial.Veiculo = solicitacao.Veiculo;
+                //credencial.Area1 = solicitacao.Area1;
+                //credencial.Area2 = solicitacao.Area2;
+                //credencial.PortaoAcesso = solicitacao.PortaoAcesso;
+                #endregion
+
+                if (solicitacao.TipoSolicitacao.FlgDesativaCredencial)
+                    credencial.DataDesativacao = DateTime.Now;
 
                 CredencialRepository.Atualizar(credencial);
             }
@@ -256,21 +296,26 @@ namespace Services.Service
                 {
                     Criador = solicitacao.Atualizador,
                     Atualizador = solicitacao.Atualizador,
-                    Aeroporto = solicitacao.Aeroporto,
-                    Empresa = solicitacao.Veiculo.Empresa,
-                    Contrato = solicitacao.Contrato,
-                    Veiculo = solicitacao.Veiculo,
-                    Area1 = solicitacao.Area1,
-                    Area2 = solicitacao.Area2,
-                    PortaoAcesso = solicitacao.PortaoAcesso,
+                    AeroportoId = solicitacao.AeroportoId,
+                    EmpresaId = solicitacao.EmpresaId,
+                    ContratoId = solicitacao.ContratoId,
+                    VeiculoId = solicitacao.VeiculoId,
+                    Area1Id = solicitacao.Area1Id,
+                    Area2Id = solicitacao.Area2Id,
+                    PortaoAcessoId = solicitacao.PortaoAcessoId,
                     FlgTemporario = solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria,
                     DataVencimento = solicitacao.Veiculo.Apolice.DataValidade
                 };
 
+                #region
+                newCredencial.Solicitacoes = new List<Solicitacao>();
+                newCredencial.Solicitacoes.Add(solicitacao);
+                #endregion
+
                 CredencialRepository.IncluirNovaCredencial(newCredencial);
             }
 
-            CredencialRepository.Salvar();
+            SolicitacaoRepository.Salvar();
         }
 
         public void ExcluirSolicitacao(Solicitacao solicitacao)

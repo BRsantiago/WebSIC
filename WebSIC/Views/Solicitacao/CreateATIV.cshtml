@@ -26,9 +26,11 @@
             <h4 class="modal-title">Nova Solicitação de ATIV - Veículo</h4>
         </div>
         <div class="modal-body">
-            @using (Html.BeginForm("CreateATIV", "Solicitacao", FormMethod.Post))
+            @using (Html.BeginForm("CreateATIV", "Solicitacao", FormMethod.Post, new { @id = "CreateATIVFormId" }))
             {
                 @Html.AntiForgeryToken()
+                HtmlHelper.UnobtrusiveJavaScriptEnabled = false;
+
                 @Html.Hidden("VeiculoId", (object)ViewBag.VeiculoId)
 
                 <div class="form-horizontal">
@@ -57,7 +59,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.Contrato.IdContrato, ViewBag.Contratos as SelectList, "--Selecione o contrato--", new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.ContratoId, ViewBag.Contratos as SelectList, "--Selecione o contrato--", new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Contrato, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -65,7 +67,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.TipoSolicitacao, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.TipoSolicitacao.IdTipoSolicitacao, ViewBag.TiposSolicitacao as SelectList, "--Selecione o tipo de solicitação--", new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.TipoSolicitacaoId, ViewBag.TiposSolicitacao as SelectList, "--Selecione o tipo de solicitação--", new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.TipoSolicitacao, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -73,7 +75,8 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.TipoEmissao, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EnumDropDownListFor(model => model.TipoEmissao, htmlAttributes: new { @class = "form-control" })
+                            @*@Html.EnumDropDownListFor(model => model.TipoEmissao, "--Selecione o tipo de emissão--", htmlAttributes: new { @class = "form-control" })*@
+                            @Html.DropDownListFor(model => model.TipoEmissao, ViewBag.TiposEmissao as IList<SelectListItem>, "--Selecione o tipo de emissão--", htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.TipoEmissao, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -81,23 +84,23 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Area1, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.Area1.IdArea, ViewBag.Areas as SelectList, "--Selecione a 1ª área--", new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.Area1Id, ViewBag.Areas as SelectList, "--Selecione a 1ª área--", new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Area1, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    @*<div class="form-group">
                         @Html.LabelFor(model => model.Area2, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.Area2.IdArea, ViewBag.Areas as SelectList, "--Selecione a 2ª área--", new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.Area2Id, ViewBag.Areas as SelectList, "--Selecione a 2ª área--", new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Area2, "", new { @class = "text-danger" })
                         </div>
-                    </div>
+                    </div>*@
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.PortaoAcesso, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.PortaoAcesso.IdPortaoAcesso, ViewBag.Portoes as SelectList, "--Selecione o portão de acesso--", new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.PortaoAcessoId, ViewBag.Portoes as SelectList, "--Selecione o portão de acesso--", new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.PortaoAcesso, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -115,18 +118,50 @@
             </div>
         </div>
 
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }
+        <script src="~/Scripts/jquery.validate.js"></script>
 
         <script type="text/javascript">
             $(function () {
                 $("#EmpresaId").val($("#Empresa_IdEmpresa").val());
                 $("#AeroportoId").val($("#Aeroporto_IdAeroporto").val());
+
+                $("#CreateATIVFormId").validate({
+                    errorClass: 'help-block animation-slideDown',
+                    errorElement: 'div',
+                    errorPlacement: function (error, e) {
+                        e.parents('.form-group > div').append(error);
+                    },
+                    highlight: function (e) {
+                        $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+                        $(e).closest('.help-block').remove();
+                    },
+                    success: function (e) {
+                        e.closest('.form-group').removeClass('has-success has-error');
+                        e.closest('.help-block').remove();
+                    },
+                    rules: {
+                        'ContratoId': { required: true },
+                        'Area1Id': { required: true },
+                        'PortaoAcessoId': { required: true },
+                        'TipoSolicitacaoId': { required: true },
+                        'TipoEmissao': { required: true }
+                    },
+                    messages: {
+                        'ContratoId': { required: "O campo Contrato é de preenchimento obrigatório!" },
+                        'Area1Id': { required: "O campo 1ª Área é de preenchimento obrigatório!" },
+                        'PortaoAcessoId': { required: "O campo Portão de Acesso é de preenchimento obrigatório!" },
+                        'TipoSolicitacaoId': { required: "O campo Tipo de Solicitação é de preenchimento obrigatório!" },
+                        'TipoEmissao': { required: "O campo Tipo de Emissão é de preenchimento obrigatório!" }
+                    }
+                });
             });
 
             function SubmitFormATIV() {
                 var form = $("form");
+
+                if (!form.valid())
+                    return;
+                
                 $.ajax({
                     url: form.attr("action"),
                     method: form.attr("method"),  // post
@@ -185,7 +220,7 @@
                         } else {
                             swal({
                                 title: "Atenção!",
-                                text: result.message,
+                                text: serviceReturn.message,
                                 icon: "warning",
                                 button: "OK!"
                             })

@@ -59,7 +59,7 @@
                                     <text>@Html.Encode(string.Format("{0} {1} {2}/{3}", item.Veiculo.Marca, item.Veiculo.Modelo, item.Veiculo.AnoFabricacao, item.Veiculo.AnoModelo))</text>
                                 </td>
                                 <td>
-                                    <text>@Html.Raw(string.Format("{0}<br/>{1}", item.Area1.Sigla, item.Area2 != null ? item.Area2.Sigla : ""))</text>
+                                    <text>@Html.Raw(string.Format("{0}<br/>{1}", item.Area1 != null ? item.Area1.Descricao : "-", item.Area2 != null ? item.Area2.Descricao : ""))</text>
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.PortaoAcesso.Sigla)

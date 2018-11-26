@@ -1,4 +1,5 @@
-﻿using Entity.Entities;
+﻿using Entity.DTO;
+using Entity.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Service.Interface
 
         Solicitacao Obter(int id);
         List<Solicitacao> ObterPorVeiculo(int veiculoId);
-        void SalvarATIV(Solicitacao solicitacao);
+        ServiceReturn SalvarATIV(Solicitacao solicitacao);
         void AtualizarATIV(Solicitacao solicitacao);
         void AprovarATIV(Solicitacao solicitacao);
         void ExcluirSolicitacao(Solicitacao solicitacao);

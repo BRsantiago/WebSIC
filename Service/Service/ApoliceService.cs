@@ -24,7 +24,7 @@ namespace Services.Service
             try
             {
                 var check = ObterPorNumero(apolice.Numero, false);
-                if (check != null && check.IdApolice == apolice.IdApolice)
+                if (check == null || check.IdApolice == apolice.IdApolice)
                 {
                     apoliceRepository.Atualizar(apolice);
                     apoliceRepository.Salvar();

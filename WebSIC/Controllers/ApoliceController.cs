@@ -58,16 +58,18 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdApolice,Numero,DataValidade,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Apolice apolice, FormCollection form)
+        public ActionResult Create([Bind(Include = "IdApolice,Numero,DataValidade,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo,EmpresaId")] Apolice apolice, FormCollection form)
         {
             if (ModelState.IsValid)
             {
                 apolice.Criador =
                   apolice.Atualizador = User.Identity.Name;
-                apolice.Empresa = EmpresaService.ObterPorId(int.Parse(form["Empresa.IdEmpresa"]));
+                                
+                #region
+                //apolice.Empresa = EmpresaService.ObterPorId(int.Parse(form["Empresa.IdEmpresa"]));
+                #endregion
 
                 var check = Service.Incluir(apolice);
-
                 return Json(check, JsonRequestBehavior.AllowGet);
             }
 
@@ -95,15 +97,18 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdApolice,Numero,DataValidade,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo")] Apolice apolice, FormCollection form)
+        public ActionResult Edit([Bind(Include = "IdApolice,Numero,DataValidade,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo,EmpresaId")] Apolice apolice, FormCollection form)
         {
             if (ModelState.IsValid)
             {
                 apolice.Atualizacao = DateTime.Now;
                 apolice.Atualizador = User.Identity.Name;
-                apolice.Empresa = EmpresaService.ObterPorId(int.Parse(form["Empresa.IdEmpresa"]));
-                var check = Service.Atualizar(apolice);
 
+                #region
+                //apolice.Empresa = EmpresaService.ObterPorId(int.Parse(form["Empresa.IdEmpresa"]));
+                #endregion
+
+                var check = Service.Atualizar(apolice);
                 return Json(check, JsonRequestBehavior.AllowGet);
             }
             return PartialView(apolice);

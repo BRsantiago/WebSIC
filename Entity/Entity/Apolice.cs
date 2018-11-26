@@ -29,6 +29,10 @@ namespace Entity.Entities
 
         public Empresa Empresa { get; set; }
 
+        [Column("Empresa_IdEmpresa")]
+        [ForeignKey("Empresa")]
+        public Nullable<int> EmpresaId { get; set; }
+
         public IList<Veiculo> Veiculos { get; set; }
     }
 }

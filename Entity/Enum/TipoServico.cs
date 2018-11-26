@@ -10,32 +10,32 @@ namespace Entity.Enum
     public enum TipoServico
     {
         [Display(Name = "Abastecimento de Combustível")]
-        Abastecimento,
+        Abastecimento = 1,
         [Display(Name = "Ambulância")]
-        Ambulancia,
+        Ambulancia = 2,
         [Display(Name = "Captura e Translocação de Animais")]
-        Captura,
+        Captura = 3,
         [Display(Name = "Coleta de Resíduos Orgânicos")]
-        Coleta,
+        Coleta = 4,
         [Display(Name = "Comissaria")]
-        Comissaria,
+        Comissaria = 5,
         [Display(Name = "Emergência")]
-        Emergencia,
+        Emergencia = 6,
         [Display(Name = "Fiscalização")]
-        Fiscalizacao,
+        Fiscalizacao = 7,
         [Display(Name = "Manutenção")]
-        Manutencao,
+        Manutencao = 8,
         [Display(Name = "Movimentação de Aeronaves")]
-        Movimentacao,
+        Movimentacao = 9,
         [Display(Name = "Veículo de Obras")]
-        Obra,
+        Obra = 10,
         [Display(Name = "Transporte de Passageiros")]
-        TransportePax,
+        TransportePax = 11,
         [Display(Name = "Transporte de Bagagens")]
-        TransporteBag,
+        TransporteBag = 12,
         [Display(Name = "Transporte de Cargas")]
-        TransporteCar,
+        TransporteCar = 13,
         [Display(Name = "Transporte de Pessoal de Serviço")]
-        TransporteSer,
+        TransporteSer = 14,
     }
 }

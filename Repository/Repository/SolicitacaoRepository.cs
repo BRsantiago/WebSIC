@@ -120,6 +120,7 @@ namespace Repository.Interface
                 .Include(s => s.Area1)
                 .Include(s => s.Area2)
                 .Include(s => s.PortaoAcesso)
+                .Include(s => s.TipoSolicitacao)
                 .Where(s => s.Veiculo.IdVeiculo == veiculoId)
                 .ToList();
         }
@@ -138,7 +139,7 @@ namespace Repository.Interface
                            .Include(s => s.TipoSolicitacao)
                            .Include(s => s.Cargo)
                            .Include(s => s.Pessoa)
-                           .Include(s => s.Credencial.Solicitacoes)
+                           .Include(s => s.Credencial)
                            .SingleOrDefault(s => s.IdSolicitacao == id);
         }
     }

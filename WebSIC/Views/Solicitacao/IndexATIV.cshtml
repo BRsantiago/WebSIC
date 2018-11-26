@@ -24,14 +24,17 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Area1)
                             </th>
-                            <th>
+                            @*<th>
                                 @Html.DisplayNameFor(model => model.Area2)
-                            </th>
+                            </th>*@
                             <th>
                                 @Html.DisplayNameFor(model => model.PortaoAcesso)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.TipoEmissao)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TipoSolicitacao)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Criacao)
@@ -64,14 +67,17 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Area1.Descricao)
                                 </td>
-                                <td>
+                                @*<td>
                                     @Html.DisplayFor(modelItem => item.Area2.Descricao)
-                                </td>
+                                </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.PortaoAcesso.Descricao)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.TipoEmissao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TipoSolicitacao.Descricao)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Criacao)

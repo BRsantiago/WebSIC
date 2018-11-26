@@ -85,65 +85,102 @@ namespace Repository.Repository
 
         public override void Atualizar(Credencial obj)
         {
-            if (obj.Contrato != null && obj.Contrato.IdContrato != 0 && contexto.Entry(obj.Contrato).State == EntityState.Added)
+            #region
+
+            //if (obj.Aeroporto != null && obj.Aeroporto.IdAeroporto != 0) // && contexto.Entry(obj.Aeroporto).State == EntityState.Added
+            //{
+            //    contexto.Entry(obj.Aeroporto).State = EntityState.Detached;
+            //    obj.Aeroporto = contexto.Aeroportos.Find(obj.AeroportoId);
+            //}
+            //if (obj.Empresa != null && obj.Empresa.IdEmpresa != 0) // && contexto.Entry(obj.Empresa).State == EntityState.Added
+            //{
+            //    contexto.Entry(obj.Empresa).State = EntityState.Detached;
+            //    obj.Empresa = contexto.Empresas.Find(obj.EmpresaId);
+            //}
+            //if (obj.Contrato != null && obj.Contrato.IdContrato != 0) // && contexto.Entry(obj.Contrato).State == EntityState.Added
+            //{
+            //    contexto.Entry(obj.Contrato).State = EntityState.Detached;
+            //    obj.Contrato = contexto.Contratos.Find(obj.ContratoId);
+            //}
+            //if (obj.Veiculo != null && obj.Veiculo.IdVeiculo != 0) // && contexto.Entry(obj.Veiculo).State == EntityState.Added
+            //{
+            //    contexto.Entry(obj.Veiculo).State = EntityState.Detached;
+            //    obj.Veiculo = contexto.Veiculos.Find(obj.VeiculoId);
+            //}
+            //if (obj.Area1 != null && obj.Area1.IdArea != 0) // && contexto.Entry(obj.Area1).State == EntityState.Added
+            //{
+            //    contexto.Entry(obj.Area1).State = EntityState.Detached;
+            //    obj.Area1 = contexto.Areas.Find(obj.Area1Id);
+            //}
+            //if (obj.Area2 != null && obj.Area2.IdArea != 0) // && contexto.Entry(obj.Area2).State == EntityState.Added
+            //{
+            //    contexto.Entry(obj.Area2).State = EntityState.Detached;
+            //    obj.Area2 = contexto.Areas.Find(obj.Area2Id);
+            //}
+            //if (obj.PortaoAcesso != null && obj.PortaoAcesso.IdPortaoAcesso != 0) // && contexto.Entry(obj.PortaoAcesso).State == EntityState.Added
+            //{
+            //    contexto.Entry(obj.PortaoAcesso).State = EntityState.Detached;
+            //    obj.PortaoAcesso = contexto.PortoesAcesso.Find(obj.PortaoAcessoId);
+            //}
+            //if (obj.Pessoa != null && obj.Pessoa.IdPessoa != 0) // && contexto.Entry(obj.Pessoa).State == EntityState.Added
+            //{
+            //    contexto.Entry(obj.Pessoa).State = EntityState.Detached;
+            //    obj.Pessoa = contexto.Pessoas.Find(obj.PessoaId);
+            //}
+            //if (obj.Cargo != null && obj.Cargo.IdCargo != 0) // && contexto.Entry(obj.Cargo).State == EntityState.Added
+            //{
+            //    contexto.Entry(obj.Cargo).State = EntityState.Detached;
+            //    obj.Cargo = contexto.Cargos.Find(obj.CargoId);
+            //}
+
+            #endregion
+            #region
+            //if (obj.Aeroporto != null) contexto.Entry(obj.Aeroporto).State = System.Data.Entity.EntityState.Unchanged;
+            //if (obj.Empresa != null) contexto.Entry(obj.Empresa).State = System.Data.Entity.EntityState.Unchanged;
+            //if (obj.Contrato != null) contexto.Entry(obj.Contrato).State = System.Data.Entity.EntityState.Unchanged;
+            //if (obj.Pessoa != null) contexto.Entry(obj.Pessoa).State = System.Data.Entity.EntityState.Unchanged;
+            //if (obj.Veiculo != null) contexto.Entry(obj.Veiculo).State = System.Data.Entity.EntityState.Unchanged;
+            //if (obj.Area1 != null) contexto.Entry(obj.Area1).State = System.Data.Entity.EntityState.Unchanged;
+            //if (obj.Area2 != null) contexto.Entry(obj.Area2).State = System.Data.Entity.EntityState.Unchanged;
+            //if (obj.PortaoAcesso != null) contexto.Entry(obj.PortaoAcesso).State = System.Data.Entity.EntityState.Unchanged;
+            #endregion
+            #region
+
+            //if (obj.AeroportoId > 0) obj.Aeroporto = null; // contexto.Aeroportos.Find(obj.AeroportoId);
+            //if (obj.EmpresaId > 0) obj.Empresa = null; //contexto.Empresas.Find(obj.EmpresaId);
+            //if (obj.ContratoId > 0) obj.Contrato = null; //contexto.Contratos.Find(obj.ContratoId);
+            //if (obj.VeiculoId > 0) obj.Veiculo = null; //contexto.Veiculos.Find(obj.VeiculoId);
+            //if (obj.Area1Id > 0) obj.Area1 = null; //contexto.Areas.Find(obj.Area1Id);
+            //if (obj.Area2Id > 0) obj.Area2 = null; //contexto.Areas.Find(obj.Area2Id);
+            //if (obj.PortaoAcessoId > 0) obj.PortaoAcesso = null; //contexto.PortoesAcesso.Find(obj.PortaoAcessoId);
+
+            #endregion
+            #region
+            //foreach (var solicitacao in obj.Solicitacoes)
+            //    contexto.Entry(solicitacao).State = EntityState.Unchanged;
+            #endregion
+
+            if (contexto.Entry(obj).State == EntityState.Detached)
             {
-                contexto.Entry(obj.Contrato).State = EntityState.Detached;
-                obj.Contrato = contexto.Contratos.Find(obj.ContratoId);
-            }
-            if (obj.Veiculo != null && obj.Veiculo.IdVeiculo != 0 && contexto.Entry(obj.Veiculo).State == EntityState.Added)
-            {
-                contexto.Entry(obj.Veiculo).State = EntityState.Detached;
-                obj.Veiculo = contexto.Veiculos.Find(obj.VeiculoId);
-            }
-            if (obj.Area1 != null && obj.Area1.IdArea != 0 && contexto.Entry(obj.Area1).State == EntityState.Added)
-            {
-                contexto.Entry(obj.Area1).State = EntityState.Detached;
-                obj.Area1 = contexto.Areas.Find(obj.Area1Id);
-            }
-            if (obj.Area2 != null && obj.Area2.IdArea != 0 && contexto.Entry(obj.Area2).State == EntityState.Added)
-            {
-                contexto.Entry(obj.Area2).State = EntityState.Detached;
-                obj.Area2 = contexto.Areas.Find(obj.Area2Id);
-            }
-            if (obj.PortaoAcesso != null && obj.PortaoAcesso.IdPortaoAcesso != 0 && contexto.Entry(obj.PortaoAcesso).State == EntityState.Added)
-            {
-                contexto.Entry(obj.PortaoAcesso).State = EntityState.Detached;
-                obj.PortaoAcesso = contexto.PortoesAcesso.Find(obj.PortaoAcessoId);
-            }
-            if (obj.Pessoa != null && obj.Pessoa.IdPessoa != 0 && contexto.Entry(obj.Pessoa).State == EntityState.Added)
-            {
-                contexto.Entry(obj.Pessoa).State = EntityState.Detached;
-                obj.Pessoa = contexto.Pessoas.Find(obj.PessoaId);
-            }
-            if (obj.Empresa != null && obj.Empresa.IdEmpresa != 0 && contexto.Entry(obj.Empresa).State == EntityState.Added)
-            {
-                contexto.Entry(obj.Empresa).State = EntityState.Detached;
-                obj.Empresa = contexto.Empresas.Find(obj.EmpresaId);
-            }
-            if (obj.Cargo != null && obj.Cargo.IdCargo != 0 && contexto.Entry(obj.Cargo).State == EntityState.Added)
-            {
-                contexto.Entry(obj.Cargo).State = EntityState.Detached;
-                obj.Cargo = contexto.Cargos.Find(obj.CargoId);
-            }
-            if (obj.Aeroporto != null && obj.Aeroporto.IdAeroporto != 0 && contexto.Entry(obj.Aeroporto).State == EntityState.Added)
-            {
-                contexto.Entry(obj.Aeroporto).State = EntityState.Detached;
-                obj.Aeroporto = contexto.Aeroportos.Find(obj.AeroportoId);
+                var existingtObj = contexto.Credenciais.Find(obj.IdCredencial);
+                contexto.Entry(existingtObj).CurrentValues.SetValues(obj);
             }
 
-            base.Atualizar(obj);
+            //base.Atualizar(obj);
         }
 
         public Credencial ObterPorVeiculo(int veiculoId, bool isTemp)
         {
             Credencial obj =
                 contexto.Credenciais
-                    .Include(c => c.Veiculo)
-                    .Include(c => c.Empresa)
-                    .Include(c => c.Contrato)
-                    .Include(c => c.Area1)
-                    .Include(c => c.Area2)
-                    .Include(c => c.PortaoAcesso)
+                    .AsNoTracking()
+                    //.Include(c => c.Aeroporto)
+                    //.Include(c => c.Veiculo)
+                    //.Include(c => c.Empresa)
+                    //.Include(c => c.Contrato)
+                    //.Include(c => c.Area1)
+                    //.Include(c => c.Area2)
+                    //.Include(c => c.PortaoAcesso)
                     .Where(c => c.Veiculo.IdVeiculo == veiculoId && c.FlgTemporario == isTemp && c.Ativo == true)
                     .OrderByDescending(c => c.Criacao)
                     .FirstOrDefault();

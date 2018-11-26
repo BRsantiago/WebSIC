@@ -18,9 +18,9 @@
                 <table class="table table-striped table-bordered table-hover" id="table" width="100%">
                     <thead>
                         <tr>
-                            <th>
+                            @*<th>
                                 #
-                            </th>
+                            </th>*@
                             <th>
                                 @Html.DisplayNameFor(model => model.Empresa)
                             </th>
@@ -58,9 +58,9 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>
+                                @*<td>
                                     <input type="radio" id="rdbSelectedId_@item.IdVeiculo" name="rdbSelectedId" value="@item.IdVeiculo" />
-                                </td>
+                                </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Empresa.NomeFantasia)
                                 </td>
@@ -96,7 +96,8 @@
                                 </td>
                                 <td class="min">
                                     <button class="btn btn-primary edit" data-id="@item.IdVeiculo">Editar</button> |
-                                    <button class="btn btn-danger delete" data-id="@item.IdVeiculo">Excluir</button>
+                                    <button class="btn btn-danger delete" data-id="@item.IdVeiculo">Excluir</button> |
+                                    <button class="btn btn-success request" data-id="@item.IdVeiculo">Nova Solicitação</button>
                                 </td>
                             </tr>
                         }
@@ -110,8 +111,8 @@
 <div class="form-group">
     <div class="row">
         <div class="col-md-4">
-            <button class="btn btn-primary create">Novo Veículo</button> |
-            <button class="btn btn-success request">Nova Solicitação</button>
+            <button class="btn btn-primary create">Novo Veículo</button>
+            @*<button class="btn btn-success request">Nova Solicitação</button>*@
         </div>
     </div>
 </div>
@@ -122,21 +123,27 @@
 
 <script>
     $(function () {
-        $(".request").click(function () {
-            //alert($('input:checked').val());
-            if ($('input:checked').val() != undefined) {
-                $("#modal").load("Solicitacao/CreateATIV?veiculoId=" + $('input:checked').val(), function () {
-                    $("#modal").modal();
-                })
-            }
-            else {
-                swal({
-                    title: "Atenção!",
-                    text: "É preciso selecionar um veículo para cadastrar a solicitação!",
-                    icon: "warning",
-                    button: "OK!"
-                })
-            }
+        $('#table').on('click', '.request', function () {
+            var id = $(this).attr("data-id");
+            $("#modal").empty();
+            $("#modal").load("Solicitacao/CreateATIV?veiculoId=" + id, function () {
+                $("#modal").modal();
+            })
         });
+        //$(".request").click(function () {
+        //    if ($('input:checked').val() != undefined) {
+        //        $("#modal").load("Solicitacao/CreateATIV?veiculoId=" + $('input:checked').val(), function () {
+        //            $("#modal").modal();
+        //        })
+        //    }
+        //    else {
+        //        swal({
+        //            title: "Atenção!",
+        //            text: "É preciso selecionar um veículo para cadastrar a solicitação!",
+        //            icon: "warning",
+        //            button: "OK!"
+        //        })
+        //    }
+        //});
     });
 </script>
