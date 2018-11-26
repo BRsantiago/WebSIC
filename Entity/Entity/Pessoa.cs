@@ -92,6 +92,12 @@ namespace Entity.Entities
 
         public DateTime? DataValidadeFoto { get; set; }
 
+        [Display(Name = "Residência fora do país nos ultimos 10 anos")]
+        public bool FlgResidenciaForaDoPaisNosUltimos10Anos { get; set; }
+
+        [Display(Name = "Observação")]
+        public bool ObservacaoResidenciaForaDoPaisNosUltimos10Anos { get; set; }
+
         public Usuario Usuario { get; set; }
         public IList<Solicitacao> Solicitacaos { get; set; }
         public IList<Turma> Turmas { get; set; }

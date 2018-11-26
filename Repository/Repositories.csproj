@@ -205,6 +205,10 @@
     <Compile Include="Migrations\201811131832268_ChangeSolicitacaoToCreateLinkToRamoAtividade.Designer.cs">
       <DependentUpon>201811131832268_ChangeSolicitacaoToCreateLinkToRamoAtividade.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811261448140_AddFlgResidenciaNoExterior.cs" />
+    <Compile Include="Migrations\201811261448140_AddFlgResidenciaNoExterior.Designer.cs">
+      <DependentUpon>201811261448140_AddFlgResidenciaNoExterior.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\RamoAtividadeRepository.cs" />
@@ -342,6 +346,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811131832268_ChangeSolicitacaoToCreateLinkToRamoAtividade.resx">
       <DependentUpon>201811131832268_ChangeSolicitacaoToCreateLinkToRamoAtividade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811261448140_AddFlgResidenciaNoExterior.resx">
+      <DependentUpon>201811261448140_AddFlgResidenciaNoExterior.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

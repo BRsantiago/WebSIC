@@ -27,7 +27,13 @@
                                 @Html.DisplayNameFor(model => model.CPF)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Ativo)
+                                @Html.DisplayNameFor(model => model.RG)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DataNascimento)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TelefoneEmergencia)
                             </th>
                             <th></th>
                         </tr>
@@ -35,21 +41,27 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NomeCompleto)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CPF)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Ativo)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Editar", "Edit", new { id = item.IdPessoa }, new { @class = "btn btn-primary " }) |
-                                    <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdPessoa,'Pessoa')">Excluir</a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NomeCompleto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CPF)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RG)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DataNascimento)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TelefoneEmergencia)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Editar", "Edit", new { id = item.IdPessoa }, new { @class = "btn btn-primary " }) |
+                                <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdPessoa,'Pessoa')">Excluir</a>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>

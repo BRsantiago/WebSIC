@@ -130,8 +130,8 @@ namespace Services.Service
             if ((String.IsNullOrEmpty(pessoa.CPF) || String.IsNullOrWhiteSpace(pessoa.CPF)) && (String.IsNullOrEmpty(pessoa.RNE) || String.IsNullOrWhiteSpace(pessoa.RNE)))
                 throw new Exception("Favor informar o CPF ou RNE.");
 
-            Pessoa pessoaBase = this.PessoaRepository.ObterPorCPF(pessoa.CPF);
-            if (pessoaBase != null && pessoa.CPF == pessoaBase.CPF && pessoa.IdPessoa != pessoaBase.IdPessoa)
+            
+            if (this.PessoaRepository.VerificarSeExistePessoaComMesmoCPF(pessoa.CPF, pessoa.IdPessoa))
                 throw new Exception("Já existe uma pessoa cadastrada com este CPF.");
         }
 
