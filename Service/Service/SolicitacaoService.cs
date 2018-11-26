@@ -74,10 +74,11 @@ namespace Services.Service
         {
             Credencial credencial = this.CredencialRepository.ObterPorEmpresaPessoaTipoEmissao(novaSolicitacao.EmpresaId.Value, novaSolicitacao.PessoaId.Value, novaSolicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);
             Cargo cargo = this.CargoRepository.ObterPorId(novaSolicitacao.CargoId.Value);
+            TipoSolicitacao tipoSolicitacao = this.TipoSolicitacaoRepository.ObterPorId(novaSolicitacao.TipoSolicitacaoId.Value);
 
             this.Validar(credencial, novaSolicitacao);
 
-            if (credencial == null)
+            if (credencial == null && tipoSolicitacao.FlgGeraNovaCredencial)
             {
                 credencial = new Credencial();
 
@@ -112,8 +113,9 @@ namespace Services.Service
 
                 credencial.DataExpedicao = null;
                 credencial.Solicitacoes.Add(novaSolicitacao);
+                credencial.FlgSegundaVia = tipoSolicitacao.FlgGeraSegundaVia;
 
-                TipoSolicitacao tipoSolicitacao = this.TipoSolicitacaoRepository.ObterPorId(novaSolicitacao.TipoSolicitacaoId.Value);
+                
                 if (tipoSolicitacao.FlgDesativaCredencial)
                 {
                     credencial.DataDesativacao = DateTime.Now;

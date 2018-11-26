@@ -164,6 +164,8 @@ namespace WebSIC.Models
             this.Atualizador = pessoa.Atualizador;
             this.Ativo = pessoa.Ativo;
             this.DataValidadeFoto = pessoa.DataValidadeFoto.ToString();
+            this.FlgResidenciaForaDoPaisNosUltimos10Anos = pessoa.FlgResidenciaForaDoPaisNosUltimos10Anos;
+            this.ObservacaoResidenciaForaDoPaisNosUltimos10Anos = pessoa.ObservacaoResidenciaForaDoPaisNosUltimos10Anos;
         }
 
         public Pessoa MapearParaObjetoDominio()
@@ -210,6 +212,8 @@ namespace WebSIC.Models
             pessoa.Ativo = this.Ativo;
             pessoa.ImageUrl = this.ImageUrl;
             if (!String.IsNullOrEmpty(this.DataValidadeFoto)) pessoa.DataValidadeFoto = Convert.ToDateTime(this.DataValidadeFoto);
+            pessoa.FlgResidenciaForaDoPaisNosUltimos10Anos = this.FlgResidenciaForaDoPaisNosUltimos10Anos;
+            pessoa.ObservacaoResidenciaForaDoPaisNosUltimos10Anos = this.ObservacaoResidenciaForaDoPaisNosUltimos10Anos;
 
             return pessoa;
         }

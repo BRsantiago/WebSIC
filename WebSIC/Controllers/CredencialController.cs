@@ -106,6 +106,7 @@ namespace WebSIC.Controllers
                 Session["DataExpediacao"] = String.Format("{0:dd/MM/yy}", DateTime.Now);
                 Session["PathLogoBack"] = credencial.Pessoa.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png";
                 Session["TipoCredencial"] = "Credencial";
+                Session["SegundaVia"] = credencial.FlgSegundaVia ? "2ª via" : "";
 
                 return Json(new { success = true, title = "Sucesso", message = "" }, JsonRequestBehavior.AllowGet);
             }
@@ -162,7 +163,7 @@ namespace WebSIC.Controllers
                 cryRpt.SetParameterValue("Emergencia", credencial.Pessoa.TelefoneEmergencia, "CardBack.rpt");
                 cryRpt.SetParameterValue("Fecha", String.Format("{0:dd/MM/yy}", credencial.DataExpedicao), "CardBack.rpt");
                 cryRpt.SetParameterValue("Logo", Server.MapPath("Images/Logo") + "/" + (credencial.Pessoa.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png"));
-
+                cryRpt.SetParameterValue("SegundaVia", credencial.FlgSegundaVia ? "2ª via" : "");
 
                 cryRpt.PrintOptions.PrinterName = printerName;
                 cryRpt.ReportClientDocument.PrintOutputController.PrintReport();

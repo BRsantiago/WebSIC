@@ -263,6 +263,14 @@ namespace WebSIC.Credenciais {
                 return this.DataDefinition.ParameterFields[20];
             }
         }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_SegundaVia {
+            get {
+                return this.DataDefinition.ParameterFields[21];
+            }
+        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]

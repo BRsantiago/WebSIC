@@ -238,19 +238,18 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.FlgCVE, htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-1">
+            <div class="col-sm-1">
                 <div class="checkbox">
                     @Html.CheckBoxFor(model => model.FlgCVE, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
 
-            @Html.LabelFor(model => model.FlgResidenciaForaDoPaisNosUltimos10Anos, htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-1">
+             @Html.LabelFor(model => model.FlgResidenciaForaDoPaisNosUltimos10Anos, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-sm-1">
                 <div class="checkbox">
                     @Html.CheckBoxFor(model => model.FlgCVE, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
-
 
             @Html.LabelFor(model => model.ObservacaoResidenciaForaDoPaisNosUltimos10Anos, htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-5">

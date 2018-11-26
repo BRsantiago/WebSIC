@@ -29,6 +29,7 @@ namespace WebSIC
                 reportBack.SetParameterValue("Emergencia", Session["Emergencia"].ToString());
                 reportBack.SetParameterValue("Fecha", Session["DataExpediacao"].ToString());
                 reportBack.SetParameterValue("Logo", Server.MapPath("Images/Logo") + "/" + Session["PathLogoBack"].ToString());
+                reportBack.SetParameterValue("SegundaVia", Session["SegundaVia"]);
 
                 CrystalReportViewer2.ReportSource = reportBack;
             }
