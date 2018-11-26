@@ -293,6 +293,7 @@ namespace Services.Service
                     credencial.DataDesativacao = DateTime.Now;
 
                 CredencialRepository.Atualizar(credencial);
+                CredencialRepository.Salvar();
             }
             else
             {
@@ -321,8 +322,7 @@ namespace Services.Service
                 CredencialRepository.IncluirNovaCredencial(newCredencial);
             }
 
-            SolicitacaoRepository.Salvar();
-            CredencialRepository.Salvar();
+            SolicitacaoRepository.Salvar();   
         }
 
         public void ExcluirSolicitacao(Solicitacao solicitacao)
