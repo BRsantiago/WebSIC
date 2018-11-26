@@ -88,7 +88,7 @@ namespace WebSIC.Controllers
                 }
 
                 Session["SiglaAeroporto"] = credencial.Aeroporto.Sigla;
-                Session["NomeFrenteCracha"] = credencial.NomeImpressaoFrenteCracha.ToUpper();
+                Session["NomeFrenteCracha"] = credencial.NomeImpressaoFrenteCracha == null ? credencial.Pessoa.NomeCompleto.ToUpper() : credencial.NomeImpressaoFrenteCracha.ToUpper();
                 Session["DataValidade"] = String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento.HasValue ? credencial.DataVencimento.Value : this.GerarDataVencimentoCredencial(credencial));
                 Session["AreaDeAcesso"] = (credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : "");
                 Session["Funcao"] = credencial.DescricaoFuncaoFrenteCracha.ToUpper();
@@ -97,7 +97,7 @@ namespace WebSIC.Controllers
                 Session["CategoriaMotoristaDois"] = credencial.CategoriaMotorista1 == "D" || credencial.CategoriaMotorista2 == "D" ? "D" : "N";
                 Session["CategoriaMotoristaTres"] = credencial.CategoriaMotorista1 == "E" || credencial.CategoriaMotorista2 == "E" ? "E" : "N";
                 Session["LogoEmpresa"] = Server.MapPath(credencial.Empresa.ImageUrl);
-                Session["Nome"] = credencial.Pessoa.Nome.ToUpper();
+                Session["Nome"] = credencial.Pessoa.NomeCompleto.ToUpper();
                 Session["RG"] = credencial.Pessoa.RG;
                 Session["CPF"] = credencial.Pessoa.CPF;
                 Session["Empresa"] = credencial.Empresa.NomeFantasia.ToUpper();
@@ -154,7 +154,7 @@ namespace WebSIC.Controllers
                 cryRpt.SetParameterValue("Motorista2", credencial.CategoriaMotorista1 == "D" || credencial.CategoriaMotorista2 == "D" ? "D" : "N");
                 cryRpt.SetParameterValue("Motorista3", credencial.CategoriaMotorista1 == "E" || credencial.CategoriaMotorista2 == "E" ? "E" : "N");
                 cryRpt.SetParameterValue("EmpresaPath", Server.MapPath(credencial.Empresa.ImageUrl));
-                cryRpt.SetParameterValue("Nombre", credencial.Pessoa.Nome.ToUpper(), "CardBack.rpt");
+                cryRpt.SetParameterValue("Nombre", credencial.Pessoa.NomeCompleto.ToUpper(), "CardBack.rpt");
                 cryRpt.SetParameterValue("RG", credencial.Pessoa.RG, "CardBack.rpt");
                 cryRpt.SetParameterValue("CPF", credencial.Pessoa.CPF, "CardBack.rpt");
                 cryRpt.SetParameterValue("Matricula", credencial.IdCredencial.ToString().PadLeft(8, '0'), "CardBack.rpt");

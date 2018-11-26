@@ -48,25 +48,16 @@
             </div>
         </div>
 
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-            <script type="text/javascript">
-                $("#DataValidade").datepicker({
-                    showOn: "button",
-                    format: 'dd/mm/yyyy',
-                    todayBtn: "linked",
-                    clearBtn: true,
-                    autoclose: true,
-                    todayHighlight: true
-                });
 
-
-                var date = new Date();
-                var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-                $('#DataValidade').datepicker('setDate', today);
-
-            </script>
-        }
+        <script type="text/javascript">
+            $("#DataValidade").datepicker({
+                format: 'dd/mm/yyyy',
+                todayBtn: "linked",
+                clearBtn: true,
+                autoclose: true,
+                todayHighlight: true
+            });
+        </script>
     </div>
 </div>
 

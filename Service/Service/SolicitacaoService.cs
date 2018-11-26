@@ -112,7 +112,8 @@ namespace Services.Service
                 credencial.DataExpedicao = null;
                 credencial.Solicitacoes.Add(novaSolicitacao);
 
-                if (novaSolicitacao.TipoSolicitacao.FlgDesativaCredencial)
+                TipoSolicitacao tipoSolicitacao = this.TipoSolicitacaoRepository.ObterPorId(novaSolicitacao.TipoSolicitacaoId.Value);
+                if (tipoSolicitacao.FlgDesativaCredencial)
                 {
                     credencial.DataDesativacao = DateTime.Now;
                 }
@@ -131,9 +132,19 @@ namespace Services.Service
             if (credencial != null && credencial.Solicitacoes.Any(s => s.TipoSolicitacao.FlgGeraNovaCredencial && s.TipoSolicitacao.IdTipoSolicitacao == solicitacao.TipoSolicitacaoId && s.IdSolicitacao != solicitacao.IdSolicitacao))
                 throw new Exception("Esta solicitação não pode ser concluída pois esta já foi realizada.");
 
+            if (solicitacao.ContratoId == 0)
+                throw new Exception("Favor informar um contrato.");
+
             Contrato contrato = this.ContratoRepository.ObterPorId(solicitacao.ContratoId.Value);
             if (contrato.FimVigencia < DateTime.Now)
                 throw new Exception("Esta solicitação não pode ser realizada pois o contrato selecionado não está mais vigente.");
+
+            if (solicitacao.TipoSolicitacaoId == 0)
+                throw new Exception("Favor informar o tipo de solicitação.");
+
+            TipoSolicitacao tipoSolicitacao = this.TipoSolicitacaoRepository.ObterPorId(solicitacao.TipoSolicitacaoId.Value);
+            if (credencial == null && !tipoSolicitacao.FlgGeraNovaCredencial)
+                throw new Exception("Esta solicitacão não pode ser realizada pois ainda não existe credencial emitida para esta pessoa, nesta empresa e deste tipo.");
         }
 
         private void CarregarCursosExigidos(Solicitacao solicitacao)

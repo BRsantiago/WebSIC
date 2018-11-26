@@ -26,10 +26,13 @@ namespace Service.Service
 
         public void Atualizar(CursoSemTurma cst)
         {
-            cst.Pessoa = this.PessoaRepository.ObterPorId(cst.PessoaId.Value);
-            cst.Curso = this.CursoRepository.ObterPorId(cst.CursoId.Value);
+            CursoSemTurma cstBase = this.CursoSemTurmaRepository.ObterPorId(cst.IdCursoSemTurma);
 
-            CursoSemTurmaRepository.Atualizar(cst);
+            //cstBase.Pessoa = this.PessoaRepository.ObterPorId(cst.PessoaId.Value);
+            //cstBase.Curso = this.CursoRepository.ObterPorId(cst.CursoId.Value);
+            cstBase.DataValidade = cst.DataValidade;
+
+            CursoSemTurmaRepository.Atualizar(cstBase);
             CursoSemTurmaRepository.Salvar();
         }
 
@@ -50,7 +53,7 @@ namespace Service.Service
 
         public CursoSemTurma ObterPorId(int id)
         {
-            return CursoSemTurmaRepository.ObterAgregacaoPorId(id);
+            return CursoSemTurmaRepository.ObterPorId(id);
         }
     }
 }
