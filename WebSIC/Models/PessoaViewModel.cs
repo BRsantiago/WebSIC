@@ -111,6 +111,12 @@ namespace WebSIC.Models
 
         [Display(Name = "Ativo/Inativo")]
         public bool Ativo { get; set; }
+        
+        [Display(Name = "Residência fora do país nos ultimos 10 anos")]
+        public bool FlgResidenciaForaDoPaisNosUltimos10Anos { get; set; }
+
+        [Display(Name = "Observação")]
+        public string ObservacaoResidenciaForaDoPaisNosUltimos10Anos { get; set; }
 
         public PessoaViewModel() { }
 

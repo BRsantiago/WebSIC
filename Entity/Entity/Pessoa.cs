@@ -96,7 +96,7 @@ namespace Entity.Entities
         public bool FlgResidenciaForaDoPaisNosUltimos10Anos { get; set; }
 
         [Display(Name = "Observação")]
-        public bool ObservacaoResidenciaForaDoPaisNosUltimos10Anos { get; set; }
+        public string ObservacaoResidenciaForaDoPaisNosUltimos10Anos { get; set; }
 
         public Usuario Usuario { get; set; }
         public IList<Solicitacao> Solicitacaos { get; set; }
