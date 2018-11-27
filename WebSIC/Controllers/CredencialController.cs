@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Management;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -122,7 +123,7 @@ namespace WebSIC.Controllers
             {
                 Credencial credencial = this.CredencialService.ObterPorId(Convert.ToInt32(idCredencial));
 
-                this.ValidarParaImpressão(credencial);
+                //this.ValidarParaImpressão(credencial);
 
                 credencial.DataExpedicao = DateTime.Now;
                 credencial.DataVencimento = credencial.DataVencimento.HasValue ? credencial.DataVencimento.Value : this.GerarDataVencimentoCredencial(credencial);
@@ -165,7 +166,7 @@ namespace WebSIC.Controllers
                 cryRpt.SetParameterValue("Logo", Server.MapPath("Images/Logo") + "/" + (credencial.Pessoa.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png"));
                 cryRpt.SetParameterValue("SegundaVia", credencial.FlgSegundaVia ? "2ª via" : "");
 
-                cryRpt.PrintOptions.PrinterName = printerName;
+                //cryRpt.PrintOptions.PrinterName = printerName;
                 cryRpt.ReportClientDocument.PrintOutputController.PrintReport();
 
                 this.CredencialService.Atualizar(credencial);
@@ -268,13 +269,48 @@ namespace WebSIC.Controllers
 
         private List<SelectListItem> GetPrinters()
         {
+
             System.Drawing.Printing.PrinterSettings.StringCollection printersList = System.Drawing.Printing.PrinterSettings.InstalledPrinters;
             List<SelectListItem> list = new List<SelectListItem>();
 
             int i = 1;
-            foreach (string printer in printersList)
+            //foreach (string printer in printersList)
+            //{
+            //    list.Add(new SelectListItem { Text = printer, Value = i.ToString() });
+            //}
+
+            //list.Add(new SelectListItem { Text = "\\\\D-CASSASV900\\IDP SMART-50 Card Printer", Value = "1" });
+            //list.Add(new SelectListItem { Text = "\\\\D-CASSASV900.salvador-airport.net\\IDP SMART-51 Card Printer", Value = "2" });
+            //list.Add(new SelectListItem { Text = "\\\\S-CASSASV06.salvador-airport.net\\HP Officejet Pro 276 - CREDENCIAMENTO", Value = "3" });
+
+            //var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Printer");
+            //var results = searcher.Get();
+            
+            
+            ConnectionOptions objConnection = new ConnectionOptions();
+            //objConnection.Username = "bruno.santiago";
+            //objConnection.Password = "on19290932571";
+            //objConnection.Authority = "ntlmdomain:CASSA"; //Where DDI is the name of my domain
+            // Make sure the user you specified have enough permission to access the resource. 
+
+
+            ManagementScope objScope = new ManagementScope(@"\\172.21.14.145\", objConnection); //For the local Access
+            objScope.Connect();
+
+            SelectQuery selectQuery = new SelectQuery();
+            selectQuery.QueryString = "Select * from win32_Printer";
+            ManagementObjectSearcher MOS = new ManagementObjectSearcher(objScope, selectQuery);
+            ManagementObjectCollection MOC = MOS.Get();
+
+            //IList<ManagementBaseObject> printers = new List<ManagementBaseObject>();
+
+            foreach (var printer in MOC)
             {
-                list.Add(new SelectListItem { Text = printer, Value = i.ToString() });
+                //if ((bool)printer["Network"])
+                //{
+                    //printers.Add(printer);
+                    list.Add(new SelectListItem { Text = printer["Name"].ToString(), Value = i.ToString() });
+                //}
             }
 
             return list;
@@ -316,8 +352,8 @@ namespace WebSIC.Controllers
             if (credencial.DataExpedicao.HasValue)
                 throw new Exception("Esta credencial já foi impressa! Caso seja necessário uma reimpressão, realizar a solicitação no cadastro da pessoa.");
 
-            if (credencial.DataVencimento > credencial.Contrato.FimVigencia)
-                throw new Exception("Esta credencial não pode ser impressa pois a data de vencimento informada é maior que a vigência do contrato selecionado.");
+            //if (credencial.DataVencimento > credencial.Contrato.FimVigencia)
+            //    throw new Exception("Esta credencial não pode ser impressa pois a data de vencimento informada é maior que a vigência do contrato selecionado.");
 
             credencial.Pessoa.Curso.ToList().ForEach(c =>
             {

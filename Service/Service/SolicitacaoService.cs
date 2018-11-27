@@ -94,6 +94,7 @@ namespace Services.Service
                 credencial.Area1Id = novaSolicitacao.Area1Id;
                 credencial.Area2Id = novaSolicitacao.Area2Id;
                 credencial.CargoId = novaSolicitacao.CargoId;
+                credencial.ContratoId = novaSolicitacao.ContratoId;
                 credencial.Solicitacoes = new List<Solicitacao>();
                 credencial.Solicitacoes.Add(novaSolicitacao);
 
@@ -110,6 +111,7 @@ namespace Services.Service
                 credencial.Area1Id = novaSolicitacao.Area1Id;
                 credencial.Area2Id = novaSolicitacao.Area2Id;
                 credencial.CargoId = novaSolicitacao.CargoId;
+                credencial.ContratoId = novaSolicitacao.ContratoId;
 
                 credencial.DataExpedicao = null;
                 credencial.Solicitacoes.Add(novaSolicitacao);
