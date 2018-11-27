@@ -278,7 +278,7 @@ namespace WebSIC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateATIV([Bind(Include = "IdSolicitacao,Criacao,Criador,Atualizacao,Atualizador,Ativo,TipoEmissao,VeiculoId,EmpresaId,ContratoId,TipoSolicitacaoId,Area1Id,Area2Id,PortaoAcesso1Id,PortaoAcesso2Id,PortaoAcesso3Id")] Solicitacao solicitacao, FormCollection form)
+        public ActionResult CreateATIV([Bind(Include = "IdSolicitacao,Criacao,Criador,Atualizacao,Atualizador,Ativo,TipoEmissao,VeiculoId,AeroportoId,EmpresaId,ContratoId,TipoSolicitacaoId,Area1Id,Area2Id,PortaoAcesso1Id,PortaoAcesso2Id,PortaoAcesso3Id")] Solicitacao solicitacao, FormCollection form)
         {
             solicitacao.Criador =
                 solicitacao.Atualizador = User.Identity.Name;

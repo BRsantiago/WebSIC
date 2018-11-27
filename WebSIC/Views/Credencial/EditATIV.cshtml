@@ -7,34 +7,66 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-sm-5">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <div class="form-group">
-        <div class="control-label col-md-3">
-            <label>Impressora</label>
-        </div>
-        <div class="col-md-5">
-            @Html.DropDownList("Printers", ViewBag.Printers as SelectList, "Selecione", new { @class = "form-control select2", @id = "Printer" })
+            <div class="form-horizontal">
+                @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+                @Html.HiddenFor(model => model.IdCredencial)
+                @Html.HiddenFor(model => model.FlgTemporario)
 
-        </div>
-        <div class="form-group">
-            <input type="button" value="Imprimir" class="btn btn-success" onclick="ImprimirCredencial()" />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DataVencimento, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.DataVencimento, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.DataVencimento.Value.ToString("dd/mm/yyyy") } })
+                    </div>
+                    <div class="form-group">
+                        <button id="btnSubmit" name="btnSubmit" value="Atualizar" class="btn btn-primary">Atualizar</button>
+                        <a value="Imprimir" id="PtrATIV" class="btn btn-success btnPrint" href="#">Imprimir</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="col-sm-5">
+        <div class="form-horizontal">
+            <div class="form-group">
+                @*
+                    <div class="control-label col-md-3">
+                        <label>Impressora</label>
+                    </div>
+                    <div class="col-md-5">
+                        @Html.DropDownList("Printers", ViewBag.Printers as SelectList, "Selecione", new { @class = "form-control select2", @id = "Printer" })
+                    </div>
+                    <div class="form-group">
+                        <a value="Imprimir" id="PtrATIV" class="btn btn-success btnPrint" href="#">Imprimir</a>
+                    </div>
+                *@
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        <div class="control-label col-md-2">
-        </div>
-        <div class="col-md-2">
-            <div id="divReportFront">
-
+</div>
+<div class="row">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="control-label col-md-2">
+            </div>
+            <div class="col-md-2">
+                <div id="divReportFront"></div>
             </div>
         </div>
     </div>
 </div>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Voltar à Listagem de ATIVs", "IndexATIV")
 </div>
+
+<script src="~/Scripts/jquery.printPage.js"></script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -42,21 +74,38 @@
 
     <script>
 
-        function ImprimirCredencial() {
+        @*function ImprimirCredencial() {
             var printer = $("#Printer option:selected").text();
             var isATIV = true;
 
             Imprimir(@Model.IdCredencial, printer, isATIV);
-        }
+        }*@
 
         $(document).ready(function () {
 
-            var idCredencial = @Model.IdCredencial;
-                //$("#IdCredencial").val();
+            $('#DataVencimento').mask('00/00/0000');
+
+            var temp = $('#FlgTemporario').val();
+            var date = new Date();
+            var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+            $("#DataVencimento").datepicker({
+                format: 'dd/mm/yyyy',
+                todayBtn: "linked",
+                clearBtn: true,
+                autoclose: true,
+                todayHighlight: true,
+                minDate: today,
+                startDate: "+0d",
+                maxDate: temp == "True" ? (today + 30) : (today + 365),
+                endDate: temp == "True" ? "+30d" : "+365d"
+            });
+
+            var idCredencial = @Model.IdCredencial; //$("#IdCredencial").val();
 
             $.ajax({
                 url: '@Url.Action("PreviewATIV","Credencial")',
-                data: { idCredencial: idCredencial },  // post
+                data: { idCredencial: idCredencial },
                 method: "GET",
                 success: function (result) {
                     var iframeFront = '<iframe id="reportFrame" width="900px" height="1100px" src="../../ReportFront.aspx" scrolling="no" frameborder="0"></iframe>';
@@ -67,7 +116,15 @@
                 }
             });
 
+            $(".btnPrint").printPage({
+                url: '../../ReportFront.aspx', //'@Url.Action("PreviewATIV","Credencial", new { idCredencial = @Model.IdCredencial })',
+                attr: "href",
+                message: "Aguarde, o documento está sendo preparado para impressão!"
+            });
 
+            $(".btn-primary").click(function () {
+                $("form").submit();
+            });
 
         });
 

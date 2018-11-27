@@ -1235,8 +1235,7 @@
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
     <Content Include="Scripts\Index.js" />
     <Content Include="Scripts\jquery.mask.js" />
-    <Content Include="Scripts\jQuery.print.js" />
-    <Content Include="Scripts\jQuery.print.min.js" />
+    <Content Include="Scripts\jquery.printPage.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.webcam.js" />
