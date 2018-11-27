@@ -268,10 +268,11 @@ namespace WebSIC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditATIV([Bind(Include = "IdCredencial,DataVencimento")] Credencial credencial)
+        public ActionResult EditATIV([Bind(Include = "IdCredencial,FlgTemporario,DataVencimento,AeroportoId,EmpresaId,ContratoId,VeiculoId,Area1Id,PortaoAcesso1Id,PortaoAcesso2Id,PortaoAcesso3Id,Criacao,Criador,Ativo")] Credencial credencial)
         {
             ViewBag.Printers = GetPrinters();
-
+            credencial.Atualizacao = DateTime.Now;
+            credencial.Atualizador = User.Identity.Name;
             CredencialService.Atualizar(credencial);
             return View(credencial);
         }
