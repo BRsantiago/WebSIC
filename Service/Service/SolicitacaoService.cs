@@ -311,7 +311,11 @@ namespace Services.Service
                     PortaoAcesso2Id = solicitacao.PortaoAcesso2Id,
                     PortaoAcesso3Id = solicitacao.PortaoAcesso3Id,
                     FlgTemporario = solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria,
-                    DataVencimento = solicitacao.Veiculo.Apolice.DataValidade
+                    DataVencimento = solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria 
+                        ? DateTime.Now.AddDays(30) 
+                        : (solicitacao.Veiculo.Apolice.DataValidade - DateTime.Now).TotalDays > 365
+                            ? DateTime.Now.AddDays(365)
+                            : solicitacao.Veiculo.Apolice.DataValidade
                 };
 
                 #region
