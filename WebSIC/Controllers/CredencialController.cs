@@ -169,9 +169,9 @@ namespace WebSIC.Controllers
                 cryRpt.SetParameterValue("SegundaVia", credencial.FlgSegundaVia ? "2ª via" : "");
 
 
-                //cryRpt.PrintToPrinter(new PrinterSettings() { PrinterName = printerName }, new PageSettings(), false);
+                cryRpt.PrintToPrinter(new PrinterSettings() { PrinterName = printerName }, new PageSettings(), false);
 
-                cryRpt.PrintToPrinter(1, false, 1, 1);
+                //cryRpt.PrintToPrinter(1, false, 1, 2);
 
                 // this.CredencialService.Atualizar(credencial);
 
@@ -292,7 +292,7 @@ namespace WebSIC.Controllers
             List<SelectListItem> list = new List<SelectListItem>();
 
             int i = 1;
-            using (var printServer = new PrintServer(string.Format(@"\\{0}", "D-CASSASV900", System.Printing.PrintSystemDesiredAccess.UsePrinter)))
+            using (var printServer = new PrintServer(string.Format(@"\\{0}", "D-CASSASV900")))
             {
                 foreach (var queue in printServer.GetPrintQueues())
                 {
