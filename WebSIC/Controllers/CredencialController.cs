@@ -278,10 +278,11 @@ namespace WebSIC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditATIV([Bind(Include = "IdCredencial,DataVencimento")] Credencial credencial)
+        public ActionResult EditATIV([Bind(Include = "IdCredencial,FlgTemporario,DataVencimento,AeroportoId,EmpresaId,ContratoId,VeiculoId,Area1Id,PortaoAcesso1Id,PortaoAcesso2Id,PortaoAcesso3Id,Criacao,Criador,Ativo")] Credencial credencial)
         {
             ViewBag.Printers = GetPrinters();
-
+            credencial.Atualizacao = DateTime.Now;
+            credencial.Atualizador = User.Identity.Name;
             CredencialService.Atualizar(credencial);
             return View(credencial);
         }
@@ -338,8 +339,8 @@ namespace WebSIC.Controllers
             if (credencial.DataExpedicao.HasValue)
                 throw new Exception("Esta credencial já foi impressa! Caso seja necessário uma reimpressão, realizar a solicitação no cadastro da pessoa.");
 
-            //if (credencial.DataVencimento > credencial.Contrato.FimVigencia)
-            //    throw new Exception("Esta credencial não pode ser impressa pois a data de vencimento informada é maior que a vigência do contrato selecionado.");
+            if (credencial.DataVencimento > credencial.Contrato?.FimVigencia)
+                throw new Exception("Esta credencial não pode ser impressa pois a data de vencimento informada é maior que a vigência do contrato selecionado.");
 
             credencial.Pessoa.Curso.ToList().ForEach(c =>
             {
