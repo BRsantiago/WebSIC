@@ -109,5 +109,9 @@ namespace Entity.Entities
         public string RGFilePath { get; set; }
         [Display(Name = "Arquivo do Comprovante de Residência")]
         public string CRFilePath { get; set; }
+        [Display(Name = "Arquivo da CNH")]
+        public string CNHFilePath { get; set; }
+        [Display(Name = "Arquivo da CTPS")]
+        public string CTPSFilePath { get; set; }
     }
 }
