@@ -225,6 +225,10 @@
     <Compile Include="Migrations\201811262102567_Teste.Designer.cs">
       <DependentUpon>201811262102567_Teste.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811281910260_AddPersonDocumentsAttachments.cs" />
+    <Compile Include="Migrations\201811281910260_AddPersonDocumentsAttachments.Designer.cs">
+      <DependentUpon>201811281910260_AddPersonDocumentsAttachments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\RamoAtividadeRepository.cs" />
@@ -377,6 +381,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811262102567_Teste.resx">
       <DependentUpon>201811262102567_Teste.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811281910260_AddPersonDocumentsAttachments.resx">
+      <DependentUpon>201811281910260_AddPersonDocumentsAttachments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

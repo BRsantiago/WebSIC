@@ -104,5 +104,10 @@ namespace Entity.Entities
         public IList<Credencial> Credenciais { get; set; }
         public IList<Empresa> Empresas { get; set; }
         public IList<CursoSemTurma> Curso { get; set; }
+
+        [Display(Name = "Arquivo do RG")]
+        public string RGFilePath { get; set; }
+        [Display(Name = "Arquivo do Comprovante de Residência")]
+        public string CRFilePath { get; set; }
     }
 }
