@@ -17,12 +17,12 @@
     <form id="form1" runat="server">
         <div class="form-group">
             <div class="col-md-2">
-                <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" CssClass="Report"
+                <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" CssClass=""
                     HasCrystalLogo="False" HasSearchButton="False" HasToggleGroupTreeButton="False" HasZoomFactorList="False"
                     meta:resourcekey="CrystalReportViewer1Resource1" EnableDrillDown="False" ReuseParameterValuesOnRefresh="True"
                     EnableToolTips="False" ToolPanelView="None" HasDrilldownTabs="False" HasDrillUpButton="False" HasPageNavigationButtons="False"
                     HasGotoPageButton="False" HasToggleParameterPanelButton="false" HasPrintButton="False" HasExportButton="False" HasRefreshButton="False"
-                    DisplayToolbar="False" DisplayStatusbar="false" />
+                    DisplayToolbar="False" DisplayStatusbar="False" />
             </div>
         </div>
     </form>

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Management;
 using System.Net;
+using System.Printing;
 using System.Web;
 using System.Web.Mvc;
 using CrystalDecisions.CrystalReports.Engine;
@@ -85,7 +87,7 @@ namespace WebSIC.Controllers
                 {
                     Session["ArquivoCrachaFrotal"] = credencial.Empresa.TipoEmpresa.TipoCracha.Arquivo;
                     Session["ImgFundoCracha"] = credencial.Empresa.TipoEmpresa.TipoCracha.ImgFundoCracha;
-                    Session["TipoCracha"] = credencial.Empresa.TipoEmpresa.TipoCracha.Descricao;
+                    Session["TipoCracha"] = ""; //credencial.Empresa.TipoEmpresa.TipoCracha.Descricao;
                 }
 
                 Session["SiglaAeroporto"] = credencial.Aeroporto.Sigla;
@@ -135,19 +137,19 @@ namespace WebSIC.Controllers
                     TipoCracha temporario = this.TipoCrachaService.ObterTipoCrachaTemporario();
 
                     cryRpt.Load(Server.MapPath("/Credenciais/" + temporario.Arquivo));
-                    cryRpt.SetParameterValue("ImgFundoPath", Server.MapPath(temporario.ImgFundoCracha));
-                    cryRpt.SetParameterValue("TipoCracha", temporario.ImgFundoCracha);
+                    cryRpt.SetParameterValue("ImgFundoPath", Server.MapPath("/Images/FundoCracha/" + temporario.ImgFundoCracha));
+                    cryRpt.SetParameterValue("TipoCracha", temporario.Descricao);
                 }
                 else
                 {
                     cryRpt.Load(Server.MapPath("/Credenciais/" + credencial.Empresa.TipoEmpresa.TipoCracha.Arquivo));
-                    cryRpt.SetParameterValue("ImgFundoPath", Server.MapPath(credencial.Empresa.TipoEmpresa.TipoCracha.ImgFundoCracha));
-                    cryRpt.SetParameterValue("TipoCracha", credencial.Empresa.TipoEmpresa.TipoCracha.Descricao);
+                    cryRpt.SetParameterValue("ImgFundoPath", Server.MapPath("/Images/FundoCracha/" + credencial.Empresa.TipoEmpresa.TipoCracha.ImgFundoCracha));
+                    cryRpt.SetParameterValue("TipoCracha", ""/*credencial.Empresa.TipoEmpresa.TipoCracha.Descricao*/);
 
                 }
 
                 cryRpt.SetParameterValue("Aeroporto", credencial.Aeroporto.Sigla.ToUpper());
-                cryRpt.SetParameterValue("Nombre", credencial.NomeImpressaoFrenteCracha.ToUpper());
+                cryRpt.SetParameterValue("Nombre", credencial.NomeImpressaoFrenteCracha == null ? credencial.Pessoa.NomeCompleto.ToUpper() : credencial.NomeImpressaoFrenteCracha.ToUpper());
                 cryRpt.SetParameterValue("Fecha", String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento.Value));
                 cryRpt.SetParameterValue("Acceso", (credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : ""));
                 cryRpt.SetParameterValue("Pocision", credencial.DescricaoFuncaoFrenteCracha.ToUpper());
@@ -163,20 +165,27 @@ namespace WebSIC.Controllers
                 cryRpt.SetParameterValue("Empresa", credencial.Empresa.NomeFantasia.ToUpper(), "CardBack.rpt");
                 cryRpt.SetParameterValue("Emergencia", credencial.Pessoa.TelefoneEmergencia, "CardBack.rpt");
                 cryRpt.SetParameterValue("Fecha", String.Format("{0:dd/MM/yy}", credencial.DataExpedicao), "CardBack.rpt");
-                cryRpt.SetParameterValue("Logo", Server.MapPath("Images/Logo") + "/" + (credencial.Pessoa.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png"));
+                cryRpt.SetParameterValue("Logo", Server.MapPath("/Images/Logo/" + (credencial.Pessoa.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png")));
                 cryRpt.SetParameterValue("SegundaVia", credencial.FlgSegundaVia ? "2ª via" : "");
 
-                //cryRpt.PrintOptions.PrinterName = printerName;
-                cryRpt.ReportClientDocument.PrintOutputController.PrintReport();
 
-                this.CredencialService.Atualizar(credencial);
+                //cryRpt.PrintToPrinter(new PrinterSettings() { PrinterName = printerName }, new PageSettings(), false);
+
+                cryRpt.PrintToPrinter(1, false, 1, 1);
+
+                // this.CredencialService.Atualizar(credencial);
 
 
                 return Json(new { success = true, title = "Sucesso", message = "Registro Atualizado com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, title = "Erro", message = ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new
+                {
+                    success = false,
+                    title = "Erro",
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
             }
 
         }
@@ -279,48 +288,15 @@ namespace WebSIC.Controllers
 
         private List<SelectListItem> GetPrinters()
         {
-
-            System.Drawing.Printing.PrinterSettings.StringCollection printersList = System.Drawing.Printing.PrinterSettings.InstalledPrinters;
             List<SelectListItem> list = new List<SelectListItem>();
 
             int i = 1;
-            //foreach (string printer in printersList)
-            //{
-            //    list.Add(new SelectListItem { Text = printer, Value = i.ToString() });
-            //}
-
-            //list.Add(new SelectListItem { Text = "\\\\D-CASSASV900\\IDP SMART-50 Card Printer", Value = "1" });
-            //list.Add(new SelectListItem { Text = "\\\\D-CASSASV900.salvador-airport.net\\IDP SMART-51 Card Printer", Value = "2" });
-            //list.Add(new SelectListItem { Text = "\\\\S-CASSASV06.salvador-airport.net\\HP Officejet Pro 276 - CREDENCIAMENTO", Value = "3" });
-
-            //var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Printer");
-            //var results = searcher.Get();
-            
-            
-            ConnectionOptions objConnection = new ConnectionOptions();
-            //objConnection.Username = "bruno.santiago";
-            //objConnection.Password = "on19290932571";
-            //objConnection.Authority = "ntlmdomain:CASSA"; //Where DDI is the name of my domain
-            // Make sure the user you specified have enough permission to access the resource. 
-
-
-            ManagementScope objScope = new ManagementScope(@"\\172.21.14.145\", objConnection); //For the local Access
-            objScope.Connect();
-
-            SelectQuery selectQuery = new SelectQuery();
-            selectQuery.QueryString = "Select * from win32_Printer";
-            ManagementObjectSearcher MOS = new ManagementObjectSearcher(objScope, selectQuery);
-            ManagementObjectCollection MOC = MOS.Get();
-
-            //IList<ManagementBaseObject> printers = new List<ManagementBaseObject>();
-
-            foreach (var printer in MOC)
+            using (var printServer = new PrintServer(string.Format(@"\\{0}", "D-CASSASV900", System.Printing.PrintSystemDesiredAccess.UsePrinter)))
             {
-                //if ((bool)printer["Network"])
-                //{
-                    //printers.Add(printer);
-                    list.Add(new SelectListItem { Text = printer["Name"].ToString(), Value = i.ToString() });
-                //}
+                foreach (var queue in printServer.GetPrintQueues())
+                {
+                    list.Add(new SelectListItem { Text = queue.FullName, Value = i.ToString() });
+                }
             }
 
             return list;
