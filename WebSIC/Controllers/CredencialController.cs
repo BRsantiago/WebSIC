@@ -125,7 +125,7 @@ namespace WebSIC.Controllers
             {
                 Credencial credencial = this.CredencialService.ObterPorId(Convert.ToInt32(idCredencial));
 
-                //this.ValidarParaImpressão(credencial);
+                this.ValidarParaImpressão(credencial);
 
                 credencial.DataExpedicao = DateTime.Now;
                 credencial.DataVencimento = credencial.DataVencimento.HasValue ? credencial.DataVencimento.Value : this.GerarDataVencimentoCredencial(credencial);
@@ -168,13 +168,9 @@ namespace WebSIC.Controllers
                 cryRpt.SetParameterValue("Logo", Server.MapPath("/Images/Logo/" + (credencial.Pessoa.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png")));
                 cryRpt.SetParameterValue("SegundaVia", credencial.FlgSegundaVia ? "2ª via" : "");
 
+                this.CredencialService.Atualizar(credencial);
 
                 cryRpt.PrintToPrinter(new PrinterSettings() { PrinterName = printerName }, new PageSettings(), false);
-
-                //cryRpt.PrintToPrinter(1, false, 1, 2);
-
-                // this.CredencialService.Atualizar(credencial);
-
 
                 return Json(new { success = true, title = "Sucesso", message = "Registro Atualizado com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
