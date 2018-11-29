@@ -187,7 +187,7 @@ namespace WebSIC.Controllers
 
         private void UploadFilesHandler(PessoaViewModel viewModel, int id)
         {
-            var targetDirectory = string.Format("~/Documents/{0}", id);
+            var targetDirectory = string.Format("~/App_Data/Documents/{0}", id);
             if (!Directory.Exists(Server.MapPath(targetDirectory)))
                 Directory.CreateDirectory(Server.MapPath(targetDirectory));
 
