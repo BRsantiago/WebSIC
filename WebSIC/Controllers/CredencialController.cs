@@ -199,7 +199,12 @@ namespace WebSIC.Controllers
             Session["AreaDeAcesso"] = credencial.Area1?.Sigla; //(credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : "");
             Session["PortaoDeAcesso"] = string.Format("{0} {1} {2}", credencial.PortaoAcesso1?.Sigla, credencial.PortaoAcesso2?.Sigla, credencial.PortaoAcesso3?.Sigla).Trim(); //credencial.PortaoAcesso1.Sigla;
             Session["Categoria"] = credencial.Veiculo.Categoria;
-            Session["DataValidade"] = String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento.HasValue ? credencial.DataVencimento.Value : this.GerarDataVencimentoCredencial(credencial));
+            Session["DataValidade"] = String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento.HasValue 
+                ? credencial.DataVencimento.Value 
+                : credencial.FlgTemporario
+                    ? credencial.Criacao.AddDays(30)
+                    : credencial.Criacao.AddDays(365)
+            );
             Session["Placa"] = credencial.Veiculo.Placa;
             Session["AreaManobra"] = credencial.Veiculo.AcessoManobra ? "ÁREA DE MANOBRA" : "";
 

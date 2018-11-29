@@ -157,7 +157,7 @@ namespace WebSIC.Controllers
                 pessoa.ImageUrl = model.ImageUrl;
                 if (!String.IsNullOrEmpty(model.DataValidadeFoto)) pessoa.DataValidadeFoto = Convert.ToDateTime(model.DataValidadeFoto);
 
-                UploadFilesHandler(model, pessoa);
+                UploadFilesHandler(model, pessoa.IdPessoa);
 
                 pessoa.RGFilePath = model.RGFilePath;
                 pessoa.CRFilePath = model.CRFilePath;
@@ -185,16 +185,15 @@ namespace WebSIC.Controllers
             }
         }
 
-        private void UploadFilesHandler(PessoaViewModel viewModel, Pessoa model)
+        private void UploadFilesHandler(PessoaViewModel viewModel, int id)
         {
-            var baseDirectoryPath = Server.MapPath("~/Documents");
-            var targetDirectory = string.Format("{0}\\{1}", baseDirectoryPath, model.IdPessoa);
-            if (!Directory.Exists(targetDirectory))
-                Directory.CreateDirectory(targetDirectory);
+            var targetDirectory = string.Format("~/Documents/{0}", id);
+            if (!Directory.Exists(Server.MapPath(targetDirectory)))
+                Directory.CreateDirectory(Server.MapPath(targetDirectory));
 
             foreach (PropertyInfo propertyInfo in viewModel.GetType().GetProperties())
             {
-                if (propertyInfo.PropertyType == typeof(HttpPostedFileBase))
+                if (propertyInfo.PropertyType == typeof(HttpPostedFileBase) && propertyInfo.Name != "Foto")
                 {
                     var propertyValue = propertyInfo.GetValue(viewModel);
                     if (propertyValue == null)
@@ -205,11 +204,11 @@ namespace WebSIC.Controllers
                     //To Get File Extension  
                     string fileExtension = Path.GetExtension(postedFileName.ToString());
                     //Add Current Date To Attached File Name  
-                    string fileName = string.Format("{0}-{1}.{2}", DateTime.Now.ToString("yyyyMMddHHmmss"), propertyInfo.Name, fileExtension);
+                    string fileName = string.Format("{0}-{1}{2}", DateTime.Now.ToString("yyyyMMddHHmmss"), propertyInfo.Name, fileExtension);
                     //Its Create complete path to store in server.  
-                    string uploadPath = Path.Combine(targetDirectory, fileName);
+                    string uploadPath = string.Format("{0}/{1}", targetDirectory, fileName);
                     //To copy and save file into server.
-                    propertyInfo.PropertyType.GetMethod("SaveAS").Invoke(propertyValue, new object[] { uploadPath });
+                    propertyInfo.PropertyType.GetMethod("SaveAs").Invoke(propertyValue, new object[] { Server.MapPath(uploadPath) });
 
                     viewModel.GetType().GetProperty(propertyInfo.Name + "Path").SetValue(viewModel, uploadPath);
                 }
