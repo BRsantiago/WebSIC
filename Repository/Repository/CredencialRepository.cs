@@ -61,6 +61,7 @@ namespace Repository.Repository
                            .Include(c => c.PortaoAcesso2)
                            .Include(c => c.PortaoAcesso3)
                            .Include(c => c.Aeroporto)
+                           .Include(c => c.Contrato)
                            .Where(c => c.IdCredencial == id)
                            .SingleOrDefault();
         }
