@@ -264,28 +264,31 @@
                 <h4 class="page-header">Anexos</h4>
             </div>
         </div>
-
         <div class="form-group" style="height: 50px;">
             @Html.LabelFor(model => model.RGFilePath, htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.RGFile, new { htmlAttributes = new { @type = "file" } })
+                @*@Html.EditorFor(model => model.RGFile, new { htmlAttributes = new { @type = "file" } })*@
+                <input type="file" id="RGFile" name="RGFile" />
             </div>
 
             @Html.LabelFor(model => model.CRFilePath, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.CRFile, new { htmlAttributes = new { @type = "file" } })
+                @*@Html.EditorFor(model => model.CRFile, new { htmlAttributes = new { @type = "file" } })*@
+                <input type="file" id="CRFile" name="CRFile" />
             </div>
         </div>
 
         <div class="form-group" style="height: 50px;">
             @Html.LabelFor(model => model.CNHFilePath, htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.CNHFile, new { htmlAttributes = new { @type = "file" } })
+                @*@Html.EditorFor(model => model.CNHFile, new { htmlAttributes = new { @type = "file" } })*@
+                <input type="file" id="CNHFile" name="CNHFile" />
             </div>
 
             @Html.LabelFor(model => model.CTPSFilePath, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.CTPSFile, new { htmlAttributes = new { @type = "file" } })
+                @*@Html.EditorFor(model => model.CTPSFile, new { htmlAttributes = new { @type = "file" } })*@
+                <input type="file" id="CTPSFile" name="CTPSFile" />
             </div>
         </div>
 

@@ -277,24 +277,32 @@
         <div class="form-group" style="height: 50px;">
             @Html.LabelFor(model => model.RGFilePath, htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.RGFile, new { htmlAttributes = new { @type = "file" } })
+                @*@Html.EditorFor(model => model.RGFile, new { htmlAttributes = new { @type = "file" } })*@
+                <input type="file" id="RGFile" name="RGFile" />
+                <a href="@Url.Content(Model.RGFilePath ?? "#")" target="_blank" class="">@Html.Raw(string.Format("Abrir ({0})", Path.GetFileName(Model.RGFilePath ?? "")))</a>
             </div>
 
             @Html.LabelFor(model => model.CRFilePath, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.CRFile, new { htmlAttributes = new { @type = "file" } })
+                @*@Html.EditorFor(model => model.CRFile, new { htmlAttributes = new { @type = "file" } })*@
+                <input type="file" id="CRFile" name="CRFile" />
+                <a href="@Url.Content(Model.CRFilePath ?? "#")" target="_blank" class="">@Html.Raw(string.Format("Abrir ({0})", Path.GetFileName(Model.CRFilePath ?? "")))</a>
             </div>
         </div>
 
         <div class="form-group" style="height: 50px;">
             @Html.LabelFor(model => model.CNHFilePath, htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.CNHFile, new { htmlAttributes = new { @type = "file" } })
+                @*@Html.EditorFor(model => model.CNHFile, new { htmlAttributes = new { @type = "file" } })*@
+                <input type="file" id="CNHFile" name="CNHFile" />
+                <a href="@Url.Content(Model.CNHFilePath ?? "#")" target="_blank" class="">@Html.Raw(string.Format("Abrir ({0})", Path.GetFileName(Model.CNHFilePath ?? "")))</a>
             </div>
 
             @Html.LabelFor(model => model.CTPSFilePath, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.CTPSFile, new { htmlAttributes = new { @type = "file" } })
+                @*@Html.EditorFor(model => model.CTPSFile, new { htmlAttributes = new { @type = "file" } })*@
+                <input type="file" id="CTPSFile" name="CTPSFile" />
+                <a href="@Url.Content(Model.CTPSFilePath ?? "#")" target="_blank" class="">@Html.Raw(string.Format("Abrir ({0})", Path.GetFileName(Model.CTPSFilePath ?? "")))</a>
             </div>
         </div>
 

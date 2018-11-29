@@ -118,25 +118,21 @@ namespace WebSIC.Models
         [Display(Name = "Observação")]
         public string ObservacaoResidenciaForaDoPaisNosUltimos10Anos { get; set; }
 
-        [Display(Name = "Anexo - RG e CPF")]
+        [Display(Name = "Anexo - RG")]
         public string RGFilePath { get; set; }
+        public HttpPostedFileBase RGFile { get; set; }
 
-        public HttpPostedFile RGFile { get; set; }
-
-        [Display(Name = "Anexo - Comprovante de Residência")]
+        [Display(Name = "Anexo - CR")]
         public string CRFilePath { get; set; }
-
-        public HttpPostedFile CRFile { get; set; }
+        public HttpPostedFileBase CRFile { get; set; }
 
         [Display(Name = "Anexo - CNH")]
         public string CNHFilePath { get; set; }
-
-        public HttpPostedFile CNHFile { get; set; }
+        public HttpPostedFileBase CNHFile { get; set; }
 
         [Display(Name = "Anexo - CTPS")]
         public string CTPSFilePath { get; set; }
-
-        public HttpPostedFile CTPSFile { get; set; }
+        public HttpPostedFileBase CTPSFile { get; set; }
 
         public PessoaViewModel() { }
 

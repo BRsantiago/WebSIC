@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -156,6 +157,13 @@ namespace WebSIC.Controllers
                 pessoa.ImageUrl = model.ImageUrl;
                 if (!String.IsNullOrEmpty(model.DataValidadeFoto)) pessoa.DataValidadeFoto = Convert.ToDateTime(model.DataValidadeFoto);
 
+                UploadFilesHandler(model, pessoa.IdPessoa);
+
+                pessoa.RGFilePath = model.RGFilePath;
+                pessoa.CRFilePath = model.CRFilePath;
+                pessoa.CNHFilePath = model.CNHFilePath;
+                pessoa.CTPSFilePath = model.CTPSFilePath;
+
                 PessoaService.Atualizar(pessoa);
 
                 var msg = "<script> swal({title: 'Good job!', text: 'Alterações salvas com sucesso !', icon: 'success', button: 'OK!'}) </script>";
@@ -174,6 +182,36 @@ namespace WebSIC.Controllers
                 Pessoa pessoa = PessoaService.ObterPorId(model.IdPessoa.ToString());
                 return View(new PessoaViewModel(pessoa));
 
+            }
+        }
+
+        private void UploadFilesHandler(PessoaViewModel viewModel, int id)
+        {
+            var targetDirectory = string.Format("~/Documents/{0}", id);
+            if (!Directory.Exists(Server.MapPath(targetDirectory)))
+                Directory.CreateDirectory(Server.MapPath(targetDirectory));
+
+            foreach (PropertyInfo propertyInfo in viewModel.GetType().GetProperties())
+            {
+                if (propertyInfo.PropertyType == typeof(HttpPostedFileBase) && propertyInfo.Name != "Foto")
+                {
+                    var propertyValue = propertyInfo.GetValue(viewModel);
+                    if (propertyValue == null)
+                        continue;
+
+                    var postedFileName = propertyValue.GetType().GetProperty("FileName").GetValue(propertyValue);
+                    
+                    //To Get File Extension  
+                    string fileExtension = Path.GetExtension(postedFileName.ToString());
+                    //Add Current Date To Attached File Name  
+                    string fileName = string.Format("{0}-{1}{2}", DateTime.Now.ToString("yyyyMMddHHmmss"), propertyInfo.Name, fileExtension);
+                    //Its Create complete path to store in server.  
+                    string uploadPath = string.Format("{0}/{1}", targetDirectory, fileName);
+                    //To copy and save file into server.
+                    propertyInfo.PropertyType.GetMethod("SaveAs").Invoke(propertyValue, new object[] { Server.MapPath(uploadPath) });
+
+                    viewModel.GetType().GetProperty(propertyInfo.Name + "Path").SetValue(viewModel, uploadPath);
+                }
             }
         }
 
