@@ -20,6 +20,7 @@ namespace Entity.Entities
         public int IdCursoSemTurma { get; set; }
 
         [Display(Name = "Data de Validade")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataValidade { get; set; }
 
         [Required]

@@ -27,6 +27,7 @@ namespace Entity.Entities
         public string Nome { get; set; }
 
         [Display(Name = "Data de Nasc.")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataNascimento { get; set; }
 
         [Display(Name = "Pai")]

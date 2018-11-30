@@ -19,11 +19,17 @@ namespace Entity.Entities
         [Display(Name = "Matrícula")]
         public int IdCredencial { get; set; }
 
+
         [Display(Name = "Data de Desativação")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DataDesativacao { get; set; }
+
         [Display(Name = "Data de Vencimento")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DataVencimento { get; set; }
+
         [Display(Name = "Data de Expedição")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DataExpedicao { get; set; }
 
         [Display(Name = "Nome")]

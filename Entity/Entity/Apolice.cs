@@ -22,6 +22,7 @@ namespace Entity.Entities
 
         [Required]
         [Display(Name = "Data de Validade")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataValidade { get; set; }
 
         [Display(Name = "Observação")]

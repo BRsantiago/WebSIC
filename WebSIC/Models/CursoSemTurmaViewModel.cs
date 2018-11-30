@@ -12,6 +12,7 @@ namespace WebSIC.Models
         public int IdCursoSemTurma { get; set; }
 
         [Display(Name = "Data de Validade")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataValidade { get; set; }
 
         public List<Curso> Cursos { get; set; }

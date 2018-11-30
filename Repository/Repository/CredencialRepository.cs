@@ -218,11 +218,19 @@ namespace Repository.Repository
         public List<Credencial> ObterTodasCredenciaisAtivasDeFuncionario()
         {
             return contexto.Credenciais
-                           .Include(c => c.Pessoa)
+                           .Include(c => c.Pessoa.Curso.Select(cst => cst.Curso))
+                           .Include(c => c.Pessoa.Turmas.Select(cst => cst.Curso))
                            .Include(c => c.Area1)
                            .Include(c => c.Area2)
-                           .Include(c => c.Empresa)
+                           .Include(c => c.Empresa.TipoEmpresa.TipoCracha)
+                           .Include(c => c.Empresa.Contratos)
+                           .Include(c => c.Veiculo)
+                           .Include(c => c.Cargo)
+                           .Include(c => c.PortaoAcesso1)
+                           .Include(c => c.PortaoAcesso2)
+                           .Include(c => c.PortaoAcesso3)
                            .Include(c => c.Aeroporto)
+                           .Include(c => c.Contrato)
                            .Where(c => !c.DataDesativacao.HasValue && c.Pessoa != null && !c.DataExpedicao.HasValue)
                            .ToList();
         }
