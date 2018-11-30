@@ -1601,7 +1601,8 @@
     <Content Include="Views\Credencial\EditATIV.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\Documents\" />
+    <Folder Include="App_Data\" />
+    <Folder Include="Documents\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

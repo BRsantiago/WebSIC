@@ -76,7 +76,24 @@ namespace WebSIC.Controllers
                 //{
                 Pessoa pessoa = model.MapearParaObjetoDominio();
                 pessoa.ImageUrl = "../../WebImages/person.jpg";
+
+                pessoa.Criacao =
+                    pessoa.Atualizacao = DateTime.Now;
+
+                pessoa.Criador =
+                    pessoa.Atualizador = User.Identity.Name;
+
                 PessoaService.IncluirPessoa(pessoa);
+
+                UploadFilesHandler(model, pessoa.IdPessoa);
+
+                pessoa.RGFilePath = model.RGFilePath;
+                pessoa.CRFilePath = model.CRFilePath;
+                pessoa.CNHFilePath = model.CNHFilePath;
+                pessoa.CTPSFilePath = model.CTPSFilePath;
+
+                PessoaService.Atualizar(pessoa);
+
                 return RedirectToAction("Edit", new { id = pessoa.IdPessoa });
                 //}
                 //return View(model);
@@ -115,7 +132,7 @@ namespace WebSIC.Controllers
             try
             {
                 Pessoa pessoa = PessoaService.ObterPorId(model.IdPessoa.ToString());
-
+                
                 pessoa.IdPessoa = model.IdPessoa;
                 pessoa.NomeCompleto = model.NomeCompleto.ToUpper();
                 pessoa.Nome = String.IsNullOrEmpty(model.Nome) ? model.Nome : model.Nome.ToUpper();
@@ -164,6 +181,9 @@ namespace WebSIC.Controllers
                 pessoa.CNHFilePath = model.CNHFilePath;
                 pessoa.CTPSFilePath = model.CTPSFilePath;
 
+                pessoa.Atualizacao = DateTime.Now;
+                pessoa.Atualizador = User.Identity.Name;
+
                 PessoaService.Atualizar(pessoa);
 
                 var msg = "<script> swal({title: 'Good job!', text: 'Alterações salvas com sucesso !', icon: 'success', button: 'OK!'}) </script>";
@@ -187,7 +207,7 @@ namespace WebSIC.Controllers
 
         private void UploadFilesHandler(PessoaViewModel viewModel, int id)
         {
-            var targetDirectory = string.Format("~/App_Data/Documents/{0}", id);
+            var targetDirectory = string.Format("~/Documents/{0}", id);
             if (!Directory.Exists(Server.MapPath(targetDirectory)))
                 Directory.CreateDirectory(Server.MapPath(targetDirectory));
 
