@@ -103,8 +103,8 @@ namespace WebSIC.Controllers
                 Session["CategoriaMotoristaTres"] = credencial.CategoriaMotorista1 == "E" || credencial.CategoriaMotorista2 == "E" ? "E" : "N";
                 Session["LogoEmpresa"] = Server.MapPath(credencial.Empresa.ImageUrl);
                 Session["Nome"] = credencial.Pessoa.NomeCompleto.ToUpper();
-                Session["RG"] = credencial.Pessoa.RG;
-                Session["CPF"] = credencial.Pessoa.CPF;
+                Session["RG"] = credencial.Pessoa.RG == null ? "" : credencial.Pessoa.RG;
+                Session["CPF"] = credencial.Pessoa.CPF == null ? credencial.Pessoa.RNE : credencial.Pessoa.CPF;
                 Session["Empresa"] = credencial.Empresa.NomeFantasia.ToUpper();
                 Session["Matricula"] = credencial.IdCredencial.ToString().PadLeft(8, '0');
                 Session["Emergencia"] = credencial.Pessoa.TelefoneEmergencia;
@@ -157,12 +157,12 @@ namespace WebSIC.Controllers
                 cryRpt.SetParameterValue("Pocision", credencial.DescricaoFuncaoFrenteCracha.ToUpper());
                 cryRpt.SetParameterValue("FotoPath", Server.MapPath(credencial.Pessoa.ImageUrl));
                 cryRpt.SetParameterValue("Motorista1", (credencial.CategoriaMotorista1 == "A" || credencial.CategoriaMotorista2 == "A" ? "A" : "" + credencial.CategoriaMotorista1 == "B" || credencial.CategoriaMotorista2 == "B" ? "B" : "") == "" ? "N" : "N");
-                cryRpt.SetParameterValue("Motorista2", credencial.CategoriaMotorista1 == "D" || credencial.CategoriaMotorista2 == "D" ? "D" : "N");
+                cryRpt.SetParameterValue("Motorista2", credencial.CategoriaMotorista1 == "D" || credencial.CategoriaMotorista2 == "D" ? "D" : credencial.CategoriaMotorista1 == "C" || credencial.CategoriaMotorista2 == "C" ? "C" : "N");
                 cryRpt.SetParameterValue("Motorista3", credencial.CategoriaMotorista1 == "E" || credencial.CategoriaMotorista2 == "E" ? "E" : "N");
                 cryRpt.SetParameterValue("EmpresaPath", Server.MapPath(credencial.Empresa.ImageUrl));
                 cryRpt.SetParameterValue("Nombre", credencial.Pessoa.NomeCompleto.ToUpper(), "CardBack.rpt");
-                cryRpt.SetParameterValue("RG", credencial.Pessoa.RG, "CardBack.rpt");
-                cryRpt.SetParameterValue("CPF", credencial.Pessoa.CPF, "CardBack.rpt");
+                cryRpt.SetParameterValue("RG", credencial.Pessoa.RG == null ? "" : credencial.Pessoa.RG, "CardBack.rpt");
+                cryRpt.SetParameterValue("CPF", credencial.Pessoa.CPF == null ? credencial.Pessoa.RNE : credencial.Pessoa.CPF, "CardBack.rpt");
                 cryRpt.SetParameterValue("Matricula", credencial.IdCredencial.ToString().PadLeft(8, '0'), "CardBack.rpt");
                 cryRpt.SetParameterValue("Empresa", credencial.Empresa.NomeFantasia.ToUpper(), "CardBack.rpt");
                 cryRpt.SetParameterValue("Emergencia", credencial.Pessoa.TelefoneEmergencia, "CardBack.rpt");
@@ -302,6 +302,14 @@ namespace WebSIC.Controllers
                     list.Add(new SelectListItem { Text = queue.FullName, Value = i.ToString() });
                 }
             }
+
+            //using (var printServer = new PrintServer(string.Format(@"\\{0}", "S-CASSASV03")))
+            //{
+            //    foreach (var queue in printServer.GetPrintQueues())
+            //    {
+            //        list.Add(new SelectListItem { Text = queue.FullName, Value = i.ToString() });
+            //    }
+            //}
 
             return list;
         }
