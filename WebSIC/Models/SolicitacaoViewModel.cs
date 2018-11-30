@@ -52,6 +52,23 @@ namespace WebSIC.Models
         public List<RamoAtividade> RamoAtividade { get; set; }
         public int IdRamoAtividade { get; set; }
 
+        [Display(Name = "Certidão Negativa TRF")]
+        public string CertTRFFilePath { get; set; }
+        public HttpPostedFileBase CertTRFFile { get; set; }
+
+        [Display(Name = "Certidão Antecedentes Criminais PF")]
+        public string CertAntCrimPFFilePath { get; set; }
+        public HttpPostedFileBase CertAntCrimPFFile { get; set; }
+
+        [Display(Name = "Certidão Antecedentes Criminais PC")]
+        public string CertAntCrimPCFilePath { get; set; }
+        public HttpPostedFileBase CertAntCrimPCFile { get; set; }
+
+        [Display(Name = "Certidão Negativa TJBA")]
+        public string CertTJBAFilePath { get; set; }
+        public HttpPostedFileBase CertTJBAFile { get; set; }
+
+
         public SolicitacaoViewModel(Solicitacao solicitacao)
         {
             this.IdSolicitacao = solicitacao.IdSolicitacao;
