@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
@@ -109,7 +111,7 @@ namespace WebSIC.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Create(SolicitacaoViewModel model)
         {
             try
@@ -117,6 +119,13 @@ namespace WebSIC.Controllers
                 var solicitacao = model.MapearParaObjetoDominio();
                 solicitacao.Criador =
                     solicitacao.Atualizador = User.Identity.Name;
+
+                UploadFilesHandler(model, solicitacao.PessoaId.Value);
+
+                solicitacao.CertAntCrimPCFilePath = model.CertAntCrimPCFilePath;
+                solicitacao.CertAntCrimPFFilePath = model.CertAntCrimPFFilePath;
+                solicitacao.CertAntCrimPFFilePath = model.CertTJBAFilePath;
+                solicitacao.CertTRFFilePath = model.CertTRFFilePath;
 
                 SolicitacaoService.Salvar(solicitacao);
 
@@ -136,6 +145,36 @@ namespace WebSIC.Controllers
                     title = "Erro",
                     message = ex.Message
                 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private void UploadFilesHandler(SolicitacaoViewModel viewModel, int id)
+        {
+            var targetDirectory = string.Format("~/Documents/{0}/Solicitacoes/{1}", id, DateTime.Now.ToString("yyyyMMdd"));
+            if (!Directory.Exists(Server.MapPath(targetDirectory)))
+                Directory.CreateDirectory(Server.MapPath(targetDirectory));
+
+            foreach (PropertyInfo propertyInfo in viewModel.GetType().GetProperties())
+            {
+                if (propertyInfo.PropertyType == typeof(HttpPostedFileBase) && propertyInfo.Name != "Foto")
+                {
+                    var propertyValue = propertyInfo.GetValue(viewModel);
+                    if (propertyValue == null)
+                        continue;
+
+                    var postedFileName = propertyValue.GetType().GetProperty("FileName").GetValue(propertyValue);
+
+                    //To Get File Extension  
+                    string fileExtension = Path.GetExtension(postedFileName.ToString());
+                    //Add Current Date To Attached File Name  
+                    string fileName = string.Format("{0}-{1}{2}", DateTime.Now.ToString("yyyyMMddHHmmss"), propertyInfo.Name, fileExtension);
+                    //Its Create complete path to store in server.  
+                    string uploadPath = string.Format("{0}/{1}", targetDirectory, fileName);
+                    //To copy and save file into server.
+                    propertyInfo.PropertyType.GetMethod("SaveAs").Invoke(propertyValue, new object[] { Server.MapPath(uploadPath) });
+
+                    viewModel.GetType().GetProperty(propertyInfo.Name + "Path").SetValue(viewModel, uploadPath);
+                }
             }
         }
 

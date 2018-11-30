@@ -109,8 +109,25 @@ function onShowModalDeleteRepresentante(idPessoa, idEmpresa, tipo) {
     });
 };
 
+(function ($) {
+    $.fn.serializeFiles = function () {
+        var form = $(this);
+        var formData = new FormData(form[0]);
+        var formParams = form.serializeArray();
 
+        $.each(form.find('input[type="file"]'), function (i, tag) {
+            $.each($(tag)[0].files, function (i, file) {
+                formData.append(tag.name, file);
+            });
+        });
 
+        $.each(formParams, function (i, val) {
+            formData.append(val.name, val.value);
+        });
+
+        return formData;
+    };
+})(jQuery);
 
 function Salvar(form) {
 
@@ -121,7 +138,9 @@ function Salvar(form) {
     $.ajax({
         url: form.attr("action"),
         method: form.attr("method"),  // post
-        data: form.serialize(),
+        data: form.serializeFiles(),
+        contentType: false,
+        processData: false,
         success: function (result) {
             if (result.success) {
                 swal({
