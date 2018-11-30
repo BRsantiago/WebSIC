@@ -45,7 +45,8 @@ namespace Repository.Repository
         public Credencial ObterPorEmpresaPessoaTipoEmissao(int idEmpresa, int idPessoa, bool flgTemporario)
         {
             return this.contexto.Credenciais
-                                .Where(c => c.Empresa.IdEmpresa == idEmpresa && c.Pessoa.IdPessoa == idEmpresa && c.FlgTemporario == flgTemporario)
+                                .Include(c => c.Solicitacoes.Select(s => s.TipoSolicitacao))
+                                .Where(c => c.Empresa.IdEmpresa == idEmpresa && c.Pessoa.IdPessoa == idPessoa && c.FlgTemporario == flgTemporario)
                                 .SingleOrDefault();
         }
 

@@ -95,8 +95,8 @@ namespace Services.Service
                 credencial.Area2Id = novaSolicitacao.Area2Id;
                 credencial.CargoId = novaSolicitacao.CargoId;
                 credencial.ContratoId = novaSolicitacao.ContratoId;
-                credencial.Solicitacoes = new List<Solicitacao>();
-                credencial.Solicitacoes.Add(novaSolicitacao);
+                //credencial.Solicitacoes = new List<Solicitacao>();
+                //credencial.Solicitacoes.Add(novaSolicitacao);
 
                 this.CredencialRepository.IncluirNovaCredencial(credencial);
             }
@@ -114,10 +114,10 @@ namespace Services.Service
                 credencial.ContratoId = novaSolicitacao.ContratoId;
 
                 credencial.DataExpedicao = null;
-                credencial.Solicitacoes.Add(novaSolicitacao);
+                //credencial.Solicitacoes.Add(novaSolicitacao);
                 credencial.FlgSegundaVia = tipoSolicitacao.FlgGeraSegundaVia;
 
-                
+
                 if (tipoSolicitacao.FlgDesativaCredencial)
                 {
                     credencial.DataDesativacao = DateTime.Now;
@@ -126,7 +126,7 @@ namespace Services.Service
                 this.CredencialRepository.Atualizar(credencial);
             }
 
-            //novaSolicitacao.Credencial = credencial;
+            novaSolicitacao.Credencial = credencial;
         }
 
         private void Validar(Credencial credencial, Solicitacao solicitacao)
@@ -134,7 +134,7 @@ namespace Services.Service
             if (solicitacao.IdSolicitacao != 0 && credencial != null && credencial.DataExpedicao.HasValue)
                 throw new Exception("Esta solicitação não pode ser alterada pois a credencial já foi emitida.");
 
-            if (credencial != null && credencial.Solicitacoes.Any(s => s.TipoSolicitacao.FlgGeraNovaCredencial && s.TipoSolicitacao.IdTipoSolicitacao == solicitacao.TipoSolicitacaoId && s.IdSolicitacao != solicitacao.IdSolicitacao))
+            if (credencial != null && credencial.Solicitacoes.Any(s => s.TipoSolicitacao.FlgGeraNovaCredencial && s.TipoSolicitacaoId == solicitacao.TipoSolicitacaoId && s.IdSolicitacao != solicitacao.IdSolicitacao))
                 throw new Exception("Esta solicitação não pode ser concluída pois esta já foi realizada.");
 
             if (solicitacao.ContratoId == 0)
@@ -167,27 +167,16 @@ namespace Services.Service
             if (solicitacao.RamoAtividadeId.HasValue)
                 cursosExigidos.AddRange(CursoRepository.ObterPorRamoAtividade(solicitacao.RamoAtividadeId.Value));
 
-            #region
-            //var cursosId = ConfigurationManager.AppSettings[solicitacao.RamoAtividade.ToString()];
-            //if (!string.IsNullOrEmpty(cursosId))
-            //{
-            //    foreach (var cursoId in cursosId.Split(','))
-            //    {
-            //        cursosExigidos.Add(CursoRepository.ObterPorId(int.Parse(cursoId)));
-            //    }
-            //}
-            #endregion
-
             var cursos2Add = cursosExigidos.Distinct().Except(cursosRealizadosComValidade).ToList();
 
             foreach (var curso2Add in cursos2Add)
             {
                 solicitacao.Pessoa.Curso.Add(new CursoSemTurma()
                 {
-
                     Curso = curso2Add,
                     CursoId = curso2Add.IdCurso,
                     DataValidade = DateTime.Now.AddDays(curso2Add.Validade),
+                    Pessoa = solicitacao.Pessoa,
                     PessoaId = solicitacao.PessoaId,
                     Criacao = DateTime.Now,
                     Criador = solicitacao.Criador,
@@ -317,8 +306,8 @@ namespace Services.Service
                     PortaoAcesso2Id = solicitacao.PortaoAcesso2Id,
                     PortaoAcesso3Id = solicitacao.PortaoAcesso3Id,
                     FlgTemporario = solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria,
-                    DataVencimento = solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria 
-                        ? DateTime.Now.AddDays(30) 
+                    DataVencimento = solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria
+                        ? DateTime.Now.AddDays(30)
                         : (solicitacao.Veiculo.Apolice.DataValidade - DateTime.Now).TotalDays > 365
                             ? DateTime.Now.AddDays(365)
                             : solicitacao.Veiculo.Apolice.DataValidade
@@ -332,7 +321,7 @@ namespace Services.Service
                 CredencialRepository.IncluirNovaCredencial(newCredencial);
             }
 
-            SolicitacaoRepository.Salvar();   
+            SolicitacaoRepository.Salvar();
         }
 
         public void ExcluirSolicitacao(Solicitacao solicitacao)
