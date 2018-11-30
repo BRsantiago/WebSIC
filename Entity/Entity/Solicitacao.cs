@@ -120,5 +120,17 @@ namespace Entity.Entities
         [Column("RamoAtividade_IdRamoAtividade")]
         [ForeignKey("RamoAtividade")]
         public Nullable<int> RamoAtividadeId { get; set; }
+
+        [Display(Name = "Certidão Negativa TRF")]
+        public string CertTRFFilePath { get; set; }
+
+        [Display(Name = "Certidão Antecedentes Criminais PF")]
+        public string CertAntCrimPFFilePath { get; set; }
+
+        [Display(Name = "Certidão Antecedentes Criminais PC")]
+        public string CertAntCrimPCFilePath { get; set; }
+
+        [Display(Name = "Certidão Negativa TJBA")]
+        public string CertTJBAFilePath { get; set; }
     }
 }
