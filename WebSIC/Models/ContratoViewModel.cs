@@ -17,10 +17,12 @@ namespace WebSIC.Models
 
         [Required(ErrorMessage = "Favor informar vigência inicial do contrato.")]
         [Display(Name = "Início da Vigência")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime InicioVigencia { get; set; }
 
         [Required(ErrorMessage = "Favor informar vigência final do contrato.")]
         [Display(Name = "Final da Vigência")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime FimVigencia { get; set; }
 
         public int IdEmpresa { get; set; }

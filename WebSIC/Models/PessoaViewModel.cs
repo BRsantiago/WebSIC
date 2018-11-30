@@ -20,6 +20,7 @@ namespace WebSIC.Models
         public string Nome { get; set; }
 
         [Display(Name = "Data de Nasc.")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public string DataNascimento { get; set; }
 
         [Display(Name = "Pai")]

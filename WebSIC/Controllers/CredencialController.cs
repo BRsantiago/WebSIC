@@ -35,6 +35,8 @@ namespace WebSIC.Controllers
         {
             List<Credencial> lista = this.CredencialService.ObterTodasCredenciaisAtivasDeFuncionario();
 
+            lista.ForEach(c => c.DataVencimento = this.GerarDataVencimentoCredencial(c));
+
             return View(lista);
         }
 
@@ -318,7 +320,7 @@ namespace WebSIC.Controllers
                                  .ToList()
                                  .ForEach(c => datas.Add(c.DataValidade));
 
-                credencial.Empresa.Contratos
+                credencial.Empresa.Contratos?
                                   .Where(c => c.FimVigencia > DateTime.Now)
                                   .ToList()
                                   .ForEach(c => datas.Add(c.FimVigencia));

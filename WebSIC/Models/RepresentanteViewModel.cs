@@ -15,6 +15,7 @@ namespace WebSIC.Models
         public string NomeCompleto { get; set; }
         public string Nome { get; set; }
         [Display(Name = "Data de Nascimento")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public string DataNascimento { get; set; }
         [Display(Name = "Pai")]
         public string NomePai { get; set; }

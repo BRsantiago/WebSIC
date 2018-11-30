@@ -22,10 +22,12 @@ namespace Entity.Entities
 
         [Required]
         [Display(Name = "Início da Vigência")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime InicioVigencia { get; set; }
 
         [Required]
         [Display(Name = "Final da Vigência")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime FimVigencia { get; set; }
 
         public Empresa Empresa { get; set; }
