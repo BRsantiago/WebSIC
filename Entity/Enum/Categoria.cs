@@ -9,8 +9,8 @@ namespace Entity.Enum
 {
     public enum Categoria
     {
-        [Display(Name = "A - Motocicletas")]
-        A = 1,
+        //[Display(Name = "A - Motocicletas")]
+        //A = 1,
         [Display(Name = "B - Veículos de Passeio")]
         B = 2,
         [Display(Name = "C - Caminhões")]

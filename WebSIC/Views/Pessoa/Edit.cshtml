@@ -88,15 +88,16 @@
             <div class="col-md-3">
                 @Html.EditorFor(model => model.DataNascimento, new { htmlAttributes = new { @class = "form-control" } })
             </div>
+        </div>
 
-            @*@Html.LabelFor(model => model.Generos, htmlAttributes: new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    <div class="checkbox">
-                        @Html.DropDownListFor(d => d.IdGenero, new SelectList(Model.Generos.OrderBy(o => o.IdGenero), "IdGenero", "Descricao"), "Selecione", new { @class = "form-control select2" })
-                        @Html.ValidationMessageFor(model => model.IdGenero, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
-
+        <div class="form-group" style="height: 50px;">
+            @Html.LabelFor(model => model.Genero, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-2">
+                <div class="checkbox">
+                    @Html.EnumDropDownListFor(d => d.Genero, "Selecione", new { @class = "form-control select2" })
+                    @Html.ValidationMessageFor(model => model.Genero, "", new { @class = "text-danger" })
+                </div>
+            </div>
         </div>
 
         <div class="form-group" style="height: 50px;">
@@ -235,12 +236,6 @@
             <div class="col-md-2">
                 <div class="checkbox">
                     @Html.EnumDropDownListFor(d => d.CategoriaUm, "Selecione", new { @class = "form-control select1" })
-                </div>
-            </div>
-
-            <div class="col-md-2">
-                <div class="checkbox">
-                    @Html.EnumDropDownListFor(d => d.CategoriaDois, "Selecione", new { @class = "form-control select1" })
                 </div>
             </div>
         </div>

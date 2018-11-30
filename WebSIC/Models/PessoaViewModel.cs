@@ -194,18 +194,19 @@ namespace WebSIC.Models
         {
             Pessoa pessoa = new Pessoa();
 
+
             pessoa.IdPessoa = this.IdPessoa;
-            pessoa.NomeCompleto = this.NomeCompleto;
-            pessoa.Nome = this.Nome;
+            pessoa.NomeCompleto = this.NomeCompleto.ToUpper();
+            pessoa.Nome = String.IsNullOrEmpty(this.Nome) ? this.Nome : this.Nome.ToUpper();
             pessoa.DataNascimento = Convert.ToDateTime(this.DataNascimento);
-            pessoa.NomePai = this.NomePai;
-            pessoa.NomeMae = this.NomeMae;
+            pessoa.NomePai = String.IsNullOrEmpty(this.NomePai) ? this.NomePai : this.NomePai.ToUpper();
+            pessoa.NomeMae = String.IsNullOrEmpty(this.NomeMae) ? this.NomeMae : this.NomeMae.ToUpper();
             pessoa.Endereco = this.Endereco;
             pessoa.Numero = Convert.ToInt32(this.Numero);
-            pessoa.Complemento = this.Complemento;
-            pessoa.Bairro = this.Bairro;
-            pessoa.Cidade = this.Cidade;
-            pessoa.UF = this.UF;
+            pessoa.Complemento = String.IsNullOrEmpty(this.Complemento) ? this.Complemento : this.Complemento.ToUpper();
+            pessoa.Bairro = String.IsNullOrEmpty(this.Bairro) ? this.Bairro : this.Bairro.ToUpper();
+            pessoa.Cidade = String.IsNullOrEmpty(this.Cidade) ? this.Cidade : this.Cidade.ToUpper();
+            pessoa.UF = String.IsNullOrEmpty(this.UF) ? this.UF : this.UF.ToUpper();
             pessoa.CEP = this.CEP;
             pessoa.TelefoneEmergencia = this.TelefoneEmergencia;
             pessoa.TelefoneResidencial = this.TelefoneResidencial;
@@ -213,8 +214,8 @@ namespace WebSIC.Models
             pessoa.RNE = this.RNE;
             pessoa.CPF = this.CPF;
             pessoa.RG = this.RG;
-            pessoa.OrgaoExpeditor = this.OrgaoExpeditor;
-            pessoa.UFOrgaoExpeditor = this.UFOrgaoExpeditor;
+            pessoa.OrgaoExpeditor = String.IsNullOrEmpty(this.OrgaoExpeditor) ? this.OrgaoExpeditor : this.OrgaoExpeditor.ToUpper();
+            pessoa.UFOrgaoExpeditor = String.IsNullOrEmpty(this.UFOrgaoExpeditor) ? this.UFOrgaoExpeditor : this.UFOrgaoExpeditor.ToUpper();
             pessoa.Genero = this.Genero;
             pessoa.Observacao = this.Observacao;
             pessoa.FlgCVE = this.FlgCVE;

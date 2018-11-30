@@ -33,8 +33,11 @@ namespace Repository.Repository
             if (credencial.PortaoAcesso2 != null) contexto.Entry(credencial.PortaoAcesso2).State = System.Data.Entity.EntityState.Unchanged;
             if (credencial.PortaoAcesso3 != null) contexto.Entry(credencial.PortaoAcesso3).State = System.Data.Entity.EntityState.Unchanged;
 
-            foreach(Solicitacao solicitacao in credencial.Solicitacoes)
-                contexto.Entry(solicitacao).State = System.Data.Entity.EntityState.Unchanged;
+            if (credencial.Solicitacoes != null)
+                foreach (Solicitacao solicitacao in credencial.Solicitacoes)
+                {
+                    contexto.Entry(solicitacao).State = System.Data.Entity.EntityState.Unchanged;
+                }
 
             this.contexto.Credenciais.Add(credencial);
         }

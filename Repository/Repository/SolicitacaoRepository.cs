@@ -40,6 +40,7 @@ namespace Repository.Interface
                                             }
                                             else
                                             {
+                                                contexto.Entry(c.Curso).State = System.Data.Entity.EntityState.Unchanged;
                                                 contexto.Entry(c).State = System.Data.Entity.EntityState.Unchanged;
                                             }
                                         });

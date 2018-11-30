@@ -80,13 +80,13 @@ namespace WebSIC.Controllers
             model.IdPessoa = Convert.ToInt32(id);
 
 
-            model.Aeroportos = AeroportoService.ObterTodos();
+            model.Aeroportos = AeroportoService.ObterTodos().OrderBy(a => a.Descricao).ToList();
             model.Empresas = new List<Empresa>(); //EmpresaService.ObterTodos();
             model.Contratos = new List<Contrato>(); //ContratoService.ObterTodos();
             model.TiposSolicitacao = TipoSolicitacaoService.ObterTodos();
-            model.Areas = AreaService.Listar().ToList();
-            model.Cargo = CargoService.Listar().ToList();
-            model.RamoAtividade = RamoAtividadeService.ObterTodos().ToList();
+            model.Areas = AreaService.Listar().OrderBy(a => a.Sigla).ToList();
+            model.Cargo = CargoService.Listar().OrderBy(c => c.Descricao).ToList();
+            model.RamoAtividade = RamoAtividadeService.ObterTodos().OrderBy(r => r.Descricao).ToList();
 
             return PartialView(model);
         }
