@@ -58,33 +58,60 @@ namespace Services.Service
 
         public void Salvar(Solicitacao solicitacao)
         {
-            solicitacao.DataAutorizacao = DateTime.Now; //Isto precisar mudar quando pessoas de fora fizerem o cadastro da solicitacao.
-            solicitacao.Pessoa = this.PessoaRepository.ObterPorId(solicitacao.PessoaId.Value);
+            try
+            {
+                Cargo cargo = this.CargoRepository.ObterPorId(solicitacao.CargoId.Value);
+                TipoSolicitacao tipoSolicitacao = this.TipoSolicitacaoRepository.ObterPorId(solicitacao.TipoSolicitacaoId.Value);
+                Credencial credencial = this.CredencialRepository.ObterPorEmpresaPessoaTipoEmissao(solicitacao.EmpresaId.Value, solicitacao.PessoaId.Value, solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);
+                Pessoa pessoa = this.PessoaRepository.ObterPorId(solicitacao.PessoaId.Value);
 
-            CarregarCursosExigidos(solicitacao);
+                SolicitacaoRepository.IniciarTransacao();
+                PessoaRepository.IniciarTransacao();
+                //CredencialRepository.IniciarTransacao();
 
-            SolicitacaoRepository.IncluirNovaSolicitacao(solicitacao);
+                solicitacao.CredencialId = credencial?.IdCredencial;
 
-            GerarCredencial(solicitacao);
+                this.Validar(credencial, solicitacao);
 
-            SolicitacaoRepository.Salvar();
+                SolicitacaoRepository.Incluir(solicitacao);
+                SolicitacaoRepository.Salvar();
+
+                CarregarCursosExigidos(solicitacao, pessoa);
+                PessoaRepository.AtualizarRepresentante(pessoa);
+                PessoaRepository.Salvar();
+
+                GerarCredencial(solicitacao, credencial, pessoa, cargo, tipoSolicitacao);
+                CredencialRepository.Salvar();
+
+                //CredencialRepository.EncerrarTransacao();
+                PessoaRepository.EncerrarTransacao();
+                SolicitacaoRepository.EncerrarTransacao();
+            }
+            catch (Exception ex)
+            {
+                //CredencialRepository.DesfazerTransacao();
+                PessoaRepository.DesfazerTransacao();
+                SolicitacaoRepository.DesfazerTransacao();
+                throw new Exception(ex.Message);
+            }
+
         }
 
-        private void GerarCredencial(Solicitacao novaSolicitacao)
+        private void GerarCredencial(Solicitacao novaSolicitacao, Credencial credencial, Pessoa pessoa, Cargo cargo, TipoSolicitacao tipoSolicitacao)
         {
-            Credencial credencial = this.CredencialRepository.ObterPorEmpresaPessoaTipoEmissao(novaSolicitacao.EmpresaId.Value, novaSolicitacao.PessoaId.Value, novaSolicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);
-            Cargo cargo = this.CargoRepository.ObterPorId(novaSolicitacao.CargoId.Value);
-            TipoSolicitacao tipoSolicitacao = this.TipoSolicitacaoRepository.ObterPorId(novaSolicitacao.TipoSolicitacaoId.Value);
+            //Credencial credencial = this.CredencialRepository.ObterPorEmpresaPessoaTipoEmissao(novaSolicitacao.EmpresaId.Value, novaSolicitacao.PessoaId.Value, novaSolicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);
+            //Cargo cargo = this.CargoRepository.ObterPorId(novaSolicitacao.CargoId.Value);
+            //TipoSolicitacao tipoSolicitacao = this.TipoSolicitacaoRepository.ObterPorId(novaSolicitacao.TipoSolicitacaoId.Value);
 
-            this.Validar(credencial, novaSolicitacao);
+            //this.Validar(credencial, novaSolicitacao);
 
             if (credencial == null && tipoSolicitacao.FlgGeraNovaCredencial)
             {
                 credencial = new Credencial();
 
                 credencial.FlgTemporario = novaSolicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria;
-                credencial.FlgCVE = novaSolicitacao.Pessoa.FlgCVE;
-                credencial.NomeImpressaoFrenteCracha = novaSolicitacao.Pessoa.Nome;
+                credencial.FlgCVE = pessoa.FlgCVE;
+                credencial.NomeImpressaoFrenteCracha = pessoa.Nome;
                 credencial.DescricaoFuncaoFrenteCracha = cargo.Descricao;
 
                 credencial.AeroportoId = novaSolicitacao.AeroportoId;
@@ -95,18 +122,16 @@ namespace Services.Service
                 credencial.Area2Id = novaSolicitacao.Area2Id;
                 credencial.CargoId = novaSolicitacao.CargoId;
                 credencial.ContratoId = novaSolicitacao.ContratoId;
-                //credencial.Solicitacoes = new List<Solicitacao>();
-                //credencial.Solicitacoes.Add(novaSolicitacao);
+                credencial.Solicitacoes = new List<Solicitacao>();
+                credencial.Solicitacoes.Add(novaSolicitacao);
 
                 this.CredencialRepository.IncluirNovaCredencial(credencial);
             }
             else
             {
-                credencial.FlgCVE = novaSolicitacao.Pessoa.FlgCVE;
-                credencial.NomeImpressaoFrenteCracha = novaSolicitacao.Pessoa.Nome;
+                credencial.FlgCVE = pessoa.FlgCVE;
+                credencial.NomeImpressaoFrenteCracha = pessoa.Nome;
                 credencial.DescricaoFuncaoFrenteCracha = cargo.Descricao;
-                credencial.CategoriaMotorista1 = novaSolicitacao.Pessoa.CategoriaUm.ToString();
-                credencial.CategoriaMotorista2 = novaSolicitacao.Pessoa.CategoriaDois.ToString();
 
                 credencial.Area1Id = novaSolicitacao.Area1Id;
                 credencial.Area2Id = novaSolicitacao.Area2Id;
@@ -114,7 +139,6 @@ namespace Services.Service
                 credencial.ContratoId = novaSolicitacao.ContratoId;
 
                 credencial.DataExpedicao = null;
-                //credencial.Solicitacoes.Add(novaSolicitacao);
                 credencial.FlgSegundaVia = tipoSolicitacao.FlgGeraSegundaVia;
 
 
@@ -125,8 +149,6 @@ namespace Services.Service
 
                 this.CredencialRepository.Atualizar(credencial);
             }
-
-            novaSolicitacao.Credencial = credencial;
         }
 
         private void Validar(Credencial credencial, Solicitacao solicitacao)
@@ -152,7 +174,7 @@ namespace Services.Service
                 throw new Exception("Esta solicitacão não pode ser realizada pois ainda não existe credencial emitida para esta pessoa, nesta empresa e deste tipo.");
         }
 
-        private void CarregarCursosExigidos(Solicitacao solicitacao)
+        private void CarregarCursosExigidos(Solicitacao solicitacao, Pessoa pessoa)
         {
             IList<Curso> cursosRealizadosComValidade = this.CursoRepository.ObterCursosRealizadosComValidadePorIdPessoa(solicitacao.PessoaId.Value);
 
@@ -171,7 +193,7 @@ namespace Services.Service
 
             foreach (var curso2Add in cursos2Add)
             {
-                solicitacao.Pessoa.Curso.Add(new CursoSemTurma()
+                pessoa.Curso.Add(new CursoSemTurma()
                 {
                     Curso = curso2Add,
                     CursoId = curso2Add.IdCurso,
@@ -190,11 +212,11 @@ namespace Services.Service
         {
             solicitacao.Pessoa = this.PessoaRepository.ObterPorId(solicitacao.PessoaId.Value);
 
-            CarregarCursosExigidos(solicitacao);
+            // CarregarCursosExigidos(solicitacao);
 
             SolicitacaoRepository.Atualizar(solicitacao);
 
-            GerarCredencial(solicitacao);
+            // GerarCredencial(solicitacao);
 
             SolicitacaoRepository.Salvar();
         }

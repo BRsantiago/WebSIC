@@ -34,6 +34,12 @@ namespace Repository.Repository
                            .Where(p => p.IdPessoa == idPessoa).SingleOrDefault();
         }
 
+        public Pessoa ObterPorIdSemAgregacao(int idPessoa)
+        {
+            return contexto.Pessoas
+                           .Where(p => p.IdPessoa == idPessoa).SingleOrDefault();
+        }
+
         public Pessoa ObterPorCPF(string cpf)
         {
             return this.contexto.Pessoas.Where(p => p.CPF.Contains(cpf)).SingleOrDefault();

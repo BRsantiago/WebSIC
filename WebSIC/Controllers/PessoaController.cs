@@ -252,7 +252,7 @@ namespace WebSIC.Controllers
 
         // POST: Pessoa/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string IdPessoa)
         {
             try

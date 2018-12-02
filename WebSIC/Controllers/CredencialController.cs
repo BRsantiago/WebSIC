@@ -89,7 +89,7 @@ namespace WebSIC.Controllers
                 {
                     Session["ArquivoCrachaFrotal"] = credencial.Empresa.TipoEmpresa.TipoCracha.Arquivo;
                     Session["ImgFundoCracha"] = credencial.Empresa.TipoEmpresa.TipoCracha.ImgFundoCracha;
-                    Session["TipoCracha"] = ""; //credencial.Empresa.TipoEmpresa.TipoCracha.Descricao;
+                    Session["TipoCracha"] = credencial.Empresa.TipoEmpresa.TipoCracha.Descricao;
                 }
 
                 Session["SiglaAeroporto"] = credencial.Aeroporto.Sigla;
@@ -146,7 +146,7 @@ namespace WebSIC.Controllers
                 {
                     cryRpt.Load(Server.MapPath("/Credenciais/" + credencial.Empresa.TipoEmpresa.TipoCracha.Arquivo));
                     cryRpt.SetParameterValue("ImgFundoPath", Server.MapPath("/Images/FundoCracha/" + credencial.Empresa.TipoEmpresa.TipoCracha.ImgFundoCracha));
-                    cryRpt.SetParameterValue("TipoCracha", ""/*credencial.Empresa.TipoEmpresa.TipoCracha.Descricao*/);
+                    cryRpt.SetParameterValue("TipoCracha", credencial.Empresa.TipoEmpresa.TipoCracha.Descricao);
 
                 }
 
@@ -303,13 +303,13 @@ namespace WebSIC.Controllers
                 }
             }
 
-            //using (var printServer = new PrintServer(string.Format(@"\\{0}", "S-CASSASV03")))
-            //{
-            //    foreach (var queue in printServer.GetPrintQueues())
-            //    {
-            //        list.Add(new SelectListItem { Text = queue.FullName, Value = i.ToString() });
-            //    }
-            //}
+            using (var printServer = new PrintServer(string.Format(@"\\{0}", "S-CASSASV06")))
+            {
+                foreach (var queue in printServer.GetPrintQueues())
+                {
+                    list.Add(new SelectListItem { Text = queue.FullName, Value = i.ToString() });
+                }
+            }
 
             return list;
         }

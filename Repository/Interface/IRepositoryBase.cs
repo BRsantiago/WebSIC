@@ -14,5 +14,8 @@ namespace Repository.Interface
         void Atualizar(TEntity obj);
         void Remover(TEntity obj);
         void Salvar();
+        void IniciarTransacao();
+        void EncerrarTransacao();
+        void DesfazerTransacao();
     }
 }

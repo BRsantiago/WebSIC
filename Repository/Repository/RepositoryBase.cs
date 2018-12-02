@@ -54,5 +54,20 @@ namespace Repository.Repository
         {
             contexto.SaveChanges();
         }
+
+        public void IniciarTransacao()
+        {
+            contexto.Database.BeginTransaction();
+        }
+
+        public void EncerrarTransacao()
+        {
+            contexto.Database.CurrentTransaction.Commit();
+        }
+
+        public void DesfazerTransacao()
+        {
+            contexto.Database.CurrentTransaction.Rollback();
+        }
     }
 }

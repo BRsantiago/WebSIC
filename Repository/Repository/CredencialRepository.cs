@@ -24,6 +24,7 @@ namespace Repository.Repository
         {
 
             if (credencial.Empresa != null) contexto.Entry(credencial.Empresa).State = System.Data.Entity.EntityState.Unchanged;
+            if (credencial.Aeroporto != null) contexto.Entry(credencial.Aeroporto).State = System.Data.Entity.EntityState.Unchanged;
             if (credencial.Contrato != null) contexto.Entry(credencial.Contrato).State = System.Data.Entity.EntityState.Unchanged;
             if (credencial.Pessoa != null) contexto.Entry(credencial.Pessoa).State = System.Data.Entity.EntityState.Unchanged;
             if (credencial.Veiculo != null) contexto.Entry(credencial.Veiculo).State = System.Data.Entity.EntityState.Unchanged;
@@ -32,6 +33,7 @@ namespace Repository.Repository
             if (credencial.PortaoAcesso1 != null) contexto.Entry(credencial.PortaoAcesso1).State = System.Data.Entity.EntityState.Unchanged;
             if (credencial.PortaoAcesso2 != null) contexto.Entry(credencial.PortaoAcesso2).State = System.Data.Entity.EntityState.Unchanged;
             if (credencial.PortaoAcesso3 != null) contexto.Entry(credencial.PortaoAcesso3).State = System.Data.Entity.EntityState.Unchanged;
+            if (credencial.Cargo != null) contexto.Entry(credencial.Cargo).State = System.Data.Entity.EntityState.Unchanged;
 
             if (credencial.Solicitacoes != null)
                 foreach (Solicitacao solicitacao in credencial.Solicitacoes)
@@ -95,7 +97,7 @@ namespace Repository.Repository
                            .ToList();
         }
 
-        public override void Atualizar(Credencial obj)
+        public override void Atualizar(Credencial credencial)
         {
             #region
 
@@ -172,10 +174,11 @@ namespace Repository.Repository
             //    contexto.Entry(solicitacao).State = EntityState.Unchanged;
             #endregion
 
-            if (contexto.Entry(obj).State == EntityState.Detached)
+
+            if (contexto.Entry(credencial).State == EntityState.Detached)
             {
-                var existingtObj = contexto.Credenciais.Find(obj.IdCredencial);
-                contexto.Entry(existingtObj).CurrentValues.SetValues(obj);
+                var existingtObj = contexto.Credenciais.Find(credencial.IdCredencial);
+                contexto.Entry(existingtObj).CurrentValues.SetValues(credencial);
             }
 
 

@@ -10,7 +10,7 @@ using System.Data.Entity;
 
 namespace Repository.Repository
 {
-    public class EmpresaRepository : IEmpresaRepository
+    public class EmpresaRepository : RepositoryBase<Empresa>, IEmpresaRepository
     {
 
         public WebSICContext contexto;

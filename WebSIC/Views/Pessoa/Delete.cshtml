@@ -235,7 +235,7 @@
 
                 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form-pessoa" }))
                 {
-                    @Html.AntiForgeryToken()
+                    @*@Html.AntiForgeryToken()*@
                     @Html.HiddenFor(model => model.IdPessoa)
                 }
 

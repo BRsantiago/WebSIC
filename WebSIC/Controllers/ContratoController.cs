@@ -52,7 +52,7 @@ namespace WebSIC.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Create(ContratoViewModel contrato)
         {
             try
@@ -78,7 +78,7 @@ namespace WebSIC.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Edit(ContratoViewModel contrato)
         {
             try
@@ -99,7 +99,7 @@ namespace WebSIC.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(ContratoViewModel contrato)
         {
             try

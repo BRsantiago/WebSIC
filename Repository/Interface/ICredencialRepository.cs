@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repository.Interface
 {
-    public interface ICredencialRepository
+    public interface ICredencialRepository : IRepositoryBase<Credencial>
     {
         Credencial ObterPorEmpresaPessoaTipoEmissao(int idEmpresa, int idPessoa, bool flgTemporario);
         void IncluirNovaCredencial(Credencial credencial);

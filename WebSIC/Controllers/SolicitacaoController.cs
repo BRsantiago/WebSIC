@@ -93,16 +93,51 @@ namespace WebSIC.Controllers
             return PartialView(model);
         }
 
+        [HttpPost]
+        public ActionResult Aprovar(int id)
+        {
+            ServiceReturn check = null;
+
+            Solicitacao solicitacao = SolicitacaoService.Obter(id);
+            solicitacao.DataAutorizacao = DateTime.Now;
+            solicitacao.Atualizacao = DateTime.Now;
+            solicitacao.Atualizador = User.Identity.Name;
+
+            try
+            {
+                //SolicitacaoService.AprovarSolicitacao(solicitacao);
+                check = new ServiceReturn()
+                {
+                    success = true,
+                    title = "Sucesso",
+                    message = "Solicitação de aprovada com sucesso!",
+                    id = solicitacao.IdSolicitacao
+                };
+            }
+            catch (Exception ex)
+            {
+                check = new ServiceReturn()
+                {
+                    success = false,
+                    title = "Erro",
+                    message = string.Format("Erro ao aprovar a solicitação! {0} - {1}", ex.GetType(), ex.Message),
+                    id = 0
+                };
+            }
+
+            return Json(check, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult GetEmpresas(int idAeroporto)
         {
-            var empresaItems = EmpresaService.ObterPorAeroporto(idAeroporto)
+            var empresaItems = EmpresaService.ObterPorAeroporto(idAeroporto).OrderBy(a => a.NomeFantasia)
                 .Select(e => new SelectListItem() { Text = string.Format("{0} - {1}", e.NomeFantasia, e.CGC), Value = e.IdEmpresa.ToString() });
             return Json(empresaItems, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetContratos(int idEmpresa)
         {
-            var contratoItems = ContratoService.ObterVigentes(idEmpresa)
+            var contratoItems = ContratoService.ObterVigentes(idEmpresa).OrderBy(c => c.Numero)
                 .Select(c => new SelectListItem() { Text = c.Numero, Value = c.IdContrato.ToString() });
             return Json(contratoItems, JsonRequestBehavior.AllowGet);
         }
@@ -241,7 +276,7 @@ namespace WebSIC.Controllers
 
         // POST: Solicitacao/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int IdSolicitacao)
         {
             try
@@ -293,7 +328,7 @@ namespace WebSIC.Controllers
 
             ViewBag.VeiculoId =
                 veiculo.IdVeiculo;
-            ViewBag.TiposEmissao = solicitacao != null 
+            ViewBag.TiposEmissao = solicitacao != null
                 ? EnumHelper.GetSelectList(typeof(Entity.Enum.TipoEmissao), solicitacao.TipoEmissao)
                 : EnumHelper.GetSelectList(typeof(Entity.Enum.TipoEmissao));
 
@@ -333,7 +368,7 @@ namespace WebSIC.Controllers
             #endregion
 
             ServiceReturn check = SolicitacaoService.SalvarATIV(solicitacao);
-            
+
             #region
             //try
             //{

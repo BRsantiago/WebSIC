@@ -16,5 +16,6 @@ namespace Repository.Interface
         void AtualizarRepresentante(Pessoa representante);
         void IncluirNovaPessoa(Pessoa pessoa);
         bool VerificarSeExistePessoaComMesmoCPF(string cPF, int idPessoa);
+        Pessoa ObterPorIdSemAgregacao(int idPessoa);
     }
 }

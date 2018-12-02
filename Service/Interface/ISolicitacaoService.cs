@@ -21,5 +21,7 @@ namespace Service.Interface
         void AtualizarATIV(Solicitacao solicitacao);
         void AprovarATIV(Solicitacao solicitacao);
         void ExcluirSolicitacao(Solicitacao solicitacao);
+
+        //void AprovarSolicitacao(Solicitacao solicitacao);
     }
 }

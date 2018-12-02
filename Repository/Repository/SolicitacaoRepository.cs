@@ -49,7 +49,17 @@ namespace Repository.Interface
                                             }
                                         });
 
-                contexto.Entry(solicitacao.Pessoa).State = System.Data.Entity.EntityState.Modified;
+                solicitacao.Pessoa.Solicitacaos.ToList().ForEach(s =>
+                {
+                    if (s.IdSolicitacao != 0)
+                    {
+                        contexto.Entry(s).State = System.Data.Entity.EntityState.Modified;
+                    }
+
+                });
+
+
+                contexto.Entry(solicitacao.Pessoa).State = System.Data.Entity.EntityState.Unchanged;
             }
 
             if (solicitacao.Area1 != null) contexto.Entry(solicitacao.Area1).State = System.Data.Entity.EntityState.Unchanged;
@@ -61,7 +71,7 @@ namespace Repository.Interface
             if (solicitacao.PortaoAcesso3 != null) contexto.Entry(solicitacao.PortaoAcesso3).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Schedule != null) contexto.Entry(solicitacao.Schedule).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Veiculo != null) contexto.Entry(solicitacao.Veiculo).State = System.Data.Entity.EntityState.Unchanged;
-            if (solicitacao.Credencial != null /*&& contexto.Entry(solicitacao.Credencial).State != System.Data.Entity.EntityState.Added*/) contexto.Entry(solicitacao.Credencial).State = System.Data.Entity.EntityState.Unchanged;
+            if (solicitacao.Credencial != null) contexto.Entry(solicitacao.Credencial).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.TipoSolicitacao != null) contexto.Entry(solicitacao.TipoSolicitacao).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Cargo != null) contexto.Entry(solicitacao.Cargo).State = System.Data.Entity.EntityState.Unchanged;
             if (solicitacao.Aeroporto != null) contexto.Entry(solicitacao.Aeroporto).State = System.Data.Entity.EntityState.Unchanged;
