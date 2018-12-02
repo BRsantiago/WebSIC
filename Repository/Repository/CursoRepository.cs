@@ -48,8 +48,8 @@ namespace Repository.Repository
         {
             return contexto.Cursos
                            .Where(c =>
-                                c.Turmas.Any(t => t.Pessoas.Any(p => p.IdPessoa == idPessoa) && t.DataValidade > DateTime.Now) ||
-                                c.CursosSemTurma.Any(t => t.Pessoa.IdPessoa == idPessoa && t.DataValidade > DateTime.Now))
+                                c.Turmas.Any(t => t.Pessoas.Any(p => p.IdPessoa == idPessoa) /*&& t.DataValidade > DateTime.Now*/) ||
+                                c.CursosSemTurma.Any(t => t.Pessoa.IdPessoa == idPessoa /*&& t.DataValidade > DateTime.Now*/))
                            .ToList();
         }
 

@@ -65,8 +65,8 @@ namespace Services.Service
                 Credencial credencial = this.CredencialRepository.ObterPorEmpresaPessoaTipoEmissao(solicitacao.EmpresaId.Value, solicitacao.PessoaId.Value, solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);
                 Pessoa pessoa = this.PessoaRepository.ObterPorId(solicitacao.PessoaId.Value);
 
-                SolicitacaoRepository.IniciarTransacao();
-                PessoaRepository.IniciarTransacao();
+                //SolicitacaoRepository.IniciarTransacao();
+                //PessoaRepository.IniciarTransacao();
                 //CredencialRepository.IniciarTransacao();
 
                 solicitacao.CredencialId = credencial?.IdCredencial;
@@ -76,22 +76,22 @@ namespace Services.Service
                 SolicitacaoRepository.Incluir(solicitacao);
                 SolicitacaoRepository.Salvar();
 
+                GerarCredencial(solicitacao, credencial, pessoa, cargo, tipoSolicitacao);
+                CredencialRepository.Salvar();
+
                 CarregarCursosExigidos(solicitacao, pessoa);
                 PessoaRepository.AtualizarRepresentante(pessoa);
                 PessoaRepository.Salvar();
 
-                GerarCredencial(solicitacao, credencial, pessoa, cargo, tipoSolicitacao);
-                CredencialRepository.Salvar();
-
                 //CredencialRepository.EncerrarTransacao();
-                PessoaRepository.EncerrarTransacao();
-                SolicitacaoRepository.EncerrarTransacao();
+                //PessoaRepository.EncerrarTransacao();
+                //SolicitacaoRepository.EncerrarTransacao();
             }
             catch (Exception ex)
             {
                 //CredencialRepository.DesfazerTransacao();
-                PessoaRepository.DesfazerTransacao();
-                SolicitacaoRepository.DesfazerTransacao();
+                //PessoaRepository.DesfazerTransacao();
+                //SolicitacaoRepository.DesfazerTransacao();
                 throw new Exception(ex.Message);
             }
 
@@ -350,10 +350,6 @@ namespace Services.Service
         {
             if (solicitacao.IdSolicitacao != 0 && solicitacao.Credencial != null && solicitacao.Credencial.DataExpedicao.HasValue)
                 throw new Exception("Esta solicitação não pode ser excluída pois a credencial já foi emitida.");
-
-            //if(solicitacao.Credencial.Solicitacoes.Count() == 1)
-            //    this.CredencialRepository.Remover(solicitacao.Credencial);
-
 
             this.SolicitacaoRepository.Remover(solicitacao);
             this.SolicitacaoRepository.Salvar();

@@ -12,6 +12,7 @@ namespace Repository.Repository
     public class RepositoryBase<TEntity> : IDisposable, IRepositoryBase<TEntity> where TEntity : class
     {
         public WebSICContext contexto;
+        private DbContextTransaction transacao;
 
         public RepositoryBase(WebSICContext _contexto)
         {
@@ -57,17 +58,17 @@ namespace Repository.Repository
 
         public void IniciarTransacao()
         {
-            contexto.Database.BeginTransaction();
+           transacao = contexto.Database.BeginTransaction();
         }
 
         public void EncerrarTransacao()
         {
-            contexto.Database.CurrentTransaction.Commit();
+            transacao.Commit();
         }
 
         public void DesfazerTransacao()
         {
-            contexto.Database.CurrentTransaction.Rollback();
+            transacao.Rollback();
         }
     }
 }
