@@ -125,6 +125,9 @@ namespace WebSIC.Controllers
         {
             try
             {
+                if (printerName == "Selecione")
+                    throw new Exception("Selecione uma impressora antes de solicitar a impressão.");
+
                 Credencial credencial = this.CredencialService.ObterPorId(Convert.ToInt32(idCredencial));
 
                 this.ValidarParaImpressão(credencial);
@@ -337,7 +340,7 @@ namespace WebSIC.Controllers
                     datas.Add(credencial.Pessoa.DataValidadeCNH.Value);
             }
 
-            return credencial.DataVencimento.HasValue ? credencial.DataVencimento.Value : datas.OrderByDescending(x => x.Date).FirstOrDefault();
+            return datas.OrderBy(x => x.Date).FirstOrDefault();
         }
 
         private void ValidarParaImpressão(Credencial credencial)

@@ -80,13 +80,17 @@ namespace Repository.Repository
                         {
                             if (c.IdCursoSemTurma == 0)
                             {
-                                contexto.Entry(c.Curso).State = System.Data.Entity.EntityState.Unchanged;
+                                if (contexto.Entry(c.Curso).State != System.Data.Entity.EntityState.Detached)
+                                    contexto.Entry(c.Curso).State = System.Data.Entity.EntityState.Unchanged;
                                 contexto.CursosSemTurma.Add(c);
                             }
                             else
                             {
-                                contexto.Entry(c.Curso).State = System.Data.Entity.EntityState.Unchanged;
-                                contexto.Entry(c).State = System.Data.Entity.EntityState.Modified;
+                                if (contexto.Entry(c.Curso).State != System.Data.Entity.EntityState.Detached)
+                                {
+                                    contexto.Entry(c.Curso).State = System.Data.Entity.EntityState.Unchanged;
+                                    contexto.Entry(c).State = System.Data.Entity.EntityState.Unchanged;
+                                }
                             }
                         });
             }
