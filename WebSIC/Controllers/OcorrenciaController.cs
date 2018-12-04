@@ -11,7 +11,7 @@ using Repository.Context;
 
 namespace WebSIC.Controllers
 {
-    [AllowAnonymous]
+    //[AllowAnonymous]
     public class OcorrenciaController : Controller
     {
         private WebSICContext db = new WebSICContext();

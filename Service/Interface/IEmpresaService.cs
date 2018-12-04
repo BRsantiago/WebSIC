@@ -17,5 +17,7 @@ namespace Service.Interface
         void ExcluirEmpresa(int id);
 
         List<Empresa> ObterPorAeroporto(int idAeroporto);
+
+        List<Empresa> GetDataList(string searchBy, int take, int skip, string sortBy, bool sortDir, out int filteredResultsCount, out int totalResultsCount);
     }
 }

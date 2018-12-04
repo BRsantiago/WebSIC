@@ -16,7 +16,7 @@ using Service.Interface;
 
 namespace WebSIC.Controllers
 {
-    [AllowAnonymous]
+    //[AllowAnonymous]
     public class CredencialController : Controller
     {
 

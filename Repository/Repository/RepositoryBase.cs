@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Linq.Expressions;
+using LinqKit;
+using Repository.Extensions;
 
 namespace Repository.Repository
 {
@@ -58,7 +61,7 @@ namespace Repository.Repository
 
         public void IniciarTransacao()
         {
-           transacao = contexto.Database.BeginTransaction();
+            transacao = contexto.Database.BeginTransaction();
         }
 
         public void EncerrarTransacao()
@@ -69,6 +72,43 @@ namespace Repository.Repository
         public void DesfazerTransacao()
         {
             transacao.Rollback();
+        }
+
+        public List<TEntity> GetDataFromDb(string searchBy, int take, int skip, string sortBy, bool sortDir, out int filteredResultsCount, out int totalResultsCount)
+        {
+            var whereClause = BuildDynamicWhereClause(searchBy);
+
+            var result = contexto.Set<TEntity>()
+                .AsExpandable()
+                .Where(whereClause)
+                .OrderBy(sortBy, sortDir)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
+
+            filteredResultsCount = contexto.Set<TEntity>()
+                .AsExpandable()
+                .Where(whereClause)
+                .Count();
+
+            totalResultsCount = contexto.Set<TEntity>().Count();
+
+            return result;
+        }
+
+        public Expression<Func<TEntity, bool>> BuildDynamicWhereClause(string searchValue)
+        {
+            // simple method to dynamically plugin a where clause
+            var predicate = PredicateBuilder.New<TEntity>(true); // true -where(true) return all
+            if (!String.IsNullOrWhiteSpace(searchValue))
+                predicate = ConfigureFilter(predicate, searchValue);
+
+            return predicate;
+        }
+
+        public virtual ExpressionStarter<TEntity> ConfigureFilter(ExpressionStarter<TEntity> predicate, string searchValue)
+        {
+            return predicate;
         }
     }
 }

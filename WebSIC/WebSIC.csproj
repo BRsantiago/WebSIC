@@ -317,6 +317,7 @@
     </Compile>
     <Compile Include="Models\ContratoViewModel.cs" />
     <Compile Include="Models\CursoSemTurmaViewModel.cs" />
+    <Compile Include="Models\DataTableViewModels.cs" />
     <Compile Include="Models\EmpresaViewModel.cs" />
     <Compile Include="Models\PessoaViewModel.cs" />
     <Compile Include="Models\RepresentanteViewModel.cs" />
@@ -1326,6 +1327,10 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.vi.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Views\favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1464,6 +1469,7 @@
     <Content Include="WebImages\person.jpg" />
     <Content Include="Credenciais\VinciCardFrontBack.rpt" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

@@ -11,5 +11,7 @@ namespace Repository.Interface
     {
         void IncluirNovaSolicitacao(Solicitacao solicitacao);
         List<Solicitacao> ObterPorVeiculo(int veiculoId);
+
+        void AtualizarAnexos(Solicitacao solicitacao);
     }
 }

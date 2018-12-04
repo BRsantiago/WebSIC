@@ -11,7 +11,7 @@ using Repository.Context;
 
 namespace WebSIC.Controllers
 {
-    [AllowAnonymous]
+    //[AllowAnonymous]
     public class ScheduleController : Controller
     {
         private WebSICContext db = new WebSICContext();

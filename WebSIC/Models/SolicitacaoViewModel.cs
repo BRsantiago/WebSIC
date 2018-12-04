@@ -82,6 +82,11 @@ namespace WebSIC.Models
             this.IdPessoa = solicitacao.Pessoa.IdPessoa;
             this.IdCargo = solicitacao.Cargo.IdCargo;
             this.IdRamoAtividade = solicitacao.RamoAtividadeId.Value;
+
+            this.CertAntCrimPCFilePath = solicitacao.CertAntCrimPCFilePath;
+            this.CertAntCrimPFFilePath = solicitacao.CertAntCrimPFFilePath;
+            this.CertTJBAFilePath = solicitacao.CertTJBAFilePath;
+            this.CertTRFFilePath = solicitacao.CertTRFFilePath;
         }
 
         public Solicitacao MapearParaObjetoDominio()
@@ -99,6 +104,11 @@ namespace WebSIC.Models
             solicitacao.CargoId = this.IdCargo;
             solicitacao.RamoAtividadeId = this.IdRamoAtividade;
             solicitacao.TipoEmissao = this.TiposEmissao;
+
+            solicitacao.CertAntCrimPCFilePath = this.CertAntCrimPCFilePath;
+            solicitacao.CertAntCrimPFFilePath = this.CertAntCrimPFFilePath;
+            solicitacao.CertTJBAFilePath = this.CertTJBAFilePath;
+            solicitacao.CertTRFFilePath = this.CertTRFFilePath;
 
             return solicitacao;
         }

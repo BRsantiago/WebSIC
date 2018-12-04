@@ -39,7 +39,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                        @*@foreach (var item in Model)
                         {
                         <tr>
                             <td>
@@ -62,7 +62,7 @@
                                 <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdPessoa,'Pessoa')">Excluir</a>
                             </td>
                         </tr>
-                        }
+                        }*@
                     </tbody>
                 </table>
             </div>
@@ -80,12 +80,38 @@
 
 <div class="modal" id="modal" role="dialog" data-backdrop="static" data-keyboard="false"></div>
 
+<script src="~/Scripts/moment.min.js"></script>
 
 @section Scripts{
     <script>
 
         $(document).ready(function () {
-            Datatables("table");
+            $('#table').DataTable({
+                "proccessing": true,
+                "serverSide": true,
+                "ajax": {
+                    url: "@Url.Action("GetPagination", "Pessoa")",
+                    type: 'POST'
+                },
+                "columns": [
+                    { "data": "Nome" },
+                    { "data": "CPF" },
+                    { "data": "RG" },
+                    {
+                        "data": "DataNascimento",
+                        "render": function (data) {
+                            return moment(data).format('DD/MM/YYYY');
+                        }
+                    },
+                    { "data": "TelefoneEmergencia" },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            return "<a class='btn btn-primary' href='/Pessoa/Edit/" + row.IdPessoa + "'>Editar</a> | <a class='btn btn-danger' onclick='onShowModalDelete(" + row.IdPessoa + ", 'Empresa')'>Excluir</a>"
+                        }
+                    }
+                ]
+            });
         });
 
     </script>

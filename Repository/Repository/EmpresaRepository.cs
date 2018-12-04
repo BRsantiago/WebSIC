@@ -7,17 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using LinqKit;
 
 namespace Repository.Repository
 {
     public class EmpresaRepository : RepositoryBase<Empresa>, IEmpresaRepository
     {
-
-        public WebSICContext contexto;
-
-        public EmpresaRepository(WebSICContext _contexto)
+        public EmpresaRepository(WebSICContext _contexto) : base(_contexto)
         {
-            contexto = _contexto;
         }
 
         public void Incluir(Empresa empresa)
@@ -79,6 +76,25 @@ namespace Repository.Repository
                            .AsNoTracking()
                            .Where(e => e.Aeroporto.IdAeroporto == aeroportoId)
                            .ToList();
+        }
+
+        public List<Empresa> GetDataFromDatabase(string searchBy, int take, int skip, string sortBy, bool sortDir, out int filteredResultsCount, out int totalResultsCount)
+        {
+            return base.GetDataFromDb(searchBy, take, skip, sortBy, sortDir, out filteredResultsCount, out totalResultsCount);
+        }
+
+        public override ExpressionStarter<Empresa> ConfigureFilter(ExpressionStarter<Empresa> predicate, string searchValue)
+        {
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                searchValue = searchValue.ToUpper();
+
+                predicate = predicate.Or(e => e.RazaoSocial.ToUpper().Contains(searchValue));
+                predicate = predicate.Or(e => e.NomeFantasia.ToUpper().Contains(searchValue));
+                predicate = predicate.Or(e => e.CGC.ToUpper().Contains(searchValue));
+            }
+
+            return predicate;
         }
     }
 }

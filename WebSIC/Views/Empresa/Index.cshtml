@@ -33,33 +33,33 @@
                                 @Html.DisplayNameFor(model => model.Ativo)
                             </th>
                             <th>
-
+                                Ações
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.RazaoSocial)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NomeFantasia)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CGC)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Ativo)
-                                </td>
-                                <td>
-                                    @* |@Html.ActionLink("Excluir", "Delete", new { id = item.IdEmpresa }, new { @class = "btn btn-danger " })*@
-                                    @Html.ActionLink("Editar", "Edit", new { id = item.IdEmpresa }, new { @class = "btn btn-primary " }) |
-                                    <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdEmpresa, 'Empresa')">Excluir</a>
-                                </td>
-                            </tr>
-                        }
+                        @*@foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RazaoSocial)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NomeFantasia)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CGC)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Ativo)
+                                    </td>
+                                    <td>
+                                        @* |@Html.ActionLink("Excluir", "Delete", new { id = item.IdEmpresa }, new { @class = "btn btn-danger " })*@
+                                        @*@Html.ActionLink("Editar", "Edit", new { id = item.IdEmpresa }, new { @class = "btn btn-primary " }) |
+                                        <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdEmpresa, 'Empresa')">Excluir</a>
+                                    </td>
+                                </tr>
+                            }*@
                     </tbody>
                 </table>
             </div>
@@ -82,7 +82,26 @@
     <script>
 
         $(document).ready(function () {
-            Datatables("table");
+            $('#table').DataTable({
+                "proccessing": true,
+                "serverSide": true,
+                "ajax": {
+                    url: "@Url.Action("GetPagination", "Empresa")",
+                    type: 'POST'
+                },
+                "columns": [
+                    { "data": "RazaoSocial" },
+                    { "data": "NomeFantasia" },
+                    { "data": "CGC" },
+                    { "data": "Ativo" },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            return "<a class='btn btn-primary' href='/Empresa/Edit/" + row.IdEmpresa + "'>Editar</a> | <a class='btn btn-danger' onclick='onShowModalDelete(" + row.IdEmpresa + ", 'Empresa')'>Excluir</a>"
+                        }
+                    }
+                ]
+            });
         });
 
     </script>

@@ -17,5 +17,7 @@ namespace Repository.Interface
         void IncluirNovaPessoa(Pessoa pessoa);
         bool VerificarSeExistePessoaComMesmoCPF(string cPF, int idPessoa);
         Pessoa ObterPorIdSemAgregacao(int idPessoa);
+
+        List<Pessoa> GetDataFromDatabase(string searchBy, int take, int skip, string sortBy, bool sortDir, out int filteredResultsCount, out int totalResultsCount);
     }
 }
