@@ -17,7 +17,7 @@ namespace WebSIC
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            
+            GlobalFilters.Filters.Add(new AuthorizeAttribute() { Roles = "GS_CREDENCIAMENTO, GS_REP_TI" });
         }
     }
 }

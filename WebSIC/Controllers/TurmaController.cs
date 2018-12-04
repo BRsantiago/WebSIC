@@ -13,7 +13,7 @@ using Service.Interface;
 
 namespace WebSIC.Controllers
 {
-    [AllowAnonymous]
+    //[AllowAnonymous]
     public class TurmaController : Controller
     {
         private ITurmaService Service;

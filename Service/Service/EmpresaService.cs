@@ -75,5 +75,21 @@ namespace Service.Service
 
             return empresas;
         }
+
+        public List<Empresa> GetDataList(string searchBy, int take, int skip, string sortBy, bool sortDir, out int filteredResultsCount, out int totalResultsCount)
+        {
+            List<Empresa> empresas = new List<Empresa>();
+            try
+            {
+                empresas = EmpresaRepository.GetDataFromDatabase(searchBy, take, skip, sortBy, sortDir, out filteredResultsCount, out totalResultsCount);
+            }
+            catch (Exception ex)
+            {
+                filteredResultsCount =
+                    totalResultsCount = 0;
+            }
+
+            return empresas;
+        }
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using LinqKit;
 
 namespace Repository.Repository
 {
@@ -136,6 +137,27 @@ namespace Repository.Repository
         public bool VerificarSeExistePessoaComMesmoCPF(string CPF, int idPessoa)
         {
             return this.contexto.Pessoas.Any(p => p.CPF == CPF && p.IdPessoa != idPessoa);
+        }
+
+        public List<Pessoa> GetDataFromDatabase(string searchBy, int take, int skip, string sortBy, bool sortDir, out int filteredResultsCount, out int totalResultsCount)
+        {
+            return base.GetDataFromDb(searchBy, take, skip, sortBy, sortDir, out filteredResultsCount, out totalResultsCount);
+        }
+
+        public override ExpressionStarter<Pessoa> ConfigureFilter(ExpressionStarter<Pessoa> predicate, string searchValue)
+        {
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                searchValue = searchValue.ToUpper();
+
+                predicate = predicate.Or(e => e.Nome.ToUpper().Contains(searchValue));
+                predicate = predicate.Or(e => e.CPF.ToUpper().Contains(searchValue));
+                predicate = predicate.Or(e => e.RG.ToUpper().Contains(searchValue));
+                predicate = predicate.Or(e => e.TelefoneEmergencia.ToUpper().Contains(searchValue));
+                predicate = predicate.Or(e => e.DataNascimento.ToString().Contains(searchValue));
+            }
+
+            return predicate;
         }
     }
 }

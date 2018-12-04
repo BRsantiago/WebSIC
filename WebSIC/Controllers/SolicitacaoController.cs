@@ -19,7 +19,7 @@ using WebSIC.Models;
 
 namespace WebSIC.Controllers
 {
-    [AllowAnonymous]
+    //[AllowAnonymous]
     public class SolicitacaoController : Controller
     {
 

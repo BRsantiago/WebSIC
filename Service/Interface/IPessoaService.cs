@@ -18,5 +18,7 @@ namespace Service.Interface
         void ExcluirRepresentante(Pessoa representante, int idEmpresa);
         void IncluirPessoa(Pessoa pessoa);
         void ExcluirPessoa(Pessoa pessoa);
+
+        List<Pessoa> GetDataList(string searchBy, int take, int skip, string sortBy, bool sortDir, out int filteredResultsCount, out int totalResultsCount);
     }
 }

@@ -14,7 +14,7 @@ using WebSIC.Models;
 
 namespace WebSIC.Controllers
 {
-    [AllowAnonymous]
+    //[AllowAnonymous]
     public class EmpresaController : Controller
     {
         public IEmpresaService EmpresaService;
@@ -39,9 +39,53 @@ namespace WebSIC.Controllers
         // GET: Empresa
         public ActionResult Index()
         {
-            List<Empresa> empresas = EmpresaService.ObterTodos();
+            List<Empresa> empresas = new List<Empresa>(); //EmpresaService.ObterTodos();
 
             return View(empresas);
+        }
+
+        //GET with Paging
+        public JsonResult GetPagination(DataTableAjaxPostModel model)
+        {
+            int filteredResultsCount = 0;
+            int totalResultsCount = 0;
+
+            var result = CustomSearchFunc(model, out filteredResultsCount, out totalResultsCount);
+
+            return Json(new
+            {
+                // this is what datatables wants sending back
+                draw = model.draw,
+                recordsTotal = totalResultsCount,
+                recordsFiltered = filteredResultsCount,
+                data = result
+            });
+        }
+
+        public IList<Empresa> CustomSearchFunc(DataTableAjaxPostModel model, out int filteredResultsCount, out int totalResultsCount)
+        {
+            var searchBy = (model.search != null) ? model.search.value : null;
+
+            var take = model.length;
+            var skip = model.start;
+
+            string sortBy = "";
+            bool sortDir = false;
+
+            if (model.order != null)
+            {
+                // in this example we just default sort on the 1st column
+                sortBy = model.columns[model.order[0].column].data;
+                sortDir = model.order[0].dir.ToLower() != "asc";
+            }
+
+            // search the dbase taking into consideration table sorting and paging
+            var result = EmpresaService.GetDataList(searchBy, take, skip, sortBy, sortDir, out filteredResultsCount, out totalResultsCount);
+            if (result == null)
+                // empty collection...
+                return new List<Empresa>();
+
+            return result;
         }
 
         // GET: Empresa/Details/5

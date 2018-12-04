@@ -135,5 +135,20 @@ namespace Services.Service
                 throw new Exception("Já existe uma pessoa cadastrada com este CPF.");
         }
 
+        public List<Pessoa> GetDataList(string searchBy, int take, int skip, string sortBy, bool sortDir, out int filteredResultsCount, out int totalResultsCount)
+        {
+            List<Pessoa> pessoas = new List<Pessoa>();
+            try
+            {
+                pessoas = PessoaRepository.GetDataFromDatabase(searchBy, take, skip, sortBy, sortDir, out filteredResultsCount, out totalResultsCount);
+            }
+            catch (Exception ex)
+            {
+                filteredResultsCount =
+                    totalResultsCount = 0;
+            }
+
+            return pessoas;
+        }
     }
 }

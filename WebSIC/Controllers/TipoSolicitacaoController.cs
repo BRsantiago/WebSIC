@@ -13,7 +13,7 @@ using Service.Interface;
 
 namespace WebSIC.Controllers
 {
-    [AllowAnonymous]
+    //[AllowAnonymous]
     public class TipoSolicitacaoController : Controller
     {
         private ITipoSolicitacaoService Service;
