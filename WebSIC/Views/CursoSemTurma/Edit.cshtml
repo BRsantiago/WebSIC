@@ -1,5 +1,6 @@
 ﻿@model  WebSIC.Models.CursoSemTurmaViewModel
 
+<script src="/Scripts/jquery.mask.js"></script>
 <script src="/Scripts/bootstrap-datepicker.js"></script>
 <script src="/Scripts/bootstrap-datepicker.min.js"></script>
 
@@ -50,6 +51,9 @@
 
 
         <script type="text/javascript">
+
+            $('#DataValidade').mask('00/00/0000');
+
             $("#DataValidade").datepicker({
                 format: 'dd/mm/yyyy',
                 todayBtn: "linked",
