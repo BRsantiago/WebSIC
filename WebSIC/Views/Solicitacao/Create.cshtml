@@ -68,7 +68,7 @@
                     @Html.LabelFor(model => model.TiposSolicitacao, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-4">
                         <div class="checkbox">
-                            @Html.DropDownListFor(d => d.IdTipoSolicitacao, new SelectList(Model.TiposSolicitacao.OrderBy(o => o.IdTipoSolicitacao), "IdTipoSolicitacao", "Descricao"), "Selecione", new { @class = "form-control select2" })
+                            @Html.DropDownListFor(d => d.IdTipoSolicitacao, new SelectList(Model.TiposSolicitacao, "IdTipoSolicitacao", "Descricao"), "Selecione", new { @class = "form-control select2" })
                             @Html.ValidationMessageFor(model => model.IdTipoSolicitacao, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                     @Html.LabelFor(model => model.Cargo, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-4">
                         <div class="checkbox">
-                            @Html.DropDownListFor(d => d.IdCargo, new SelectList(Model.Cargo.OrderBy(o => o.IdCargo), "IdCargo", "Descricao"), "Selecione", new { @class = "form-control select2" })
+                            @Html.DropDownListFor(d => d.IdCargo, new SelectList(Model.Cargo, "IdCargo", "Descricao"), "Selecione", new { @class = "form-control select2" })
                             @Html.ValidationMessageFor(model => model.IdCargo, "", new { @class = "text-danger" })
                         </div>
                     </div>

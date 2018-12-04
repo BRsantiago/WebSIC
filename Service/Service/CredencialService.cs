@@ -47,7 +47,7 @@ namespace Services.Service
 
         private void ValidarParaSalvar(Credencial credencial)
         {
-            if (credencial.DataVencimento.HasValue && credencial.DataVencimento < DateTime.Now)
+            if (credencial.DataVencimento.HasValue && credencial.DataVencimento < DateTime.Now.Date)
                 throw new Exception("Nao é possível emitir uma credencial com data menor que hoje.");
         }
 

@@ -260,6 +260,7 @@
     <Compile Include="Controllers\ContratoController.cs" />
     <Compile Include="Controllers\CredencialController.cs" />
     <Compile Include="Controllers\CursoController.cs" />
+    <Compile Include="Controllers\CursoSemTurmasController.cs" />
     <Compile Include="Controllers\EmpresaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OcorrenciaController.cs" />
@@ -1604,6 +1605,11 @@
     <Content Include="Views\Solicitacao\DetailsATIV.cshtml" />
     <Content Include="Views\Credencial\IndexATIV.cshtml" />
     <Content Include="Views\Credencial\EditATIV.cshtml" />
+    <Content Include="Views\CursoSemTurmas\Create.cshtml" />
+    <Content Include="Views\CursoSemTurmas\Delete.cshtml" />
+    <Content Include="Views\CursoSemTurmas\Details.cshtml" />
+    <Content Include="Views\CursoSemTurmas\Edit.cshtml" />
+    <Content Include="Views\CursoSemTurmas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
