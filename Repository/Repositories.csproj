@@ -237,6 +237,10 @@
     <Compile Include="Migrations\201811301747435_AddAnexoCertidoesSolicitacao.Designer.cs">
       <DependentUpon>201811301747435_AddAnexoCertidoesSolicitacao.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812041928019_AlterCursoSemTurma1.cs" />
+    <Compile Include="Migrations\201812041928019_AlterCursoSemTurma1.Designer.cs">
+      <DependentUpon>201812041928019_AlterCursoSemTurma1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\RamoAtividadeRepository.cs" />
@@ -398,6 +402,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811301747435_AddAnexoCertidoesSolicitacao.resx">
       <DependentUpon>201811301747435_AddAnexoCertidoesSolicitacao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812041928019_AlterCursoSemTurma1.resx">
+      <DependentUpon>201812041928019_AlterCursoSemTurma1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -44,8 +44,8 @@ namespace Service.Service
 
         public void Incluir(CursoSemTurma cst)
         {
-            cst.Pessoa = this.PessoaRepository.ObterPorId(cst.PessoaId.Value);
-            cst.Curso = this.CursoRepository.ObterPorId(cst.CursoId.Value);
+            //cst.Pessoa = this.PessoaRepository.ObterPorId(cst.PessoaId.Value);
+            //cst.Curso = this.CursoRepository.ObterPorId(cst.CursoId.Value);
 
             CursoSemTurmaRepository.Incluir(cst);
             CursoSemTurmaRepository.Salvar();

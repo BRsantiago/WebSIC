@@ -23,14 +23,12 @@ namespace Entity.Entities
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataValidade { get; set; }
 
-        [Required]
         public Curso Curso { get; set; }
 
         [Column("Curso_IdCurso")]
         [ForeignKey("Curso")]
         public Nullable<int> CursoId { get; set; }
 
-        [Required]
         public Pessoa Pessoa { get; set; }
 
         [Column("Pessoa_IdPessoa")]

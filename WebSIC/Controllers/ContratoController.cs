@@ -53,14 +53,16 @@ namespace WebSIC.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create(ContratoViewModel contrato)
+        public ActionResult Create(ContratoViewModel model)
         {
             try
             {
-                //contrato.Criador =
-                //    contrato.Atualizador = User.Identity.Name;
-                //contrato.Empresa = EmpresaService.ObterPorId(contrato.Empresa.IdEmpresa);
-                Service.Incluir(contrato.MapearParaObjetoDominio());
+                Contrato contrato = model.MapearParaObjetoDominio();
+
+                contrato.Criador =
+                    contrato.Atualizador = User.Identity.Name;
+
+                Service.Incluir(contrato);
 
                 return Json(new { success = true, title = "Sucesso", message = "Contrato cadastrado com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
@@ -79,11 +81,15 @@ namespace WebSIC.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit(ContratoViewModel contrato)
+        public ActionResult Edit(ContratoViewModel model)
         {
             try
             {
-                Service.Atualizar(contrato.MapearParaObjetoDominio());
+                Contrato contrato = model.MapearParaObjetoDominio();
+                contrato.Atualizador = User.Identity.Name;
+
+                Service.Atualizar(contrato);
+
                 return Json(new { success = true, title = "Sucesso", message = "Contrato cadastrado com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
