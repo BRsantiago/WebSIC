@@ -42,7 +42,7 @@ namespace WebSIC.Models
         public string Telefone { get; set; }
 
         [Display(Name = "Tipo de Cobrança")]
-        public TipoCobranca TipoCobranca { get; set; }
+        public Nullable<TipoCobranca> TipoCobranca { get; set; }
 
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
