@@ -98,9 +98,9 @@ namespace WebSIC.Controllers
                 Session["AreaDeAcesso"] = (credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : "");
                 Session["Funcao"] = credencial.DescricaoFuncaoFrenteCracha.ToUpper();
                 Session["Foto"] = Server.MapPath(credencial.Pessoa.ImageUrl.Replace("../..", ""));
-                Session["CategoriaMotoristaUm"] = (credencial.CategoriaMotorista1 == "A" || credencial.CategoriaMotorista2 == "A" ? "A" : "" + credencial.CategoriaMotorista1 == "B" || credencial.CategoriaMotorista2 == "B" ? "B" : "") == "" ? "N" : "N";
-                Session["CategoriaMotoristaDois"] = credencial.CategoriaMotorista1 == "D" || credencial.CategoriaMotorista2 == "D" ? "D" : "N";
-                Session["CategoriaMotoristaTres"] = credencial.CategoriaMotorista1 == "E" || credencial.CategoriaMotorista2 == "E" ? "E" : "N";
+                Session["CategoriaMotoristaUm"] = credencial.CategoriaMotorista1 == "B" ? credencial.CategoriaMotorista1 : "N";
+                Session["CategoriaMotoristaDois"] = credencial.CategoriaMotorista1 == "C" || credencial.CategoriaMotorista1 == "D" ? credencial.CategoriaMotorista1 : "N";
+                Session["CategoriaMotoristaTres"] = credencial.CategoriaMotorista1 == "E" ? credencial.CategoriaMotorista1 : "N";
                 Session["LogoEmpresa"] = Server.MapPath(credencial.Empresa.ImageUrl);
                 Session["Nome"] = credencial.Pessoa.NomeCompleto.ToUpper();
                 Session["RG"] = credencial.Pessoa.RG == null ? "" : credencial.Pessoa.RG;
@@ -159,9 +159,9 @@ namespace WebSIC.Controllers
                 cryRpt.SetParameterValue("Acceso", (credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : ""));
                 cryRpt.SetParameterValue("Pocision", credencial.DescricaoFuncaoFrenteCracha.ToUpper());
                 cryRpt.SetParameterValue("FotoPath", Server.MapPath(credencial.Pessoa.ImageUrl));
-                cryRpt.SetParameterValue("Motorista1", (credencial.CategoriaMotorista1 == "A" || credencial.CategoriaMotorista2 == "A" ? "A" : "" + credencial.CategoriaMotorista1 == "B" || credencial.CategoriaMotorista2 == "B" ? "B" : "") == "" ? "N" : "N");
-                cryRpt.SetParameterValue("Motorista2", credencial.CategoriaMotorista1 == "D" || credencial.CategoriaMotorista2 == "D" ? "D" : credencial.CategoriaMotorista1 == "C" || credencial.CategoriaMotorista2 == "C" ? "C" : "N");
-                cryRpt.SetParameterValue("Motorista3", credencial.CategoriaMotorista1 == "E" || credencial.CategoriaMotorista2 == "E" ? "E" : "N");
+                cryRpt.SetParameterValue("Motorista1", credencial.CategoriaMotorista1 == "B" ? credencial.CategoriaMotorista1 : "N");
+                cryRpt.SetParameterValue("Motorista2", credencial.CategoriaMotorista1 == "C" || credencial.CategoriaMotorista1 == "D" ? credencial.CategoriaMotorista1 : "N");
+                cryRpt.SetParameterValue("Motorista3", credencial.CategoriaMotorista1 == "E" ? credencial.CategoriaMotorista1 : "N");
                 cryRpt.SetParameterValue("EmpresaPath", Server.MapPath(credencial.Empresa.ImageUrl));
                 cryRpt.SetParameterValue("Nombre", credencial.Pessoa.NomeCompleto.ToUpper(), "CardBack.rpt");
                 cryRpt.SetParameterValue("RG", credencial.Pessoa.RG == null ? "" : credencial.Pessoa.RG, "CardBack.rpt");
@@ -369,7 +369,11 @@ namespace WebSIC.Controllers
                     throw new Exception("Esta credencial não pode ser impressa pois a data de vencimento informada é maior que a validade do " + c.Curso.Titulo);
             });
 
+            if (credencial.FlgTemporario && credencial.DataVencimento.Value > credencial.Atualizacao.AddDays(90))
+                throw new Exception("Esta credencial não pode ser impressa pois o vencimento dela é maior que o permitido para uma credencial temporária.");
 
+            if (!credencial.FlgTemporario && credencial.DataVencimento.Value > credencial.Atualizacao.AddYears(2))
+                throw new Exception("Esta credencial não pode ser impressa pois o vencimento dela é maior que o permitido para uma credencial definitiva.");
 
         }
     }

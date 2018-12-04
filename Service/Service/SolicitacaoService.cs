@@ -79,9 +79,9 @@ namespace Services.Service
                 GerarCredencial(solicitacao, credencial, pessoa, cargo, tipoSolicitacao);
                 CredencialRepository.Salvar();
 
-                CarregarCursosExigidos(solicitacao, pessoa);
-                PessoaRepository.AtualizarRepresentante(pessoa);
-                PessoaRepository.Salvar();
+                //CarregarCursosExigidos(solicitacao, pessoa);
+                //PessoaRepository.AtualizarRepresentante(pessoa);
+                //PessoaRepository.Salvar();
 
                 //CredencialRepository.EncerrarTransacao();
                 //PessoaRepository.EncerrarTransacao();
@@ -94,7 +94,6 @@ namespace Services.Service
                 //SolicitacaoRepository.DesfazerTransacao();
                 throw new Exception(ex.Message);
             }
-
         }
 
         private void GerarCredencial(Solicitacao novaSolicitacao, Credencial credencial, Pessoa pessoa, Cargo cargo, TipoSolicitacao tipoSolicitacao)
@@ -113,6 +112,7 @@ namespace Services.Service
                 credencial.FlgCVE = pessoa.FlgCVE;
                 credencial.NomeImpressaoFrenteCracha = pessoa.Nome;
                 credencial.DescricaoFuncaoFrenteCracha = cargo.Descricao;
+                credencial.CategoriaMotorista1 = pessoa.CategoriaUm.ToString();
 
                 credencial.AeroportoId = novaSolicitacao.AeroportoId;
                 credencial.EmpresaId = novaSolicitacao.EmpresaId;
@@ -132,6 +132,7 @@ namespace Services.Service
                 credencial.FlgCVE = pessoa.FlgCVE;
                 credencial.NomeImpressaoFrenteCracha = pessoa.Nome;
                 credencial.DescricaoFuncaoFrenteCracha = cargo.Descricao;
+                credencial.CategoriaMotorista1 = pessoa.CategoriaUm.ToString();
 
                 credencial.Area1Id = novaSolicitacao.Area1Id;
                 credencial.Area2Id = novaSolicitacao.Area2Id;
