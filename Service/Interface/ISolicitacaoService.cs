@@ -23,5 +23,7 @@ namespace Service.Interface
         void ExcluirSolicitacao(Solicitacao solicitacao);
 
         //void AprovarSolicitacao(Solicitacao solicitacao);
+
+        void AtualizarAnexos(Solicitacao solicitacao);
     }
 }

@@ -152,6 +152,7 @@ namespace WebSIC.Controllers
             try
             {
                 var solicitacao = model.MapearParaObjetoDominio();
+
                 solicitacao.Criador =
                     solicitacao.Atualizador = User.Identity.Name;
 
@@ -168,7 +169,7 @@ namespace WebSIC.Controllers
                 {
                     success = true,
                     title = "Sucesso",
-                    message = "Representante cadastrado com sucesso !"
+                    message = "Solicitação cadastrada com sucesso !"
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -216,15 +217,18 @@ namespace WebSIC.Controllers
         // GET: Solicitacao/Edit/5
         public ActionResult Edit(int? id)
         {
-            SolicitacaoViewModel model = new SolicitacaoViewModel(this.SolicitacaoService.ObterPorId(id));
+            SolicitacaoViewModel model = new SolicitacaoViewModel(
+                this.SolicitacaoService.ObterPorId(id));
 
-            model.Aeroportos = AeroportoService.ObterTodos();
-            model.Empresas = EmpresaService.ObterTodos();
-            model.Contratos = ContratoService.ObterTodos();
-            model.TiposSolicitacao = TipoSolicitacaoService.ObterTodos();
-            model.Areas = AreaService.Listar().ToList();
-            model.Cargo = CargoService.Listar().ToList();
-            model.RamoAtividade = RamoAtividadeService.ObterTodos().ToList();
+            #region
+            //model.Aeroportos = AeroportoService.ObterTodos();
+            //model.Empresas = EmpresaService.ObterTodos();
+            //model.Contratos = ContratoService.ObterTodos();
+            //model.TiposSolicitacao = TipoSolicitacaoService.ObterTodos();
+            //model.Areas = AreaService.Listar().ToList();
+            //model.Cargo = CargoService.Listar().ToList();
+            //model.RamoAtividade = RamoAtividadeService.ObterTodos().ToList();
+            #endregion
 
             return PartialView(model);
         }
@@ -233,17 +237,29 @@ namespace WebSIC.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Edit(SolicitacaoViewModel model)
         {
             try
             {
-                SolicitacaoService.Atualizar(model.MapearParaObjetoDominio());
+                var solicitacao = model.MapearParaObjetoDominio();
+                solicitacao.Atualizacao = DateTime.Now;
+                solicitacao.Atualizador = User.Identity.Name;
+
+                UploadFilesHandler(model, model.IdPessoa);
+
+                solicitacao.CertAntCrimPCFilePath = model.CertAntCrimPCFilePath;
+                solicitacao.CertAntCrimPFFilePath = model.CertAntCrimPFFilePath;
+                solicitacao.CertTJBAFilePath = model.CertTJBAFilePath;
+                solicitacao.CertTRFFilePath = model.CertTRFFilePath;
+
+                SolicitacaoService.AtualizarAnexos(solicitacao);
+
                 return Json(new
                 {
                     success = true,
                     title = "Sucesso",
-                    message = "Representante cadastrado com sucesso !"
+                    message = "Anexos cadastrados com sucesso !"
                 }, JsonRequestBehavior.AllowGet);
 
             }

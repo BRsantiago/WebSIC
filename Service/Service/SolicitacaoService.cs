@@ -222,6 +222,12 @@ namespace Services.Service
             SolicitacaoRepository.Salvar();
         }
 
+        public void AtualizarAnexos(Solicitacao solicitacao)
+        {
+            SolicitacaoRepository.AtualizarAnexos(solicitacao);
+            SolicitacaoRepository.Salvar();
+        }
+
         public Solicitacao ObterPorId(int? id)
         {
             return this.SolicitacaoRepository.ObterPorId(id.Value);

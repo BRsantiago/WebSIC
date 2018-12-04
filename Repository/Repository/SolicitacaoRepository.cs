@@ -129,6 +129,15 @@ namespace Repository.Interface
 
         }
 
+        public void AtualizarAnexos(Solicitacao solicitacao)
+        {
+            if (contexto.Entry(solicitacao).State == EntityState.Detached)
+            {
+                var existingtObj = contexto.Solicitacoes.Find(solicitacao.IdSolicitacao);
+                contexto.Entry(existingtObj).CurrentValues.SetValues(solicitacao);
+            }
+        }
+
         public List<Solicitacao> ObterPorVeiculo(int veiculoId)
         {
             return contexto.Solicitacoes
