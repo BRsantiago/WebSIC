@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -47,7 +48,7 @@ namespace Entity.Entities
         public string Telefone { get; set; }
 
         [Display(Name = "Tipo de Cobrança")]
-        public string TipoCobranca { get; set; }
+        public TipoCobranca TipoCobranca { get; set; }
 
         [Display(Name = "Observação")]
         public string Observacao { get; set; }

@@ -93,7 +93,7 @@ namespace WebSIC.Controllers
                 novaEmpresa.Email = model.Email;
                 novaEmpresa.TipoEmpresa = tipoEmpresa;
                 novaEmpresa.Aeroporto = aeroporto;
-
+                novaEmpresa.TipoCobranca = model.TipoCobranca;
 
                 if (model.Logotipo != null && model.Logotipo.ContentLength > 0)
                 {
@@ -163,6 +163,7 @@ namespace WebSIC.Controllers
             model.Email = empresa.Email;
             model.IdTipoEmpresa = empresa.TipoEmpresa.IdTipoEmpresa;
             model.IdAeroporto = empresa.AeroportoId.Value;
+            model.TipoCobranca = empresa.TipoCobranca;
 
             model.ImageUrl = empresa.ImageUrl;
 

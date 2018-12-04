@@ -70,6 +70,7 @@ namespace Services.Service
                 //CredencialRepository.IniciarTransacao();
 
                 solicitacao.CredencialId = credencial?.IdCredencial;
+                solicitacao.DataAutorizacao = DateTime.Now;
 
                 this.Validar(credencial, solicitacao);
 

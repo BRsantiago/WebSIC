@@ -1,4 +1,5 @@
 ﻿using Entity.Entities;
+using Entity.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -41,7 +42,7 @@ namespace WebSIC.Models
         public string Telefone { get; set; }
 
         [Display(Name = "Tipo de Cobrança")]
-        public string TipoCobranca { get; set; }
+        public TipoCobranca TipoCobranca { get; set; }
 
         [Display(Name = "Observação")]
         public string Observacao { get; set; }

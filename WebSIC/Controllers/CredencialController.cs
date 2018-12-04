@@ -55,18 +55,30 @@ namespace WebSIC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Credencial credencial)
         {
-            ViewBag.Printers = GetPrinters();
+            try
+            {
+                ViewBag.Printers = GetPrinters();
 
-            Credencial credencialBase = this.CredencialService.ObterPorId(credencial.IdCredencial);
+                Credencial credencialBase = this.CredencialService.ObterPorId(credencial.IdCredencial);
 
-            credencialBase.NomeImpressaoFrenteCracha = credencial.NomeImpressaoFrenteCracha;
-            credencialBase.DescricaoFuncaoFrenteCracha = credencial.DescricaoFuncaoFrenteCracha;
-            credencialBase.DataVencimento = credencial.DataVencimento;
+                credencialBase.NomeImpressaoFrenteCracha = credencial.NomeImpressaoFrenteCracha;
+                credencialBase.DescricaoFuncaoFrenteCracha = credencial.DescricaoFuncaoFrenteCracha;
+                credencialBase.DataVencimento = credencial.DataVencimento;
 
-            this.CredencialService.Atualizar(credencialBase);
+                this.CredencialService.Atualizar(credencialBase);
 
-            return View(credencialBase);
+                credencial = credencialBase;
 
+                var msg = "<script> swal({title: 'Good job!', text: 'Alterações salvas com sucesso !', icon: 'success', button: 'OK!'}) </script>";
+                TempData["notification"] = msg;
+            }
+            catch (Exception ex)
+            {
+                var msg = "<script> swal({title: 'Atenção!', text: '" + ex.Message.Replace('\'', ' ') + "', icon: 'warning', button: 'OK!'}) </script>";
+                TempData["notification"] = msg;
+            }
+
+            return View(credencial);
         }
 
         public ActionResult PreviewCredencial(string idCredencial)
@@ -369,13 +381,8 @@ namespace WebSIC.Controllers
                     throw new Exception("Esta credencial não pode ser impressa pois a data de vencimento informada é maior que a validade do " + c.Curso.Titulo);
             });
 
-            if (credencial.FlgTemporario && credencial.DataVencimento.Value > credencial.Atualizacao.AddDays(90))
-                throw new Exception("Esta credencial não pode ser impressa pois o vencimento dela é maior que o permitido para uma credencial temporária.");
-
-            if (!credencial.FlgTemporario && credencial.DataVencimento.Value > credencial.Atualizacao.AddYears(2))
-                throw new Exception("Esta credencial não pode ser impressa pois o vencimento dela é maior que o permitido para uma credencial definitiva.");
-
         }
+
     }
 }
 
