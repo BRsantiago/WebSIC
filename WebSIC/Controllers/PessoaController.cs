@@ -176,7 +176,7 @@ namespace WebSIC.Controllers
             try
             {
                 Pessoa pessoa = PessoaService.ObterPorId(model.IdPessoa.ToString());
-                
+
                 pessoa.IdPessoa = model.IdPessoa;
                 pessoa.NomeCompleto = model.NomeCompleto.ToUpper();
                 pessoa.Nome = String.IsNullOrEmpty(model.Nome) ? model.Nome : model.Nome.ToUpper();
@@ -264,7 +264,7 @@ namespace WebSIC.Controllers
                         continue;
 
                     var postedFileName = propertyValue.GetType().GetProperty("FileName").GetValue(propertyValue);
-                    
+
                     //To Get File Extension  
                     string fileExtension = Path.GetExtension(postedFileName.ToString());
                     //Add Current Date To Attached File Name  
@@ -345,11 +345,19 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CriarNovoCST(CursoSemTurmaViewModel cst)
+        public ActionResult CriarNovoCST(CursoSemTurmaViewModel model)
         {
             try
             {
-                CursoSemTurmaService.Incluir(cst.MapearParaObjetoDeDominio());
+                CursoSemTurma cst = model.MapearParaObjetoDeDominio();
+
+                cst.Criacao =
+                   cst.Atualizacao = DateTime.Now;
+
+                cst.Criador =
+                    cst.Atualizador = User.Identity.Name;
+
+                CursoSemTurmaService.Incluir(cst);
                 return Json(new { success = true, title = "Sucesso", message = "Curso cadastrado com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -400,11 +408,16 @@ namespace WebSIC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditarCursoSemTurma(CursoSemTurmaViewModel cst)
+        public ActionResult EditarCursoSemTurma(CursoSemTurmaViewModel model)
         {
             try
             {
-                CursoSemTurmaService.Atualizar(cst.MapearParaObjetoDeDominio());
+                CursoSemTurma cst = model.MapearParaObjetoDeDominio();
+
+                cst.Atualizacao = DateTime.Now;
+                cst.Atualizador = User.Identity.Name;
+
+                CursoSemTurmaService.Atualizar(cst);
                 return Json(new { success = true, title = "Sucesso", message = "Registro Atualizado com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

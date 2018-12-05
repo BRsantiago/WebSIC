@@ -239,7 +239,7 @@ namespace Repository.Repository
                            .Include(c => c.PortaoAcesso3)
                            .Include(c => c.Aeroporto)
                            .Include(c => c.Contrato)
-                           .Where(c => !c.DataDesativacao.HasValue && c.Pessoa != null && !c.DataExpedicao.HasValue)
+                           .Where(c => !c.DataDesativacao.HasValue && c.Pessoa != null && !c.DataExpedicao.HasValue && c.Solicitacoes.Any())
                            .ToList();
         }
     }

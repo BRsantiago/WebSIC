@@ -47,6 +47,7 @@
     <Compile Include="Enum\RamoAtividade.cs" />
     <Compile Include="DTO\ServiceReturn.cs" />
     <Compile Include="DTO\TipoCredencial.cs" />
+    <Compile Include="Enum\TipoCobranca.cs" />
     <Compile Include="Enum\TipoEmissao.cs" />
     <Compile Include="Enum\TipoServico.cs" />
     <Compile Include="Entity\Aeroporto.cs" />

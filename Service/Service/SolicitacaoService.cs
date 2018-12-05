@@ -70,6 +70,7 @@ namespace Services.Service
                 //CredencialRepository.IniciarTransacao();
 
                 solicitacao.CredencialId = credencial?.IdCredencial;
+                solicitacao.DataAutorizacao = DateTime.Now;
 
                 this.Validar(credencial, solicitacao);
 
@@ -125,6 +126,11 @@ namespace Services.Service
                 credencial.Solicitacoes = new List<Solicitacao>();
                 credencial.Solicitacoes.Add(novaSolicitacao);
 
+                credencial.Criador = novaSolicitacao.Criador;
+                credencial.Atualizador = novaSolicitacao.Atualizador;
+                credencial.Criacao = DateTime.Now;
+                credencial.Atualizacao = DateTime.Now;
+
                 this.CredencialRepository.IncluirNovaCredencial(credencial);
             }
             else
@@ -147,6 +153,9 @@ namespace Services.Service
                 {
                     credencial.DataDesativacao = DateTime.Now;
                 }
+
+                credencial.Atualizador = novaSolicitacao.Atualizador;
+                credencial.Atualizacao = DateTime.Now;
 
                 this.CredencialRepository.Atualizar(credencial);
             }

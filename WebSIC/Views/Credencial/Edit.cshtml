@@ -1,5 +1,11 @@
 ﻿@model Entity.Entities.Credencial
 
+@if (TempData["notification"] != null)
+{
+    @Html.Raw(TempData["notification"])
+    TempData["notification"] = null;
+}
+
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Impressão de credencial</h1>
