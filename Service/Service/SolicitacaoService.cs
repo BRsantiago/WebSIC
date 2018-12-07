@@ -182,6 +182,9 @@ namespace Services.Service
             TipoSolicitacao tipoSolicitacao = this.TipoSolicitacaoRepository.ObterPorId(solicitacao.TipoSolicitacaoId.Value);
             if (credencial == null && !tipoSolicitacao.FlgGeraNovaCredencial)
                 throw new Exception("Esta solicitacão não pode ser realizada pois ainda não existe credencial emitida para esta pessoa, nesta empresa e deste tipo.");
+
+            if ((tipoSolicitacao.FlgDesativaCredencial || tipoSolicitacao.FlgGeraSegundaVia || tipoSolicitacao.IdTipoSolicitacao == 11) && String.IsNullOrEmpty(solicitacao.Observacao))
+                throw new Exception("Favor informar o motivo desta solictação no campo de observação.");
         }
 
         private void CarregarCursosExigidos(Solicitacao solicitacao, Pessoa pessoa)
