@@ -25,6 +25,9 @@ namespace Entity.Entities
         [Display(Name = "Documentação")]
         public string CaminhoArquivoDigitalizado { get; set; }
 
+        [Display(Name = "Observação")]
+        public string Observacao { get; set; }
+
         [Display(Name = "Tipo de Solicitação")]
         public TipoSolicitacao TipoSolicitacao { get; set; }
         [Column("TipoSolicitacao_IdTipoSolicitacao")]

@@ -14,7 +14,7 @@ using WebSIC.Models;
 
 namespace WebSIC.Controllers
 {
-    //[AllowAnonymous]
+    [Authorize(Roles ="CASSA\\GS_COMERCIAL")]
     public class EmpresaController : Controller
     {
         public IEmpresaService EmpresaService;

@@ -67,7 +67,9 @@ namespace WebSIC.Models
         [Display(Name = "Certidão Negativa TJBA")]
         public string CertTJBAFilePath { get; set; }
         public HttpPostedFileBase CertTJBAFile { get; set; }
-
+        
+        [Display(Name = "Observação")]
+        public string Observacao { get; set; }
 
         public SolicitacaoViewModel(Solicitacao solicitacao)
         {
@@ -87,6 +89,8 @@ namespace WebSIC.Models
             this.CertAntCrimPFFilePath = solicitacao.CertAntCrimPFFilePath;
             this.CertTJBAFilePath = solicitacao.CertTJBAFilePath;
             this.CertTRFFilePath = solicitacao.CertTRFFilePath;
+
+            this.Observacao = solicitacao.Observacao;
         }
 
         public Solicitacao MapearParaObjetoDominio()
@@ -109,6 +113,8 @@ namespace WebSIC.Models
             solicitacao.CertAntCrimPFFilePath = this.CertAntCrimPFFilePath;
             solicitacao.CertTJBAFilePath = this.CertTJBAFilePath;
             solicitacao.CertTRFFilePath = this.CertTRFFilePath;
+
+            solicitacao.Observacao = this.Observacao;
 
             return solicitacao;
         }

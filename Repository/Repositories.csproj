@@ -254,6 +254,10 @@
     <Compile Include="Migrations\201812042313288_AlterEmpresaToImageisnotrequired.Designer.cs">
       <DependentUpon>201812042313288_AlterEmpresaToImageisnotrequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812062134076_AlterSolicitacaoToAddObservacao.cs" />
+    <Compile Include="Migrations\201812062134076_AlterSolicitacaoToAddObservacao.Designer.cs">
+      <DependentUpon>201812062134076_AlterSolicitacaoToAddObservacao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\RamoAtividadeRepository.cs" />
@@ -424,6 +428,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812042313288_AlterEmpresaToImageisnotrequired.resx">
       <DependentUpon>201812042313288_AlterEmpresaToImageisnotrequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812062134076_AlterSolicitacaoToAddObservacao.resx">
+      <DependentUpon>201812062134076_AlterSolicitacaoToAddObservacao.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
