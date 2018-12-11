@@ -99,6 +99,9 @@ namespace Entity.Entities
         [Display(Name = "Observação")]
         public string ObservacaoResidenciaForaDoPaisNosUltimos10Anos { get; set; }
 
+        [Display(Name = "Número do Colete")]
+        public string NumeroColete { get; set; }
+
         public Usuario Usuario { get; set; }
         public IList<Solicitacao> Solicitacaos { get; set; }
         public IList<Turma> Turmas { get; set; }

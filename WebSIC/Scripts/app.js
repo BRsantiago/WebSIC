@@ -435,7 +435,7 @@ function UploadSubmit(idPessoa) {
 }
 
 function Load() {
-    debugger;
+    //debugger;
     $("#Camera").webcam({
         width: 320,
         height: 240,

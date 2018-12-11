@@ -119,6 +119,9 @@ namespace WebSIC.Models
         [Display(Name = "Observação")]
         public string ObservacaoResidenciaForaDoPaisNosUltimos10Anos { get; set; }
 
+        [Display(Name = "Número do Colete")]
+        public string NumeroColete { get; set; }
+
         [Display(Name = "Anexo - RG")]
         public string RGFilePath { get; set; }
         public HttpPostedFileBase RGFile { get; set; }
@@ -183,6 +186,7 @@ namespace WebSIC.Models
             this.DataValidadeFoto = pessoa.DataValidadeFoto.ToString();
             this.FlgResidenciaForaDoPaisNosUltimos10Anos = pessoa.FlgResidenciaForaDoPaisNosUltimos10Anos;
             this.ObservacaoResidenciaForaDoPaisNosUltimos10Anos = pessoa.ObservacaoResidenciaForaDoPaisNosUltimos10Anos;
+            this.NumeroColete = pessoa.NumeroColete;
 
             this.RGFilePath = pessoa.RGFilePath;
             this.CRFilePath = pessoa.CRFilePath;
@@ -237,6 +241,7 @@ namespace WebSIC.Models
             if (!String.IsNullOrEmpty(this.DataValidadeFoto)) pessoa.DataValidadeFoto = Convert.ToDateTime(this.DataValidadeFoto);
             pessoa.FlgResidenciaForaDoPaisNosUltimos10Anos = this.FlgResidenciaForaDoPaisNosUltimos10Anos;
             pessoa.ObservacaoResidenciaForaDoPaisNosUltimos10Anos = this.ObservacaoResidenciaForaDoPaisNosUltimos10Anos;
+            pessoa.NumeroColete = this.NumeroColete;
 
             pessoa.RGFilePath = this.RGFilePath;
             pessoa.CRFilePath = this.CRFilePath;

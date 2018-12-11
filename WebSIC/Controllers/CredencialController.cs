@@ -186,8 +186,10 @@ namespace WebSIC.Controllers
                 cryRpt.SetParameterValue("SegundaVia", credencial.FlgSegundaVia ? "2ª via" : "");
 
                 this.CredencialService.Atualizar(credencial);
-
+                
                 cryRpt.PrintToPrinter(new PrinterSettings() { PrinterName = printerName }, new PageSettings(), false);
+
+                cryRpt.Refresh();
 
                 return Json(new { success = true, title = "Sucesso", message = "Registro Atualizado com sucesso !" }, JsonRequestBehavior.AllowGet);
             }
