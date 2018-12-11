@@ -21,9 +21,20 @@ namespace Entity.Entities
         public string Numero { get; set; }
 
         [Required]
+        [Display(Name = "Data de Início da Vigência")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime DataInicioVigencia { get; set; }
+
+        [Required]
         [Display(Name = "Data de Validade")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataValidade { get; set; }
+
+        [Display(Name = "Tipo de Seguro")]
+        public string Seguro { get; set; }
+
+        [Display(Name = "Seguradora Contratada")]
+        public string Seguradora { get; set; }
 
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
