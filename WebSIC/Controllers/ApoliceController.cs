@@ -58,7 +58,7 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdApolice,Numero,DataValidade,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo,EmpresaId")] Apolice apolice, FormCollection form)
+        public ActionResult Create([Bind(Include = "IdApolice,Numero,DataValidade,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo,EmpresaId,Seguradora,Seguro,DataInicioVigencia")] Apolice apolice, FormCollection form)
         {
             if (ModelState.IsValid)
             {
@@ -73,6 +73,7 @@ namespace WebSIC.Controllers
                 return Json(check, JsonRequestBehavior.AllowGet);
             }
 
+            ViewBag.Empresas = new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia");
             return PartialView(apolice);
         }
 
@@ -97,7 +98,7 @@ namespace WebSIC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdApolice,Numero,DataValidade,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo,EmpresaId")] Apolice apolice, FormCollection form)
+        public ActionResult Edit([Bind(Include = "IdApolice,Numero,DataValidade,Observacao,Criacao,Criador,Atualizacao,Atualizador,Ativo,EmpresaId,Seguradora,Seguro,DataInicioVigencia")] Apolice apolice, FormCollection form)
         {
             if (ModelState.IsValid)
             {

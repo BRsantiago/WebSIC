@@ -58,6 +58,10 @@ $(function () {
 
 function SubmitForm() {
     var form = $("form");
+
+    if (!form.valid())
+        return;
+
     $.ajax({
         url: form.attr("action"),
         method: form.attr("method"),  // post
