@@ -410,7 +410,8 @@ function UploadSubmit(idPessoa) {
             url: ("/Photo/Index/"),
             dataType: 'json',
             data: {
-                base64Image: resp
+                base64Image: resp,
+                pessoaId: idPessoa
             },
             success: function (result) {
                 if (result.success) {

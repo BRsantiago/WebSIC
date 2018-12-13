@@ -31,12 +31,12 @@ namespace WebSIC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string base64Image)
+        public ActionResult Index(string base64Image, string pessoaId)
         {
             try
             {
                 Pessoa pessoa = new Pessoa();
-                string idPessoa = Session["idPessoa"].ToString();
+                string idPessoa = Session["idPessoa"] != null ? Session["idPessoa"].ToString() : pessoaId;
                 var uploadDir = "/WebImages";
 
                 if (!string.IsNullOrEmpty(base64Image) && base64Image.Split(',').Length > 1)
@@ -63,7 +63,7 @@ namespace WebSIC.Controllers
                     PessoaService.Atualizar(pessoa);
                 }
 
-                return Json(new { success = true, title = "Sucesso", message = "Foto captura com sucesso !" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, title = "Sucesso", message = "Foto capturada com sucesso!" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
