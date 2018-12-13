@@ -173,6 +173,7 @@ function Salvar(form) {
                 text: "Por favor entre em contato com o setor de TI!",
                 icon: "error"
             });
+            $("#wrapper").mLoading('hide');
         }
     });
 }
