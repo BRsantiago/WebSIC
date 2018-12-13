@@ -22,7 +22,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 
-
     @*<script lang="javaScript" type="text/javascript" src="~/aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/crv.js"></script>
         <link rel="stylesheet" href="~/aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/images/style.css" />*@
 
@@ -126,18 +125,40 @@
                                     @Html.ActionLink("Turma", "Index", "Turma")
                                 </li>
                                 @*<li>
-                                    @Html.ActionLink("Usuario", "Index", "Usuario")
-                                </li>*@
+                                        @Html.ActionLink("Usuario", "Index", "Usuario")
+                                    </li>*@
                             </ul>
-                        <li>
+                        @*<li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    @Html.ActionLink("teste", "Index", "Aeroporto")
+                                    @Html.ActionLink("Cobrança", "CredenciaisEmitidasFiltro", "Relatorio")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Funcionários por Empresa", "CredenciaisEmitidasFiltro", "Relatorio")
+                                </li>
+                                <li>
+                                    <a href="#">Termos <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            @Html.ActionLink("Credencias Emitidas", "CredenciaisEmitidasFiltro", "Relatorio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Cancelamento", "CredenciaisEmitidasFiltro", "Relatorio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Indeferimento", "CredenciaisEmitidasFiltro", "Relatorio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Destruição", "CredenciaisEmitidasFiltro", "Relatorio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Via adicional", "CredenciaisEmitidasFiltro", "Relatorio")
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
+                        </li>*@
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

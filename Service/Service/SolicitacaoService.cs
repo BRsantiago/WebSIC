@@ -65,7 +65,7 @@ namespace Services.Service
                 Credencial credencial = this.CredencialRepository.ObterPorEmpresaPessoaTipoEmissao(solicitacao.EmpresaId.Value, solicitacao.PessoaId.Value, solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);
                 Pessoa pessoa = this.PessoaRepository.ObterPorId(solicitacao.PessoaId.Value);
 
-                //SolicitacaoRepository.IniciarTransacao();
+                SolicitacaoRepository.IniciarTransacao();
                 //PessoaRepository.IniciarTransacao();
                 //CredencialRepository.IniciarTransacao();
 
@@ -80,19 +80,19 @@ namespace Services.Service
                 GerarCredencial(solicitacao, credencial, pessoa, cargo, tipoSolicitacao);
                 CredencialRepository.Salvar();
 
-                //CarregarCursosExigidos(solicitacao, pessoa);
-                //PessoaRepository.AtualizarRepresentante(pessoa);
-                //PessoaRepository.Salvar();
+                CarregarCursosExigidos(solicitacao, pessoa);
+                PessoaRepository.AtualizarRepresentante(pessoa);
+                PessoaRepository.Salvar();
 
                 //CredencialRepository.EncerrarTransacao();
                 //PessoaRepository.EncerrarTransacao();
-                //SolicitacaoRepository.EncerrarTransacao();
+                SolicitacaoRepository.EncerrarTransacao();
             }
             catch (Exception ex)
             {
                 //CredencialRepository.DesfazerTransacao();
                 //PessoaRepository.DesfazerTransacao();
-                //SolicitacaoRepository.DesfazerTransacao();
+                SolicitacaoRepository.DesfazerTransacao();
                 throw new Exception(ex.Message);
             }
         }

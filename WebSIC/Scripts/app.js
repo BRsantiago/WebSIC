@@ -131,6 +131,10 @@ function onShowModalDeleteRepresentante(idPessoa, idEmpresa, tipo) {
 
 function Salvar(form) {
 
+    $("#wrapper").mLoading({
+        text:"Aguarde !"
+    });
+    
     baseURL = window.location;
 
     var form = $(form);
@@ -160,6 +164,7 @@ function Salvar(form) {
                     icon: "warning",
                     button: "OK!"
                 })
+                $("#wrapper").mLoading('hide');
             }
         },
         error: function () {

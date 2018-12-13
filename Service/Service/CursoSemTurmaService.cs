@@ -32,6 +32,7 @@ namespace Service.Service
             //cstBase.Curso = this.CursoRepository.ObterPorId(cst.CursoId.Value);
             cstBase.DataValidade = cst.DataValidade;
 
+            this.Validar(cst);
             CursoSemTurmaRepository.Atualizar(cstBase);
             CursoSemTurmaRepository.Salvar();
         }
@@ -46,7 +47,7 @@ namespace Service.Service
         {
             //cst.Pessoa = this.PessoaRepository.ObterPorId(cst.PessoaId.Value);
             //cst.Curso = this.CursoRepository.ObterPorId(cst.CursoId.Value);
-
+            this.Validar(cst);
             CursoSemTurmaRepository.Incluir(cst);
             CursoSemTurmaRepository.Salvar();
         }
@@ -54,6 +55,17 @@ namespace Service.Service
         public CursoSemTurma ObterPorId(int id)
         {
             return CursoSemTurmaRepository.ObterPorId(id);
+        }
+
+        public void Validar(CursoSemTurma cst){
+            if (cst.CursoId == null)
+                throw new Exception("Favor selecionar um curso.");
+
+            if (cst.PessoaId == null)
+                throw new Exception("Pessoa não informada, favor verificar.");
+
+            if (cst.DataValidade == null)
+                throw new Exception("Favor informar a data de validade do curso.");
         }
     }
 }
