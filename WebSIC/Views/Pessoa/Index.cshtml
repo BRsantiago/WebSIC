@@ -40,29 +40,29 @@
                     </thead>
                     <tbody>
                         @*@foreach (var item in Model)
-                        {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NomeCompleto)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CPF)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.RG)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DataNascimento)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TelefoneEmergencia)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Editar", "Edit", new { id = item.IdPessoa }, new { @class = "btn btn-primary " }) |
-                                <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdPessoa,'Pessoa')">Excluir</a>
-                            </td>
-                        </tr>
-                        }*@
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NomeCompleto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CPF)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RG)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DataNascimento)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TelefoneEmergencia)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.IdPessoa }, new { @class = "btn btn-primary " }) |
+                                    <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdPessoa,'Pessoa')">Excluir</a>
+                                </td>
+                            </tr>
+                            }*@
                     </tbody>
                 </table>
             </div>
@@ -81,6 +81,7 @@
 <div class="modal" id="modal" role="dialog" data-backdrop="static" data-keyboard="false"></div>
 
 <script src="~/Scripts/moment.min.js"></script>
+<script src="/Scripts/app.js"></script>
 
 @section Scripts{
     <script>
@@ -107,7 +108,7 @@
                     {
                         "data": null,
                         "render": function (data, type, row) {
-                            return "<a class='btn btn-primary' href='/Pessoa/Edit/" + row.IdPessoa + "'>Editar</a> | <a class='btn btn-danger' onclick='onShowModalDelete(" + row.IdPessoa + ", 'Empresa')'>Excluir</a>"
+                            return "<a class='btn btn-primary' href='/Pessoa/Edit/" + row.IdPessoa + "'>Editar</a> | <a class='btn btn-danger' onclick=\"onShowModalDelete('" + row.IdPessoa + "', 'Pessoa')\">Excluir</a>"
                         }
                     }
                 ]

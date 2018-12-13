@@ -97,6 +97,9 @@ namespace Services.Service
 
             if (pessoa.Solicitacaos != null && pessoa.Solicitacaos.Any())
                 throw new Exception("Essa pessoa não pode ser excluída pois já existe solicitação de credencial.");
+
+            if (pessoa.Empresas != null && pessoa.Empresas.Any())
+                throw new Exception("Essa pessoa não pode ser excluída pois a mesma é representante de empresa.");
         }
 
         private void IncluirCursoDDA(Pessoa pessoa)
