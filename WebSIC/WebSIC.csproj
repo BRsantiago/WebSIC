@@ -1626,6 +1626,12 @@
     <Content Include="Views\Credencial\EditATIV.cshtml" />
     <Content Include="Views\Shared\Report.cshtml" />
     <Content Include="Views\Relatorio\CredenciaisEmitidasFiltro.cshtml" />
+    <Content Include="Views\Relatorio\CobrancaFiltro.cshtml" />
+    <Content Include="Views\Relatorio\FuncionariosPorEmpresaFiltro.cshtml" />
+    <Content Include="Views\Relatorio\TermoCancelamentoFiltro.cshtml" />
+    <Content Include="Views\Relatorio\TermoDestruicaoFiltro.cshtml" />
+    <Content Include="Views\Relatorio\TermoIndeferimentoFiltro.cshtml" />
+    <Content Include="Views\Relatorio\TermoViaAdicionalFiltro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

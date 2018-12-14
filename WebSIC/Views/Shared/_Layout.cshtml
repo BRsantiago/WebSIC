@@ -128,14 +128,14 @@
                                         @Html.ActionLink("Usuario", "Index", "Usuario")
                                     </li>*@
                             </ul>
-                        @*<li>
+                        <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    @Html.ActionLink("Cobrança", "CredenciaisEmitidasFiltro", "Relatorio")
+                                    @Html.ActionLink("Cobrança", "CobrancaFiltro", "Relatorio")
                                 </li>
                                 <li>
-                                    @Html.ActionLink("Funcionários por Empresa", "CredenciaisEmitidasFiltro", "Relatorio")
+                                    @Html.ActionLink("Funcionários por Empresa", "FuncionariosPorEmpresaFiltro", "Relatorio")
                                 </li>
                                 <li>
                                     <a href="#">Termos <span class="fa arrow"></span></a>
@@ -144,21 +144,21 @@
                                             @Html.ActionLink("Credencias Emitidas", "CredenciaisEmitidasFiltro", "Relatorio")
                                         </li>
                                         <li>
-                                            @Html.ActionLink("Cancelamento", "CredenciaisEmitidasFiltro", "Relatorio")
+                                            @Html.ActionLink("Cancelamento", "TermoCancelamentoFiltro", "Relatorio")
                                         </li>
                                         <li>
-                                            @Html.ActionLink("Indeferimento", "CredenciaisEmitidasFiltro", "Relatorio")
+                                            @Html.ActionLink("Indeferimento", "TermoIndeferimentoFiltro", "Relatorio")
                                         </li>
                                         <li>
-                                            @Html.ActionLink("Destruição", "CredenciaisEmitidasFiltro", "Relatorio")
+                                            @Html.ActionLink("Destruição", "TermoDestruicaoFiltro", "Relatorio")
                                         </li>
                                         <li>
-                                            @Html.ActionLink("Via adicional", "CredenciaisEmitidasFiltro", "Relatorio")
+                                            @Html.ActionLink("Via adicional", "TermoViaAdicionalFiltro", "Relatorio")
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
-                        </li>*@
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

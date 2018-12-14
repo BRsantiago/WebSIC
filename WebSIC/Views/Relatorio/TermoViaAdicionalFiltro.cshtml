@@ -1,0 +1,152 @@
+﻿@model WebSIC.Models.RelatorioViewModel
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Termo de Via Adicional</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="panel-body">
+            <div class="row">
+                <form role="form">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Aeroporto</label>
+                            @Html.DropDownListFor(d => d.IdAeroporto, new SelectList(Model.Aeroportos.OrderBy(o => o.IdAeroporto), "IdAeroporto", "Descricao"), "Selecione", new { @class = "form-control select2" })
+                        </div>
+                        @*</div>*@
+                        <!-- /.col-lg-6 (nested) -->
+                        @*<div class="col-lg-6">*@
+                        <div class="form-group">
+                            <label>Empresa</label>
+                            @Html.DropDownListFor(d => d.IdEmpresa, new SelectList(Model.Empresas.OrderBy(o => o.IdEmpresa), "IdEmpresa", "NomeFantasia"), "Selecione", new { @class = "form-control select2" })
+                        </div>
+                        <div class="form-group ">
+                            <label>Período</label>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class='input-group'>
+                                        @Html.TextBoxFor(x => x.DataInicial, new { @class = "form-control", @placeholder = "00/00/0000" })
+                                        <span id="DataInicial-btn" class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-1" style="padding-top: 6px;">
+                                    <label>até</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class='input-group'>
+                                        @Html.TextBoxFor(x => x.DataFinal, new { @class = "form-control", @placeholder = "00/00/0000" })
+                                        <span id="DataFinal-btn" class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- /.col-lg-6 (nested) -->
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a class="btn btn-primary" onclick="GerarRelatorio()">Gerar Relatório</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row (nested) -->
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(function () {
+
+            $("#DataInicial").datepicker({
+                showOn: "button",
+                format: 'dd/mm/yyyy',
+                todayBtn: "linked",
+                clearBtn: true,
+                autoclose: true,
+                todayHighlight: true
+            });
+
+            $("#DataInicial-btn").click(function () {
+                $("#DataInicial").datepicker("show");
+            });
+
+            $("#DataFinal").datepicker({
+                showOn: "button",
+                format: 'dd/mm/yyyy',
+                todayBtn: "linked",
+                clearBtn: true,
+                autoclose: true,
+                todayHighlight: true
+            });
+
+            $("#DataFinal-btn").click(function () {
+                $("#DataFinal").datepicker("show");
+            });
+        });
+
+      $(function () {
+        $("#IdAeroporto").change(function () {
+            var val = $(this).val();
+            var options = "";
+            $.getJSON(
+                "@Url.Action("GetEmpresas", "Relatorio")", { idAeroporto: val },
+                function (data) {
+                    $.each(data, function(index, item){
+                        options += "<option value='" + item.Value + "'>" + item.Text + "</option>";
+                    });
+                    $("#IdEmpresa").html(options);
+                    $('#IdEmpresa').trigger('change');
+                }
+            );
+        });
+    });
+
+    function GerarRelatorio() {
+
+        var IdAeroporto = $('#IdAeroporto').val();
+        var DataInicial = $('#DataInicial').val();
+        var DataFinal = $('#DataFinal').val();
+        var IdEmpresa = $('#IdEmpresa').val();
+        //var IdGrupo = $('#IdGrupo').val();
+        //var IdTipoVooChegada = $('#IdTipoVooChegada').val();
+
+        var parametros = {
+            IdAeroporto: IdAeroporto,
+            DataInicial: DataInicial,
+            DataFinal: DataFinal,
+            IdEmpresa: IdEmpresa
+            //IdGrupo: IdGrupo,
+            //IdTipoVooChegada: IdTipoVooChegada,
+        };
+
+
+            $.ajax({
+                url: '@Url.Action("RenderizarRelatorioTermoViaAdicional", "Relatorio")',
+                data: JSON.stringify(parametros),
+                contentType: "application/json",
+                type: 'POST',
+                success: function (result) {
+                    var w = window.open(result);
+                    w.document.write(result);
+                },
+                erro: function (result) {
+                    ExibirMensagemErro("Ocorreu um erro ao tentar exibir o relatório.", "Entre em contato com a equipe de Informática.");
+                }
+            });
+
+
+
+    }
+
+
+</script>
