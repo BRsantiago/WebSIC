@@ -65,7 +65,7 @@ namespace Services.Service
                 Credencial credencial = this.CredencialRepository.ObterPorEmpresaPessoaTipoEmissao(solicitacao.EmpresaId.Value, solicitacao.PessoaId.Value, solicitacao.TipoEmissao == Entity.Enum.TipoEmissao.Temporaria);
                 Pessoa pessoa = this.PessoaRepository.ObterPorId(solicitacao.PessoaId.Value);
 
-                SolicitacaoRepository.IniciarTransacao();
+                //SolicitacaoRepository.IniciarTransacao();
                 //PessoaRepository.IniciarTransacao();
                 //CredencialRepository.IniciarTransacao();
 
@@ -86,13 +86,13 @@ namespace Services.Service
 
                 //CredencialRepository.EncerrarTransacao();
                 //PessoaRepository.EncerrarTransacao();
-                SolicitacaoRepository.EncerrarTransacao();
+                //SolicitacaoRepository.EncerrarTransacao();
             }
             catch (Exception ex)
             {
                 //CredencialRepository.DesfazerTransacao();
                 //PessoaRepository.DesfazerTransacao();
-                SolicitacaoRepository.DesfazerTransacao();
+                //SolicitacaoRepository.DesfazerTransacao();
                 throw new Exception(ex.Message);
             }
         }
@@ -144,14 +144,15 @@ namespace Services.Service
                 credencial.Area2Id = novaSolicitacao.Area2Id;
                 credencial.CargoId = novaSolicitacao.CargoId;
                 credencial.ContratoId = novaSolicitacao.ContratoId;
-
-                credencial.DataExpedicao = null;
                 credencial.FlgSegundaVia = tipoSolicitacao.FlgGeraSegundaVia;
-
 
                 if (tipoSolicitacao.FlgDesativaCredencial)
                 {
                     credencial.DataDesativacao = DateTime.Now;
+                }
+                else
+                {
+                    credencial.DataExpedicao = null;
                 }
 
                 credencial.Atualizador = novaSolicitacao.Atualizador;

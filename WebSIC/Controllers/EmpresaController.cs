@@ -14,7 +14,7 @@ using WebSIC.Models;
 
 namespace WebSIC.Controllers
 {
-    [Authorize(Roles ="CASSA\\GS_COMERCIAL")]
+    [Authorize(Roles = "CASSA\\GS_COMERCIAL, CASSA\\GS_CREDENCIAMENTO, CASSA\\GS_REP_TI")]
     public class EmpresaController : Controller
     {
         public IEmpresaService EmpresaService;

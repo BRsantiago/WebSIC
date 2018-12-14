@@ -61,6 +61,8 @@ namespace WebSIC.Controllers
 
                 Credencial credencialBase = this.CredencialService.ObterPorId(credencial.IdCredencial);
 
+                credencialBase.Atualizacao = DateTime.Now;
+                credencialBase.Atualizador = User.Identity.Name;
                 credencialBase.NomeImpressaoFrenteCracha = credencial.NomeImpressaoFrenteCracha;
                 credencialBase.DescricaoFuncaoFrenteCracha = credencial.DescricaoFuncaoFrenteCracha;
                 credencialBase.DataVencimento = credencial.DataVencimento;
@@ -144,6 +146,8 @@ namespace WebSIC.Controllers
 
                 this.ValidarParaImpressão(credencial);
 
+                credencial.Atualizacao = DateTime.Now;
+                credencial.Atualizador = User.Identity.Name;
                 credencial.DataExpedicao = DateTime.Now;
                 credencial.DataVencimento = credencial.DataVencimento.HasValue ? credencial.DataVencimento.Value : this.GerarDataVencimentoCredencial(credencial);
 
@@ -300,10 +304,16 @@ namespace WebSIC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditATIV([Bind(Include = "IdCredencial,FlgTemporario,DataVencimento,AeroportoId,EmpresaId,ContratoId,VeiculoId,Area1Id,PortaoAcesso1Id,PortaoAcesso2Id,PortaoAcesso3Id,Criacao,Criador,Ativo")] Credencial credencial)
         {
+            Credencial credencialBase = this.CredencialService.ObterPorId(credencial.IdCredencial);
+           
+            credencialBase.Atualizacao = DateTime.Now;
+            credencialBase.Atualizador = User.Identity.Name;
+            credencialBase.DataVencimento = credencial.DataVencimento;
+            CredencialService.Atualizar(credencialBase);
+
+            credencial = credencialBase;
+
             ViewBag.Printers = GetPrinters();
-            credencial.Atualizacao = DateTime.Now;
-            credencial.Atualizador = User.Identity.Name;
-            CredencialService.Atualizar(credencial);
             return View(credencial);
         }
 
