@@ -127,7 +127,7 @@ namespace Services.Service
 
         private void Validar(Pessoa pessoa)
         {
-            if (!isCPF(pessoa.CPF))
+            if (pessoa.CPF != null && !isCPF(pessoa.CPF))
                 throw new Exception("CPF inválido. Favor verificar !");
 
             if (pessoa.DataValidadeFoto.HasValue && pessoa.DataValidadeFoto.Value < DateTime.Now)
@@ -136,8 +136,11 @@ namespace Services.Service
             if ((String.IsNullOrEmpty(pessoa.CPF) || String.IsNullOrWhiteSpace(pessoa.CPF)) && (String.IsNullOrEmpty(pessoa.RNE) || String.IsNullOrWhiteSpace(pessoa.RNE)))
                 throw new Exception("Favor informar o CPF ou RNE.");
 
-            if (this.PessoaRepository.VerificarSeExistePessoaComMesmoCPF(pessoa.CPF, pessoa.IdPessoa))
+            if (pessoa.CPF != null && this.PessoaRepository.VerificarSeExistePessoaComMesmoCPF(pessoa.CPF, pessoa.IdPessoa))
                 throw new Exception("Já existe uma pessoa cadastrada com este CPF.");
+
+            if (pessoa.RNE != null && this.PessoaRepository.VerificarSeExistePessoaComMesmoRNE(pessoa.RNE, pessoa.IdPessoa))
+                throw new Exception("Já existe uma pessoa cadastrada com este RNE.");
         }
 
         public List<Pessoa> GetDataList(string searchBy, int take, int skip, string sortBy, bool sortDir, out int filteredResultsCount, out int totalResultsCount)

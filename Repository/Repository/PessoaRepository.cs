@@ -139,6 +139,11 @@ namespace Repository.Repository
             return this.contexto.Pessoas.Any(p => p.CPF == CPF && p.IdPessoa != idPessoa);
         }
 
+        public bool VerificarSeExistePessoaComMesmoRNE(string RNE, int idPessoa)
+        {
+            return this.contexto.Pessoas.Any(p => p.RNE == RNE && p.IdPessoa != idPessoa);
+        }
+
         public List<Pessoa> GetDataFromDatabase(string searchBy, int take, int skip, string sortBy, bool sortDir, out int filteredResultsCount, out int totalResultsCount)
         {
             return base.GetDataFromDb(searchBy, take, skip, sortBy, sortDir, out filteredResultsCount, out totalResultsCount);
@@ -151,6 +156,7 @@ namespace Repository.Repository
                 searchValue = searchValue.ToUpper();
 
                 predicate = predicate.Or(e => e.Nome.ToUpper().Contains(searchValue));
+                predicate = predicate.Or(e => e.NomeCompleto.ToUpper().Contains(searchValue));
                 predicate = predicate.Or(e => e.CPF.ToUpper().Contains(searchValue));
                 predicate = predicate.Or(e => e.RG.ToUpper().Contains(searchValue));
                 predicate = predicate.Or(e => e.TelefoneEmergencia.ToUpper().Contains(searchValue));
