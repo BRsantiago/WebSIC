@@ -184,7 +184,7 @@ namespace Services.Service
             if (credencial == null && !tipoSolicitacao.FlgGeraNovaCredencial)
                 throw new Exception("Esta solicitacão não pode ser realizada pois ainda não existe credencial emitida para esta pessoa, nesta empresa e deste tipo.");
 
-            if ((tipoSolicitacao.FlgDesativaCredencial || tipoSolicitacao.FlgGeraSegundaVia || tipoSolicitacao.IdTipoSolicitacao == 11) && String.IsNullOrEmpty(solicitacao.Observacao))
+            if ((tipoSolicitacao.FlgDesativaCredencial || tipoSolicitacao.FlgGeraSegundaVia || tipoSolicitacao.IdTipoSolicitacao == 11 || tipoSolicitacao.IdTipoSolicitacao == 9 || tipoSolicitacao.IdTipoSolicitacao == 8) && String.IsNullOrEmpty(solicitacao.Observacao))
                 throw new Exception("Favor informar o motivo desta solictação no campo de observação.");
         }
 
