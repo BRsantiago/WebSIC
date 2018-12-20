@@ -50,7 +50,7 @@ namespace Services.Service
             if (credencial.DataVencimento.HasValue && credencial.DataVencimento < DateTime.Now.Date)
                 throw new Exception("Nao é possível emitir uma credencial com data menor que hoje.");
 
-            if (credencial.FlgTemporario && credencial.DataVencimento.Value > credencial.Solicitacoes.OrderByDescending(x => x.IdSolicitacao).First().DataAutorizacao.Value.AddDays(90))
+            if (credencial.FlgTemporario && credencial.DataVencimento.Value.Date > credencial.Solicitacoes.OrderByDescending(x => x.IdSolicitacao).First().DataAutorizacao.Value.AddDays(90).Date)
                 throw new Exception("Esta credencial não pode ser impressa pois o vencimento dela é maior que o permitido para uma credencial temporária.");
 
             if (!credencial.FlgTemporario && credencial.PessoaId != null && credencial.DataVencimento.Value > credencial.Solicitacoes.OrderByDescending(x => x.IdSolicitacao).First().DataAutorizacao.Value.AddYears(2))

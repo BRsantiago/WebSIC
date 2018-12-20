@@ -266,6 +266,10 @@
     <Compile Include="Migrations\201812121355447_PessoaColete.Designer.cs">
       <DependentUpon>201812121355447_PessoaColete.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812141516400_Compatibilidade.cs" />
+    <Compile Include="Migrations\201812141516400_Compatibilidade.Designer.cs">
+      <DependentUpon>201812141516400_Compatibilidade.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\RamoAtividadeRepository.cs" />
@@ -445,6 +449,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812121355447_PessoaColete.resx">
       <DependentUpon>201812121355447_PessoaColete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812141516400_Compatibilidade.resx">
+      <DependentUpon>201812141516400_Compatibilidade.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
