@@ -80,9 +80,9 @@ namespace Services.Service
                 GerarCredencial(solicitacao, credencial, pessoa, cargo, tipoSolicitacao);
                 CredencialRepository.Salvar();
 
-                CarregarCursosExigidos(solicitacao, pessoa);
-                PessoaRepository.AtualizarRepresentante(pessoa);
-                PessoaRepository.Salvar();
+                //CarregarCursosExigidos(solicitacao, pessoa);
+                //PessoaRepository.AtualizarRepresentante(pessoa);
+                //PessoaRepository.Salvar();
 
                 //CredencialRepository.EncerrarTransacao();
                 //PessoaRepository.EncerrarTransacao();
