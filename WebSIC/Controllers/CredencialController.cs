@@ -369,7 +369,7 @@ namespace WebSIC.Controllers
 
         private void ValidarParaImpressão(Credencial credencial)
         {
-            if ((credencial.Area1 != null || credencial.Area2 != null) && (credencial.Pessoa.Curso?.Count == 0 && credencial.Pessoa.Turmas?.Count == 0))
+            if ((!credencial.FlgTemporario) && (credencial.Area1 != null || credencial.Area2 != null) && (credencial.Pessoa.Curso?.Count == 0 && credencial.Pessoa.Turmas?.Count == 0))
                 throw new Exception("Favor verificar o cadastro desssa pessoa, ela possui acesso a àreas restritas mas não há curso válido para ela.");
 
             if (!String.IsNullOrEmpty(credencial.Pessoa.CNH) && (!credencial.Pessoa.Curso.Any(c => c.Curso.PermiteDirigirEmAreasRestritas) || credencial.Pessoa.Curso.Any(c => c.Curso.PermiteDirigirEmAreasRestritas && c.DataValidade < DateTime.Now)))
