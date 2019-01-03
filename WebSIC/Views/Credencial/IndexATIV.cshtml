@@ -56,7 +56,7 @@
                                     @Html.DisplayFor(modelItem => item.Contrato.Numero)
                                 </td>
                                 <td>
-                                    <text>@Html.Encode(string.Format("{0} {1} {2}/{3}", item.Veiculo.Marca, item.Veiculo.Modelo, item.Veiculo.AnoFabricacao, item.Veiculo.AnoModelo))</text>
+                                    <text>@Html.Encode(string.Format("{0} {1} {2}/{3} {4}", item.Veiculo.Marca, item.Veiculo.Modelo, item.Veiculo.AnoFabricacao, item.Veiculo.AnoModelo, item.Veiculo.Placa))</text>
                                 </td>
                                 <td>
                                     <text>@Html.Raw(string.Format("{0}<br/>{1}", item.Area1 != null ? item.Area1.Descricao : "-", item.Area2 != null ? item.Area2.Descricao : ""))</text>

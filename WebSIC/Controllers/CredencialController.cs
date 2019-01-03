@@ -247,43 +247,49 @@ namespace WebSIC.Controllers
             Session["Logo"] = Server.MapPath(credencial.Empresa.ImageUrl);
         }
 
-        public ActionResult ImprimirATIV(string idCredencial, string printerName)
+        [HttpPost]
+        public ActionResult ImprimirATIV(string idCredencial)
         {
             try
             {
                 Credencial credencial = this.CredencialService.ObterPorId(Convert.ToInt32(idCredencial));
 
+                credencial.Atualizacao = DateTime.Now;
+                credencial.Atualizador = User.Identity.Name;
+
                 credencial.DataExpedicao = DateTime.Now;
                 credencial.DataVencimento = credencial.DataVencimento.HasValue ? credencial.DataVencimento.Value : this.GerarDataVencimentoCredencial(credencial);
 
-                ReportDocument cryRpt = new ReportDocument();
-                cryRpt.Load(Server.MapPath("/Credenciais/ATIV.rpt"));
+                #region Crystal Reports
+                //ReportDocument cryRpt = new ReportDocument();
+                //cryRpt.Load(Server.MapPath("/Credenciais/ATIV.rpt"));
 
-                cryRpt.SetParameterValue("TipoEmissao", credencial.FlgTemporario ? "TEMPORÁRIO" : "");
-                cryRpt.SetParameterValue("DataValidade", String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento));
-                cryRpt.SetParameterValue("NivelAcesso", credencial.Area1?.Sigla); //(credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : ""));
-                cryRpt.SetParameterValue("Aeroporto", credencial.Aeroporto?.Sigla);
-                cryRpt.SetParameterValue("Portao", string.Format("{0} {1} {2}", credencial.PortaoAcesso1.Sigla, credencial.PortaoAcesso2.Sigla, credencial.PortaoAcesso3.Sigla).Trim());
-                cryRpt.SetParameterValue("Categoria", credencial.Veiculo.Categoria);
-                cryRpt.SetParameterValue("Placa", credencial.Veiculo.Placa);
-                cryRpt.SetParameterValue("Empresa", credencial.Empresa.NomeFantasia);
-                cryRpt.SetParameterValue("MarcaModelo", credencial.Veiculo.Modelo);
-                cryRpt.SetParameterValue("Cor", credencial.Veiculo.Cor);
-                cryRpt.SetParameterValue("TipoServico", credencial.Veiculo.TipoServico);
-                cryRpt.SetParameterValue("DataExpedicao", credencial.DataExpedicao);
-                cryRpt.SetParameterValue("Chassi", credencial.Veiculo.Chassi);
-                cryRpt.SetParameterValue("Matricula", credencial.IdCredencial);
-                cryRpt.SetParameterValue("AreaManobra", credencial.Veiculo.AcessoManobra ? "ÁREA DE MANOBRA" : "");
-                cryRpt.SetParameterValue("Empresa", credencial.Empresa.NomeFantasia);
-                cryRpt.SetParameterValue("Logo", Server.MapPath(credencial.Empresa.ImageUrl));
+                //cryRpt.SetParameterValue("TipoEmissao", credencial.FlgTemporario ? "TEMPORÁRIO" : "");
+                //cryRpt.SetParameterValue("DataValidade", String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento));
+                //cryRpt.SetParameterValue("NivelAcesso", credencial.Area1?.Sigla); //(credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : ""));
+                //cryRpt.SetParameterValue("Aeroporto", credencial.Aeroporto?.Sigla);
+                //cryRpt.SetParameterValue("Portao", string.Format("{0} {1} {2}", credencial.PortaoAcesso1.Sigla, credencial.PortaoAcesso2.Sigla, credencial.PortaoAcesso3.Sigla).Trim());
+                //cryRpt.SetParameterValue("Categoria", credencial.Veiculo.Categoria);
+                //cryRpt.SetParameterValue("Placa", credencial.Veiculo.Placa);
+                //cryRpt.SetParameterValue("Empresa", credencial.Empresa.NomeFantasia);
+                //cryRpt.SetParameterValue("MarcaModelo", credencial.Veiculo.Modelo);
+                //cryRpt.SetParameterValue("Cor", credencial.Veiculo.Cor);
+                //cryRpt.SetParameterValue("TipoServico", credencial.Veiculo.TipoServico);
+                //cryRpt.SetParameterValue("DataExpedicao", credencial.DataExpedicao);
+                //cryRpt.SetParameterValue("Chassi", credencial.Veiculo.Chassi);
+                //cryRpt.SetParameterValue("Matricula", credencial.IdCredencial);
+                //cryRpt.SetParameterValue("AreaManobra", credencial.Veiculo.AcessoManobra ? "ÁREA DE MANOBRA" : "");
+                //cryRpt.SetParameterValue("Empresa", credencial.Empresa.NomeFantasia);
+                //cryRpt.SetParameterValue("Logo", Server.MapPath(credencial.Empresa.ImageUrl));
 
 
-                cryRpt.PrintOptions.PrinterName = printerName;
-                cryRpt.ReportClientDocument.PrintOutputController.PrintReport();
+                //cryRpt.PrintOptions.PrinterName = printerName;
+                //cryRpt.ReportClientDocument.PrintOutputController.PrintReport();
+                #endregion
 
                 this.CredencialService.Atualizar(credencial);
 
-                return Json(new { success = true, title = "Sucesso", message = "Registro Atualizado com sucesso !" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, title = "Sucesso", message = "Credencial de ATIV expedida com sucesso!" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

@@ -1,6 +1,21 @@
 ﻿@model Entity.Entities.Credencial
 
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7/dist/sweetalert2.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@7/dist/sweetalert2.css">
+
+<style type="text/css">
+    .swal2-popup {
+        font-size: 1.6rem !important;
+    }
+
+    .swal2-icon {
+        width: 5em !important;
+        height: 5em !important;
+        border-width: .25em !important;
+    }
+</style>
+
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Impressão de ATIV</h1>
@@ -13,38 +28,38 @@
         {
             @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+            <div class="form-horizontal">
+                @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
 
-            @{ Html.EnableClientValidation(false); }
+                @{ Html.EnableClientValidation(false); }
 
-            @Html.HiddenFor(model => model.IdCredencial)
-            @Html.HiddenFor(model => model.FlgTemporario)
+                @Html.HiddenFor(model => model.IdCredencial)
+                @Html.HiddenFor(model => model.FlgTemporario)
 
-            @Html.HiddenFor(model => model.AeroportoId)
-            @Html.HiddenFor(model => model.EmpresaId)
-            @Html.HiddenFor(model => model.ContratoId)
-            @Html.HiddenFor(model => model.VeiculoId)
-            @Html.HiddenFor(model => model.Area1Id)
-            @Html.HiddenFor(model => model.PortaoAcesso1Id)
-            @Html.HiddenFor(model => model.PortaoAcesso2Id)
-            @Html.HiddenFor(model => model.PortaoAcesso3Id)
+                @Html.HiddenFor(model => model.AeroportoId)
+                @Html.HiddenFor(model => model.EmpresaId)
+                @Html.HiddenFor(model => model.ContratoId)
+                @Html.HiddenFor(model => model.VeiculoId)
+                @Html.HiddenFor(model => model.Area1Id)
+                @Html.HiddenFor(model => model.PortaoAcesso1Id)
+                @Html.HiddenFor(model => model.PortaoAcesso2Id)
+                @Html.HiddenFor(model => model.PortaoAcesso3Id)
 
-            @Html.HiddenFor(model => model.Criacao)
-            @Html.HiddenFor(model => model.Criador)
-            @Html.HiddenFor(model => model.Ativo)
+                @Html.HiddenFor(model => model.Criacao)
+                @Html.HiddenFor(model => model.Criador)
+                @Html.HiddenFor(model => model.Ativo)
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.DataVencimento, htmlAttributes: new { @class = "control-label col-md-4" })
-                <div class="col-md-3">
-                    @Html.EditorFor(model => model.DataVencimento, new { htmlAttributes = new { @class = "form-control", @type = "text", @Value = Model.DataVencimento.HasValue ? Model.DataVencimento.Value.ToString("dd/MM/yyyy") : "" } })
-                </div>
                 <div class="form-group">
-                    <button type="submit" id="btnSubmit" name="btnSubmit" value="Atualizar" class="btn btn-primary">Atualizar</button>
-                    <a value="Imprimir" id="PtrATIV" class="btn btn-success btnPrint" href="#">Imprimir</a>
+                    @Html.LabelFor(model => model.DataVencimento, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.DataVencimento, new { htmlAttributes = new { @class = "form-control", @type = "text", @Value = Model.DataVencimento.HasValue ? Model.DataVencimento.Value.ToString("dd/MM/yyyy") : "" } })
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" id="btnSubmit" name="btnSubmit" value="Atualizar" class="btn btn-primary">Atualizar</button>
+                        <a value="Imprimir" id="PtrATIV" class="btn btn-success btnPrint" href="#">Imprimir</a>
+                    </div>
                 </div>
             </div>
-        </div>
         }
 
     </div>
@@ -155,12 +170,43 @@
                 }
             });
 
-            $(".btnPrint").printPage({
-                url: '../../ReportFront.aspx', //'@Url.Action("PreviewATIV","Credencial", new { idCredencial = @Model.IdCredencial })',
-                attr: "href",
-                message: "Aguarde, o documento está sendo preparado para impressão!"
+            $(".btnPrint").click(function () {
+
+                var button = $(this)
+
+                $.ajax({
+                    url: '@Url.Action("ImprimirATIV", "Credencial")',
+                    data: { idCredencial: idCredencial },
+                    method: "POST",
+                    success: function (serviceReturn) {
+                        swal({
+                            title: "Good job!",
+                            text: serviceReturn.message,
+                            type: "success",
+                            showConfirmButton: true,
+                            confirmButtonText: 'OK!'
+                        })
+                        .then(
+                            (result) => {
+                                button.printPage({
+                                    url: '../../ReportFront.aspx',
+                                    attr: "href",
+                                    message: "Aguarde, o documento está sendo preparado para impressão!"
+                                });
+                            }
+                        );
+                    },
+                    error: function (serviceReturn) {
+                        swal({
+                            title: "Atenção!",
+                            text: serviceReturn.message,
+                            type: "warning",
+                            showCancelButton: true,
+                            cancelButtonText: 'OK!'
+                        })
+                    }
+                });
             });
-        
         });
 
     </script>

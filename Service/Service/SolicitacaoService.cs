@@ -105,7 +105,7 @@ namespace Services.Service
 
             //this.Validar(credencial, novaSolicitacao);
 
-            if (credencial == null && tipoSolicitacao.FlgGeraNovaCredencial)
+            if ((credencial == null || credencial.DataDesativacao.HasValue) && tipoSolicitacao.FlgGeraNovaCredencial)
             {
                 credencial = new Credencial();
 
@@ -167,8 +167,8 @@ namespace Services.Service
             if (solicitacao.IdSolicitacao != 0 && credencial != null && credencial.DataExpedicao.HasValue)
                 throw new Exception("Esta solicitação não pode ser alterada pois a credencial já foi emitida.");
 
-            if (credencial != null && credencial.Solicitacoes.Any(s => s.TipoSolicitacao.FlgGeraNovaCredencial && s.TipoSolicitacaoId == solicitacao.TipoSolicitacaoId && s.IdSolicitacao != solicitacao.IdSolicitacao))
-                throw new Exception("Esta solicitação não pode ser concluída pois esta já foi realizada.");
+            if (credencial != null && !credencial.DataDesativacao.HasValue && credencial.Solicitacoes.Any(s => s.TipoSolicitacao.FlgGeraNovaCredencial && s.TipoSolicitacaoId == solicitacao.TipoSolicitacaoId && s.IdSolicitacao != solicitacao.IdSolicitacao))
+                throw new Exception("Esta solicitação não pode ser concluída pois já foi realizada.");
 
             if (solicitacao.ContratoId == 0)
                 throw new Exception("Favor informar um contrato.");

@@ -204,8 +204,9 @@
                                                     swal({
                                                         title: "Good job!",
                                                         text: resultApprove.message,
-                                                        icon: "success",
-                                                        button: "OK!"
+                                                        type: "success",
+                                                        showConfirmButton: true,
+                                                        confirmButtonText: 'OK!'
                                                     })
                                                         .then((value) => {
                                                             window.location.reload(true);
@@ -214,8 +215,9 @@
                                                     swal({
                                                         title: "Atenção!",
                                                         text: resultApprove.message,
-                                                        icon: "warning",
-                                                        button: "OK!"
+                                                        type: "warning",
+                                                        showCancelButton: true,
+                                                        cancelButtonText: 'OK!'
                                                     })
                                                 }
                                             },
@@ -223,7 +225,7 @@
                                                 swal({
                                                     title: "Erro de sistema!",
                                                     text: "Por favor entre em contato com o setor de TI!",
-                                                    icon: "error"
+                                                    type: "error"
                                                 });
                                             }
                                         });
