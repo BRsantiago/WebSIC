@@ -66,6 +66,57 @@ namespace WebSIC.Controllers
             return View(model);
         }
 
+        public ActionResult CredenciaisExtraviadasRoubadasOuFurtadaFiltro()
+        {
+            RelatorioViewModel model = new RelatorioViewModel();
+
+            model.Aeroportos = this.aeroportoService.ObterTodos();
+            model.Empresas = new List<Empresa>();
+
+            return View(model);
+        }
+
+        public ActionResult CredenciaisEmitidasNoPeridoFiltro()
+        {
+            RelatorioViewModel model = new RelatorioViewModel();
+
+            model.Aeroportos = this.aeroportoService.ObterTodos();
+            model.Empresas = new List<Empresa>();
+
+            return View(model);
+        }
+
+        public ActionResult CredenciaisVencidasNoPeridoFiltro()
+        {
+            RelatorioViewModel model = new RelatorioViewModel();
+
+            model.Aeroportos = this.aeroportoService.ObterTodos();
+            model.Empresas = new List<Empresa>();
+
+            return View(model);
+        }
+
+        public ActionResult IdentificadosComCursoVencidoFiltro()
+
+        {
+            RelatorioViewModel model = new RelatorioViewModel();
+
+            model.Aeroportos = this.aeroportoService.ObterTodos();
+            model.Empresas = new List<Empresa>();
+
+            return View(model);
+        }
+
+        public ActionResult CredenciaisPorTipoSolicitacaoFiltro()
+        {
+            RelatorioViewModel model = new RelatorioViewModel();
+
+            model.Aeroportos = this.aeroportoService.ObterTodos();
+            model.Empresas = new List<Empresa>();
+
+            return View(model);
+        }
+        
         public ActionResult TermoCancelamentoFiltro()
         {
             RelatorioViewModel model = new RelatorioViewModel();
@@ -262,6 +313,122 @@ namespace WebSIC.Controllers
 
             reportViewer.ServerReport.ReportServerCredentials = new ReportServerNetworkCredentials("CASSA\\bruno.santiago", "on19290932572");
             reportViewer.ServerReport.ReportPath = ConfigurationManager.AppSettings["ReportServerPath"] + "Termo de via Adicional";
+            reportViewer.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["ReportServer"]);
+
+            reportViewer.ServerReport.SetParameters(new ReportParameter("DATAINICIAL", model.DataInicial));
+            reportViewer.ServerReport.SetParameters(new ReportParameter("DATAFINAL", model.DataFinal));
+            reportViewer.ServerReport.SetParameters(new ReportParameter("IDEMPRESA", model.IdEmpresa.ToString()));
+
+            ViewBag.ReportViewer = reportViewer;
+
+            return PartialView("../Shared/Report");
+        }
+
+        public ActionResult RenderizarRelatorioCredenciaisExtraviadasRoubadasOuFurtada(RelatorioViewModel model)
+        {
+            var reportViewer = new ReportViewer()
+            {
+                ProcessingMode = ProcessingMode.Remote,
+                SizeToReportContent = true
+            };
+
+            reportViewer.ShowParameterPrompts = false;
+            reportViewer.ShowCredentialPrompts = false;
+
+            reportViewer.ServerReport.ReportServerCredentials = new ReportServerNetworkCredentials("CASSA\\bruno.santiago", "on19290932572");
+            reportViewer.ServerReport.ReportPath = ConfigurationManager.AppSettings["ReportServerPath"] + "Credenciais extraviadas";
+            reportViewer.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["ReportServer"]);
+
+            reportViewer.ServerReport.SetParameters(new ReportParameter("DATAINICIAL", model.DataInicial));
+            reportViewer.ServerReport.SetParameters(new ReportParameter("DATAFINAL", model.DataFinal));
+            reportViewer.ServerReport.SetParameters(new ReportParameter("IDEMPRESA", model.IdEmpresa.ToString()));
+
+            ViewBag.ReportViewer = reportViewer;
+
+            return PartialView("../Shared/Report");
+        }
+        public ActionResult RenderizarRelatorioCredenciaisEmitidasNoPeriodo(RelatorioViewModel model)
+        {
+            var reportViewer = new ReportViewer()
+            {
+                ProcessingMode = ProcessingMode.Remote,
+                SizeToReportContent = true
+            };
+
+            reportViewer.ShowParameterPrompts = false;
+            reportViewer.ShowCredentialPrompts = false;
+
+            reportViewer.ServerReport.ReportServerCredentials = new ReportServerNetworkCredentials("CASSA\\bruno.santiago", "on19290932572");
+            reportViewer.ServerReport.ReportPath = ConfigurationManager.AppSettings["ReportServerPath"] + "Credenciais Emitidas";
+            reportViewer.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["ReportServer"]);
+
+            reportViewer.ServerReport.SetParameters(new ReportParameter("DATAINICIAL", model.DataInicial));
+            reportViewer.ServerReport.SetParameters(new ReportParameter("DATAFINAL", model.DataFinal));
+            reportViewer.ServerReport.SetParameters(new ReportParameter("IDEMPRESA", model.IdEmpresa.ToString()));
+
+            ViewBag.ReportViewer = reportViewer;
+
+            return PartialView("../Shared/Report");
+        }
+        public ActionResult RenderizarRelatorioCredenciaisVencidasNoPeriodo(RelatorioViewModel model)
+        {
+            var reportViewer = new ReportViewer()
+            {
+                ProcessingMode = ProcessingMode.Remote,
+                SizeToReportContent = true
+            };
+
+            reportViewer.ShowParameterPrompts = false;
+            reportViewer.ShowCredentialPrompts = false;
+
+            reportViewer.ServerReport.ReportServerCredentials = new ReportServerNetworkCredentials("CASSA\\bruno.santiago", "on19290932572");
+            reportViewer.ServerReport.ReportPath = ConfigurationManager.AppSettings["ReportServerPath"] + "Credenciais vencidas no periodo";
+            reportViewer.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["ReportServer"]);
+
+            reportViewer.ServerReport.SetParameters(new ReportParameter("DATAINICIAL", model.DataInicial));
+            reportViewer.ServerReport.SetParameters(new ReportParameter("DATAFINAL", model.DataFinal));
+            reportViewer.ServerReport.SetParameters(new ReportParameter("IDEMPRESA", model.IdEmpresa.ToString()));
+
+            ViewBag.ReportViewer = reportViewer;
+
+            return PartialView("../Shared/Report");
+        }
+        public ActionResult RenderizarRelatorioIdentificadosComCursoVencido(RelatorioViewModel model)
+        {
+            var reportViewer = new ReportViewer()
+            {
+                ProcessingMode = ProcessingMode.Remote,
+                SizeToReportContent = true
+            };
+
+            reportViewer.ShowParameterPrompts = false;
+            reportViewer.ShowCredentialPrompts = false;
+
+            reportViewer.ServerReport.ReportServerCredentials = new ReportServerNetworkCredentials("CASSA\\bruno.santiago", "on19290932572");
+            reportViewer.ServerReport.ReportPath = ConfigurationManager.AppSettings["ReportServerPath"] + "Identificados com curso vencido";
+            reportViewer.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["ReportServer"]);
+
+            reportViewer.ServerReport.SetParameters(new ReportParameter("DATAINICIAL", model.DataInicial));
+            reportViewer.ServerReport.SetParameters(new ReportParameter("DATAFINAL", model.DataFinal));
+            reportViewer.ServerReport.SetParameters(new ReportParameter("IDEMPRESA", model.IdEmpresa.ToString()));
+
+            ViewBag.ReportViewer = reportViewer;
+
+            return PartialView("../Shared/Report");
+        }
+        public ActionResult RenderizarRelatorioCredenciaisPorTipoSolicitacao(RelatorioViewModel model)
+        {
+            var reportViewer = new ReportViewer()
+            {
+                ProcessingMode = ProcessingMode.Remote,
+                SizeToReportContent = true
+            };
+
+            reportViewer.ShowParameterPrompts = false;
+            reportViewer.ShowCredentialPrompts = false;
+
+            reportViewer.ServerReport.ReportServerCredentials = new ReportServerNetworkCredentials("CASSA\\bruno.santiago", "on19290932572");
+            reportViewer.ServerReport.ReportPath = ConfigurationManager.AppSettings["ReportServerPath"] + "Credenciais por tipo de solicitação";
             reportViewer.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["ReportServer"]);
 
             reportViewer.ServerReport.SetParameters(new ReportParameter("DATAINICIAL", model.DataInicial));
