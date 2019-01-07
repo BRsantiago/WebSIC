@@ -271,7 +271,7 @@ namespace Services.Service
                         return new ServiceReturn() { success = false, title = "Erro", message = "Já existe uma solicitação com tipo igual a 'EMISSÃO' aprovada para este veículo!" };
 
                 if (solicitacao.TipoSolicitacaoId != 3)
-                    if (!solicitacoesPorVeiculo.Any(s => s.Ativo && s.TipoEmissao == solicitacao.TipoEmissao && s.TipoSolicitacaoId == solicitacao.TipoSolicitacaoId && s.DataAutorizacao.HasValue))
+                    if (!solicitacoesPorVeiculo.Any(s => s.Ativo && s.TipoEmissao == solicitacao.TipoEmissao && s.TipoSolicitacaoId == 3 && s.DataAutorizacao.HasValue))
                         return new ServiceReturn() { success = false, title = "Erro", message = "Não é possível salvar esta solicitação com tipo especificado, pois não existe solicitação anterior do tipo 'EMISSÃO' aprovada para este veículo!" };
 
                 SolicitacaoRepository.Incluir(solicitacao);
