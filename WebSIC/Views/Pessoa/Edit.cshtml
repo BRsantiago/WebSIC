@@ -349,6 +349,9 @@
                                             @Html.DisplayNameFor(model => model.Solicitacaos.First().Area2)
                                         </th>
                                         <th>
+                                            @Html.DisplayNameFor(model => model.Solicitacaos.First().Credencial.Criacao)
+                                        </th>
+                                        <th>
                                             @Html.DisplayNameFor(model => model.Solicitacaos.First().Credencial.DataVencimento)
                                         </th>
                                         <th>
@@ -362,36 +365,39 @@
                                 <tbody>
                                     @foreach (var item in Model.Solicitacaos)
                                     {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(model => item.Aeroporto.Sigla)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(model => item.TipoSolicitacao.Descricao)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(model => item.TipoEmissao)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(model => item.Empresa.NomeFantasia)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(model => item.Area1.Sigla)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(model => item.Area2.Sigla)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(model => item.Credencial.DataVencimento)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(model => item.Credencial.DataDesativacao)
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-primary" onclick="onShowModalEdit(@item.IdSolicitacao, 'Solicitacao')">Anexar</a> |
-                                                <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdSolicitacao, 'Solicitacao')">Excluir</a>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(model => item.Aeroporto.Sigla)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => item.TipoSolicitacao.Descricao)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => item.TipoEmissao)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => item.Empresa.NomeFantasia)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => item.Area1.Sigla)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => item.Area2.Sigla)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => item.Credencial.Criacao)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => item.Credencial.DataVencimento)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => item.Credencial.DataDesativacao)
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-primary" onclick="onShowModalEdit(@item.IdSolicitacao, 'Solicitacao')">Anexar</a> |
+                                            <a class="btn btn-danger" onclick="onShowModalDelete(@item.IdSolicitacao, 'Solicitacao')">Excluir</a>
+                                        </td>
+                                    </tr>
                                     }
                                 </tbody>
                             </table>

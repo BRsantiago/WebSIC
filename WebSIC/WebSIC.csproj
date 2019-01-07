@@ -351,6 +351,7 @@
     <Compile Include="ReportFront.aspx.designer.cs">
       <DependentUpon>ReportFront.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ReportServerNetworkCredentials.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="aspnet_client\system_web\4_0_30319\crystalreportviewers13\allInOne.js" />

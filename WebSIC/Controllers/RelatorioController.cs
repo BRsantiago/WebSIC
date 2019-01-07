@@ -140,6 +140,7 @@ namespace WebSIC.Controllers
             reportViewer.ShowParameterPrompts = false;
             reportViewer.ShowCredentialPrompts = false;
 
+            reportViewer.ServerReport.ReportServerCredentials = new ReportServerNetworkCredentials("CASSA\\bruno.santiago", "on19290932572");
             reportViewer.ServerReport.ReportPath = ConfigurationManager.AppSettings["ReportServerPath"] + "Cobrança";
             reportViewer.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["ReportServer"]);
 
@@ -163,6 +164,7 @@ namespace WebSIC.Controllers
             reportViewer.ShowParameterPrompts = false;
             reportViewer.ShowCredentialPrompts = false;
 
+            reportViewer.ServerReport.ReportServerCredentials = new ReportServerNetworkCredentials("CASSA\\bruno.santiago", "on19290932572");
             reportViewer.ServerReport.ReportPath = ConfigurationManager.AppSettings["ReportServerPath"] + "Funcionários Por Empresa";
             reportViewer.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["ReportServer"]);
 
@@ -186,6 +188,7 @@ namespace WebSIC.Controllers
             reportViewer.ShowParameterPrompts = false;
             reportViewer.ShowCredentialPrompts = false;
 
+            reportViewer.ServerReport.ReportServerCredentials = new ReportServerNetworkCredentials("CASSA\\bruno.santiago", "on19290932572");
             reportViewer.ServerReport.ReportPath = ConfigurationManager.AppSettings["ReportServerPath"] + "Termo de Cancelamento";
             reportViewer.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["ReportServer"]);
 
@@ -209,6 +212,7 @@ namespace WebSIC.Controllers
             reportViewer.ShowParameterPrompts = false;
             reportViewer.ShowCredentialPrompts = false;
 
+            reportViewer.ServerReport.ReportServerCredentials = new ReportServerNetworkCredentials("CASSA\\bruno.santiago", "on19290932572");
             reportViewer.ServerReport.ReportPath = ConfigurationManager.AppSettings["ReportServerPath"] + "Termo de Destruição";
             reportViewer.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["ReportServer"]);
 
@@ -232,6 +236,7 @@ namespace WebSIC.Controllers
             reportViewer.ShowParameterPrompts = false;
             reportViewer.ShowCredentialPrompts = false;
 
+            reportViewer.ServerReport.ReportServerCredentials = new ReportServerNetworkCredentials("CASSA\\bruno.santiago", "on19290932572");
             reportViewer.ServerReport.ReportPath = ConfigurationManager.AppSettings["ReportServerPath"] + "Termo de Indeferimento";
             reportViewer.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["ReportServer"]);
 
@@ -255,6 +260,7 @@ namespace WebSIC.Controllers
             reportViewer.ShowParameterPrompts = false;
             reportViewer.ShowCredentialPrompts = false;
 
+            reportViewer.ServerReport.ReportServerCredentials = new ReportServerNetworkCredentials("CASSA\\bruno.santiago", "on19290932572");
             reportViewer.ServerReport.ReportPath = ConfigurationManager.AppSettings["ReportServerPath"] + "Termo de via Adicional";
             reportViewer.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["ReportServer"]);
 
