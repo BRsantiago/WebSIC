@@ -328,6 +328,8 @@ namespace Services.Service
 
                 if (solicitacao.TipoSolicitacao.FlgDesativaCredencial)
                     credencial.DataDesativacao = DateTime.Now;
+                else
+                    credencial.DataExpedicao = null;
 
                 CredencialRepository.Atualizar(credencial);
                 CredencialRepository.Salvar();
