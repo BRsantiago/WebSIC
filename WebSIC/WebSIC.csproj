@@ -1634,6 +1634,11 @@
     <Content Include="Views\Relatorio\TermoDestruicaoFiltro.cshtml" />
     <Content Include="Views\Relatorio\TermoIndeferimentoFiltro.cshtml" />
     <Content Include="Views\Relatorio\TermoViaAdicionalFiltro.cshtml" />
+    <Content Include="Views\Relatorio\CredenciaisPorTipoSolicitacaoFiltro.cshtml" />
+    <Content Include="Views\Relatorio\CredenciaisExtraviadasRoubadasOuFurtadaFiltro.cshtml" />
+    <Content Include="Views\Relatorio\CredenciaisEmitidasNoPeridoFiltro.cshtml" />
+    <Content Include="Views\Relatorio\CredenciaisVencidasNoPeridoFiltro.cshtml" />
+    <Content Include="Views\Relatorio\IdentificadosComCursoVencidoFiltro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
