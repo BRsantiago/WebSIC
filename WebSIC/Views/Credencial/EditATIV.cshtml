@@ -170,10 +170,13 @@
                 }
             });
 
+            $(".btnPrint").printPage({
+                url: '../../ReportFront.aspx',
+                attr: "href",
+                message: "Aguarde, o documento está sendo preparado para impressão!"
+            });
+
             $(".btnPrint").click(function () {
-
-                var button = $(this)
-
                 $.ajax({
                     url: '@Url.Action("ImprimirATIV", "Credencial")',
                     data: { idCredencial: idCredencial },
@@ -186,15 +189,6 @@
                             showConfirmButton: true,
                             confirmButtonText: 'OK!'
                         })
-                        .then(
-                            (result) => {
-                                button.printPage({
-                                    url: '../../ReportFront.aspx',
-                                    attr: "href",
-                                    message: "Aguarde, o documento está sendo preparado para impressão!"
-                                });
-                            }
-                        );
                     },
                     error: function (serviceReturn) {
                         swal({

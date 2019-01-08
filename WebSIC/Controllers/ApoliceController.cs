@@ -85,7 +85,7 @@ namespace WebSIC.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Apolice apolice = Service.Obter(id.Value);
-            ViewBag.Empresas = new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", apolice.Empresa.IdEmpresa);
+            ViewBag.Empresas = new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", apolice.Empresa?.IdEmpresa);
             if (apolice == null)
             {
                 return HttpNotFound();
