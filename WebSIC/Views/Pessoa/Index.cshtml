@@ -94,16 +94,16 @@
                     url: "@Url.Action("GetPagination", "Pessoa")",
                     type: 'POST'
                 },
+                "createdRow": function (row, data, dataIndex) {
+                    if (data.TemCredencialVencida) {
+                        $(row).addClass('danger');
+                    }
+                },
                 "columns": [
                     { "data": "NomeCompleto" },
                     { "data": "CPF" },
                     { "data": "RG" },
-                    {
-                        "data": "DataNascimento",
-                        "render": function (data) {
-                            return moment(data).format('DD/MM/YYYY');
-                        }
-                    },
+                    { "data": "DataNascimento" },
                     { "data": "TelefoneEmergencia" },
                     {
                         "data": null,

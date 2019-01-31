@@ -135,5 +135,14 @@ namespace Entity.Entities
 
         [Display(Name = "Certidão Negativa TJBA")]
         public string CertTJBAFilePath { get; set; }
+
+        [Display(Name = "Data de Vencimento")]
+        public Nullable<DateTime> DataVencimento { get; set; }
+
+        [Display(Name = "Autorizado a Manipular Bagagem")]
+        public bool ManipulaBagagem { get; set; }
+
+        [Display(Name = "Acesso à Área de Manobra")]
+        public bool AcessoAreaManobra { get; set; }
     }
 }

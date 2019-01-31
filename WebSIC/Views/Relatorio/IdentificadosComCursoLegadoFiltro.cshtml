@@ -1,0 +1,66 @@
+﻿@model WebSIC.Models.RelatorioViewModel
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Identificados com Curso - Legado</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="panel-body">
+            <div class="row">
+                <form role="form">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Pesquisa</label>
+                            @Html.TextBoxFor(x => x.PesquisaGeral, new { @class = "form-control", @placeholder = "Nome, cpf ou curso" })
+                        </div>
+                    </div>
+                </form>
+                <!-- /.col-lg-6 (nested) -->
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a class="btn btn-primary" onclick="GerarRelatorio()">Gerar Relatório</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row (nested) -->
+        </div>
+    </div>
+</div>
+
+<script>
+
+   
+    function GerarRelatorio() {
+
+        var PesquisaGeral = $('#PesquisaGeral').val();
+
+        var parametros = {
+            PesquisaGeral: PesquisaGeral
+        };
+
+
+            $.ajax({
+                url: '@Url.Action("RenderizarRelatorioIdentificadosComCursoLegado", "Relatorio")',
+                data: JSON.stringify(parametros),
+                contentType: "application/json",
+                type: 'POST',
+                success: function (result) {
+                    var w = window.open(result);
+                    w.document.write(result);
+                },
+                erro: function (result) {
+                    ExibirMensagemErro("Ocorreu um erro ao tentar exibir o relatório.", "Entre em contato com a equipe de Informática.");
+                }
+            });
+
+
+
+    }
+
+
+</script>

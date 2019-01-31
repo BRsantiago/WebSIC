@@ -67,9 +67,15 @@ namespace WebSIC.Models
         [Display(Name = "Certidão Negativa TJBA")]
         public string CertTJBAFilePath { get; set; }
         public HttpPostedFileBase CertTJBAFile { get; set; }
-        
+
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
+
+        [Display(Name = "Autorizado a Manipular Bagagem")]
+        public bool ManipulaBagagem { get; set; }
+
+        [Display(Name = "Acesso à Área de Manobra")]
+        public bool AcessoAreaManobra { get; set; }
 
         public SolicitacaoViewModel(Solicitacao solicitacao)
         {
@@ -84,6 +90,8 @@ namespace WebSIC.Models
             this.IdPessoa = solicitacao.Pessoa.IdPessoa;
             this.IdCargo = solicitacao.Cargo.IdCargo;
             this.IdRamoAtividade = solicitacao.RamoAtividadeId.Value;
+            this.AcessoAreaManobra = solicitacao.AcessoAreaManobra;
+            this.ManipulaBagagem = solicitacao.ManipulaBagagem;
 
             this.CertAntCrimPCFilePath = solicitacao.CertAntCrimPCFilePath;
             this.CertAntCrimPFFilePath = solicitacao.CertAntCrimPFFilePath;
@@ -108,6 +116,8 @@ namespace WebSIC.Models
             solicitacao.CargoId = this.IdCargo;
             solicitacao.RamoAtividadeId = this.IdRamoAtividade;
             solicitacao.TipoEmissao = this.TiposEmissao;
+            solicitacao.AcessoAreaManobra = this.AcessoAreaManobra;
+            solicitacao.ManipulaBagagem = this.ManipulaBagagem;
 
             solicitacao.CertAntCrimPCFilePath = this.CertAntCrimPCFilePath;
             solicitacao.CertAntCrimPFFilePath = this.CertAntCrimPFFilePath;

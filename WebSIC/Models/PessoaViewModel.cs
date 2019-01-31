@@ -112,7 +112,7 @@ namespace WebSIC.Models
 
         [Display(Name = "Ativo/Inativo")]
         public bool Ativo { get; set; }
-        
+
         [Display(Name = "Residência fora do país nos ultimos 10 anos")]
         public bool FlgResidenciaForaDoPaisNosUltimos10Anos { get; set; }
 
@@ -138,6 +138,8 @@ namespace WebSIC.Models
         public string CTPSFilePath { get; set; }
         public HttpPostedFileBase CTPSFile { get; set; }
 
+        public bool TemCredencialVencida { get; set; }
+
         public PessoaViewModel() { }
 
         public PessoaViewModel(Pessoa pessoa)
@@ -145,7 +147,7 @@ namespace WebSIC.Models
             this.IdPessoa = pessoa.IdPessoa;
             this.NomeCompleto = pessoa.NomeCompleto;
             this.Nome = pessoa.Nome;
-            this.DataNascimento = pessoa.DataNascimento.ToString();
+            this.DataNascimento = pessoa.DataNascimento.ToString("dd/MM/yyyy");
             this.NomePai = pessoa.NomePai;
             this.NomeMae = pessoa.NomeMae;
             this.Endereco = pessoa.Endereco;
@@ -187,6 +189,7 @@ namespace WebSIC.Models
             this.FlgResidenciaForaDoPaisNosUltimos10Anos = pessoa.FlgResidenciaForaDoPaisNosUltimos10Anos;
             this.ObservacaoResidenciaForaDoPaisNosUltimos10Anos = pessoa.ObservacaoResidenciaForaDoPaisNosUltimos10Anos;
             this.NumeroColete = pessoa.NumeroColete;
+            this.TemCredencialVencida = (pessoa.Credenciais != null && pessoa.Credenciais.Any(c => c.DataDesativacao == null && c.DataVencimento < DateTime.Now));
 
             this.RGFilePath = pessoa.RGFilePath;
             this.CRFilePath = pessoa.CRFilePath;
@@ -197,8 +200,7 @@ namespace WebSIC.Models
         public Pessoa MapearParaObjetoDominio()
         {
             Pessoa pessoa = new Pessoa();
-
-
+            
             pessoa.IdPessoa = this.IdPessoa;
             pessoa.NomeCompleto = this.NomeCompleto.ToUpper();
             pessoa.Nome = String.IsNullOrEmpty(this.Nome) ? this.Nome : this.Nome.ToUpper();

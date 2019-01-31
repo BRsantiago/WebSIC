@@ -111,6 +111,37 @@
                     </div>
                 </div>
 
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.AcessoAreaManobra, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-sm-1">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(d => d.AcessoAreaManobra, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    @Html.LabelFor(model => model.ManipulaBagagem, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-sm-1">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(d => d.ManipulaBagagem, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AcessoAreaManobra, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-sm-1">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(model => model.AcessoAreaManobra, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    @Html.LabelFor(model => model.ManipulaBagagem, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-sm-1">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(model => model.ManipulaBagagem, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     @Html.LabelFor(model => model.CertAntCrimPCFilePath, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-4">

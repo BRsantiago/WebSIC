@@ -17,5 +17,7 @@ namespace WebSIC.Models
 
         public string IdEmpresa { get; set; }
         public List<Empresa> Empresas { get; set; }
+
+        public string PesquisaGeral { get; set; }
     }
 }

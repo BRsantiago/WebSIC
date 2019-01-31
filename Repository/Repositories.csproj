@@ -270,6 +270,18 @@
     <Compile Include="Migrations\201812141516400_Compatibilidade.Designer.cs">
       <DependentUpon>201812141516400_Compatibilidade.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901281259530_AddAcessoAreaManobraManipulaBagagem.cs" />
+    <Compile Include="Migrations\201901281259530_AddAcessoAreaManobraManipulaBagagem.Designer.cs">
+      <DependentUpon>201901281259530_AddAcessoAreaManobraManipulaBagagem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901281733260_AddFlgExigeCursoEmEmpresa.cs" />
+    <Compile Include="Migrations\201901281733260_AddFlgExigeCursoEmEmpresa.Designer.cs">
+      <DependentUpon>201901281733260_AddFlgExigeCursoEmEmpresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901281905163_AddFlgAcessoAreaManobreNaEntidadeCurso.cs" />
+    <Compile Include="Migrations\201901281905163_AddFlgAcessoAreaManobreNaEntidadeCurso.Designer.cs">
+      <DependentUpon>201901281905163_AddFlgAcessoAreaManobreNaEntidadeCurso.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\RamoAtividadeRepository.cs" />
@@ -452,6 +464,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812141516400_Compatibilidade.resx">
       <DependentUpon>201812141516400_Compatibilidade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901281259530_AddAcessoAreaManobraManipulaBagagem.resx">
+      <DependentUpon>201901281259530_AddAcessoAreaManobraManipulaBagagem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901281733260_AddFlgExigeCursoEmEmpresa.resx">
+      <DependentUpon>201901281733260_AddFlgExigeCursoEmEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901281905163_AddFlgAcessoAreaManobreNaEntidadeCurso.resx">
+      <DependentUpon>201901281905163_AddFlgAcessoAreaManobreNaEntidadeCurso.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

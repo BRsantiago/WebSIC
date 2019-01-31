@@ -114,7 +114,7 @@ namespace Services.Service
                 credencial.NomeImpressaoFrenteCracha = pessoa.Nome;
                 credencial.DescricaoFuncaoFrenteCracha = cargo.Descricao;
                 credencial.CategoriaMotorista1 = pessoa.CategoriaUm.ToString();
-
+                //credencial.Via = 1;
                 credencial.AeroportoId = novaSolicitacao.AeroportoId;
                 credencial.EmpresaId = novaSolicitacao.EmpresaId;
                 credencial.PessoaId = novaSolicitacao.PessoaId;
@@ -123,6 +123,8 @@ namespace Services.Service
                 credencial.Area2Id = novaSolicitacao.Area2Id;
                 credencial.CargoId = novaSolicitacao.CargoId;
                 credencial.ContratoId = novaSolicitacao.ContratoId;
+                credencial.AcessoAreaManobra = novaSolicitacao.AcessoAreaManobra;
+                credencial.ManipulaBagagem = novaSolicitacao.ManipulaBagagem;
                 credencial.Solicitacoes = new List<Solicitacao>();
                 credencial.Solicitacoes.Add(novaSolicitacao);
 
@@ -139,12 +141,18 @@ namespace Services.Service
                 credencial.NomeImpressaoFrenteCracha = pessoa.Nome;
                 credencial.DescricaoFuncaoFrenteCracha = cargo.Descricao;
                 credencial.CategoriaMotorista1 = pessoa.CategoriaUm.ToString();
-
                 credencial.Area1Id = novaSolicitacao.Area1Id;
                 credencial.Area2Id = novaSolicitacao.Area2Id;
                 credencial.CargoId = novaSolicitacao.CargoId;
                 credencial.ContratoId = novaSolicitacao.ContratoId;
-                credencial.FlgSegundaVia = tipoSolicitacao.FlgGeraSegundaVia;
+                credencial.AcessoAreaManobra = novaSolicitacao.AcessoAreaManobra;
+                credencial.ManipulaBagagem = novaSolicitacao.ManipulaBagagem;
+
+                //if (tipoSolicitacao.FlgGeraSegundaVia)
+                //{
+                    credencial.FlgSegundaVia = tipoSolicitacao.FlgGeraSegundaVia;
+                    //++credencial.Via;
+                //}
 
                 if (tipoSolicitacao.FlgDesativaCredencial)
                 {

@@ -108,5 +108,12 @@ namespace Entity.Entities
         public IList<Solicitacao> Solicitacoes { get; set; }
         public IList<Ocorrencia> Ocorrencias { get; set; }
 
+        [Display(Name = "Autorizado a Manipular Bagagem")]
+        public bool ManipulaBagagem { get; set; }
+
+        [Display(Name = "Acesso à Área de Manobra")]
+        public bool AcessoAreaManobra { get; set; }
+
+        //public int Via { get; set; }
     }
 }

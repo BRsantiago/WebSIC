@@ -56,6 +56,13 @@ namespace WebSIC.Controllers
             return View(model);
         }
 
+        public ActionResult IdentificadosComCursoLegadoFiltro()
+        {
+            RelatorioViewModel model = new RelatorioViewModel();
+
+            return View(model);
+        }
+
         public ActionResult FuncionariosPorEmpresaFiltro()
         {
             RelatorioViewModel model = new RelatorioViewModel();
@@ -116,7 +123,7 @@ namespace WebSIC.Controllers
 
             return View(model);
         }
-        
+
         public ActionResult TermoCancelamentoFiltro()
         {
             RelatorioViewModel model = new RelatorioViewModel();
@@ -347,6 +354,7 @@ namespace WebSIC.Controllers
 
             return PartialView("../Shared/Report");
         }
+
         public ActionResult RenderizarRelatorioCredenciaisEmitidasNoPeriodo(RelatorioViewModel model)
         {
             var reportViewer = new ReportViewer()
@@ -370,6 +378,7 @@ namespace WebSIC.Controllers
 
             return PartialView("../Shared/Report");
         }
+
         public ActionResult RenderizarRelatorioCredenciaisVencidasNoPeriodo(RelatorioViewModel model)
         {
             var reportViewer = new ReportViewer()
@@ -393,6 +402,7 @@ namespace WebSIC.Controllers
 
             return PartialView("../Shared/Report");
         }
+
         public ActionResult RenderizarRelatorioIdentificadosComCursoVencido(RelatorioViewModel model)
         {
             var reportViewer = new ReportViewer()
@@ -416,6 +426,7 @@ namespace WebSIC.Controllers
 
             return PartialView("../Shared/Report");
         }
+
         public ActionResult RenderizarRelatorioCredenciaisPorTipoSolicitacao(RelatorioViewModel model)
         {
             var reportViewer = new ReportViewer()
@@ -434,6 +445,28 @@ namespace WebSIC.Controllers
             reportViewer.ServerReport.SetParameters(new ReportParameter("DATAINICIAL", model.DataInicial));
             reportViewer.ServerReport.SetParameters(new ReportParameter("DATAFINAL", model.DataFinal));
             reportViewer.ServerReport.SetParameters(new ReportParameter("IDEMPRESA", model.IdEmpresa.ToString()));
+
+            ViewBag.ReportViewer = reportViewer;
+
+            return PartialView("../Shared/Report");
+        }
+
+        public ActionResult RenderizarRelatorioIdentificadosComCursoLegado(RelatorioViewModel model)
+        {
+            var reportViewer = new ReportViewer()
+            {
+                ProcessingMode = ProcessingMode.Remote,
+                SizeToReportContent = true
+            };
+
+            reportViewer.ShowParameterPrompts = false;
+            reportViewer.ShowCredentialPrompts = false;
+
+            reportViewer.ServerReport.ReportServerCredentials = new ReportServerNetworkCredentials("CASSA\\bruno.santiago", "on19290932572");
+            reportViewer.ServerReport.ReportPath = ConfigurationManager.AppSettings["ReportServerPath"] + "Identificados com curso - Legado";
+            reportViewer.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["ReportServer"]);
+
+            reportViewer.ServerReport.SetParameters(new ReportParameter("NOME", model.PesquisaGeral));
 
             ViewBag.ReportViewer = reportViewer;
 

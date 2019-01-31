@@ -38,7 +38,8 @@ namespace WebSIC
             report.SetParameterValue("Aeroporto", Session["SiglaAeroporto"].ToString());
             report.SetParameterValue("Nombre", Session["NomeFrenteCracha"].ToString());
             report.SetParameterValue("Fecha", Session["DataValidade"].ToString());
-            report.SetParameterValue("Acceso", Session["AreaDeAcesso"].ToString());
+            report.SetParameterValue("Acceso", Session["AreaDeAcesso1"].ToString());
+            report.SetParameterValue("Acceso2", Session["AreaDeAcesso2"].ToString());
             report.SetParameterValue("Pocision", Session["Funcao"].ToString());
             report.SetParameterValue("FotoPath", Session["Foto"].ToString());
             report.SetParameterValue("Motorista1", Session["CategoriaMotoristaUm"].ToString());
@@ -46,6 +47,10 @@ namespace WebSIC
             report.SetParameterValue("Motorista3", Session["CategoriaMotoristaTres"].ToString());
             report.SetParameterValue("EmpresaPath", Session["LogoEmpresa"].ToString());
             report.SetParameterValue("TipoCracha", Session["TipoCracha"].ToString());
+            report.SetParameterValue("SegundaVia", Session["SegundaVia"].ToString());
+            report.SetParameterValue("ManipulaBagagem", Session["ManipulaBagagem"].ToString());
+            report.SetParameterValue("AcessoAreaManobra", Server.MapPath("Images/DDA") + "/" + Session["AcessoAreaManobra"].ToString());
+
             report.SetParameterValue("Nombre", Session["Nome"].ToString(), "CardBack.rpt");
             report.SetParameterValue("RG", Session["Nome"].ToString(), "CardBack.rpt");
             report.SetParameterValue("CPF", Session["Nome"].ToString(), "CardBack.rpt");
@@ -53,7 +58,7 @@ namespace WebSIC
             report.SetParameterValue("Matricula", Session["Nome"].ToString(), "CardBack.rpt");
             report.SetParameterValue("Emergencia", Session["Nome"].ToString(), "CardBack.rpt");
             report.SetParameterValue("Fecha", Session["Nome"].ToString(), "CardBack.rpt");
-            report.SetParameterValue("SegundaVia", Session["Nome"].ToString(), "CardBack.rpt");
+            report.SetParameterValue("SegundaVia", Session["SegundaVia"].ToString(), "CardBack.rpt");
             report.SetParameterValue("Logo", (Server.MapPath("Images/Logo") + "/" + Session["PathLogoBack"].ToString()), "CardBack.rpt");
 
             return report;
