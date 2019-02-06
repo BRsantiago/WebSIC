@@ -21,7 +21,7 @@
                         @*<div class="col-lg-6">*@
                         <div class="form-group">
                             <label>Empresa</label>
-                            @Html.DropDownListFor(d => d.IdEmpresa, new SelectList(Model.Empresas.OrderBy(o => o.IdEmpresa), "IdEmpresa", "NomeFantasia"), "Selecione", new { @class = "form-control select2" })
+                            @Html.DropDownListFor(d => d.IdEmpresa, new SelectList(Model.Empresas, "IdEmpresa", "NomeFantasia"), "Selecione", new { @class = "form-control select2" })
                         </div>
                         <div class="form-group ">
                             <label>Período</label>

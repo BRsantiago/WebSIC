@@ -108,5 +108,10 @@ namespace Services.Service
 
             return cursos;
         }
+
+        public List<Curso> ObterTodos()
+        {
+            return this.cursoRepository.ObterTodos();
+        }
     }
 }

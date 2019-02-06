@@ -15,12 +15,15 @@ namespace WebSIC.Controllers
     {
         public IEmpresaService empresaService;
         public IAeroportoService aeroportoService;
+        public ICursoService cursoService;
 
         public RelatorioController(IEmpresaService _empresaService,
-                                        IAeroportoService _aeroportoService)
+                                        IAeroportoService _aeroportoService,
+                                            ICursoService _cursoService)
         {
             empresaService = _empresaService;
             aeroportoService = _aeroportoService;
+            cursoService = _cursoService;
         }
 
         public ActionResult GetEmpresas(int idAeroporto)
@@ -31,7 +34,9 @@ namespace WebSIC.Controllers
                                                   {
                                                       Text = string.Format("{0} - {1}", e.NomeFantasia, e.CGC),
                                                       Value = e.IdEmpresa.ToString()
-                                                  });
+                                                  }).ToList();
+
+            empresaItems.Add(new SelectListItem() { Text = "TODAS AS EMPRESAS", Value = "0" });
 
             return Json(empresaItems, JsonRequestBehavior.AllowGet);
         }
@@ -109,6 +114,7 @@ namespace WebSIC.Controllers
             RelatorioViewModel model = new RelatorioViewModel();
 
             model.Aeroportos = this.aeroportoService.ObterTodos();
+            model.Cursos = this.cursoService.ObterTodos();
             model.Empresas = new List<Empresa>();
 
             return View(model);
@@ -420,7 +426,8 @@ namespace WebSIC.Controllers
 
             reportViewer.ServerReport.SetParameters(new ReportParameter("DATAINICIAL", model.DataInicial));
             reportViewer.ServerReport.SetParameters(new ReportParameter("DATAFINAL", model.DataFinal));
-            reportViewer.ServerReport.SetParameters(new ReportParameter("IDEMPRESA", model.IdEmpresa.ToString()));
+            reportViewer.ServerReport.SetParameters(new ReportParameter("IDEMPRESA", model.IdEmpresa));
+            reportViewer.ServerReport.SetParameters(new ReportParameter("IDCURSO", model.IdCurso));
 
             ViewBag.ReportViewer = reportViewer;
 

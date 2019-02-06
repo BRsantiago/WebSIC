@@ -113,7 +113,7 @@ namespace WebSIC.Controllers
                 Session["AreaDeAcesso2"] = (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : " ");// + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : "");
                 Session["Funcao"] = credencial.DescricaoFuncaoFrenteCracha.ToUpper();
                 Session["Foto"] = Server.MapPath(credencial.Pessoa.ImageUrl.Replace("../..", ""));
-                Session["CategoriaMotoristaUm"] = credencial.CategoriaMotorista1 == "B" ? credencial.CategoriaMotorista1 : "N";
+                Session["CategoriaMotoristaUm"] = !String.IsNullOrEmpty(credencial.CategoriaMotorista1) && credencial.CategoriaMotorista1 != "0" ? credencial.CategoriaMotorista1 : "N";
                 Session["CategoriaMotoristaDois"] = credencial.CategoriaMotorista1 == "C" || credencial.CategoriaMotorista1 == "D" ? credencial.CategoriaMotorista1 : "N";
                 Session["CategoriaMotoristaTres"] = credencial.CategoriaMotorista1 == "E" ? credencial.CategoriaMotorista1 : "N";
                 Session["LogoEmpresa"] = Server.MapPath(credencial.Empresa.ImageUrl);
@@ -180,7 +180,7 @@ namespace WebSIC.Controllers
                 cryRpt.SetParameterValue("Acceso2", (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : " "));
                 cryRpt.SetParameterValue("Pocision", credencial.DescricaoFuncaoFrenteCracha.ToUpper());
                 cryRpt.SetParameterValue("FotoPath", Server.MapPath(credencial.Pessoa.ImageUrl));
-                cryRpt.SetParameterValue("Motorista1", credencial.CategoriaMotorista1 == "B" ? credencial.CategoriaMotorista1 : "N");
+                cryRpt.SetParameterValue("Motorista1", !String.IsNullOrEmpty(credencial.CategoriaMotorista1) && credencial.CategoriaMotorista1 != "0" ? credencial.CategoriaMotorista1 : "N");
                 cryRpt.SetParameterValue("Motorista2", credencial.CategoriaMotorista1 == "C" || credencial.CategoriaMotorista1 == "D" ? credencial.CategoriaMotorista1 : "N");
                 cryRpt.SetParameterValue("Motorista3", credencial.CategoriaMotorista1 == "E" ? credencial.CategoriaMotorista1 : "N");
                 cryRpt.SetParameterValue("EmpresaPath", Server.MapPath(credencial.Empresa.ImageUrl));
