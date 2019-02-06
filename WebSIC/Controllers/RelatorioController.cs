@@ -28,15 +28,18 @@ namespace WebSIC.Controllers
 
         public ActionResult GetEmpresas(int idAeroporto)
         {
-            var empresaItems = this.empresaService.ObterPorAeroporto(idAeroporto)
+            List<SelectListItem> empresaItems = new List<SelectListItem>();
+
+            empresaItems.Add(new SelectListItem() { Text = "TODAS AS EMPRESAS", Value = "0" });
+
+            this.empresaService.ObterPorAeroporto(idAeroporto)
                                                   .OrderBy(a => a.NomeFantasia)
-                                                  .Select(e => new SelectListItem()
+                                                  .ToList()
+                                                  .ForEach(e => empresaItems.Add(new SelectListItem()
                                                   {
                                                       Text = string.Format("{0} - {1}", e.NomeFantasia, e.CGC),
                                                       Value = e.IdEmpresa.ToString()
-                                                  }).ToList();
-
-            empresaItems.Add(new SelectListItem() { Text = "TODAS AS EMPRESAS", Value = "0" });
+                                                  }));
 
             return Json(empresaItems, JsonRequestBehavior.AllowGet);
         }
