@@ -310,7 +310,7 @@ namespace Services.Service
             {
                 credencial.Atualizador = solicitacao.Atualizador;
                 credencial.Atualizacao = DateTime.Now;
-                credencial.DataVencimento = solicitacao.Veiculo.Apolice.DataValidade;
+                credencial.DataVencimento = solicitacao.Veiculo.Apolice?.DataValidade;
 
                 #region
                 credencial.AeroportoId = solicitacao.AeroportoId;
