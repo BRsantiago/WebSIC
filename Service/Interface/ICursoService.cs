@@ -18,5 +18,6 @@ namespace Service.Interface
         ServiceReturn Incluir(Curso curso);
         ServiceReturn Atualizar(Curso curso);
         ServiceReturn Excluir(int id);
+        List<Curso> ObterTodos();
     }
 }

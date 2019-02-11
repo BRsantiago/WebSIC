@@ -15,23 +15,31 @@ namespace WebSIC.Controllers
     {
         public IEmpresaService empresaService;
         public IAeroportoService aeroportoService;
+        public ICursoService cursoService;
 
         public RelatorioController(IEmpresaService _empresaService,
-                                        IAeroportoService _aeroportoService)
+                                        IAeroportoService _aeroportoService,
+                                            ICursoService _cursoService)
         {
             empresaService = _empresaService;
             aeroportoService = _aeroportoService;
+            cursoService = _cursoService;
         }
 
         public ActionResult GetEmpresas(int idAeroporto)
         {
-            var empresaItems = this.empresaService.ObterPorAeroporto(idAeroporto)
+            List<SelectListItem> empresaItems = new List<SelectListItem>();
+
+            empresaItems.Add(new SelectListItem() { Text = "TODAS AS EMPRESAS", Value = "0" });
+
+            this.empresaService.ObterPorAeroporto(idAeroporto)
                                                   .OrderBy(a => a.NomeFantasia)
-                                                  .Select(e => new SelectListItem()
+                                                  .ToList()
+                                                  .ForEach(e => empresaItems.Add(new SelectListItem()
                                                   {
                                                       Text = string.Format("{0} - {1}", e.NomeFantasia, e.CGC),
                                                       Value = e.IdEmpresa.ToString()
-                                                  });
+                                                  }));
 
             return Json(empresaItems, JsonRequestBehavior.AllowGet);
         }
@@ -52,6 +60,13 @@ namespace WebSIC.Controllers
 
             model.Aeroportos = this.aeroportoService.ObterTodos();
             model.Empresas = new List<Empresa>();
+
+            return View(model);
+        }
+
+        public ActionResult IdentificadosComCursoLegadoFiltro()
+        {
+            RelatorioViewModel model = new RelatorioViewModel();
 
             return View(model);
         }
@@ -102,6 +117,7 @@ namespace WebSIC.Controllers
             RelatorioViewModel model = new RelatorioViewModel();
 
             model.Aeroportos = this.aeroportoService.ObterTodos();
+            model.Cursos = this.cursoService.ObterTodos();
             model.Empresas = new List<Empresa>();
 
             return View(model);
@@ -116,7 +132,7 @@ namespace WebSIC.Controllers
 
             return View(model);
         }
-        
+
         public ActionResult TermoCancelamentoFiltro()
         {
             RelatorioViewModel model = new RelatorioViewModel();
@@ -347,6 +363,7 @@ namespace WebSIC.Controllers
 
             return PartialView("../Shared/Report");
         }
+
         public ActionResult RenderizarRelatorioCredenciaisEmitidasNoPeriodo(RelatorioViewModel model)
         {
             var reportViewer = new ReportViewer()
@@ -370,6 +387,7 @@ namespace WebSIC.Controllers
 
             return PartialView("../Shared/Report");
         }
+
         public ActionResult RenderizarRelatorioCredenciaisVencidasNoPeriodo(RelatorioViewModel model)
         {
             var reportViewer = new ReportViewer()
@@ -393,6 +411,7 @@ namespace WebSIC.Controllers
 
             return PartialView("../Shared/Report");
         }
+
         public ActionResult RenderizarRelatorioIdentificadosComCursoVencido(RelatorioViewModel model)
         {
             var reportViewer = new ReportViewer()
@@ -410,12 +429,14 @@ namespace WebSIC.Controllers
 
             reportViewer.ServerReport.SetParameters(new ReportParameter("DATAINICIAL", model.DataInicial));
             reportViewer.ServerReport.SetParameters(new ReportParameter("DATAFINAL", model.DataFinal));
-            reportViewer.ServerReport.SetParameters(new ReportParameter("IDEMPRESA", model.IdEmpresa.ToString()));
+            reportViewer.ServerReport.SetParameters(new ReportParameter("IDEMPRESA", model.IdEmpresa));
+            reportViewer.ServerReport.SetParameters(new ReportParameter("IDCURSO", model.IdCurso));
 
             ViewBag.ReportViewer = reportViewer;
 
             return PartialView("../Shared/Report");
         }
+
         public ActionResult RenderizarRelatorioCredenciaisPorTipoSolicitacao(RelatorioViewModel model)
         {
             var reportViewer = new ReportViewer()
@@ -434,6 +455,28 @@ namespace WebSIC.Controllers
             reportViewer.ServerReport.SetParameters(new ReportParameter("DATAINICIAL", model.DataInicial));
             reportViewer.ServerReport.SetParameters(new ReportParameter("DATAFINAL", model.DataFinal));
             reportViewer.ServerReport.SetParameters(new ReportParameter("IDEMPRESA", model.IdEmpresa.ToString()));
+
+            ViewBag.ReportViewer = reportViewer;
+
+            return PartialView("../Shared/Report");
+        }
+
+        public ActionResult RenderizarRelatorioIdentificadosComCursoLegado(RelatorioViewModel model)
+        {
+            var reportViewer = new ReportViewer()
+            {
+                ProcessingMode = ProcessingMode.Remote,
+                SizeToReportContent = true
+            };
+
+            reportViewer.ShowParameterPrompts = false;
+            reportViewer.ShowCredentialPrompts = false;
+
+            reportViewer.ServerReport.ReportServerCredentials = new ReportServerNetworkCredentials("CASSA\\bruno.santiago", "on19290932572");
+            reportViewer.ServerReport.ReportPath = ConfigurationManager.AppSettings["ReportServerPath"] + "Identificados com curso - Legado";
+            reportViewer.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["ReportServer"]);
+
+            reportViewer.ServerReport.SetParameters(new ReportParameter("NOME", model.PesquisaGeral));
 
             ViewBag.ReportViewer = reportViewer;
 

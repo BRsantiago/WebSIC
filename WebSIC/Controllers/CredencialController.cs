@@ -109,10 +109,11 @@ namespace WebSIC.Controllers
                 Session["SiglaAeroporto"] = credencial.Aeroporto.Sigla;
                 Session["NomeFrenteCracha"] = credencial.NomeImpressaoFrenteCracha == null ? credencial.Pessoa.NomeCompleto.ToUpper() : credencial.NomeImpressaoFrenteCracha.ToUpper();
                 Session["DataValidade"] = String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento.HasValue ? credencial.DataVencimento.Value : this.GerarDataVencimentoCredencial(credencial));
-                Session["AreaDeAcesso"] = (credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : "");
+                Session["AreaDeAcesso1"] = (credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ");// + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : "");
+                Session["AreaDeAcesso2"] = (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : " ");// + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : "");
                 Session["Funcao"] = credencial.DescricaoFuncaoFrenteCracha.ToUpper();
                 Session["Foto"] = Server.MapPath(credencial.Pessoa.ImageUrl.Replace("../..", ""));
-                Session["CategoriaMotoristaUm"] = credencial.CategoriaMotorista1 == "B" ? credencial.CategoriaMotorista1 : "N";
+                Session["CategoriaMotoristaUm"] = !String.IsNullOrEmpty(credencial.CategoriaMotorista1) && credencial.CategoriaMotorista1 != "0" ? credencial.CategoriaMotorista1 : "N";
                 Session["CategoriaMotoristaDois"] = credencial.CategoriaMotorista1 == "C" || credencial.CategoriaMotorista1 == "D" ? credencial.CategoriaMotorista1 : "N";
                 Session["CategoriaMotoristaTres"] = credencial.CategoriaMotorista1 == "E" ? credencial.CategoriaMotorista1 : "N";
                 Session["LogoEmpresa"] = Server.MapPath(credencial.Empresa.ImageUrl);
@@ -123,9 +124,12 @@ namespace WebSIC.Controllers
                 Session["Matricula"] = credencial.IdCredencial.ToString().PadLeft(8, '0');
                 Session["Emergencia"] = credencial.Pessoa.TelefoneEmergencia;
                 Session["DataExpediacao"] = String.Format("{0:dd/MM/yy}", DateTime.Now);
-                Session["PathLogoBack"] = credencial.Pessoa.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png";
+                Session["PathLogoBack"] = credencial.Pessoa.FlgCVE ? "logo_vol_emergencia.png" : "CoberturaCVE.png";
                 Session["TipoCredencial"] = "Credencial";
-                Session["SegundaVia"] = credencial.FlgSegundaVia ? "2ª via" : "";
+                Session["SegundaVia"] = credencial.FlgSegundaVia ? "2ª" : "";
+                Session["ManipulaBagagem"] = credencial.ManipulaBagagem ? "S" : "N";
+                Session["AcessoAreaManobra"] = credencial.AcessoAreaManobra ? "ComAcesso.png" : "SemAcesso.png";
+
 
                 return Json(new { success = true, title = "Sucesso", message = "" }, JsonRequestBehavior.AllowGet);
             }
@@ -172,10 +176,11 @@ namespace WebSIC.Controllers
                 cryRpt.SetParameterValue("Aeroporto", credencial.Aeroporto.Sigla.ToUpper());
                 cryRpt.SetParameterValue("Nombre", credencial.NomeImpressaoFrenteCracha == null ? credencial.Pessoa.NomeCompleto.ToUpper() : credencial.NomeImpressaoFrenteCracha.ToUpper());
                 cryRpt.SetParameterValue("Fecha", String.Format("{0:dd/MM/yyyy}", credencial.DataVencimento.Value));
-                cryRpt.SetParameterValue("Acceso", (credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " ") + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : ""));
+                cryRpt.SetParameterValue("Acceso", (credencial.Area1 != null ? credencial.Area1.Sigla.ToUpper() : " "));// + " " + (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : ""));
+                cryRpt.SetParameterValue("Acceso2", (credencial.Area2 != null ? credencial.Area2.Sigla.ToUpper() : " "));
                 cryRpt.SetParameterValue("Pocision", credencial.DescricaoFuncaoFrenteCracha.ToUpper());
                 cryRpt.SetParameterValue("FotoPath", Server.MapPath(credencial.Pessoa.ImageUrl));
-                cryRpt.SetParameterValue("Motorista1", credencial.CategoriaMotorista1 == "B" ? credencial.CategoriaMotorista1 : "N");
+                cryRpt.SetParameterValue("Motorista1", !String.IsNullOrEmpty(credencial.CategoriaMotorista1) && credencial.CategoriaMotorista1 != "0" ? credencial.CategoriaMotorista1 : "N");
                 cryRpt.SetParameterValue("Motorista2", credencial.CategoriaMotorista1 == "C" || credencial.CategoriaMotorista1 == "D" ? credencial.CategoriaMotorista1 : "N");
                 cryRpt.SetParameterValue("Motorista3", credencial.CategoriaMotorista1 == "E" ? credencial.CategoriaMotorista1 : "N");
                 cryRpt.SetParameterValue("EmpresaPath", Server.MapPath(credencial.Empresa.ImageUrl));
@@ -186,11 +191,13 @@ namespace WebSIC.Controllers
                 cryRpt.SetParameterValue("Empresa", credencial.Empresa.NomeFantasia.ToUpper(), "CardBack.rpt");
                 cryRpt.SetParameterValue("Emergencia", credencial.Pessoa.TelefoneEmergencia, "CardBack.rpt");
                 cryRpt.SetParameterValue("Fecha", String.Format("{0:dd/MM/yy}", credencial.DataExpedicao), "CardBack.rpt");
-                cryRpt.SetParameterValue("Logo", Server.MapPath("/Images/Logo/" + (credencial.Pessoa.FlgCVE ? "logo_vol_emergencia.png" : "logo_ssa_airport.png")));
-                cryRpt.SetParameterValue("SegundaVia", credencial.FlgSegundaVia ? "2ª via" : "");
+                cryRpt.SetParameterValue("Logo", Server.MapPath("/Images/Logo/" + (credencial.Pessoa.FlgCVE ? "logo_vol_emergencia.png" : "CoberturaCVE.png")));
+                cryRpt.SetParameterValue("SegundaVia", credencial.FlgSegundaVia ? "2" : "");
+                cryRpt.SetParameterValue("ManipulaBagagem", credencial.ManipulaBagagem ? "S" : "N");
+                cryRpt.SetParameterValue("AcessoAreaManobra", Server.MapPath("/Images/DDA/" + (credencial.AcessoAreaManobra ? "ComAcesso.png" : "SemAcesso.png")));
 
                 this.CredencialService.Atualizar(credencial);
-                
+
                 cryRpt.PrintToPrinter(new PrinterSettings() { PrinterName = printerName }, new PageSettings(), false);
 
                 cryRpt.Refresh();
@@ -311,7 +318,7 @@ namespace WebSIC.Controllers
         public ActionResult EditATIV([Bind(Include = "IdCredencial,FlgTemporario,DataVencimento,AeroportoId,EmpresaId,ContratoId,VeiculoId,Area1Id,PortaoAcesso1Id,PortaoAcesso2Id,PortaoAcesso3Id,Criacao,Criador,Ativo")] Credencial credencial)
         {
             Credencial credencialBase = this.CredencialService.ObterPorId(credencial.IdCredencial);
-           
+
             credencialBase.Atualizacao = DateTime.Now;
             credencialBase.Atualizador = User.Identity.Name;
             credencialBase.DataVencimento = credencial.DataVencimento;
@@ -399,6 +406,8 @@ namespace WebSIC.Controllers
                     throw new Exception("Esta credencial não pode ser impressa pois a data de vencimento informada é maior que a validade do " + c.Curso.Titulo);
             });
 
+            if (credencial.AcessoAreaManobra && (credencial.Pessoa.Curso == null || (credencial.Pessoa.Curso != null && !credencial.Pessoa.Curso.Any(c => c.Curso.FlgAcessoAreaManobra))))
+                throw new Exception("Esta credencial não pode ser impressa pois esta pessoa não tem o curso necessário para acessar àrea de manobra.");
         }
 
     }

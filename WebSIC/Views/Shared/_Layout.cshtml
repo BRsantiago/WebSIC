@@ -142,9 +142,9 @@
                                 <li>
                                     @Html.ActionLink("Credenciais Extraviadas, Roubadas ou Furtadas", "CredenciaisExtraviadasRoubadasOuFurtadaFiltro", "Relatorio")
                                 </li>
-                                <li>
-                                    @Html.ActionLink("Credenciais Emitidas no Perido", "CredenciaisEmitidasNoPeridoFiltro", "Relatorio")
-                                </li>
+                                @*<li>
+            @Html.ActionLink("Credenciais Emitidas no Perido", "CredenciaisEmitidasNoPeridoFiltro", "Relatorio")
+        </li>*@
                                 <li>
                                     @Html.ActionLink("Credenciais Vencidas no Perido", "CredenciaisVencidasNoPeridoFiltro", "Relatorio")
                                 </li>
@@ -171,6 +171,14 @@
                                         </li>
                                         <li>
                                             @Html.ActionLink("Via adicional", "TermoViaAdicionalFiltro", "Relatorio")
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Legado <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            @Html.ActionLink("Identificados Com Curso - Legado", "IdentificadosComCursoLegadoFiltro", "Relatorio")
                                         </li>
                                     </ul>
                                 </li>

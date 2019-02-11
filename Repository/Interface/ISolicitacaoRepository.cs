@@ -13,5 +13,6 @@ namespace Repository.Interface
         List<Solicitacao> ObterPorVeiculo(int veiculoId);
 
         void AtualizarAnexos(Solicitacao solicitacao);
+        Solicitacao ObterUltimaSolicitacaoPorIdCredencial(int idCredencial);
     }
 }

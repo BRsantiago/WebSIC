@@ -58,7 +58,7 @@ namespace WebSIC.Controllers
             });
         }
 
-        public IList<Pessoa> CustomSearchFunc(DataTableAjaxPostModel model, out int filteredResultsCount, out int totalResultsCount)
+        public IList<PessoaViewModel> CustomSearchFunc(DataTableAjaxPostModel model, out int filteredResultsCount, out int totalResultsCount)
         {
             var searchBy = (model.search != null) ? model.search.value : null;
 
@@ -79,9 +79,9 @@ namespace WebSIC.Controllers
             var result = PessoaService.GetDataList(searchBy, take, skip, sortBy, sortDir, out filteredResultsCount, out totalResultsCount);
             if (result == null)
                 // empty collection...
-                return new List<Pessoa>();
+                return new List<PessoaViewModel>();
 
-            return result;
+            return result.Select(p => new PessoaViewModel(p)).ToList();
         }
 
         // GET: Pessoa/Details/5
@@ -201,17 +201,13 @@ namespace WebSIC.Controllers
                 pessoa.Genero = model.Genero;
                 pessoa.Observacao = model.Observacao;
                 pessoa.FlgCVE = model.FlgCVE;
+                pessoa.FlgResidenciaForaDoPaisNosUltimos10Anos = model.FlgResidenciaForaDoPaisNosUltimos10Anos;
+                pessoa.ObservacaoResidenciaForaDoPaisNosUltimos10Anos = model.ObservacaoResidenciaForaDoPaisNosUltimos10Anos;
                 pessoa.Email = model.Email;
                 pessoa.CNH = model.CNH;
                 pessoa.CategoriaUm = model.CategoriaUm;
                 pessoa.CategoriaDois = model.CategoriaDois;
                 if (!String.IsNullOrEmpty(model.DataValidadeCNH)) pessoa.DataValidadeCNH = Convert.ToDateTime(model.DataValidadeCNH);
-                //pessoa.Usuario = model.Usuario;
-                //pessoa.Solicitacaos = model.Solicitacaos;
-                //pessoa.Turmas = model.Turmas;
-                //pessoa.Credenciais = model.Credenciais;
-                //pessoa.Empresas = model.Empresas;
-                //pessoa.Curso = model.Curso;
                 pessoa.Atualizacao = DateTime.Now;
                 pessoa.Atualizador = "";
                 pessoa.Ativo = model.Ativo;

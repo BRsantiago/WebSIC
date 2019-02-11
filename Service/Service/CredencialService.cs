@@ -12,10 +12,13 @@ namespace Services.Service
     public class CredencialService : ICredencialService
     {
         public ICredencialRepository CredencialRepository;
+        public ISolicitacaoRepository SolicitacaoRepository;
 
-        public CredencialService(ICredencialRepository _CredencialRepository)
+        public CredencialService(ICredencialRepository _CredencialRepository, 
+                                    ISolicitacaoRepository _SolicitacaoRepository)
         {
             CredencialRepository = _CredencialRepository;
+            SolicitacaoRepository = _SolicitacaoRepository;
         }
 
         public List<Credencial> ObterTodos()
@@ -43,6 +46,11 @@ namespace Services.Service
             this.ValidarParaSalvar(credencial);
             this.CredencialRepository.Atualizar(credencial);
             this.CredencialRepository.Salvar();
+
+            Solicitacao solicitacao = this.SolicitacaoRepository.ObterUltimaSolicitacaoPorIdCredencial(credencial.IdCredencial);
+            solicitacao.DataVencimento = credencial.DataVencimento;
+            this.SolicitacaoRepository.Atualizar(solicitacao);
+            this.SolicitacaoRepository.Salvar();
         }
 
         private void ValidarParaSalvar(Credencial credencial)
@@ -58,6 +66,13 @@ namespace Services.Service
 
             if (!credencial.FlgTemporario && credencial.VeiculoId != null && credencial.DataVencimento.Value > credencial.Solicitacoes.OrderByDescending(x => x.IdSolicitacao).First().DataAutorizacao.Value.AddYears(1))
                 throw new Exception("Esta credencial não pode ser impressa pois o vencimento dela é maior que o permitido para uma credencial definitiva de veículo.");
+
+            if (credencial.AcessoAreaManobra && (credencial.Pessoa.Curso == null || (credencial.Pessoa.Curso != null && !credencial.Pessoa.Curso.Any(c => c.Curso.FlgAcessoAreaManobra))))
+                throw new Exception("Esta credencial não pode ser impressa pois esta pessoa não tem o curso necessário para acessar àrea de manobra.");
+
+            if (credencial.DataVencimento > credencial.Contrato?.FimVigencia)
+                throw new Exception("Esta credencial não pode ser alterada pois a data de vencimento informada é maior que a vigência do contrato selecionado.");
+
         }
 
         public List<Credencial> ObterATIVs()

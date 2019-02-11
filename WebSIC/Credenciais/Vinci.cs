@@ -218,7 +218,7 @@ namespace WebSIC.Credenciais {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_Nombre {
+        public CrystalDecisions.Shared.IParameterField Parameter_AcessoAreaManobra {
             get {
                 return this.DataDefinition.ParameterFields[15];
             }
@@ -226,7 +226,7 @@ namespace WebSIC.Credenciais {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_RG {
+        public CrystalDecisions.Shared.IParameterField Parameter_ManipulaBagagem {
             get {
                 return this.DataDefinition.ParameterFields[16];
             }
@@ -234,7 +234,7 @@ namespace WebSIC.Credenciais {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_CPF {
+        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_Nombre {
             get {
                 return this.DataDefinition.ParameterFields[17];
             }
@@ -242,7 +242,7 @@ namespace WebSIC.Credenciais {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_Empresa {
+        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_RG {
             get {
                 return this.DataDefinition.ParameterFields[18];
             }
@@ -250,7 +250,7 @@ namespace WebSIC.Credenciais {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_Matricula {
+        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_CPF {
             get {
                 return this.DataDefinition.ParameterFields[19];
             }
@@ -258,7 +258,7 @@ namespace WebSIC.Credenciais {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_Emergencia {
+        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_Empresa {
             get {
                 return this.DataDefinition.ParameterFields[20];
             }
@@ -266,7 +266,7 @@ namespace WebSIC.Credenciais {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_Fecha {
+        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_Matricula {
             get {
                 return this.DataDefinition.ParameterFields[21];
             }
@@ -274,7 +274,7 @@ namespace WebSIC.Credenciais {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_Logo {
+        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_Emergencia {
             get {
                 return this.DataDefinition.ParameterFields[22];
             }
@@ -282,9 +282,25 @@ namespace WebSIC.Credenciais {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_SegundaVia {
+        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_Fecha {
             get {
                 return this.DataDefinition.ParameterFields[23];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_Logo {
+            get {
+                return this.DataDefinition.ParameterFields[24];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_CardBackrpt_SegundaVia {
+            get {
+                return this.DataDefinition.ParameterFields[25];
             }
         }
     }

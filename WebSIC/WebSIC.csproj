@@ -1156,6 +1156,8 @@
     <Content Include="Content\vendor\metisMenu\metisMenu.min.js" />
     <Content Include="CrystalImageHandler.aspx" />
     <Content Include="favicon.ico" />
+    <Content Include="Images\DDA\ComAcesso.png" />
+    <Content Include="Images\DDA\SemAcesso.png" />
     <Content Include="Images\Foto\person.jpg" />
     <Content Include="Images\FundoCracha\CiaAerea.png" />
     <Content Include="Images\FundoCracha\Terceirizadas.png" />
@@ -1164,6 +1166,7 @@
     <Content Include="Images\FundoCracha\Contratadas.png" />
     <Content Include="Images\FundoCracha\Temporario.png" />
     <Content Include="Images\FundoCracha\OrgaoPublico.png" />
+    <Content Include="Images\Logo\CoberturaCVE.png" />
     <Content Include="Images\Logo\logo_ssa_airport.png" />
     <Content Include="Images\Logo\logo_vol_emergencia.png" />
     <Content Include="Images\Logo\TOPLYNE.jpg" />
@@ -1639,6 +1642,7 @@
     <Content Include="Views\Relatorio\CredenciaisEmitidasNoPeridoFiltro.cshtml" />
     <Content Include="Views\Relatorio\CredenciaisVencidasNoPeridoFiltro.cshtml" />
     <Content Include="Views\Relatorio\IdentificadosComCursoVencidoFiltro.cshtml" />
+    <Content Include="Views\Relatorio\IdentificadosComCursoLegadoFiltro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

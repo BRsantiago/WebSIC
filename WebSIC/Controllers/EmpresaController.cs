@@ -138,6 +138,7 @@ namespace WebSIC.Controllers
                 novaEmpresa.TipoEmpresa = tipoEmpresa;
                 novaEmpresa.Aeroporto = aeroporto;
                 novaEmpresa.TipoCobranca = model.TipoCobranca;
+                novaEmpresa.FlgNaoExigeCursoParaAreaRestrita = model.FlgNaoExigeCursoParaAreaRestrita;
 
                 if (model.Logotipo != null && model.Logotipo.ContentLength > 0)
                 {
@@ -174,6 +175,7 @@ namespace WebSIC.Controllers
             model.Email = novaEmpresa.Email;
             model.IdTipoEmpresa = novaEmpresa.TipoEmpresa.IdTipoEmpresa;
             model.IdAeroporto = novaEmpresa.AeroportoId.Value;
+            model.FlgNaoExigeCursoParaAreaRestrita = novaEmpresa.FlgNaoExigeCursoParaAreaRestrita;
 
             return PartialView(novaEmpresa);
         }
@@ -208,6 +210,7 @@ namespace WebSIC.Controllers
             model.IdTipoEmpresa = empresa.TipoEmpresa.IdTipoEmpresa;
             model.IdAeroporto = empresa.AeroportoId.Value;
             model.TipoCobranca = empresa.TipoCobranca;
+            model.FlgNaoExigeCursoParaAreaRestrita = empresa.FlgNaoExigeCursoParaAreaRestrita;
 
             model.ImageUrl = empresa.ImageUrl;
 
@@ -243,6 +246,8 @@ namespace WebSIC.Controllers
                 empresa.CEP = model.CEP;
                 empresa.Email = model.Email;
                 empresa.TipoEmpresaId = model.IdTipoEmpresa;
+                empresa.FlgNaoExigeCursoParaAreaRestrita = model.FlgNaoExigeCursoParaAreaRestrita;
+
 
                 if (model.Logotipo != null && model.Logotipo.ContentLength > 0)
                 {

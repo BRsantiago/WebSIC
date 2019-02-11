@@ -72,5 +72,8 @@ namespace WebSIC.Models
         public List<Pessoa> Representantes { get; set; }
 
         public List<Contrato> Contratos { get; set; }
+
+        [Display(Name = "Não exige cursos p/ área restrita")]
+        public bool FlgNaoExigeCursoParaAreaRestrita { get; set; }
     }
 }

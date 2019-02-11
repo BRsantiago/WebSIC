@@ -68,6 +68,8 @@ namespace Entity.Entities
         [ForeignKey("TipoEmpresa")]
         public Nullable<int> TipoEmpresaId { get; set; }
 
+        public bool FlgNaoExigeCursoParaAreaRestrita { get; set; }
+
         public List<Pessoa> Pessoas { get; set; }
         public List<Veiculo> Veiculos { get; set; }
         public List<Solicitacao> Solicitacoes { get; set; }

@@ -47,6 +47,9 @@ namespace Entity.Entities
         [Display(Name = "Permite dirigir em áreas restritas")]
         public bool PermiteDirigirEmAreasRestritas { get; set; }
 
+        [Display(Name = "Acesso a área de manobra")]
+        public bool FlgAcessoAreaManobra { get; set; }
+
         public List<Turma> Turmas { get; set; }
         public List<CursoSemTurma> CursosSemTurma { get; set; }
         public List<RamoAtividade> RamosDeAtividade { get; set; }

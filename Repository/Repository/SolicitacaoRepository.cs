@@ -174,5 +174,12 @@ namespace Repository.Interface
                            .Include(s => s.Credencial.Solicitacoes)
                            .SingleOrDefault(s => s.IdSolicitacao == id);
         }
+
+        public Solicitacao ObterUltimaSolicitacaoPorIdCredencial(int idCredencial)
+        {
+            return this.contexto.Solicitacoes.Where(s => s.CredencialId == idCredencial)
+                                             .OrderByDescending(x => x.IdSolicitacao)
+                                             .FirstOrDefault();
+        }
     }
 }
