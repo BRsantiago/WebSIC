@@ -353,7 +353,7 @@ namespace WebSIC.Controllers
             ViewBag.Aeroportos =
                 new SelectList(AeroportoService.ObterTodos(), "IdAeroporto", "Descricao", solicitacao?.AeroportoId ?? veiculo.Empresa?.AeroportoId); //(veiculo.Empresa != null && veiculo.Empresa.Aeroporto != null) ? veiculo.Empresa.Aeroporto.IdAeroporto : 0
             ViewBag.Empresas =
-                new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", solicitacao?.EmpresaId ?? veiculo.EmpresaId); //veiculo.Empresa.IdEmpresa
+                new SelectList(EmpresaService.ObterTodos(), "IdEmpresa", "NomeFantasia", veiculo.EmpresaId ?? solicitacao?.EmpresaId); //veiculo.Empresa.IdEmpresa
             ViewBag.Contratos =
                 new SelectList(ContratoService.ObterVigentes(veiculo.EmpresaId.Value).OrderBy(c => c.InicioVigencia), "IdContrato", "Numero", solicitacao?.ContratoId);
             ViewBag.TiposSolicitacao =

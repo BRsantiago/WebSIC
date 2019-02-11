@@ -37,5 +37,7 @@ namespace Entity.Enum
         TransporteCar = 13,
         [Display(Name = "Transporte de Pessoal de Serviço")]
         TransporteSer = 14,
+        [Display(Name = "Reboque de Equipamento não Motorizado")]
+        ReboqueNaoMotorizado = 15
     }
 }
